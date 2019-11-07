@@ -1,0 +1,33 @@
+    .espacio {
+        padding: 10px 10px;
+    }
+    
+    .text-cuestion {
+        height: 50px;
+        font-size: 14px;
+        font-weight: bold;
+    }
+    
+    .text-oc {
+        font-size: 14px;
+        font-weight: bold;
+    }
+    
+    .w3-white {
+        border: #6666 solid;
+        border-radius: 10px;
+    }
+    
+    .w3-border {
+        background-color: #ccc;
+    }
+    
+    .w3-row {
+        padding: 1px;
+    }
+    
+    form label.error,
+    label.error {
+        color: red;
+        font-style: italic
+    }
