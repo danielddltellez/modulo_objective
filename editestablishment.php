@@ -37,13 +37,6 @@ if ($instance) {
 }else{
     print_error(get_string('missingidandcmid', mod_objective));
 }
-
-
-
-
-
-
- 
 if (!$course = $DB->get_record('course', array('id' => $courseid))) {
     print_error('invalidcourse', 'objective', $courseid);
 }
@@ -92,7 +85,6 @@ $idusuario='';
 $nombre='';
 $nombrejefe='';
 $rolprincipal='';
-        
 foreach($result as $value){
 
                $idusuario=$value->iduser;
@@ -105,10 +97,10 @@ foreach($result as $value){
 }
 if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
                         
-    echo '  <div class="w3-bar w3-black">
-                    <button class="w3-bar-item w3-button" onclick="openCity("vista1")">Establecimiento de objetivos</button>
-                    <button class="w3-bar-item w3-button" onclick="openCity("vista2")">Revision 1</button>
-                    <button class="w3-bar-item w3-button" onclick="openCity("vista3")">Revision Final</button>
+    echo '<div class="w3-bar w3-black">
+                    <button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>
+                    <button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>
+                    <button class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>
             </div>';
     $vistajefeinmediato .='<div class="w3-row">
                             <div class="w3-col l1">
@@ -249,7 +241,8 @@ $competencias2 .=' </div>
                             <p></p>
                         </div>
                     </div>
-                </div>';
+                </div>
+                </div></div></div></div><!-- div final-->';
 echo $vista;
 echo $vistajefeinmediato;
 echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-container">';
@@ -361,7 +354,8 @@ $estatus=1;
                         <p class="text-cuestion">Valor del objetivo sobre 100</p>
                         <p><input class="w3-input w3-border" type="text" id="valorobjetivo<?php echo $i;?>" name="valorobjetivo<?php echo $i;?>" data-parsley-type="number" value="<?php echo $valuecontrol->valueobjective;?>"></p>
                     </div>
-                </div></div>
+                </div>
+            </div>
 
                 <?php
                     $suma=$suma+1;
@@ -451,7 +445,7 @@ $estatus=1;
     }
     $envio .='<input type="submit" id="btnEnviar" name="btnEnviar"  value="Actualizar"></form><hr><p id="respuesta"></p> <!-- ESTABLECIMIENTO DE OBJETIVOS 6--></div><div class="w3-col l1"><p></p></div></div></div></div></div><div class="espacio"></div>';
 //}
-echo $establecimiento;
+//echo $establecimiento;
 echo $envio;
 echo $competencias1;
 
@@ -823,6 +817,9 @@ if($rolprincipal=='COLABORADOR'){
 }
 
 echo $competencias2;
+
+
+echo '<div id="vista2"></div>';
 echo'<style>input.parsley-error,
 select.parsley-error,
 textarea.parsley-error {    
