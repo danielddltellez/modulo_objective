@@ -227,102 +227,97 @@ $resultcontrol = $DB->get_records_sql($querycontrol, array($courseid, $id, $USER
 if(empty($resultcontrol)){
 $i=1;
 
-echo '<form id="establecimientoobj" method="POST" action="envio.php" data-parsley-validate="">';
-for($i;$i<=6; $i++){
-                                        
-    if($i<=4){
-        $requerido='required=""';
-        $requeridotext='data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Debes de capturar la descripcion de tu objetivo" data-parsley-validation-threshold="10"';
+$establecimiento .='<form id="establecimientoobj" method="POST" action="envio.php" data-parsley-validate="">';
+    for($i;$i<=6; $i++){
+                                            
+        if($i<=4){
+            $requerido='required=""';
+            $requeridotext='data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Debes de capturar la descripcion de tu objetivo" data-parsley-validation-threshold="10"';
 
-    }else{
-        $requerido='';
-        $requeridotext='';
-    }
-                                                
-    $establecimiento .='<div id="establecimientoobjetivos'.$i.'">
-        <div class="w3-row">
-                <div class="w3-col l8 w3-dark-grey">
-                    <p>Breve descripción del objetivo '.$i.'</p>
-                </div>
-                <div class="w3-col l2">
-                    <p></p>
-                </div>
-                <div class="w3-col l2">
-                    <p></p>
-                </div>
-        </div>
+        }else{
+            $requerido='';
+            $requeridotext='';
+        }
+                                                    
+        $establecimiento .='<div id="establecimientoobjetivos'.$i.'">
+                                <div class="w3-row">
+                                        <div class="w3-col l8 w3-dark-grey">
+                                            <p>Breve descripción del objetivo '.$i.'</p>
+                                        </div>
+                                        <div class="w3-col l2">
+                                            <p></p>
+                                        </div>
+                                        <div class="w3-col l2">
+                                            <p></p>
+                                        </div>
+                                </div>
+                                <div class="w3-row">
+                                    <input type="hidden" id="userid'.$i.'" name="userid'.$i.'" value="'.$USER->id.'" '.$requerido.'>
+                                    <input type="hidden" id="courseid'.$i.'" name="courseid'.$i.'" value="'.$courseid.'" '.$requerido.'>
+                                    <input type="hidden" id="idobjetivo'.$i.'" name="idobjetivo'.$i.'" value="'.$id.'" '.$requerido.'>
+                                    <div class="w3-col m2 w3-white w3-center">
+                                        <p class="text-cuestion">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
+                                        <!--<p><input  class="w3-input w3-border" type="text"></p>-->
+                                            <select class="w3-select w3-border" name="objetivo'.$i.'" id="objetivo'.$i.'" '.$requerido.'>
+                                            <option value="" disabled selected>Selecciona el objetivo de tu jefe</option>
+                                            <option value="1">Objetivo 1</option>
+                                            <option value="2">Objetivo 2</option>
+                                            <option value="3">Objetivo 3</option>
+                                            <option value="4">Objetivo 4</option>
+                                            <option value="5">Objetivo 5</option>
+                                            <option value="6">Objetivo 6</option>
+                                        </select> 
+                                    </div>
+                                    <div class="w3-col m2 w3-white w3-center">
+                                        <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
+                                        <p><input class="w3-input w3-border" type="text" placeholder="Ej. Rotación" id="que'.$i.'" name="que'.$i.'" data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                                    </div>
+                                    <div class="w3-col m2 w3-white w3-center">
+                                        <p class="text-cuestion">2. ¿Cómo se quiere medir?</p>
+                                        <p><input class="w3-input w3-border" type="text" placeholder="Ej. Aumentar" id="como'.$i.'" name="como'.$i.'" data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                                    </div>
+                                    <div class="w3-col m2 w3-white w3-center">
+                                        <p class="text-cuestion">3. ¿Cuánto quieres que mida?</p>
+                                        <p><input class="w3-input w3-border" type="text" placeholder="Ej. 10%" id="cuanto'.$i.'" name="cuanto'.$i.'" data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                                    </div>
+                                    <div class="w3-col m2 w3-white w3-center">
+                                        <p class="text-cuestion">4. Especifica</p>
+                                        <p><input class="w3-input w3-border" type="text" placeholder="Ej. Vacantes operativos" id="especifica'.$i.'" name="especifica'.$i.'" data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                                    </div>
+                                    <div class="w3-col m2 w3-white w3-center">
+                                        <p class="text-cuestion">5. Periodo</p>
+                                        <p><input class="w3-input w3-border" type="text" placeholder="Ej. Semestral" id="periodo'.$i.'" name="periodo'.$i.'" data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                                    </div>
+                                </div>
+                                <div class="w3-row">
+                                    <div class="w3-col m12 w3-white w3-center">
+                                        <p class="text-oc">Objetivo Completo</p>
+                                        <p><textarea class="w3-input w3-border" rows="4" cols="50" type="text" id="objetivocompleto'.$i.'" name="objetivocompleto'.$i.'"></textarea></p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="w3-col m6 w3-white w3-center">
+                                        <p class="text-cuestion"></p>
+                                        <p class="w3-input" style="background-color: #ffffff; border-bottom: 1px solid #ffff;"><br></p>
+                                    </div>
+                                    <div class="w3-col m2 w3-white w3-center">
+                                        <p class="text-cuestion">Fecha inicial</p>
+                                        <p><input class="w3-input w3-border" type="date" id="fechainicio'.$i.'" name="fechainicio'.$i.'"></p>
+                                    </div>
+                                    <div class="w3-col m2 w3-white w3-center">
+                                        <p class="text-cuestion">Fecha final</p>
+                                        <p><input class="w3-input w3-border" type="date" id="fechafinal'.$i.'" name="fechafinal'.$i.'" "></p>
+                                    </div>
+                                    <div class="w3-col m2 w3-white w3-center">
+                                        <p class="text-cuestion">Valor del objetivo sobre 100</p>
+                                        <p><input class="w3-input w3-border" type="text" id="valorobjetivo'.$i.'" name="valorobjetivo'.$i.'" data-parsley-type="number"></p>
+                                    </div>
+                                </div>
+                            </div>';
+
         
-        <div class="w3-row">
-        <input type="hidden" id="userid'.$i.'" name="userid'.$i.'" value="'.$USER->id.'" '.$requerido.'>
-        <input type="hidden" id="courseid'.$i.'" name="courseid'.$i.'" value="'.$courseid.'" '.$requerido.'>
-        <input type="hidden" id="idobjetivo'.$i.'" name="idobjetivo'.$i.'" value="'.$id.'" '.$requerido.'>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
-            <!--<p><input  class="w3-input w3-border" type="text"></p>-->
-                <select class="w3-select w3-border" name="objetivo'.$i.'" id="objetivo'.$i.'" '.$requerido.'>
-                <option value="" disabled selected>Selecciona el objetivo de tu jefe</option>
-                <option value="1">Objetivo 1</option>
-                <option value="2">Objetivo 2</option>
-                <option value="3">Objetivo 3</option>
-                <option value="4">Objetivo 4</option>
-                <option value="5">Objetivo 5</option>
-                <option value="6">Objetivo 6</option>
-            </select> 
-        </div>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
-            <p><input class="w3-input w3-border" type="text" placeholder="Ej. Rotación" id="que'.$i.'" name="que'.$i.'" data-parsley-pattern="^[a-zA-Z ]+$"></p>
-        </div>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">2. ¿Cómo se quiere medir?</p>
-            <p><input class="w3-input w3-border" type="text" placeholder="Ej. Aumentar" id="como'.$i.'" name="como'.$i.'" data-parsley-pattern="^[a-zA-Z ]+$"></p>
-        </div>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">3. ¿Cuánto quieres que mida?</p>
-            <p><input class="w3-input w3-border" type="text" placeholder="Ej. 10%" id="cuanto'.$i.'" name="cuanto'.$i.'" data-parsley-pattern="^[a-zA-Z ]+$"></p>
-        </div>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">4. Especifica</p>
-            <p><input class="w3-input w3-border" type="text" placeholder="Ej. Vacantes operativos" id="especifica'.$i.'" name="especifica'.$i.'" data-parsley-pattern="^[a-zA-Z ]+$"></p>
-        </div>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">5. Periodo</p>
-            <p><input class="w3-input w3-border" type="text" placeholder="Ej. Semestral" id="periodo'.$i.'" name="periodo'.$i.'" data-parsley-pattern="^[a-zA-Z ]+$"></p>
-        </div>
-     </div>
-    <div class="w3-row">
-
-        <div class="w3-col m12 w3-white w3-center">
-            <p class="text-oc">Objetivo Completo</p>
-            <p><textarea class="w3-input w3-border" rows="4" cols="50" type="text" id="objetivocompleto'.$i.'" name="objetivocompleto'.$i.'"></textarea></p>
-        </div>
-
-
-
-    </div>
-    <div class="row">
-        <div class="w3-col m6 w3-white w3-center">
-            <p class="text-cuestion"></p>
-            <p class="w3-input" style="background-color: #ffffff; border-bottom: 1px solid #ffff;"><br></p>
-        </div>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">Fecha inicial</p>
-            <p><input class="w3-input w3-border" type="date" id="fechainicio'.$i.'" name="fechainicio'.$i.'"></p>
-        </div>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">Fecha final</p>
-            <p><input class="w3-input w3-border" type="date" id="fechafinal'.$i.'" name="fechafinal'.$i.'" "></p>
-        </div>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">Valor del objetivo sobre 100</p>
-            <p><input class="w3-input w3-border" type="text" id="valorobjetivo'.$i.'" name="valorobjetivo'.$i.'" data-parsley-type="number"></p>
-        </div>
-    </div></div><input type="submit" id="btnEnviar" name="btnEnviar"  value="Enviar formulario"></form>
-
-        ';
-
-    
-}
+    }
+    $establecimiento .='<input type="submit" id="btnEnviar" name="btnEnviar"  value="Enviar formulario"></form>';
 }else{
   foreach($resultcontrol as $valuecontrol){
 
@@ -1410,7 +1405,7 @@ if($rolprincipal=='COLABORADOR'){
 //echo '</form><input type="submit" id="btnCompetencia" name="btnCompetencia"  value="Calificar Compétencias">';
 echo '</div></div></div></div></div> <!-- cierra vista -->';
 /* INICIA VISTA 3*/
-echo '<div id="vista3">Hola mundo</div>';
+echo '<div id="vista3"  style="display: none;">Hola mundo</div>';
 
 //echo '<div id="vista2"></div>';
 echo'<style>input.parsley-error,
