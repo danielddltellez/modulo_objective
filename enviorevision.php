@@ -5,146 +5,130 @@ if ($CFG->forcelogin) {
 }
 global $USER, $DB, $COURSE;
 
+$fecha = new DateTime();
 $record1 = new stdClass();
 $record1-> userid = $_POST['userid1'];
 $record1-> courseid = $_POST['courseid1'];
 $record1-> idobjective = $_POST['idobjetivo1'];
-$record1-> targetnumber = $_POST['objetivo1'];
-$record1-> whatquestion  = $_POST['que1'];
-$record1-> howquestion = $_POST['como1'];
-$record1-> thatquestion = $_POST['cuanto1'];
-$record1-> specifyquestion = $_POST['especifica1'];
-$record1-> periodquestion = $_POST['periodo1'];
-$record1-> objectivecomplete = $_POST['objetivocompleto1'];
-$record1-> startdate = strtotime($_POST['fechainicio1']);
-$record1-> enddate = strtotime($_POST['fechafinal1']);
-$record1-> valueobjective = $_POST['valorobjetivo1'];
+$record1-> idobjectiveestablishment  = $_POST['idobjestablecido1'];
+$record1-> actionpartner = $_POST['racciones1'];
+$record1-> actionsixmonth  = $_POST['rmeses1'];
+$record1-> bosscomments = $_POST['rimplementadas1'];
+$record1-> bosssuggestions = $_POST['rimplementar1'];
+$record1-> timecreated = $fecha->getTimestamp();
+$record1-> timemodified = $fecha->getTimestamp();
+
+
 try{
-$lastinsertid1 = $DB->insert_record('objective_establishment_captured', $record1);
-echo 'OBJETIVO 1 INSERTADO';
+$lastinsertid1 = $DB->insert_record('objective_establishment_revise', $record1);
+echo 'REVISION 1 INSERTADO';
 
 } catch(\Throwable $e) {
     // PHP 7 
-echo 'ERROR AL INSERTAR OBJETIVO 1';
+echo 'ERROR AL INSERTAR REVISION 1';
 } 
 
 $record2 = new stdClass();
 $record2-> userid = $_POST['userid2'];
 $record2-> courseid = $_POST['courseid2'];
 $record2-> idobjective = $_POST['idobjetivo2'];
-$record2-> targetnumber = $_POST['objetivo2'];
-$record2-> whatquestion  = $_POST['que2'];
-$record2-> howquestion = $_POST['como2'];
-$record2-> thatquestion = $_POST['cuanto2'];
-$record2-> specifyquestion = $_POST['especifica2'];
-$record2-> periodquestion = $_POST['periodo2'];
-$record2-> objectivecomplete = $_POST['objetivocompleto2'];
-$record2-> startdate = strtotime($_POST['fechainicio2']);
-$record2-> enddate = strtotime($_POST['fechafinal2']);
-$record2-> valueobjective = $_POST['valorobjetivo2'];
-
+$record2-> idobjectiveestablishment  = $_POST['idobjestablecido2'];
+$record2-> actionpartner = $_POST['racciones2'];
+$record2-> actionsixmonth  = $_POST['rmeses2'];
+$record2-> booscomments = $_POST['rimplementadas2'];
+$record2-> bosssuggestions = $_POST['rimplementar2'];
+$record2-> timecreated = $fecha->getTimestamp();
+$record2-> timemodified = $fecha->getTimestamp();
 try{
-$lastinsertid2 = $DB->insert_record('objective_establishment_captured', $record2);
-
-echo 'OBJETIVO 2 INSERTADO';
+$lastinsertid2 = $DB->insert_record('objective_establishment_revise', $record2);
+echo 'REVISION 2 INSERTADO';
 
 } catch(\Throwable $e) {
     // PHP 7 
-echo 'ERROR AL INSERTAR OBJETIVO 2';
+echo 'ERROR AL INSERTAR REVISION 2';
 } 
-
-
 $record3 = new stdClass();
 $record3-> userid = $_POST['userid3'];
 $record3-> courseid = $_POST['courseid3'];
 $record3-> idobjective = $_POST['idobjetivo3'];
-$record3-> targetnumber = $_POST['objetivo3'];
-$record3-> whatquestion  = $_POST['que3'];
-$record3-> howquestion = $_POST['como3'];
-$record3-> thatquestion = $_POST['cuanto3'];
-$record3-> specifyquestion = $_POST['especifica3'];
-$record3-> periodquestion = $_POST['periodo3'];
-$record3-> objectivecomplete = $_POST['objetivocompleto3'];
-$record3-> startdate = strtotime($_POST['fechainicio3']);
-$record3-> enddate = strtotime($_POST['fechafinal3']);
-$record3-> valueobjective = $_POST['valorobjetivo3'];
-
+$record3-> idobjectiveestablishment  = $_POST['idobjestablecido3'];
+$record3-> actionpartner = $_POST['racciones3'];
+$record3-> actionsixmonth  = $_POST['rmeses3'];
+$record3-> booscomments = $_POST['rimplementadas3'];
+$record3-> bosssuggestions = $_POST['rimplementar3'];
+$record3-> timecreated = $fecha->getTimestamp();
+$record3-> timemodified = $fecha->getTimestamp();
 try{
-$lastinsertid3 = $DB->insert_record('objective_establishment_captured', $record3);
-echo 'OBJETIVO 3 INSERTADO';
-}catch(\Throwable $e) {
+$lastinsertid3 = $DB->insert_record('objective_establishment_revise', $record3);
+echo 'REVISION 3 INSERTADO';
+
+} catch(\Throwable $e) {
     // PHP 7 
-echo 'ERROR AL INSERTAR OBJETIVO 3';
+echo 'ERROR AL INSERTAR REVISION 3';
 } 
 $record4 = new stdClass();
 $record4-> userid = $_POST['userid4'];
 $record4-> courseid = $_POST['courseid4'];
 $record4-> idobjective = $_POST['idobjetivo4'];
-$record4-> targetnumber = $_POST['objetivo4'];
-$record4-> whatquestion  = $_POST['que4'];
-$record4-> howquestion = $_POST['como4'];
-$record4-> thatquestion = $_POST['cuanto4'];
-$record4-> specifyquestion = $_POST['especifica4'];
-$record4-> periodquestion = $_POST['periodo4'];
-$record4-> objectivecomplete = $_POST['objetivocompleto4'];
-$record4-> startdate = strtotime($_POST['fechainicio4']);
-$record4-> enddate = strtotime($_POST['fechafinal4']);
-$record4-> valueobjective = $_POST['valorobjetivo4'];
+$record4-> idobjectiveestablishment  = $_POST['idobjestablecido4'];
+$record4-> actionpartner = $_POST['racciones4'];
+$record4-> actionsixmonth  = $_POST['rmeses4'];
+$record4-> booscomments = $_POST['rimplementadas4'];
+$record4-> bosssuggestions = $_POST['rimplementar4'];
+$record4-> timecreated = $fecha->getTimestamp();
+$record4-> timemodified = $fecha->getTimestamp();
+try{
+$lastinsertid4 = $DB->insert_record('objective_establishment_revise', $record4);
+echo 'REVISION 4 INSERTADO';
 
-try{
-$lastinsertid4 = $DB->insert_record('objective_establishment_captured', $record4);
-echo 'OBJETIVO 4 INSERTADO';
-}catch(\Throwable $e) {
+} catch(\Throwable $e) {
     // PHP 7 
-echo 'ERROR AL INSERTAR OBJETIVO 4';
+echo 'ERROR AL INSERTAR REVISION 4';
 } 
-if($_POST['objetivocompleto5'] != NULL && $_POST['valorobjetivo5'] != NULL){
-$record5 = new stdClass();
-$record5-> userid = $_POST['userid5'];
-$record5-> courseid = $_POST['courseid5'];
-$record5-> idobjective = $_POST['idobjetivo5'];
-$record5-> targetnumber = $_POST['objetivo5'];
-$record5-> whatquestion  = $_POST['que5'];
-$record5-> howquestion = $_POST['como5'];
-$record5-> thatquestion = $_POST['cuanto5'];
-$record5-> specifyquestion = $_POST['especifica5'];
-$record5-> periodquestion = $_POST['periodo5'];
-$record5-> objectivecomplete = $_POST['objetivocompleto5'];
-$record5-> startdate = strtotime($_POST['fechainicio5']);
-$record5-> enddate = strtotime($_POST['fechafinal5']);
-$record5-> valueobjective = $_POST['valorobjetivo5'];
-try{
-$lastinsertid5 = $DB->insert_record('objective_establishment_captured', $record5);
-echo 'OBJETIVO 5 INSERTADO';
-}catch(\Throwable $e) {
-    // PHP 7 
-echo 'ERROR AL INSERTAR OBJETIVO 5';
-} 
+if($_POST['idobjestablecido5'] != NULL){
+    $record5 = new stdClass();
+    $record5-> userid = $_POST['userid5'];
+    $record5-> courseid = $_POST['courseid5'];
+    $record5-> idobjective = $_POST['idobjetivo5'];
+    $record5-> idobjectiveestablishment  = $_POST['idobjestablecido5'];
+    $record5-> actionpartner = $_POST['racciones5'];
+    $record5-> actionsixmonth  = $_POST['rmeses5'];
+    $record5-> booscomments = $_POST['rimplementadas5'];
+    $record5-> bosssuggestions = $_POST['rimplementar5'];
+    $record5-> timecreated = $fecha->getTimestamp();
+    $record5-> timemodified = $fecha->getTimestamp();
+    try{
+    $lastinsertid5 = $DB->insert_record('objective_establishment_revise', $record5);
+    echo 'REVISION 5 INSERTADO';
+    
+    } catch(\Throwable $e) {
+        // PHP 7 
+    echo 'ERROR AL INSERTAR REVISION 5';
+    } 
 }
 
-if($_POST['objetivocompleto6'] != NULL && $_POST['valorobjetivo6'] != NULL){
+if($_POST['idobjestablecido6'] != NULL){
 
-$record6 = new stdClass();
-$record6-> userid = $_POST['userid6'];
-$record6-> courseid = $_POST['courseid6'];
-$record6-> idobjective = $_POST['idobjetivo6'];
-$record6-> targetnumber = $_POST['objetivo6'];
-$record6-> whatquestion  = $_POST['que6'];
-$record6-> howquestion = $_POST['como6'];
-$record6-> thatquestion = $_POST['cuanto6'];
-$record6-> specifyquestion = $_POST['especifica6'];
-$record6-> periodquestion = $_POST['periodo6'];
-$record6-> objectivecomplete = $_POST['objetivocompleto6'];
-$record6-> startdate = strtotime($_POST['fechainicio6']);
-$record6-> enddate = strtotime($_POST['fechafinal6']);
-$record6-> valueobjective = $_POST['valorobjetivo6'];
-try{
-$lastinsertid6 = $DB->insert_record('objective_establishment_captured', $record6);
-
-echo 'OBJETIVO 6 INSERTADO';
-}catch(\Throwable $e) {
-    // PHP 7 
-echo 'ERROR AL INSERTAR OBJETIVO 6';
-} 
+    $record6 = new stdClass();
+    $record6-> userid = $_POST['userid6'];
+    $record6-> courseid = $_POST['courseid6'];
+    $record6-> idobjective = $_POST['idobjetivo6'];
+    $record6-> idobjectiveestablishment  = $_POST['idobjestablecido6'];
+    $record6-> actionpartner = $_POST['racciones6'];
+    $record6-> actionsixmonth  = $_POST['rmeses6'];
+    $record6-> booscomments = $_POST['rimplementadas6'];
+    $record6-> bosssuggestions = $_POST['rimplementar6'];
+    $record6-> timecreated = $fecha->getTimestamp();
+    $record6-> timemodified = $fecha->getTimestamp();
+    try{
+    $lastinsertid6 = $DB->insert_record('objective_establishment_revise', $record6);
+    echo 'REVISION 6 INSERTADO';
+    
+    } catch(\Throwable $e) {
+        // PHP 7 
+    echo 'ERROR AL INSERTAR REVISION 6';
+    } 
 }
+
+
 ?>

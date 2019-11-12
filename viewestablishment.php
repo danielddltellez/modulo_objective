@@ -157,6 +157,7 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
 
 }
 $fcha = date("Y-m-d");
+/* INICIA VISTA 1*/
 $vista .='<div id="vista1" class="w3-light-grey vistas">
                                 <div class="w3-container">
                                     <div class="w3-row">
@@ -316,93 +317,89 @@ for($i;$i<=6; $i++){
             <p class="text-cuestion">Valor del objetivo sobre 100</p>
             <p><input class="w3-input w3-border" type="text" id="valorobjetivo'.$i.'" name="valorobjetivo'.$i.'" data-parsley-type="number"></p>
         </div>
-    </div></div>
+    </div></div><input type="submit" id="btnEnviar" name="btnEnviar"  value="Enviar formulario"></form>
 
         ';
 
     
 }
-
-$envio .='<input type="submit" id="btnEnviar" name="btnEnviar"  value="Enviar formulario"></form><hr><p id="respuesta"></p> <!-- ESTABLECIMIENTO DE OBJETIVOS 6--></div><div class="w3-col l1"><p></p></div></div></div></div></div><div class="espacio"></div>';
 }else{
   foreach($resultcontrol as $valuecontrol){
 
     $cont=$valuecontrol->contador;
     $establecimiento .='<div id="establecimientoobjetivos'.$cont.'">
-        <div class="w3-row">
-                <div class="w3-col l8 w3-dark-grey">
-                    <p>Breve descripción del objetivo '.$cont.'</p>
-                </div>
-                <div class="w3-col l2">
-                    <p></p>
-                </div>
-                <div class="w3-col l2">
-                    <p></p>
-                </div>
-        </div>
-        <div class="w3-row">
-        <input type="hidden" id="userid'.$i.'" name="userid'.$i.'" value="'.$USER->id.'" '.$requerido.'>
-        <input type="hidden" id="courseid'.$i.'" name="courseid'.$i.'" value="'.$courseid.'" '.$requerido.'>
-        <input type="hidden" id="idobjetivo'.$i.'" name="idobjetivo'.$i.'" value="'.$id.'" '.$requerido.'>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
-            <!--<p><input  class="w3-input w3-border" type="text"></p>-->
-            <p>'.$valuecontrol->targetnumber.'</p>
-        </div>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
-            <p>'.$valuecontrol->whatquestion.'</p>
-        </div>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">2. ¿Cómo se quiere medir?</p>
-            <p>'.$valuecontrol->howquestion.'</p>
-        </div>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">3. ¿Cuánto quieres que mida?</p>
-            <p>'.$valuecontrol->thatquestion.'</p>
-        </div>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">4. ¿Cómo se quiere medir?</p>
-            <p>'.$valuecontrol->specifyquestion.'</p>
-        </div>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">5. ¿Cuánto quieres que mida?</p>
-            <p>'.$valuecontrol->periodquestion.'</p>
-        </div>
-    </div>
-    <div class="w3-row">
-
-        <div class="w3-col m12 w3-white w3-center">
-            <p class="text-oc">Objetivo Completo</p>
-            <p>'.$valuecontrol->objectivecomplete.'</p>
-        </div>
-    </div>
-        
-    <div class="row">
-        <div class="w3-col m6 w3-white w3-center">
-            <p class="text-cuestion"></p>
-            <p class="w3-input" style="background-color: #ffffff; border-bottom: 1px solid #ffff;"><br></p>
-        </div>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">Fecha inicial</p>
-            <p>'.$valuecontrol->fechaini.'</p>
-        </div>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">Fecha final</p>
-            <p>'.$valuecontrol->fechafin.'</p>
-        </div>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">Valor del objetivo sobre 100</p>
-            <p>'.$valuecontrol->valueobjective.'%</p>
-        </div>
-    </div></div>
-
-        ';
+                            <div class="w3-row">
+                                    <div class="w3-col l8 w3-dark-grey">
+                                        <p>Breve descripción del objetivo '.$cont.'</p>
+                                    </div>
+                                    <div class="w3-col l2">
+                                        <p></p>
+                                    </div>
+                                    <div class="w3-col l2">
+                                        <p></p>
+                                    </div>
+                            </div>
+                            <div class="w3-row">
+                                <input type="hidden" id="userid'.$i.'" name="userid'.$i.'" value="'.$USER->id.'" '.$requerido.'>
+                                <input type="hidden" id="courseid'.$i.'" name="courseid'.$i.'" value="'.$courseid.'" '.$requerido.'>
+                                <input type="hidden" id="idobjetivo'.$i.'" name="idobjetivo'.$i.'" value="'.$id.'" '.$requerido.'>
+                                <div class="w3-col m2 w3-white w3-center">
+                                    <p class="text-cuestion">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
+                                    <!--<p><input  class="w3-input w3-border" type="text"></p>-->
+                                    <p>'.$valuecontrol->targetnumber.'</p>
+                                </div>
+                                <div class="w3-col m2 w3-white w3-center">
+                                    <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
+                                    <p>'.$valuecontrol->whatquestion.'</p>
+                                </div>
+                                <div class="w3-col m2 w3-white w3-center">
+                                    <p class="text-cuestion">2. ¿Cómo se quiere medir?</p>
+                                    <p>'.$valuecontrol->howquestion.'</p>
+                                </div>
+                                <div class="w3-col m2 w3-white w3-center">
+                                    <p class="text-cuestion">3. ¿Cuánto quieres que mida?</p>
+                                    <p>'.$valuecontrol->thatquestion.'</p>
+                                </div>
+                                <div class="w3-col m2 w3-white w3-center">
+                                    <p class="text-cuestion">4. ¿Cómo se quiere medir?</p>
+                                    <p>'.$valuecontrol->specifyquestion.'</p>
+                                </div>
+                                <div class="w3-col m2 w3-white w3-center">
+                                    <p class="text-cuestion">5. ¿Cuánto quieres que mida?</p>
+                                    <p>'.$valuecontrol->periodquestion.'</p>
+                                </div>
+                            </div>
+                            <div class="w3-row">
+                                <div class="w3-col m12 w3-white w3-center">
+                                    <p class="text-oc">Objetivo Completo</p>
+                                    <p>'.$valuecontrol->objectivecomplete.'</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="w3-col m6 w3-white w3-center">
+                                    <p class="text-cuestion"></p>
+                                    <p class="w3-input" style="background-color: #ffffff; border-bottom: 1px solid #ffff;"><br></p>
+                                </div>
+                                <div class="w3-col m2 w3-white w3-center">
+                                    <p class="text-cuestion">Fecha inicial</p>
+                                    <p>'.$valuecontrol->fechaini.'</p>
+                                </div>
+                                <div class="w3-col m2 w3-white w3-center">
+                                    <p class="text-cuestion">Fecha final</p>
+                                    <p>'.$valuecontrol->fechafin.'</p>
+                                </div>
+                                <div class="w3-col m2 w3-white w3-center">
+                                    <p class="text-cuestion">Valor del objetivo sobre 100</p>
+                                    <p>'.$valuecontrol->valueobjective.'%</p>
+                                </div>
+                            </div>
+                        </div>';
     
   }
     
 
 }
+$envio .='<hr><p id="respuesta"></p> <!-- ESTABLECIMIENTO DE OBJETIVOS 6--></div><div class="w3-col l1"><p></p></div></div></div></div></div><div class="espacio"></div>';
            
 $competencias1 .='<div class="w3-container">
         <div class="w3-row">
@@ -413,15 +410,17 @@ $competencias1 .='<div class="w3-container">
                 <div class="w3-container">
                 ';
 $colaboradortemp.='<div class="w3-row">
-                <div class="w3-round-xlarge w3-col l3 w3-pale-red w3-center">
-                <p>2a.Parte</p>
-                </div>
-                <div class="w3-round-xlarge w3-col l9 w3-dark-grey w3-center">
-                    <p>Evaluación de competencias</p>
-                </div>';
+                            <div class="w3-round-xlarge w3-col l3 w3-pale-red w3-center">
+                            <p>2a.Parte</p>
+                            </div>
+                            <div class="w3-round-xlarge w3-col l9 w3-dark-grey w3-center">
+                                <p>Evaluación de competencias</p>
+                            </div>
+                    </div>';
 $jefetemp.='<div class="w3-row">
                 <div class="w3-round-xlarge w3-col l12 w3-dark-grey w3-center">
                     <p>Si eres Gestor de Personal, se te evaluarán las siguientes competencias de liderazgo.</p>
+                </div>
                 </div>';
 $director.='<div class="w3-row">
                 <div class="w3-round-xlarge w3-col l12 w3-dark-grey w3-center">
@@ -434,7 +433,7 @@ $competencias2 .=' </div>
                             <p></p>
                         </div>
                     </div>
-                </div></div></div></div></div><!-- div final-->';
+                </div></div><!-- </div></div></div> div final-->';
 echo $vista;
 echo $vistajefeinmediato;
 echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-container">';
@@ -499,7 +498,7 @@ if($rolprincipal=='COLABORADOR'){
         $consulta='select ocb.id, ocb.description, ocb.idcompetition 
         from mdl_objective_competition_behavior ocb 
         inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
-        where ocb.idcompetition=?';
+        where ocb.idcompetition=? and ocb.code=1';
         $resultado = $DB->get_records_sql($consulta, array($valores->idcompe));
 
         //print_r($resultado);
@@ -514,7 +513,7 @@ if($rolprincipal=='COLABORADOR'){
          
         }
         echo '</table></div>';
-        echo'</div><div class="espacio"></div></div>';
+        echo'</div><div class="espacio"></div>';
     
     }
 
@@ -563,7 +562,7 @@ if($rolprincipal=='COLABORADOR'){
         $consulta='select ocb.id, ocb.description, ocb.idcompetition 
         from mdl_objective_competition_behavior ocb 
         inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
-        where ocb.idcompetition=?';
+        where ocb.idcompetition=? and ocb.code=1';
         $resultado = $DB->get_records_sql($consulta, array($valores->idcompe));
 
         //print_r($resultado);
@@ -578,7 +577,7 @@ if($rolprincipal=='COLABORADOR'){
          
         }
         echo '</table></div>';
-        echo'</div><div class="espacio"></div></div>';
+        echo'</div><div class="espacio"></div>';
     
     }
   
@@ -595,33 +594,33 @@ if($rolprincipal=='COLABORADOR'){
    foreach($resultados2 as $valores2){
 
         echo '<div class="espacio"></div>
-        <div class="w3-row">
-            <div class="w3-round-xlarge w3-col l3  w3-pale-red w3-center">
-                <p>Competencias</p>
-            </div>
-            <div class="w3-round-xlarge w3-col l9  w3-pale-red w3-center">
-                <p>Comportamientos</p>
-            </div>
-        </div>
-        <div class="w3-row">
-            <div class="w3-round-xlarge w3-col l3  w3-dark-grey w3-center">
-                <p>Definición de competencias</p>
-            </div>
-            <div class="w3-round-xlarge w3-col l9  w3-dark-grey w3-center">
-                <p>Comportamientos asociados a la competencia</p>
-            </div>
-        </div>';
+                <div class="w3-row">
+                    <div class="w3-round-xlarge w3-col l3  w3-pale-red w3-center">
+                        <p>Competencias</p>
+                    </div>
+                    <div class="w3-round-xlarge w3-col l9  w3-pale-red w3-center">
+                        <p>Comportamientos</p>
+                    </div>
+                </div>
+                <div class="w3-row">
+                    <div class="w3-round-xlarge w3-col l3  w3-dark-grey w3-center">
+                        <p>Definición de competencias</p>
+                    </div>
+                    <div class="w3-round-xlarge w3-col l9  w3-dark-grey w3-center">
+                        <p>Comportamientos asociados a la competencia</p>
+                    </div>
+                </div>';
 
         echo '<div class="w3-row">
-        <div class="w3-col l3">
-            <p>'.$valores2->nombrecompetencia.'</p>
-        </div>';
+                <div class="w3-col l3">
+                    <p>'.$valores2->nombrecompetencia.'</p>
+                </div>';
 
     
         $consulta2='select ocb.id, ocb.description, ocb.idcompetition 
         from mdl_objective_competition_behavior ocb 
         inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
-        where ocb.idcompetition=?';
+        where ocb.idcompetition=? and ocb.code=1';
         $resultado2 = $DB->get_records_sql($consulta2, array($valores2->idcompe));
 
        // print_r($resultado2);
@@ -636,7 +635,7 @@ if($rolprincipal=='COLABORADOR'){
          
         }
         echo '</table></div>';
-        echo'</div><div class="espacio"></div></div>';
+        echo'</div><div class="espacio"></div>';
     
     }
     
@@ -684,7 +683,7 @@ if($rolprincipal=='COLABORADOR'){
         $consulta='select ocb.id, ocb.description, ocb.idcompetition 
         from mdl_objective_competition_behavior ocb 
         inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
-        where ocb.idcompetition=?';
+        where ocb.idcompetition=? and ocb.code=1';
         $resultado = $DB->get_records_sql($consulta, array($valores->idcompe));
 
         //print_r($resultado);
@@ -699,7 +698,7 @@ if($rolprincipal=='COLABORADOR'){
          
         }
         echo '</table></div>';
-        echo'</div><div class="espacio"></div></div>';
+        echo'</div><div class="espacio"></div>';
     
     }
   
@@ -742,7 +741,7 @@ if($rolprincipal=='COLABORADOR'){
         $consulta2='select ocb.id, ocb.description, ocb.idcompetition 
         from mdl_objective_competition_behavior ocb 
         inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
-        where ocb.idcompetition=?';
+        where ocb.idcompetition=? and ocb.code=1';
         $resultado2 = $DB->get_records_sql($consulta2, array($valores2->idcompe));
 
        // print_r($resultado2);
@@ -757,7 +756,7 @@ if($rolprincipal=='COLABORADOR'){
          
         }
         echo '</table></div>';
-        echo'</div><div class="espacio"></div></div>';
+        echo'</div><div class="espacio"></div>';
     
     }
     $sql3='select  obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
@@ -799,7 +798,7 @@ if($rolprincipal=='COLABORADOR'){
         $consulta3='select ocb.id, ocb.description, ocb.idcompetition 
         from mdl_objective_competition_behavior ocb 
         inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
-        where ocb.idcompetition=?';
+        where ocb.idcompetition=? and ocb.code=1';
         $resultado3 = $DB->get_records_sql($consulta3, array($valores3->idcompe));
 
        // print_r($resultado2);
@@ -814,19 +813,16 @@ if($rolprincipal=='COLABORADOR'){
          
         }
         echo '</table></div>';
-        echo'</div><div class="espacio"></div></div>';
+        echo'</div><div class="espacio"></div>';
     
     }
-
-
 
 }else{
 
 }
 
 echo $competencias2;
-
-/* Vista 2*/
+/* INICIA VISTA 2*/
 $vistarevision .='<div id="vista2" class="w3-light-grey vistas" style="display: none;">
                                 <div class="w3-container">
                                     <div class="w3-row">
@@ -904,6 +900,7 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
             </div>
             <form id="revisionobj" method="POST" action="enviorevision.php" data-parsley-validate="">             
 <?php
+$requeridcolaborador='required=""';
     foreach($resultcontrol as $valuecontrol){
 
         $cont=$valuecontrol->contador;
@@ -920,10 +917,10 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
                     </div>
             </div>
             <div class="w3-row">
-            <input type="hidden" id="id'.$i.'" name="userid'.$i.'" value="'.$USER->id.'" '.$requerido.'>
-            <input type="hidden" id="userid'.$i.'" name="userid'.$i.'" value="'.$USER->id.'" '.$requerido.'>
-            <input type="hidden" id="courseid'.$i.'" name="courseid'.$i.'" value="'.$courseid.'" '.$requerido.'>
-            <input type="hidden" id="idobjetivo'.$i.'" name="idobjetivo'.$i.'" value="'.$id.'" '.$requerido.'>
+            <input type="hidden" id="id'.$cont.'" name="idobjestablecido'.$cont.'" value="'.$valuecontrol->id.'" '.$requeridcolaborador.'>
+            <input type="hidden" id="userid'.$cont.'" name="userid'.$cont.'" value="'.$USER->id.'" '.$requeridcolaborador.'>
+            <input type="hidden" id="courseid'.$cont.'" name="courseid'.$cont.'" value="'.$courseid.'" '.$requeridcolaborador.'>
+            <input type="hidden" id="idobjetivo'.$cont.'" name="idobjetivo'.$cont.'" value="'.$id.'" '.$requeridcolaborador.'>
             <div class="w3-col m2 w3-white w3-center">
                 <p class="text-cuestion">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
                 <!--<p><input  class="w3-input w3-border" type="text"></p>-->
@@ -981,11 +978,11 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
             <div class="w3-row">
                 <div class="w3-col m6 w3-white w3-center">
                     <p class="text-cuestion">Qué acciones he implementado:</p>
-                    <p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="racciones'.$cont.'" name="racciones'.$cont.'" '.$requerido.'></textarea></p>
+                    <p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="racciones'.$cont.'" name="racciones'.$cont.'" '.$requeridcolaborador.'></textarea></p>
                 </div>
                 <div class="w3-col m6 w3-white w3-center">
                     <p class="text-cuestion">Acciones para los siguientes 6 meses:</p>
-                    <p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rmeses'.$cont.'" name="rmeses'.$cont.'" '.$requerido.'></textarea></p>
+                    <p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rmeses'.$cont.'" name="rmeses'.$cont.'" '.$requeridcolaborador.'></textarea></p>
                 </div>
             </div>
         </div>
@@ -997,11 +994,11 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
             <div class="w3-row">
                 <div class="w3-col m6 w3-white w3-center">
                     <p class="text-cuestion">Cometarios sobre acciones ya implementadas:</p>
-                    <p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rimplementadas'.$cont.'" name="rimplementadas'.$cont.'" ></textarea></p>
+                    <p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rimplementadas'.$cont.'" name="rimplementadas'.$cont.'" readonly="readonly"></textarea></p>
                 </div>
                 <div class="w3-col m6 w3-white w3-center">
                     <p class="text-cuestion">Sugerencias sobre acciones a implementar:</p>
-                    <p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rimplementar'.$cont.'" name="rimplementar'.$cont.'"></textarea></p>
+                    <p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rimplementar'.$cont.'" name="rimplementar'.$cont.'" readonly="readonly"></textarea></p>
                 </div>
             </div>
         </div>
@@ -1022,7 +1019,17 @@ $enviorevision .='<input type="submit" id="btnRevisar" name="btnRevisar"  value=
 
 echo $establecimientorevision;
 echo $enviorevision;
-/*echo $competencias1;
+?>
+<!--<form id="idcompetencias" method="POST" action="enviocompetencias.php">-->
+<div class="w3-container">
+        <div class="w3-row">
+            <div class="w3-col l1">
+                <p></p>
+            </div>
+            <div class="w3-col l10">
+                <div class="w3-container">
+<?php
+
 if($rolprincipal=='COLABORADOR'){
 
     $sql='select obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
@@ -1039,33 +1046,33 @@ if($rolprincipal=='COLABORADOR'){
     foreach($resultados as $valores){
 
         echo '<div class="espacio"></div>
-        <div class="w3-row">
-            <div class="w3-round-xlarge w3-col l3  w3-pale-red w3-center">
-                <p>Competencias</p>
-            </div>
-            <div class="w3-round-xlarge w3-col l9  w3-pale-red w3-center">
-                <p>Comportamientos</p>
-            </div>
-        </div>
-        <div class="w3-row">
-            <div class="w3-round-xlarge w3-col l3  w3-dark-grey w3-center">
-                <p>Definición de competencias</p>
-            </div>
-            <div class="w3-round-xlarge w3-col l9  w3-dark-grey w3-center">
-                <p>Comportamientos asociados a la competencia</p>
-            </div>
-        </div>';
+                    <div class="w3-row">
+                        <div class="w3-round-xlarge w3-col l3  w3-pale-red w3-center">
+                            <p>Competencias</p>
+                        </div>
+                        <div class="w3-round-xlarge w3-col l9  w3-pale-red w3-center">
+                            <p>Comportamientos</p>
+                        </div>
+                    </div>
+                    <div class="w3-row">
+                        <div class="w3-round-xlarge w3-col l3  w3-dark-grey w3-center">
+                            <p>Definición de competencias</p>
+                        </div>
+                        <div class="w3-round-xlarge w3-col l9  w3-dark-grey w3-center">
+                            <p>Comportamientos asociados a la competencia</p>
+                        </div>
+                    </div>';
 
         echo '<div class="w3-row">
-        <div class="w3-col l3">
-            <p>'.$valores->nombrecompetencia.'</p>
-        </div>';
+                    <div class="w3-col l3">
+                        <p>'.$valores->nombrecompetencia.'</p>
+                    </div>';
 
     
-        $consulta='select ocb.id, ocb.description, ocb.idcompetition 
+        $consulta='select ocb.id, ocb.description, ocb.idcompetition,oc.id as idcompetencia, oc.courseid, oc.idinstance
         from mdl_objective_competition_behavior ocb 
         inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
-        where ocb.idcompetition=?';
+        where ocb.idcompetition=? and ocb.status=0';
         $resultado = $DB->get_records_sql($consulta, array($valores->idcompe));
 
         //print_r($resultado);
@@ -1074,13 +1081,14 @@ if($rolprincipal=='COLABORADOR'){
        foreach($resultado as $comportamiento){
         $idcomportamiento=$comportamiento->id;
                 echo'<tr>
-                    <td>'.$comportamiento->description.'</td>
-                </tr>';
+                            <td>'.$comportamiento->description.'</td>
+                            <td><p><input class="w3-input w3-border" type="text" id="valor'.$idcomportamiento.'" name="valor'.$idcomportamiento.'" "></p></td>
+                    </tr>';
             
          
         }
         echo '</table></div>';
-        echo'</div><div class="espacio"></div></div>';
+        echo'</div><div class="espacio"></div>';
     
     }
 
@@ -1103,33 +1111,33 @@ if($rolprincipal=='COLABORADOR'){
     foreach($resultados as $valores){
 
         echo '<div class="espacio"></div>
-        <div class="w3-row">
-            <div class="w3-round-xlarge w3-col l3  w3-pale-red w3-center">
-                <p>Competencias</p>
-            </div>
-            <div class="w3-round-xlarge w3-col l9  w3-pale-red w3-center">
-                <p>Comportamientos</p>
-            </div>
-        </div>
-        <div class="w3-row">
-            <div class="w3-round-xlarge w3-col l3  w3-dark-grey w3-center">
-                <p>Definición de competencias</p>
-            </div>
-            <div class="w3-round-xlarge w3-col l9  w3-dark-grey w3-center">
-                <p>Comportamientos asociados a la competencia</p>
-            </div>
-        </div>';
+                        <div class="w3-row">
+                            <div class="w3-round-xlarge w3-col l3  w3-pale-red w3-center">
+                                <p>Competencias</p>
+                            </div>
+                            <div class="w3-round-xlarge w3-col l9  w3-pale-red w3-center">
+                                <p>Comportamientos</p>
+                            </div>
+                        </div>
+                        <div class="w3-row">
+                            <div class="w3-round-xlarge w3-col l3  w3-dark-grey w3-center">
+                                <p>Definición de competencias</p>
+                            </div>
+                            <div class="w3-round-xlarge w3-col l9  w3-dark-grey w3-center">
+                                <p>Comportamientos asociados a la competencia</p>
+                            </div>
+                        </div>';
 
         echo '<div class="w3-row">
-        <div class="w3-col l3">
-            <p>'.$valores->nombrecompetencia.'</p>
-        </div>';
+                        <div class="w3-col l3">
+                            <p>'.$valores->nombrecompetencia.'</p>
+                        </div>';
 
     
-        $consulta='select ocb.id, ocb.description, ocb.idcompetition 
+        $consulta='select ocb.id, ocb.description, ocb.idcompetition,oc.id as idcompetencia, oc.courseid, oc.idinstance
         from mdl_objective_competition_behavior ocb 
         inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
-        where ocb.idcompetition=?';
+        where ocb.idcompetition=? and ocb.status=0';
         $resultado = $DB->get_records_sql($consulta, array($valores->idcompe));
 
         //print_r($resultado);
@@ -1138,13 +1146,19 @@ if($rolprincipal=='COLABORADOR'){
        foreach($resultado as $comportamiento){
         // $idcomportamiento=$comportamiento->id;
                 echo'<tr>
-                    <td>'.$comportamiento->description.'</td>
-                </tr>';
+                        <td>'.$comportamiento->description.'</td>
+                        <td><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento->id.'" name="valores['.$comportamiento->id.'][valor]"></p></td>
+                        <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento->id.'" name="valores['.$comportamiento->id.'][idcompetencia]" value="'.$comportamiento->idcompetencia.'"></p></td>
+                        <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento->id.'" name="valores['.$comportamiento->id.'][idcomportamiento]" value="'.$comportamiento->id.'"></p></td>
+                        <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento->id.'" name="valores['.$comportamiento->id.'][courseid]" value="'.$comportamiento->courseid.'"></p></td>
+                        <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento->id.'" name="valores['.$comportamiento->id.'][userid]" value="'.$USER->id.'"></p></td>
+                        <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento->id.'" name="valores['.$comportamiento->id.'][idinstance]" value="'.$comportamiento->idinstance.'"></p></td>
+                    </tr>';
             
          
         }
         echo '</table></div>';
-        echo'</div><div class="espacio"></div></div>';
+        echo'</div><div class="espacio"></div>';
     
     }
   
@@ -1161,33 +1175,33 @@ if($rolprincipal=='COLABORADOR'){
    foreach($resultados2 as $valores2){
 
         echo '<div class="espacio"></div>
-        <div class="w3-row">
-            <div class="w3-round-xlarge w3-col l3  w3-pale-red w3-center">
-                <p>Competencias</p>
-            </div>
-            <div class="w3-round-xlarge w3-col l9  w3-pale-red w3-center">
-                <p>Comportamientos</p>
-            </div>
-        </div>
-        <div class="w3-row">
-            <div class="w3-round-xlarge w3-col l3  w3-dark-grey w3-center">
-                <p>Definición de competencias</p>
-            </div>
-            <div class="w3-round-xlarge w3-col l9  w3-dark-grey w3-center">
-                <p>Comportamientos asociados a la competencia</p>
-            </div>
-        </div>';
+                    <div class="w3-row">
+                        <div class="w3-round-xlarge w3-col l3  w3-pale-red w3-center">
+                            <p>Competencias</p>
+                        </div>
+                        <div class="w3-round-xlarge w3-col l9  w3-pale-red w3-center">
+                            <p>Comportamientos</p>
+                        </div>
+                    </div>
+                    <div class="w3-row">
+                        <div class="w3-round-xlarge w3-col l3  w3-dark-grey w3-center">
+                            <p>Definición de competencias</p>
+                        </div>
+                        <div class="w3-round-xlarge w3-col l9  w3-dark-grey w3-center">
+                            <p>Comportamientos asociados a la competencia</p>
+                        </div>
+                    </div>';
 
         echo '<div class="w3-row">
-        <div class="w3-col l3">
-            <p>'.$valores2->nombrecompetencia.'</p>
-        </div>';
+                    <div class="w3-col l3">
+                        <p>'.$valores2->nombrecompetencia.'</p>
+                    </div>';
 
     
-        $consulta2='select ocb.id, ocb.description, ocb.idcompetition 
+        $consulta2='select ocb.id, ocb.description, ocb.idcompetition,oc.id as idcompetencia, oc.courseid, oc.idinstance
         from mdl_objective_competition_behavior ocb 
         inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
-        where ocb.idcompetition=?';
+        where ocb.idcompetition=? and ocb.status=0';
         $resultado2 = $DB->get_records_sql($consulta2, array($valores2->idcompe));
 
        // print_r($resultado2);
@@ -1195,14 +1209,18 @@ if($rolprincipal=='COLABORADOR'){
                         <table class="w3-table-all">';
        foreach($resultado2 as $comportamients){
         //$idcomportamiento2=$comportamiento2->id;
-                echo'<tr>
-                         <td>'.$comportamients->description.'</td>
-                     </tr>';
-            
-         
+                        echo'<tr>
+                                <td>'.$comportamients->description.'</td>
+                                <td><p><input class="w3-input w3-border" type="text" id="valores'.$comportamients->id.'" name="valores['.$comportamients->id.'][valor]"></p></td>
+                                <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamients->id.'" name="valores['.$comportamients->id.'][idcompetencia]" value="'.$comportamients->idcompetencia.'"></p></td>
+                                <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamients->id.'" name="valores['.$comportamients->id.'][idcomportamiento]" value="'.$comportamients->id.'"></p></td>
+                                <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamients->id.'" name="valores['.$comportamients->id.'][courseid]" value="'.$comportamients->courseid.'"></p></td>
+                                <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamients->id.'" name="valores['.$comportamients->id.'][userid]" value="'.$USER->id.'"></p></td>
+                                <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamients->id.'" name="valores['.$comportamients->id.'][idinstance]" value="'.$comportamients->idinstance.'"></p></td>
+                            </tr>';
         }
         echo '</table></div>';
-        echo'</div><div class="espacio"></div></div>';
+        echo'</div><div class="espacio"></div>';
     
     }
     
@@ -1247,10 +1265,10 @@ if($rolprincipal=='COLABORADOR'){
         </div>';
 
     
-        $consulta='select ocb.id, ocb.description, ocb.idcompetition 
+        $consulta='select ocb.id, ocb.description, ocb.idcompetition,oc.id as idcompetencia, oc.courseid, oc.idinstance
         from mdl_objective_competition_behavior ocb 
         inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
-        where ocb.idcompetition=?';
+        where ocb.idcompetition=?  and ocb.status=0';
         $resultado = $DB->get_records_sql($consulta, array($valores->idcompe));
 
         //print_r($resultado);
@@ -1305,10 +1323,10 @@ if($rolprincipal=='COLABORADOR'){
         </div>';
 
     
-        $consulta2='select ocb.id, ocb.description, ocb.idcompetition 
+        $consulta2='select ocb.id, ocb.description, ocb.idcompetition,oc.id as idcompetencia, oc.courseid, oc.idinstance
         from mdl_objective_competition_behavior ocb 
         inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
-        where ocb.idcompetition=?';
+        where ocb.idcompetition=?  and ocb.status=0';
         $resultado2 = $DB->get_records_sql($consulta2, array($valores2->idcompe));
 
        // print_r($resultado2);
@@ -1362,10 +1380,10 @@ if($rolprincipal=='COLABORADOR'){
         </div>';
 
     
-        $consulta3='select ocb.id, ocb.description, ocb.idcompetition 
+        $consulta3='select ocb.id, ocb.description, ocb.idcompetition,oc.id as idcompetencia, oc.courseid, oc.idinstance
         from mdl_objective_competition_behavior ocb 
         inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
-        where ocb.idcompetition=?';
+        where ocb.idcompetition=?  and ocb.status=0';
         $resultado3 = $DB->get_records_sql($consulta3, array($valores3->idcompe));
 
        // print_r($resultado2);
@@ -1389,8 +1407,12 @@ if($rolprincipal=='COLABORADOR'){
 }else{
 
 }
-*/
-echo '</div> <!-- cierra vista -->';
+//echo '</form><input type="submit" id="btnCompetencia" name="btnCompetencia"  value="Calificar Compétencias">';
+echo '</div></div></div></div></div> <!-- cierra vista -->';
+/* INICIA VISTA 3*/
+echo '<div id="vista3">Hola mundo</div>';
+
+//echo '<div id="vista2"></div>';
 echo'<style>input.parsley-error,
 select.parsley-error,
 textarea.parsley-error {    
@@ -1454,17 +1476,27 @@ $(document).on('ready', function() {
         // Nos permite cancelar el envio del formulario
         return false;
     });
+    function openCity(cityName) {
+            var i;
+            var x = document.getElementsByClassName("vistas");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            document.getElementById(cityName).style.display = "block";
+        }
+});
 
+$(document).on('ready', function(){
     $('#revisionobj').parsley().on('field:validated', function() {
-        var ok = $('.parsley-error').length === 0;
-        $('.bs-callout-info').toggleClass('hidden', !ok);
-        $('.bs-callout-warning').toggleClass('hidden', ok);
+        var mensaje = $('.parsley-error').length === 0;
+        $('.bs-callout-info').toggleClass('hidden', !mensaje);
+        $('.bs-callout-warning').toggleClass('hidden', mensaje|);
     })
 
 
     $("#revisionobj").bind("submit",function(){
         // Capturamnos el boton de envío
-        var btnEnviar = $("#btnRevisar");
+        var btnRevisar = $("#btnRevisar");
         $.ajax({
             type: $(this).attr("method"),
             url: $(this).attr("action"),
@@ -1475,15 +1507,15 @@ $(document).on('ready', function() {
                 * servidor.
                 * */
                 // btnEnviar.text("Enviando"); Para button 
-                btnEnviar.val("Enviando"); // Para input de tipo button
-                btnEnviar.attr("disabled","disabled");
+                btnRevisar.val("Enviando"); // Para input de tipo button
+                btnRevisar.attr("disabled","disabled");
             },
             complete:function(data){
                 /*
                 * Se ejecuta al termino de la petición
                 * */
-                btnEnviar.val("Enviar Revision");
-                btnEnviar.removeAttr("disabled");
+                btnRevisar.val("Enviar Revision");
+                btnRevisar.removeAttr("disabled");
             },
             success: function(data){
                 /*
@@ -1502,17 +1534,8 @@ $(document).on('ready', function() {
         // Nos permite cancelar el envio del formulario
         return false;
     });
-
-    function openCity(cityName) {
-            var i;
-            var x = document.getElementsByClassName("vistas");
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-            }
-            document.getElementById(cityName).style.display = "block";
-        }
-
 });
+
 </script>
 </body>
 <?php
