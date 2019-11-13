@@ -99,8 +99,8 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
                         
     echo '<div class="w3-bar w3-black">
                     <button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>
-                    <button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>
-                    <button class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>
+                    <!--<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>
+                    <button class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>-->
             </div>';
     $vistajefeinmediato .='<div class="w3-row">
                             <div class="w3-col l1">
@@ -141,7 +141,7 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
 
     echo '<div class="w3-bar w3-black">
                     <button class="w3-bar-item w3-button" onclick="openCity("vista1")">Establecimiento de objetivos</button>
-                    <button class="w3-bar-item w3-button" onclick="openCity("vista3")">Revision Final</button>
+                  <!--  <button class="w3-bar-item w3-button" onclick="openCity("vista3")">Revision Final</button>-->
                 </div>';
                 $vistajefeinmediato .='<br>';
                 $vistajefeinmediato2 .='<br>';
@@ -552,10 +552,10 @@ if($rolprincipal=='COLABORADOR'){
         </div>';
 
     
-        $consulta='select ocb.id, ocb.description, ocb.idcompetition 
+        $consulta='select ocb.id, ocb.description, ocb.idcompetition,oc.id as idcompetencia, oc.courseid, oc.idinstance
         from mdl_objective_competition_behavior ocb 
         inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
-        where ocb.idcompetition=?';
+        where ocb.idcompetition=? and ocb.code=1';
         $resultado = $DB->get_records_sql($consulta, array($valores->idcompe));
 
         //print_r($resultado);
@@ -610,10 +610,10 @@ if($rolprincipal=='COLABORADOR'){
         </div>';
 
     
-        $consulta2='select ocb.id, ocb.description, ocb.idcompetition 
+        $consulta2='select ocb.id, ocb.description, ocb.idcompetition,oc.id as idcompetencia, oc.courseid, oc.idinstance
         from mdl_objective_competition_behavior ocb 
         inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
-        where ocb.idcompetition=?';
+        where ocb.idcompetition=? and ocb.code=1';
         $resultado2 = $DB->get_records_sql($consulta2, array($valores2->idcompe));
 
        // print_r($resultado2);

@@ -28,14 +28,17 @@ class newestablishment_form extends moodleform {
         $mform->addElement('hidden','idinstance');
         $mform->addElement('hidden', 'timecreated');
         $mform->addElement('hidden','timemodified');
+        $mform->addElement('hidden','status', 0);
 
-
+/*
         $optionstatus = array(
                 
-            '0' => 'ACTIVO',
-            '1' => 'INACTIVO',
-            '2' => 'CREADO'
+            '0' => 'CREADO',
+            '1' => 'AUTORIZADO',
+            '2' => 'REVISADO',
+            '3' => 'FINALIZADO'
         );
+*/
 
         $sql="select distinct u.id ,MAX(gu.rol) as idrol,
         CASE
@@ -86,12 +89,12 @@ class newestablishment_form extends moodleform {
         $select = $mform->addElement('select', 'rol', 'Rol', $options);
         $select->setSelected('0');
         $mform->addRule('rol', null, 'required', null, 'client');
-
+/*
         $select = $mform->addElement('select', 'status', 'ESTATUS', $optionstatus);
-        $select->setSelected('2');
+        $select->setSelected('1');
         $mform->addRule('status', null, 'required', null, 'client');
 
-
+*/
 
         $this->add_action_buttons();
       

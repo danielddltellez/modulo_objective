@@ -85,9 +85,10 @@ ELSE 'SIN VALOR'
 END AS rol,
 -- gu.rol as 'rolfinal',
 CASE
-WHEN (oe.status) = 0 THEN 'ACTIVO'
-WHEN (oe.status) = 1 THEN 'INACTIVO'
-WHEN (oe.status) = 2 THEN 'CREADO'
+WHEN (oe.status) = 0 THEN 'CREADO'
+WHEN (oe.status) = 1 THEN 'AUTORIZADO'
+WHEN (oe.status) = 2 THEN 'REVISADO'
+WHEN (oe.status) = 3 THEN 'FINALIZADO'
 ELSE 'SIN VALOR'
 END AS estatus
 ,og.id as idgrupo
@@ -128,7 +129,12 @@ $principa2 .='</div></div></div>';
 
 
 echo $principal;
-echo $OUTPUT->render($btnestablishment);
+if(empty($viewestablishment)){
+    echo $OUTPUT->render($btnestablishment);
+}else{
+
+}
+//echo $OUTPUT->render($btnestablishment);
 objective_print_establishment($viewestablishment);
 echo $principal2;
 echo $principio;
