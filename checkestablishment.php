@@ -62,9 +62,6 @@ $modulecontext = context_module::instance($cm->id);
     <script src="./js/functions.js"></script>
     <script src="./js/es.js" type="text/javascript"></script>
     <script src="./js/parsley.js" type="text/javascript"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 </head>
 <body>
 <?php
@@ -206,10 +203,21 @@ $vista .='<div id="vista1" class="w3-light-grey vistas">
                 </div>';
 
 //$queryfinal='select * from mdl_objective_establishment_captured where userid=? and courseid=? and idobjective=? order by idobjective ASC';
-$querycontrol='select  es.id, es.userid,es.idobjective ,es.courseid, es.targetnumber, es.whatquestion, es.howquestion, es.thatquestion, es.specifyquestion, es.periodquestion, es.objectivecomplete, es.startdate, es.enddate, es.valueobjective
+/*$querycontrol='select  es.id, es.userid,es.idobjective ,es.courseid, es.targetnumber, es.whatquestion, es.howquestion, es.thatquestion, es.specifyquestion, es.periodquestion, es.objectivecomplete, es.startdate, es.enddate, es.valueobjective
 from  mdl_objective_establishment_captured es
 inner join mdl_objective_establishment o on o.id = es.idobjective 
-where es.courseid=? and es.idobjective=? and o.idjefedirecto=? order by idobjective ASC';
+where es.courseid=? and es.idobjective=? and o.idjefedirecto=? order by idobjective ASC';*/
+
+$querycontrol='select es.id, @rownum:=@rownum+1 contador,  es.userid,es.idobjective ,es.courseid, es.targetnumber, es.whatquestion, es.howquestion, es.thatquestion, es.specifyquestion, es.periodquestion, es.objectivecomplete, DATE_FORMAT(FROM_UNIXTIME(es.startdate), "%Y-%m-%d") as fechaini, DATE_FORMAT(FROM_UNIXTIME(es.enddate), "%Y-%m-%d") as fechafin, es.valueobjective
+,(select er.actionpartner from  mdl_objective_establishment_revise er where er.idobjectiveestablishment=es.id) as actionp
+,(select er2.actionsixmonth from  mdl_objective_establishment_revise er2 where er2.idobjectiveestablishment=es.id) as actions
+,(select er3.bosscomments from  mdl_objective_establishment_revise er3 where er3.idobjectiveestablishment=es.id) as bossc
+,(select er4.bosssuggestions from  mdl_objective_establishment_revise er4 where er4.idobjectiveestablishment=es.id) as bosss
+,(select er5.id from  mdl_objective_establishment_revise er5 where er5.idobjectiveestablishment=es.id) as idrevision
+from  mdl_objective_establishment_captured es
+inner join mdl_objective_establishment o on o.id = es.idobjective,
+(SELECT @rownum:=0) R
+where es.courseid=? and es.idobjective=? and o.idjefedirecto=123 order by es.id ASC';
 $resultcontrol = $DB->get_records_sql($querycontrol, array($courseid, $id, $USER->id));
 if(empty($resultcontrol)){
 
@@ -219,7 +227,7 @@ if(empty($resultcontrol)){
    
 }else{
   foreach($resultcontrol as $valuecontrol){
-    $establecimiento .='<div id="establecimientoobjetivos'.$valuecontrol->targetnumber.'">
+    $establecimiento .='<div id="ACTUALIZADOetivos'.$valuecontrol->targetnumber.'">
                             <div class="w3-row">
                                     <div class="w3-col l8 w3-dark-grey">
                                         <p>Breve descripción del objetivo '.$valuecontrol->targetnumber.'</p>
@@ -275,11 +283,11 @@ if(empty($resultcontrol)){
                                 </div>
                                 <div class="w3-col m2 w3-white w3-center">
                                     <p class="text-cuestion">Fecha inicial</p>
-                                    <p>'.$valuecontrol->startdate.'</p>
+                                    <p>'.$valuecontrol->fechaini.'</p>
                                 </div>
                                 <div class="w3-col m2 w3-white w3-center">
                                     <p class="text-cuestion">Fecha final</p>
-                                    <p>'.$valuecontrol->enddate.'</p>
+                                    <p>'.$valuecontrol->fechafin.'</p>
                                 </div>
                                 <div class="w3-col m2 w3-white w3-center">
                                     <p class="text-cuestion">Valor del objetivo sobre 100</p>
@@ -752,7 +760,235 @@ if($rolcolaborador==1){
 }
 
 echo $competencias2;
-echo'<div id="vista2" class="w3-light-grey vistas" style="display:none;">Hola mundo</div>';
+//echo'<div id="vista2" class="w3-light-grey vistas" style="display:none;">Hola mundo</div>';
+
+ /* INICIA VISTA 2*/
+ $vistarevision .='<div id="vista2" class="w3-light-grey vistas" style="display: none;">
+    <div class="w3-container">
+        <div class="w3-row">
+            <div class="w3-col l2">
+                <p></p>
+            </div>
+            <div class="w3-col l8">
+                <h3 class="w3-center  w3-animate-top">Establecimiento de objetivos</h3>
+                <p class="w3-animate-opacity">La siguiente evaluación tiene como objetivo analizar, evaluar y comparar los resultados del desempeño de los colaboradores y su acercamiento a las competencias organizacionales. Estos resultados serán parte fundamental para diseñar
+                    programas de capacitación y desarrollo.</p>
+            </div>
+            <div class="w3-col l2">
+                <p></p>
+            </div>
+        </div>
+        <div class="w3-row">
+            <div class="w3-col l4">
+                <p></p>
+            </div>
+            <div class="w3-col l4">
+                <p></p>
+            </div>
+            <div class="w3-col l4">
+            <input type="date" class="form-control"  value="'.$fcha.'"  disabled="yes">
+                <!--<p>Fecha de establecimiento:<input type="text"></p>-->
+                <!--<p>Fecha de establecimiento: <input type="text" id="datepicker"></p>-->
+            </div>
+        </div>
+    </div>
+    <div class="espacio"></div>
+    <div class="w3-container">
+        <div class="w3-row">
+            <div class="w3-col l1">
+                <p></p>
+            </div>
+            <div class="w3-round-xxlarge w3-col l5 w3-pale-red w3-center">
+                <p>1a. Parte</p>
+            </div>
+            <div class="w3-round-xxlarge w3-col l5 w3-dark-grey w3-center">
+                <p>Objetivos del puesto de trabajo</p>
+            </div>
+            <div class="w3-col l1">
+                <p></p>
+            </div>
+        </div>
+        <div class="w3-row">
+            <div class="w3-col l1">
+                <p></p>
+            </div>
+            <div class="w3-col l10 w3-center">
+                <p>Este apartado está estrechamente ligado con el rubro de objetivos del puesto de trabajo; con esta evaluación conoceremos en qué medida se logran. Es importante que consideres los objetivos de tu jefe inmediato que te presentamos a
+                    continuación: *No todos deberán </p>
+            </div>
+            <div class="w3-col l1">
+                <p></p>
+            </div>
+        </div>';
+echo $vistarevision;
+echo $vistajefeinmediato;
+echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-container">';
+?>
+<div class="espacio"></div><div class="w3-container"><div class="w3-row"><div class="w3-col l1"><p></p></div><div class="w3-col l10 w3-center"><div class="w3-container">
+<div class="w3-row">
+<div class="w3-round-xxlarge w3-col l8  w3-pale-red">
+<p>Objetivos</p>
+</div>
+<div class="w3-round-xlarge w3-col l2  w3-pale-red">
+<p>Fecha compromiso</p>
+</div>
+<div class="w3-round-xlarge w3-col l2  w3-pale-red">
+<p>Peso anual en %</p>
+</div>
+          
+<?php
+    echo '<form id="revisionjefe" method="POST" action="updaterevision.php" data-parsley-validate="">';
+    $requeridcolaborador='required=""';
+    foreach($resultcontrol as $valuecontrol){
+
+    $cont=$valuecontrol->contador;
+   // $actionp=$valuecontrol->actionp;
+   $boos=$valuecontrol->bossc;
+    $establecimientorevision .='<div id="revisionobjetivos'.$cont.'">
+    <div class="w3-row">
+        <div class="w3-col l8 w3-dark-grey">
+            <p>Breve descripción del objetivo '.$cont.'</p>
+        </div>
+        <div class="w3-col l2">
+            <p></p>
+        </div>
+        <div class="w3-col l2">
+            <p></p>
+        </div>
+    </div>
+    <div class="w3-row">
+        <input type="hidden" id="id'.$cont.'" name="idobjestablecido'.$cont.'" value="'.$valuecontrol->id.'" '.$requeridcolaborador.'>
+        <input type="hidden" id="userid'.$cont.'" name="userid'.$cont.'" value="'.$USER->id.'" '.$requeridcolaborador.'>
+        <input type="hidden" id="courseid'.$cont.'" name="courseid'.$cont.'" value="'.$courseid.'" '.$requeridcolaborador.'>
+        <input type="hidden" id="idobjetivo'.$cont.'" name="idobjetivo'.$cont.'" value="'.$id.'" '.$requeridcolaborador.'>
+        <input type="hidden" id="idrevision'.$cont.'" name="idrevision'.$cont.'" value="'.$valuecontrol->idrevision.'" '.$requeridcolaborador.'>
+        <div class="w3-col m2 w3-white w3-center">
+            <p class="text-cuestion">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
+        <!--<p><input  class="w3-input w3-border" type="text"></p>-->
+            <p>'.$valuecontrol->targetnumber.'</p>
+        </div>
+        <div class="w3-col m2 w3-white w3-center">
+            <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
+            <p>'.$valuecontrol->whatquestion.'</p>
+        </div>
+        <div class="w3-col m2 w3-white w3-center">
+            <p class="text-cuestion">2. ¿Cómo se quiere medir?</p>
+            <p>'.$valuecontrol->howquestion.'</p>
+        </div>
+        <div class="w3-col m2 w3-white w3-center">
+            <p class="text-cuestion">3. ¿Cuánto quieres que mida?</p>
+            <p>'.$valuecontrol->thatquestion.'</p>
+        </div>
+        <div class="w3-col m2 w3-white w3-center">
+            <p class="text-cuestion">4. ¿Cómo se quiere medir?</p>
+            <p>'.$valuecontrol->specifyquestion.'</p>
+        </div>
+        <div class="w3-col m2 w3-white w3-center">
+            <p class="text-cuestion">5. ¿Cuánto quieres que mida?</p>
+            <p>'.$valuecontrol->periodquestion.'</p>
+        </div>
+    </div>
+    <div class="w3-row">
+        <div class="w3-col m12 w3-white w3-center">
+            <p class="text-oc">Objetivo Completo</p>
+            <p>'.$valuecontrol->objectivecomplete.'</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="w3-col m6 w3-white w3-center">
+            <p class="text-cuestion" style="height: 33px;"></p>
+            <p class="w3-input" style="background-color: #ffffff; border-bottom: 1px solid #ffff;"><br></p>
+        </div>
+        <div class="w3-col m2 w3-white w3-center">
+            <p class="text-cuestion">Fecha inicial</p>
+            <p>'.$valuecontrol->fechaini.'</p>
+        </div>
+        <div class="w3-col m2 w3-white w3-center">
+            <p class="text-cuestion">Fecha final</p>
+            <p>'.$valuecontrol->fechafin.'</p>
+        </div>
+        <div class="w3-col m2 w3-white w3-center">
+            <p class="text-cuestion">Valor del objetivo sobre 100</p>
+            <p>'.$valuecontrol->valueobjective.'%</p>
+        </div>
+    </div><!--aqui empieza-->
+    <div class="w3-row">
+        <div class="w3-col m5 w3-white w3-center">
+            <div class="w3-row">
+                <div class="w3-col m6 w3-white w3-center">
+                    <p class="text-cuestion">Qué acciones he implementado:</p>';
+                    if(empty($valuecontrol->actionp)){
+                        $establecimientorevision .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="racciones'.$cont.'" name="racciones'.$cont.'" '.$requeridcolaborador.'></textarea></p>';
+                    }else{
+                        $establecimientorevision .='<p class="w3-input w3-border">'.$valuecontrol->actionp.'</p>';
+                    }
+                    $establecimientorevision .='</div>
+                <div class="w3-col m6 w3-white w3-center">
+                    <p class="text-cuestion">Acciones para los siguientes 6 meses:</p>';
+                    if(empty($valuecontrol->actions)){
+                        $establecimientorevision .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rmeses'.$cont.'" name="rmeses'.$cont.'" '.$requeridcolaborador.'></textarea></p>';
+                    }else{
+                        $establecimientorevision .='<p class="w3-input w3-border">'.$valuecontrol->actions.'</p>';
+                    }
+                    
+                    $establecimientorevision .='</div>
+            </div>
+        </div>
+        <div class="w3-col m2 w3-white w3-center">
+            <p class="text-cuestion" style="height: 68px;">Retroalimentación de mi jefe: </p>
+            <p class="text-cuestion"><br></p>
+        </div>
+        <div class="w3-col m5 w3-white w3-center">
+        <div class="w3-row">
+        <div class="w3-col m6 w3-white w3-center">
+            <p class="text-cuestion">Cometarios sobre acciones ya implementadas:</p>';
+            if(empty($boos)){
+                $establecimientorevision .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rimplementadas'.$cont.'" name="rimplementadas'.$cont.'" '.$requeridcolaborador.'></textarea></p>';
+            }else{
+                $establecimientorevision .='<p class="w3-input w3-border">'.$boos.'</p>';
+            }
+            $establecimientorevision .='</div>
+        <div class="w3-col m6 w3-white w3-center">
+
+            <p class="text-cuestion">Sugerencias sobre acciones a implementar:</p>';
+            if(empty($valuecontrol->bosss)){
+                $establecimientorevision .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rimplementar'.$cont.'" name="rimplementar'.$cont.'" '.$requeridcolaborador.'></textarea></p>';
+            }else{
+                $establecimientorevision .='<p class="w3-input w3-border">'.$valuecontrol->bosss.'</p>';
+            }
+
+            $establecimientorevision .='</div>
+        </div>
+        </div>
+    </div>
+</div>';
+
+    }
+
+    if(empty($boos)){
+    $enviorevision .='<input type="submit" id="btnUpdate" name="btnUpdate"  value="Enviar">';
+    }else{
+    $enviorevision .='<br>';
+    }
+    $enviorevision .='
+    </form>
+    <hr><p id="rev"></p> <!-- ESTABLECIMIENTO DE OBJETIVOS 6-->
+    </div>
+    <div class="w3-col l1"><p></p></div>
+    </div>
+    </div>
+    </div>
+    </div>
+    <div class="espacio"></div>
+    </div><!-- Finaliza objetivos id-->';
+
+    echo $establecimientorevision;
+    echo $enviorevision;
+
+
+
+
+
 echo'<div id="vista3" class="w3-light-grey vistas" style="display:none;">Hola mundo vista 3</div>';
 echo'<style>input.parsley-error,
 select.parsley-error,
@@ -770,16 +1006,16 @@ textarea.parsley-error:focus {
 <script>
 $(document).on('ready', function() {
 
-    $('#establecimientoobj').parsley().on('field:validated', function() {
+    $('#revisionjefe').parsley().on('field:validated', function() {
         var ok = $('.parsley-error').length === 0;
         $('.bs-callout-info').toggleClass('hidden', !ok);
         $('.bs-callout-warning').toggleClass('hidden', ok);
     })
 
 
-    $("#establecimientoobj").bind("submit",function(){
+    $("#revisionjefe").bind("submit",function(){
         // Capturamnos el boton de envío
-        var btnEnviar = $("#btnEnviar");
+        var btnUpdate = $("#btnUpdate");
         $.ajax({
             type: $(this).attr("method"),
             url: $(this).attr("action"),
@@ -790,22 +1026,22 @@ $(document).on('ready', function() {
                 * servidor.
                 * */
                 // btnEnviar.text("Enviando"); Para button 
-                btnEnviar.val("Enviando"); // Para input de tipo button
-                btnEnviar.attr("disabled","disabled");
+                btnUpdate.val("Enviando"); // Para input de tipo button
+                btnUpdate.attr("disabled","disabled");
             },
             complete:function(data){
                 /*
                 * Se ejecuta al termino de la petición
                 * */
-                btnEnviar.val("Enviar formulario");
-                btnEnviar.removeAttr("disabled");
+                btnUpdate.val("Enviar formulario");
+                btnUpdate.removeAttr("disabled");
             },
             success: function(data){
                 /*
                 * Se ejecuta cuando termina la petición y esta ha sido
                 * correcta
                 * */
-                $("#respuesta").html(data);
+                $("#rev").html(data);
             },
             error: function(data){
                 /*
@@ -817,7 +1053,6 @@ $(document).on('ready', function() {
         // Nos permite cancelar el envio del formulario
         return false;
     });
-
     function openCity(cityName) {
             var i;
             var x = document.getElementsByClassName("vistas");

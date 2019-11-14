@@ -56,13 +56,13 @@ class newestablishment_form extends moodleform {
 
         $query="select distinct u.id as 'iduser',( SELECT gu.idusuario as 'idjefegrupo' from mdl_objective_groups_users gu where gu.idgroup=og.id and gu.rol in (3,2)) AS 'idjefegrupo'
         from mdl_user u 
-        join mdl_user_info_data id on id.userid = u.id
-        join mdl_user_info_field ii on ii.id = id.fieldid 
-        inner join mdl_objective_establishment oe on oe.userid = u.id
-        inner join mdl_objective o on o.id = oe.idinstance
-        inner join mdl_objective_groups_users ogu on ogu.idusuario = u.id
-        inner join mdl_objective_groups og on og.id = ogu.idgroup
-        inner join mdl_objective_groups_rol  ogr on ogr.id =  oe.rol
+        left join mdl_user_info_data id on id.userid = u.id
+        left join mdl_user_info_field ii on ii.id = id.fieldid 
+	left join mdl_objective_establishment oe on oe.userid = u.id
+        left join mdl_objective o on o.id = oe.idinstance
+        left join mdl_objective_groups_users ogu on ogu.idusuario = u.id
+        left join mdl_objective_groups og on og.id = ogu.idgroup
+        left join mdl_objective_groups_rol  ogr on ogr.id =  oe.rol
         where u.id=? and ogu.rol=1";
 
         $result = $DB->get_records_sql($query, array($USER->id));
