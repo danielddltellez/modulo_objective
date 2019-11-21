@@ -34,21 +34,20 @@ function revFechaI(obj) {
 	valfechaI=$(fechaI).val();
 	fechaF="#fechafinal"+obj;
 	valfechaF=$(fechaF).val();
-	fechaEst=$.datepicker.formatDate('yy-mm-dd', new Date());
+	//fechaEst=$.datepicker.formatDate('yy-mm-dd', new Date());
+	fechaEst=$("fechaobjetivo").val();
 
-/*    alert("Fecha"+ obj +": "+ $("#fechainicioobj").val());
-    alert("Fecha"+ obj +": "+ $(fechaI).val());
-    alert("Fecha"+ obj +": "+ $(fechaF).val());
-    alert("Fecha establecimiento: "+ fechaEst);
-*/	
-	
     var duracion = calduracion(valfechaI, fechaEst);
 	if(duracion < 0){
         alert('la fecha inicial no puede ser menor a la fecha de establecimiento');
 		$(fechaI).css('color', '#FF0000');
+		$("#btnEnviar").attr('disabled', true);
+		return 0;
 	}else{
 		$(fechaI).css('color', '#000000');
-		revFechaF(obj);
+		var result = revFechaF(obj);
+	    $("#btnEnviar").attr('disabled', false);
+		return result;
 	}
 }
 
@@ -64,16 +63,24 @@ function revFechaF(obj){
 		if(duracion >540){
             alert('la fecha final no puede ser mayor a 18 meses');
 			$(fechaF).css('color', '#FF0000');
+			$("#btnEnviar").attr('disabled', true);
+			return 0;
 		}else if(duracion <= 0){
 			alert('la fecha final no puede ser menor a la fecha inicial');
 			$(fechaI).css('color', '#FF0000');
 			$(fechaF).css('color', '#FF0000');
+		    $("#btnEnviar").attr('disabled', true);
+			return 0;
 		}else{
 		    //cambia color a negro
 			$(fechaI).css('color', '#000000');
 			$(fechaF).css('color', '#000000');
+		    $("#btnEnviar").attr('disabled', false);
+			return 1;
 		}
-    }
+    }else{
+		return 0;
+	}
 }
 
 function veriFIni(obj){
@@ -85,6 +92,7 @@ function veriFIni(obj){
     }else{
         alert('Indique una fecha de inicio');
         $(fechaI).css('color', '#FF0000');
+	    $("#btnEnviar").attr('disabled', true);
         return 0;
     }
 }
@@ -126,6 +134,7 @@ function sumapobj(pobj){
 			$(porcentajeObj).css('color', '#FF0000');
 		}
         alert("La suma de los valores de Objetivo no debe ser menor al 100%");
+		return 0;
     }else if(suma>100){
 		$("#btnEnviar").attr('disabled', true);
 	    for(var i=1; i<=6; i++){
@@ -133,45 +142,97 @@ function sumapobj(pobj){
 			$(porcentajeObj).css('color', '#FF0000');
 		}
         alert("La suma de los valores de Objetivo no debe ser mayor al 100%");
+		return 0;
     }else{
 		$("#btnEnviar").attr('disabled', false);
 	    for(var i=1; i<=6; i++){
 			porcentajeObj="#valorobjetivo"+i;
 			$(porcentajeObj).css('color', '#000000');
 		}
+		return 1;
     }
 //    calREspInt();
 }
 
 function concatena(obj){
-	alert(obj);
+	//alert(obj);
 	var como= "#como"+obj;
 	var vcomo=$(como).val();
-	alert (vcomo);
+	//alert (vcomo);
 	
 	var cuanto= "#cuanto"+obj;
 	var vcuanto=$(cuanto).val();
-	alert (vcuanto);
+	//alert (vcuanto);
 
 	var que= "#que"+obj;
 	var vque=$(que).val();
-	alert (vque);
+	//alert (vque);
 	
 	var especifica= "#especifica"+obj;
 	var vespecifica=$(especifica).val();
-	alert (vespecifica);
+	//alert (vespecifica);
 	
 	var periodo= "#periodo"+obj;
 	var vperiodo=$(periodo).val();
-	alert (vperiodo);
+	//alert (vperiodo);
 	
-	var objetivocompleto="objetivocompleto"+obj;
+	var objetivocompleto="#objetivocompleto"+obj;
 //	var valperiodo=$(periodo).val();
 
 	if(vcomo!="" && vcuanto!="" && vque!="" && vespecifica!="" && vperiodo!=""){
-//		alert ("Saludos");
+		var objCompleto=vcomo +" "+vcuanto+" "+vque+" "+vespecifica+" "+vperiodo;
+		//alert ($(objetivocompleto).val());
+//		$(objetivocompleto).val()=objCompleto;
+		$(objetivocompleto).val(objCompleto);
 	}
 }
+
+//Revisa todo
+function revAll(){
+	var resultF=1;
+	var resultO=1;
+	var objetivocompleto="";
+	for(var i=1; i<=6; i++){
+    	objetivocompleto="#objetivocompleto"+i;
+		valobjetivocompleto=$.trim($(objetivocompleto).val());
+//		$.trim($("#comment").val())
+		//alert(valobjetivocompleto);
+		if( i>=1){
+			if(valobjetivocompleto == ""){
+			    //alert(valobjetivocompleto);
+				porcentajeObj="#valorobjetivo"+i;
+				$(porcentajeObj).val("");
+				continue;
+			}else{
+				resultF=revFechaI(i);
+		        if(resultF==0){
+	                $("#btnEnviar").attr('disabled', true);
+			        return;
+		        }
+			}
+		}else{
+		    resultF=revFechaI(i);
+		    if(resultF==0){
+	            $("#btnEnviar").attr('disabled', true);
+			    return;
+		    }
+		}
+	}
+	resultO=sumapobj(i);
+	if(resultF==1 && resultO==1){
+		$("#btnEnviar").attr('disabled', false);
+		
+		$( "#btnEnviar" ).click();
+		
+		
+		
+		
+	}else{
+        $("#btnEnviar").attr('disabled', true);
+	}
+}
+
+
 
 
 
@@ -237,29 +298,112 @@ $(document).on('ready', function() {
     });
 	
 // Eventos relacionados para armado de objetivos
-    for(var i=1; i<=6; i++ ){
-		var como= "#como"+i;
-		var cuanto= "#cuanto"+i;
-		var que= "#que"+i;
-		var especifica= "#especifica"+i;
-		var periodo= "#periodo"+i;
-		alert("val i: "+i);
-		$(como).change(function() {
-            concatena(i);
-        });
-		$(cuanto).change(function() {
-            concatena(i);
-        });
-	    $(que).change(function() {
-            concatena(i);
-        });
-	    $(especifica).change(function() {
-            concatena(i);
-        });
-	    $(periodo).change(function() {
-            concatena(i);
-        });
-	}
+	$("#como1").change(function() {
+        concatena(1);
+    });
+	$("#cuanto1").change(function() {
+        concatena(1);
+    });
+    $("#que1").change(function() {
+        concatena(1);
+    });
+    $("#especifica1").change(function() {
+        concatena(1);
+    });
+    $("#periodo1").change(function() {
+        concatena(1);
+    });
+	
+	
+	$("#como2").change(function() {
+        concatena(2);
+    });
+	$("#cuanto2").change(function() {
+        concatena(2);
+    });
+    $("#que2").change(function() {
+        concatena(2);
+    });
+    $("#especifica2").change(function() {
+        concatena(2);
+    });
+    $("#periodo2").change(function() {
+        concatena(2);
+    });
+	
+	
+	$("#como3").change(function() {
+        concatena(3);
+    });
+	$("#cuanto3").change(function() {
+        concatena(3);
+    });
+    $("#que3").change(function() {
+        concatena(3);
+    });
+    $("#especifica3").change(function() {
+        concatena(3);
+    });
+    $("#periodo3").change(function() {
+        concatena(3);
+    });
+	
+	
+	$("#como4").change(function() {
+        concatena(4);
+    });
+	$("#cuanto4").change(function() {
+        concatena(4);
+    });
+    $("#que4").change(function() {
+        concatena(4);
+    });
+    $("#especifica4").change(function() {
+        concatena(4);
+    });
+    $("#periodo4").change(function() {
+        concatena(4);
+    });
+	
+	
+	$("#como5").change(function() {
+        concatena(5);
+    });
+	$("#cuanto5").change(function() {
+        concatena(5);
+    });
+    $("#que5").change(function() {
+        concatena(5);
+    });
+    $("#especifica5").change(function() {
+        concatena(5);
+    });
+    $("#periodo5").change(function() {
+        concatena(5);
+    });
+	
+	
+	$("#como6").change(function() {
+        concatena(6);
+    });
+	$("#cuanto6").change(function() {
+        concatena(6);
+    });
+    $("#que6").change(function() {
+        concatena(6);
+    });
+    $("#especifica6").change(function() {
+        concatena(6);
+    });
+    $("#periodo6").change(function() {
+        concatena(6);
+    });
+	
+	
+	$( "#BTNvalida" ).click(function() {
+		revAll();
+    });
+	
 });
 
 

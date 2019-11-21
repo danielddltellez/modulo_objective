@@ -530,13 +530,16 @@ function objective_print_establishment($viewestablishment, $return = 0){
        $idcurso='';
        $idmodulo='';
        $idinstancia='';
+       $role='';
        $display .= html_writer::start_tag('div', array('class' => 'container'));
        $display .= html_writer::start_tag('table', array('class' => 'table table-striped'));
        $display .= html_writer::start_tag('thead');
        $display .= html_writer::start_tag('tr' , array('style' => 'background-color:  #878786; color: #fff;'));
+       /*
        $display .= html_writer::start_tag('th');
        $display .= clean_text('<strong>Id usuario</strong>');
        $display .= html_writer::end_tag('th');
+       */
        $display .= html_writer::start_tag('th');
        $display .= clean_text('<strong>Nombre Completo</strong>');
        $display .= html_writer::end_tag('th');
@@ -565,10 +568,13 @@ function objective_print_establishment($viewestablishment, $return = 0){
            $idcurso=$valuest->courseid;
            $idmodulo=$valuest->idmod;
            $idinstancia=$valuest->idinstance;
+           $role=$valuest->finalrol;
            $display .= html_writer::start_tag('tr', array('style' => 'background-color: #d0cdcc;'));
+           /*
            $display .= html_writer::start_tag('td');
            $display .= clean_text($valuest->iduser);
            $display .= html_writer::end_tag('td');
+           */
            $display .= html_writer::start_tag('td');
            $display .= clean_text($valuest->ncompleto);
            $display .= html_writer::end_tag('td');
@@ -589,14 +595,20 @@ function objective_print_establishment($viewestablishment, $return = 0){
            $display .= html_writer::start_tag('em', array('class' => 'fa fa-search'));
            $display .= html_writer::end_tag('em');
            $display .= html_writer::end_tag('a');
+           if($valuest->status==0){
            $display .= html_writer::start_tag('a',array('class' => 'btn btn-info','href' => ''.$CFG->wwwroot.'/mod/objective/editestablishment.php?courseid='.$idcurso.'&instance='.$idmodulo.'&id='.$valuest->id.''));
            $display .= html_writer::start_tag('em', array('class' => 'fa fa-pencil'));
            $display .= html_writer::end_tag('em');
            $display .= html_writer::end_tag('a');
+           }else{
+
+           }
+           /*
            $display .= html_writer::start_tag('a',array('class' => 'btn btn-danger', 'data-toggle'=>'modal', 'href' => '#delete_establishment'.$valuest->id.''));
            $display .= html_writer::start_tag('em', array('class' => 'fa fa-trash'));
            $display .= html_writer::end_tag('em');
            $display .= html_writer::end_tag('a');
+           */
            include('modals/modal.php');
            $display .= html_writer::end_tag('td');
            $display .= html_writer::end_tag('tr');
@@ -604,104 +616,117 @@ function objective_print_establishment($viewestablishment, $return = 0){
       $display .= html_writer::end_tag('tbody');
       $display .= html_writer::end_tag('table');
       $display .= html_writer::end_tag('div');
+      if($role==1){
 
-      $esql="select oe.id, u.id as iduser, concat(u.firstname, ' ', u.lastname) as ncompleto, u.email, oe.courseid, oe.idmod, oe.idinstance,
-      DATE_FORMAT(FROM_UNIXTIME(oe.timecreated), '%d-%m-%Y') AS fecha,
-      CASE
-      WHEN (oe.rol) = 1 THEN 'COLABORADOR'
-      WHEN (oe.rol) = 2 THEN 'JEFE INMEDIATO'
-      WHEN (oe.rol) = 3 THEN 'DIRECTOR'
-      ELSE 'SIN VALOR'
-      END AS rol,
-      gu.rol as rolfinal,
-      CASE
-      WHEN (oe.status) = 0 THEN 'CREADO'
-      WHEN (oe.status) = 1 THEN 'AUTORIZADO'
-      WHEN (oe.status) = 2 THEN 'REVISADO'
-      WHEN (oe.status) = 3 THEN 'FINALIZADO'
-      ELSE 'SIN VALOR'
-      END AS estatus
-      , og.id as idgrupo
-      from mdl_objective_establishment oe
-      inner join mdl_user u on u.id = oe.userid
-      inner join mdl_objective_groups_users gu on  gu.idusuario = oe.userid
-      inner join mdl_objective_groups og on og.id = gu.idgroup
-      where oe.courseid=? and oe.idinstance=? and oe.idmod=? and u.id != ? and og.id=? order by ncompleto asc";
 
-      $result = $DB->get_records_sql($esql, array($idcurso, $idinstancia, $idmodulo, $idjefeinmediato, $idgrupojefe));  
-      if(!empty($result)){
-      $display .= html_writer::start_tag('div', array('class' => 'container'));
-      $display .= html_writer::start_tag('table', array('class' => 'table table-striped'));
-      $display .= html_writer::start_tag('thead');
-      $display .= html_writer::start_tag('tr' , array('style' => 'background-color:  #878786; color: #fff;'));
-      $display .= html_writer::start_tag('th');
-      $display .= clean_text('<strong>Id usuario</strong>');
-      $display .= html_writer::end_tag('th');
-      $display .= html_writer::start_tag('th');
-      $display .= clean_text('<strong>Nombre Completo Colaborador</strong>');
-      $display .= html_writer::end_tag('th');
-      $display .= html_writer::start_tag('th');
-      $display .= clean_text('<strong>Email</strong>');
-      $display .= html_writer::end_tag('th');
-      $display .= html_writer::start_tag('th');
-      $display .= clean_text('<strong>Fecha</strong>');
-      $display .= html_writer::end_tag('th');
-      $display .= html_writer::start_tag('th');
-      $display .= clean_text('<strong>Rol</strong>');
-      $display .= html_writer::end_tag('th');
-      $display .= html_writer::start_tag('th');
-      $display .= clean_text('<strong>Estatus</strong>');
-      $display .= html_writer::end_tag('th');
-      $display .= html_writer::start_tag('th');
-      $display .= clean_text('<strong>Acciones</strong>');
-      $display .= html_writer::end_tag('th');
-      $display .= html_writer::end_tag('tr');
-      $display .= html_writer::end_tag('thead');
-      $display .= html_writer::start_tag('tbody');
-      foreach ($result as $valores) {
 
-        $display .= html_writer::start_tag('tr', array('style' => 'background-color: #d0cdcc;'));
-        $display .= html_writer::start_tag('td');
-        $display .= clean_text($valores->iduser);
-        $display .= html_writer::end_tag('td');
-        $display .= html_writer::start_tag('td');
-        $display .= clean_text($valores->ncompleto);
-        $display .= html_writer::end_tag('td');
-        $display .= html_writer::start_tag('td');
-        $display .= clean_text($valores->email);
-        $display .= html_writer::end_tag('td');
-        $display .= html_writer::start_tag('td');
-        $display .= clean_text($valores->fecha);
-        $display .= html_writer::end_tag('td');
-        $display .= html_writer::start_tag('td');
-        $display .= clean_text($valores->rol);
-        $display .= html_writer::end_tag('td');
-        $display .= html_writer::start_tag('td');
-        $display .= clean_text($valores->estatus);
-        $display .= html_writer::end_tag('td');
-        $display .= html_writer::start_tag('td');
-        $display .= html_writer::start_tag('a',array('class' => 'btn btn-info','href' => ''.$CFG->wwwroot.'/mod/objective/checkestablishment.php?courseid='.$valores->courseid.'&instance='.$valores->idmod.'&id='.$valores->id.''));
-        $display .= html_writer::start_tag('em', array('class' => 'fa fa-search'));
-        $display .= html_writer::end_tag('em');
-        $display .= html_writer::end_tag('a');
-        /*
-        $display .= html_writer::start_tag('a',array('class' => 'btn btn-info', 'data-toggle'=>'modal', 'href' => '#edit_establishment'.$valores->id.''));
-        $display .= html_writer::start_tag('em', array('class' => 'fa fa-pencil'));
-        $display .= html_writer::end_tag('em');
-        $display .= html_writer::end_tag('a');
-        $display .= html_writer::start_tag('a',array('class' => 'btn btn-danger', 'data-toggle'=>'modal', 'href' => '#delete_establishment'.$valores->id.''));
-        $display .= html_writer::start_tag('em', array('class' => 'fa fa-trash'));
-        $display .= html_writer::end_tag('em');
-        $display .= html_writer::end_tag('a');
-        */
-        //include('modals/modal.php');
-        $display .= html_writer::end_tag('td');
-        $display .= html_writer::end_tag('tr');
-    }
-}
-   $display .= html_writer::end_tag('tbody');
-   $display .= html_writer::end_tag('table');
-   $display .= html_writer::end_tag('div');
+      }else{
+                $esql="select oe.id, u.id as iduser, concat(u.firstname, ' ', u.lastname) as ncompleto, u.email, oe.courseid, oe.idmod, oe.idinstance,
+                DATE_FORMAT(FROM_UNIXTIME(oe.timecreated), '%d-%m-%Y') AS fecha,
+                CASE
+                WHEN (oe.rol) = 1 THEN 'COLABORADOR'
+                WHEN (oe.rol) = 2 THEN 'JEFE INMEDIATO'
+                WHEN (oe.rol) = 3 THEN 'DIRECTOR'
+                ELSE 'SIN VALOR'
+                END AS rol,
+                gu.rol as rolfinal,
+                CASE
+                WHEN (oe.status) = 0 THEN 'CREADO'
+                WHEN (oe.status) = 1 THEN 'AUTORIZADO'
+                WHEN (oe.status) = 2 THEN 'REVISADO'
+                WHEN (oe.status) = 3 THEN 'FINALIZADO'
+                ELSE 'SIN VALOR'
+                END AS estatus
+                , og.id as idgrupo
+                from mdl_objective_establishment oe
+                inner join mdl_user u on u.id = oe.userid
+                inner join mdl_objective_groups_users gu on  gu.idusuario = oe.userid
+                inner join mdl_objective_groups og on og.id = gu.idgroup
+                where oe.courseid=? and oe.idinstance=? and oe.idmod=? and u.id != ? and og.id=? order by ncompleto asc";
+
+                $result = $DB->get_records_sql($esql, array($idcurso, $idinstancia, $idmodulo, $idjefeinmediato, $idgrupojefe));  
+
+                $display .= html_writer::start_tag('div', array('class' => 'container'));
+                $display .= html_writer::start_tag('table', array('class' => 'table table-striped'));
+                $display .= html_writer::start_tag('thead');
+                $display .= html_writer::start_tag('tr' , array('style' => 'background-color:  #878786; color: #fff;'));
+                /*
+                $display .= html_writer::start_tag('th');
+                $display .= clean_text('<strong>Id usuario</strong>');
+                $display .= html_writer::end_tag('th');
+                */
+                $display .= html_writer::start_tag('th');
+                $display .= clean_text('<strong>Colaboradores</strong>');
+                $display .= html_writer::end_tag('th');
+                $display .= html_writer::start_tag('th');
+                $display .= clean_text('<strong>Email</strong>');
+                $display .= html_writer::end_tag('th');
+                $display .= html_writer::start_tag('th');
+                $display .= clean_text('<strong>Fecha</strong>');
+                $display .= html_writer::end_tag('th');
+                $display .= html_writer::start_tag('th');
+                $display .= clean_text('<strong>Rol</strong>');
+                $display .= html_writer::end_tag('th');
+                $display .= html_writer::start_tag('th');
+                $display .= clean_text('<strong>Estatus</strong>');
+                $display .= html_writer::end_tag('th');
+                $display .= html_writer::start_tag('th');
+                $display .= clean_text('<strong>Acciones</strong>');
+                $display .= html_writer::end_tag('th');
+                $display .= html_writer::end_tag('tr');
+                $display .= html_writer::end_tag('thead');
+                $display .= html_writer::start_tag('tbody');
+                foreach ($result as $valores) {
+
+                    $display .= html_writer::start_tag('tr', array('style' => 'background-color: #d0cdcc;'));
+                    /*
+                    $display .= html_writer::start_tag('td');
+                    $display .= clean_text($valores->iduser);
+                    $display .= html_writer::end_tag('td');
+                    */
+                    $display .= html_writer::start_tag('td');
+                    $display .= clean_text($valores->ncompleto);
+                    $display .= html_writer::end_tag('td');
+                    $display .= html_writer::start_tag('td');
+                    $display .= clean_text($valores->email);
+                    $display .= html_writer::end_tag('td');
+                    $display .= html_writer::start_tag('td');
+                    $display .= clean_text($valores->fecha);
+                    $display .= html_writer::end_tag('td');
+                    $display .= html_writer::start_tag('td');
+                    $display .= clean_text($valores->rol);
+                    $display .= html_writer::end_tag('td');
+                    $display .= html_writer::start_tag('td');
+                    $display .= clean_text($valores->estatus);
+                    $display .= html_writer::end_tag('td');
+                    $display .= html_writer::start_tag('td');
+                    $display .= html_writer::start_tag('a',array('class' => 'btn btn-info','href' => ''.$CFG->wwwroot.'/mod/objective/checkestablishment.php?courseid='.$valores->courseid.'&instance='.$valores->idmod.'&id='.$valores->id.''));
+                    $display .= html_writer::start_tag('em', array('class' => 'fa fa-search'));
+                    $display .= html_writer::end_tag('em');
+                    $display .= html_writer::end_tag('a');
+                    /*
+                    $display .= html_writer::start_tag('a',array('class' => 'btn btn-info', 'data-toggle'=>'modal', 'href' => '#edit_establishment'.$valores->id.''));
+                    $display .= html_writer::start_tag('em', array('class' => 'fa fa-pencil'));
+                    $display .= html_writer::end_tag('em');
+                    $display .= html_writer::end_tag('a');
+                    $display .= html_writer::start_tag('a',array('class' => 'btn btn-danger', 'data-toggle'=>'modal', 'href' => '#delete_establishment'.$valores->id.''));
+                    $display .= html_writer::start_tag('em', array('class' => 'fa fa-trash'));
+                    $display .= html_writer::end_tag('em');
+                    $display .= html_writer::end_tag('a');
+                    */
+                    //include('modals/modal.php');
+                    $display .= html_writer::end_tag('td');
+                    $display .= html_writer::end_tag('tr');
+                }
+  
+                    $display .= html_writer::end_tag('tbody');
+                    $display .= html_writer::end_tag('table');
+                     $display .= html_writer::end_tag('div');
+
+
+
+      }
+
 
       if($return) {
        return $display;

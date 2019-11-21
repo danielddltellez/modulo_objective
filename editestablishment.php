@@ -70,7 +70,7 @@ mf3.data
 FROM
 mdl_user_info_data mf3
 WHERE
-mf3.userid = u.id AND mf3.fieldid = 2) AS 'jefediecto', ogr.description as 'rol', oe.idjefedirecto as 'idjefe'
+mf3.userid = u.id AND mf3.fieldid = 2) AS 'jefediecto', ogr.description as 'rol', oe.idjefedirecto as 'idjefe',DATE_FORMAT(FROM_UNIXTIME(oe.timecreated), '%Y-%m-%d') AS fechaestab
 from mdl_user u 
 join mdl_user_info_data id on id.userid = u.id
 join mdl_user_info_field ii on ii.id = id.fieldid 
@@ -85,6 +85,7 @@ $idusuario='';
 $nombre='';
 $nombrejefe='';
 $rolprincipal='';
+$fechaestablecimiento='';
 foreach($result as $value){
 
                $idusuario=$value->iduser;
@@ -92,6 +93,8 @@ foreach($result as $value){
                $nombrejefe=$value->jefediecto;
                $rolprincipal=$value->rol;
                $idjefegrupo=$value->idjefe;
+               $fechaestablecimiento=$value->fechaestab;
+
 
            
 }
@@ -174,8 +177,15 @@ $vista .='<div id="vista1" class="w3-light-grey vistas">
                                         <div class="w3-col l4">
                                             <p></p>
                                         </div>
-                                        <div class="w3-col l4">
-                                        <input type="date" class="form-control"  value="'.$fcha.'"  disabled="yes">
+                                        <div class="w3-col l4">';
+                                        if($fechaestablecimiento=='' || $fechaestablecimiento==NULL){
+                                            $vista .='<input id="fechaobjetivo" type="date" class="form-control"  value="'.$fcha.'"  disabled="yes">';
+                                            
+                                        }else{
+                                            
+                                            $vista .='<input id="fechaobjetivo" type="date" class="form-control"  value="'.$fechaestablecimiento.'"  disabled="yes">';
+                                        }
+                                            $vista .='
                                             <!--<p>Fecha de establecimiento:<input type="text"></p>-->
                                             <!--<p>Fecha de establecimiento: <input type="text" id="datepicker"></p>-->
                                         </div>
@@ -311,30 +321,30 @@ $estatus=1;
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
-                        <p><input class="w3-input w3-border" type="text" placeholder="Ej. Rotación" id="que<?php echo $i;?>" name="que<?php echo $i;?>" value="<?php echo $valuecontrol->whatquestion; ?>"  data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Rotación" id="que<?php echo $i;?>" name="que<?php echo $i;?>" value="<?php echo $valuecontrol->whatquestion; ?>"  data-parsley-pattern="^[a-zA-Z ]+$"></p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">2. ¿Cómo se quiere medir?</p>
-                        <p><input class="w3-input w3-border" type="text" placeholder="Ej. Aumentar" id="como<?php echo $i;?>" name="como<?php echo $i;?>" value="<?php echo $valuecontrol->howquestion; ?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Aumentar" id="como<?php echo $i;?>" name="como<?php echo $i;?>" value="<?php echo $valuecontrol->howquestion; ?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">3. ¿Cuánto quieres que mida?</p>
-                        <p><input class="w3-input w3-border" type="text" placeholder="Ej. 10%" id="cuanto<?php echo $i;?>" name="cuanto<?php echo $i;?>" value="<?php echo $valuecontrol->thatquestion;?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. 10%" id="cuanto<?php echo $i;?>" name="cuanto<?php echo $i;?>" value="<?php echo $valuecontrol->thatquestion;?>"></p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">4. Especifica</p>
-                        <p><input class="w3-input w3-border" type="text" placeholder="Ej. Vacantes operativos" id="especifica<?php echo $i;?>" name="especifica<?php echo $i;?>" value="<?php echo $valuecontrol->specifyquestion;?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Vacantes operativos" id="especifica<?php echo $i;?>" name="especifica<?php echo $i;?>" value="<?php echo $valuecontrol->specifyquestion;?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">5. Periodo</p>
-                        <p><input class="w3-input w3-border" type="text" placeholder="Ej. Semestral" id="periodo<?php echo $i;?>" name="periodo<?php echo $i;?>" value="<?php echo $valuecontrol->periodquestion;?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Semestral" id="periodo<?php echo $i;?>" name="periodo<?php echo $i;?>" value="<?php echo $valuecontrol->periodquestion;?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
                     </div>
                 </div>
                 <div class="w3-row">
 
                     <div class="w3-col m12 w3-white w3-center">
                         <p class="text-oc">Objetivo Completo</p>
-                        <p><textarea class="w3-input w3-border" rows="4" cols="50" type="text" id="objetivocompleto<?php echo $i;?>" name="objetivocompleto<?php echo $i;?>"><?php echo $valuecontrol->objectivecomplete;?></textarea></p>
+                        <p><textarea class="w3-input w3-border" maxlength="250" rows="4" cols="50" type="text" id="objetivocompleto<?php echo $i;?>" name="objetivocompleto<?php echo $i;?>"><?php echo $valuecontrol->objectivecomplete;?></textarea></p>
                     </div>
                 </div>
                 <div class="row">
@@ -352,7 +362,7 @@ $estatus=1;
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">Valor del objetivo sobre 100</p>
-                        <p><input class="w3-input w3-border" type="text" id="valorobjetivo<?php echo $i;?>" name="valorobjetivo<?php echo $i;?>" data-parsley-type="number" value="<?php echo $valuecontrol->valueobjective;?>"></p>
+                        <p><input class="w3-input w3-border" maxlength="3" type="text" id="valorobjetivo<?php echo $i;?>" name="valorobjetivo<?php echo $i;?>" data-parsley-type="number" value="<?php echo $valuecontrol->valueobjective;?>"></p>
                     </div>
                 </div>
             </div>
@@ -395,29 +405,29 @@ $estatus=1;
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
-                        <p><input class="w3-input w3-border" type="text" placeholder="Ej. Rotación" id="que<?php echo $j;?>" name="que<?php echo $j;?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Rotación" id="que<?php echo $j;?>" name="que<?php echo $j;?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">2. ¿Cómo se quiere medir?</p>
-                        <p><input class="w3-input w3-border" type="text" placeholder="Ej. Aumentar" id="como<?php echo $j;?>" name="como<?php echo $j;?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Aumentar" id="como<?php echo $j;?>" name="como<?php echo $j;?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">3. ¿Cuánto quieres que mida?</p>
-                        <p><input class="w3-input w3-border" type="text" placeholder="Ej. 10%" id="cuanto<?php echo $j;?>" name="cuanto<?php echo $j;?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. 10%" id="cuanto<?php echo $j;?>" name="cuanto<?php echo $j;?>"></p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">4. Especifica</p>
-                        <p><input class="w3-input w3-border" type="text" placeholder="Ej. Vacantes operativos" id="especifica<?php echo $j;?>" name="especifica<?php echo $j;?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Vacantes operativos" id="especifica<?php echo $j;?>" name="especifica<?php echo $j;?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">5. Periodo</p>
-                        <p><input class="w3-input w3-border" type="text" placeholder="Ej. Semestral" id="periodo<?php echo $j;?>" name="periodo<?php echo $j;?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Semestral" id="periodo<?php echo $j;?>" name="periodo<?php echo $j;?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
                     </div>
                 </div>
                 <div class="w3-row">
                     <div class="w3-col m12 w3-white w3-center">
                         <p class="text-oc">Objetivo Completo</p>
-                        <p><textarea class="w3-input w3-border" rows="4" cols="50" type="text" id="objetivocompleto<?php echo $j;?>" name="objetivocompleto<?php echo $j;?>"></textarea></p>
+                        <p><textarea class="w3-input w3-border" maxlength="250" rows="4" cols="50" type="text" id="objetivocompleto<?php echo $j;?>" name="objetivocompleto<?php echo $j;?>"></textarea></p>
                     </div>
                 </div>
                 <div class="row">
@@ -431,11 +441,11 @@ $estatus=1;
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">Fecha final</p>
-                        <p><input class="w3-input w3-border" type="date" id="fechafinal<?php echo $j;?>" name="fechafinal<?php echo $j;?>" "></p>
+                        <p><input class="w3-input w3-border"  type="date" id="fechafinal<?php echo $j;?>" name="fechafinal<?php echo $j;?>" "></p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">Valor del objetivo sobre 100</p>
-                        <p><input class="w3-input w3-border" type="text" id="valorobjetivo<?php echo $j;?>" name="valorobjetivo<?php echo $j;?>" data-parsley-type="number"></p>
+                        <p><input class="w3-input w3-border" maxlength="3" type="text" id="valorobjetivo<?php echo $j;?>" name="valorobjetivo<?php echo $j;?>" data-parsley-type="number"></p>
                     </div>
                 </div>
                 </div>
@@ -443,7 +453,7 @@ $estatus=1;
             <?php
             }
     }
-    $envio .='<input type="submit" id="btnEnviar" name="btnEnviar"  value="Actualizar"></form><hr><p id="respuesta"></p> <!-- ESTABLECIMIENTO DE OBJETIVOS 6--></div><div class="w3-col l1"><p></p></div></div></div></div></div><div class="espacio"></div>';
+    $envio .='<button type="button" id="BTNvalida" class="button">Registrar Objetivos</button><br><input type="submit" id="btnEnviar" name="btnEnviar"  value="Actualizar"  style="display: none;"  disabled></form><hr><p id="respuesta"></p> <!-- ESTABLECIMIENTO DE OBJETIVOS 6--></div><div class="w3-col l1"><p></p></div></div></div></div></div><div class="espacio"></div>';
 //}
 //echo $establecimiento;
 echo $envio;
@@ -840,9 +850,7 @@ $(document).on('ready', function() {
         var ok = $('.parsley-error').length === 0;
         $('.bs-callout-info').toggleClass('hidden', !ok);
         $('.bs-callout-warning').toggleClass('hidden', ok);
-    })
-
-
+    });
     $("#establecimientoobj").bind("submit",function(){
         // Capturamnos el boton de envío
         var btnEnviar = $("#btnEnviar");
@@ -855,7 +863,7 @@ $(document).on('ready', function() {
                 * Esta función se ejecuta durante el envió de la petición al
                 * servidor.
                 * */
-                // btnEnviar.text("Enviando"); Para button 
+                // btnEnviar.text("Enviando"); Para button
                 btnEnviar.val("Enviando"); // Para input de tipo button
                 btnEnviar.attr("disabled","disabled");
             },
@@ -883,6 +891,7 @@ $(document).on('ready', function() {
         // Nos permite cancelar el envio del formulario
         return false;
     });
+
 
     function openCity(cityName) {
             var i;

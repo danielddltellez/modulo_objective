@@ -91,7 +91,7 @@ WHEN (oe.status) = 2 THEN 'REVISADO'
 WHEN (oe.status) = 3 THEN 'FINALIZADO'
 ELSE 'SIN VALOR'
 END AS estatus
-,og.id as idgrupo
+,og.id as idgrupo, oe.status, oe.idjefedirecto
 from mdl_objective_establishment oe
 inner join mdl_user u on u.id = oe.userid
 inner join mdl_objective_groups_users gu on  gu.idusuario = oe.userid and gu.rol = oe.rol
@@ -101,11 +101,10 @@ $viewestablishment = $DB->get_records_sql($sql, array($cm->course, $cm->instance
 //$viewestablishment = $DB->get_records_sql($sql, array());  
 //print_r($viewestablishment);
 
-$principal .='<head>
+echo '<head>
 <title>Establecimiento de objetivos</title>
 <meta charset="UTF-8">
-<meta name="title" content="Establecimiento de objetivos">
-<meta name="description" content="Descripción de la WEB">
+<meta name="Establecimiento de objetivos" content="Establecimiento de objetivos">
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
@@ -113,41 +112,33 @@ $principal .='<head>
 <ul class="nav nav-tabs">
 <li class="active"><a href="#tab1" data-toggle="tab">Mis Objetivos</a></li>';
 if (user_has_role_assignment($USER->id, 1) || is_siteadmin()) {          
-$principal .='<li><a href="#tab2" data-toggle="tab">Administrador</a></li>';
-
+echo '<li><a href="#tab2" data-toggle="tab">Administrador</a></li>';
 }
-$principal.='</ul>
-                <div class="tab-content">
-                     <div class="tab-pane active" id="tab1">';
-//$principal2 .='<p>Section 1</p></div>';
+echo '</ul><div class="tab-content">
+            <div class="tab-pane active" id="tab1">';
+            echo $principal;
+            if(empty($viewestablishment)){
+                echo $OUTPUT->render($btnestablishment);
+            }else{
+            
+            }
+            objective_print_establishment($viewestablishment);
+            echo '</div>';
+            if (user_has_role_assignment($USER->id, 1) || is_siteadmin()) {
+            echo '<div class="tab-pane" id="tab2">';
+            
+                echo $OUTPUT->render($button);
+                echo ('<br></br>');
+                echo $OUTPUT->render($btnivel);
+                echo ('<br></br>');
+                echo $OUTPUT->render($btnquiz);
+                echo ('<br></br>');
+                echo $OUTPUT->render($btncompetititon);
+                echo '</div>';
+                }
 
-$principio .='<div class="tab-pane" id="tab2">
-                        ';
 
-
-$principa2 .='</div></div></div>';
-
-
-echo $principal;
-if(empty($viewestablishment)){
-    echo $OUTPUT->render($btnestablishment);
-}else{
-
-}
-//echo $OUTPUT->render($btnestablishment);
-objective_print_establishment($viewestablishment);
-echo $principal2;
-echo $principio;
-if (user_has_role_assignment($USER->id, 1) || is_siteadmin()) {
-echo $OUTPUT->render($button);
-echo ('<br></br>');
-echo $OUTPUT->render($btnivel);
-echo ('<br></br>');
-echo $OUTPUT->render($btnquiz);
-echo ('<br></br>');
-echo $OUTPUT->render($btncompetititon);
-}
-echo $principa2;
+echo '</div></div>';
 
 echo $OUTPUT->footer($course);
 
