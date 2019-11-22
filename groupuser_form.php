@@ -44,7 +44,7 @@ class newgroupuser_form extends moodleform {
 
         if($result != null){
 
-            $validacion="select id from {objective_groups_users} where courseid=? and idgroup=? and rol=? and status=?";
+            $validacion="select id from mdl_objective_groups_users where courseid=? and idgroup=? and rol=? and status=?";
             $resultado = $DB->get_records_sql($validacion, array($COURSE->id, $idgrupo, 3, 0));
             if($resultado == NULL){
             
@@ -87,6 +87,7 @@ class newgroupuser_form extends moodleform {
                   
         }
 
+        
         $optionstatus = array(
                 
             '0' => 'HABILITADO',

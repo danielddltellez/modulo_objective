@@ -5,24 +5,10 @@
  }
  global $USER, $DB, $COURSE;
  
-//print_r($_POST);
+/*print_r($_POST);*/
 
 foreach($_POST as $k=>$v){
-    //echo "<h1> $producto </h1>";
-                    /*
-                echo"<br>";
-                echo $v2["idcompetencia"];
-                echo"<br>";
-                echo $v2["idcomportamiento"];
-                echo"<br>";
-                echo $v2["courseid"];
-                echo"<br>";
-                echo $v2["userid"];
-                echo"<br>";
-                echo $v2["idinstance"];
-                echo"<br>";
-                echo"nuevo";
-                echo"<br>";*/
+
  
     foreach($v as $k2 => $v2)
 	{
@@ -66,4 +52,5 @@ foreach($_POST as $k=>$v){
 
 
 }
+
 ?>

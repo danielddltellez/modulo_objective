@@ -233,6 +233,38 @@ function revAll(){
 }
 
 
+function promediaComp(inicio, tam){
+    var radioName="";
+//	alert($("input[name='valores[1][valor]']:checked").val());
+    tam=inicio+tam;
+	var valorfinal="valorfinal"+tam;
+	var valorfinalvista="valorfinalvista"+tam;
+	var prom=contadorc=0;
+	for(var i=inicio; i<tam; i++){
+//		radioName="valores["+i+"][valor]";
+//		alert($("input[name='"+radioName+"']:checked").val());
+//        alert($("input[name1='"+i+"']:checked").val());
+//        if($("input[name1='"+radioName+"']:checked").val() >= 1 || $("input[name='"+radioName+"']:checked").val() <=4){
+        if($("input[name1='"+i+"']:checked").val() >= 1 || $("input[name1='"+i+"']:checked").val() <=4){
+//			prom=parseInt(prom)+parseInt($("input[name='"+radioName+"']:checked").val());
+			prom=parseInt(prom)+parseInt($("input[name1='"+i+"']:checked").val());
+			contadorc++;
+		}
+	}
+	if(contadorc>0){
+		prom=prom/contadorc;
+		$("input[name1='"+valorfinal+"']").val(prom);
+		$("input[name1='"+valorfinalvista+"']").val(prom);	
+	}
+}
+
+function validaCompetencias(obj, inicio, tam){
+//	pc=parseFloat($("input[name1='"+obj+"']").val());
+//	if(pc<1 || pc>4){
+		promediaComp(inicio, tam);
+//	}
+}
+
 
 
 
@@ -261,6 +293,7 @@ $(document).on('ready', function() {
         revFechaI(4);
     });
 	$("#fechafinal4").change(function() {
+
         revFechaI(4);
     });
 	$("#fechainicio5").change(function() {
@@ -400,10 +433,178 @@ $(document).on('ready', function() {
     });
 	
 	
-	$( "#BTNvalida" ).click(function() {
+	$("#BTNvalida").click(function() {
 		revAll();
     });
 	
+	
+	//Evento para promediar competencias Comunicación Natural
+	$("input[name1='1']").change(function(){
+		promediaComp(1,4);
+    });
+	$("input[name1='2']").change(function(){
+		promediaComp(1,4);
+    });
+	$("input[name1='3']").change(function(){
+		promediaComp(1,4);
+    });
+	$("input[name1='4']").change(function(){
+		promediaComp(1,4);
+    });
+	$("input[name1='valorfinal5']").change(function(){
+		validaCompetencias('valorfinal5',1,4);
+    });
+		$("input[name1='valorfinalvista5']").change(function(){
+		validaCompetencias('valorfinalvista5',1,4);
+    });
+	
+	
+	$("input[name1='7']").change(function(){
+		promediaComp(7,3);
+    });
+	$("input[name1='8']").change(function(){
+		promediaComp(7,3);
+    });
+	$("input[name1='9']").change(function(){
+		promediaComp(7,3);
+    });
+    $("input[name1='valorfinal10']").change(function(){
+		validaCompetencias('valorfinal10',7,3);
+    });
+	$("input[name1='valorfinalvista10']").change(function(){
+		validaCompetencias('valorfinalvista10',7,3);
+    });
+	
+	
+	
+	
+	$("input[name1='12']").change(function(){
+		promediaComp(12,3);
+    });
+	$("input[name1='13']").change(function(){
+		promediaComp(12,3);
+    });
+	$("input[name1='14']").change(function(){
+		promediaComp(12,3);
+    });
+    $("input[name1='valorfinal15']").change(function(){
+		validaCompetencias('valorfinal15',12,3);
+    });
+	$("input[name1='valorfinalvista15']").change(function(){
+		validaCompetencias('valorfinalvista15',12,3);
+    });
+
+
+
+	$("input[name1='17']").change(function(){
+		promediaComp(17,3);
+    });
+	$("input[name1='18']").change(function(){
+		promediaComp(17,3);
+    });
+	$("input[name1='19']").change(function(){
+		promediaComp(17,3);
+    });
+    $("input[name1='valorfinal20']").change(function(){
+		validaCompetencias('valorfinal20',17,3);
+    });
+    $("input[name1='valorfinalvista20']").change(function(){
+		validaCompetencias('valorfinalvista20',17,3);
+    });
+
+
+	$("input[name1='22']").change(function(){
+		promediaComp(22,3);
+    });
+	$("input[name1='23']").change(function(){
+		promediaComp(22,3);
+    });
+	$("input[name1='24']").change(function(){
+		promediaComp(22,3);
+    });
+    $("input[name1='valorfinal25']").change(function(){
+		validaCompetencias('valorfinal25',22,3);
+    });
+    $("input[name1='valorfinalvista25']").change(function(){
+		validaCompetencias('valorfinalvista25',22,3);
+    });
+	
+	
+	$("input[name1='27']").change(function(){
+		promediaComp(27,3);
+    });
+	$("input[name1='28']").change(function(){
+		promediaComp(27,3);
+    });
+	$("input[name1='29']").change(function(){
+		promediaComp(27,3);
+    });
+    $("input[name1='valorfinal30']").change(function(){
+		validaCompetencias('valorfinal30',27,3);
+    });
+	$("input[name1='valorfinalvista30']").change(function(){
+		validaCompetencias('valorfinalvista30',27,3);
+    });
+
+	
+	//Competencias para Gestor
+	$("input[name1='32']").change(function(){
+		promediaComp(32,3);
+    });
+	$("input[name1='33']").change(function(){
+		promediaComp(32,3);
+    });
+	$("input[name1='34']").change(function(){
+		promediaComp(32,3);
+    });
+    $("input[name1='valorfinal35']").change(function(){
+		validaCompetencias('valorfinal35',32,3);
+    });
+    $("input[name1='valorfinalvista35']").change(function(){
+		validaCompetencias('valorfinalvista35',32,3);
+    });
+	
+	
+	$("input[name1='37']").change(function(){
+		promediaComp(37,3);
+    });
+	$("input[name1='38']").change(function(){
+		promediaComp(37,3);
+    });
+	$("input[name1='39']").change(function(){
+		promediaComp(37,3);
+    });
+    $("input[name1='valorfinal40']").change(function(){
+		validaCompetencias('valorfinal40',37,3);
+    });
+    $("input[name1='valorfinalvista40']").change(function(){
+		validaCompetencias('valorfinalvista40',37,3);
+    });
+	
+	
+	$("input[name1='42']").change(function(){
+		promediaComp(42,4);
+    });
+	$("input[name1='43']").change(function(){
+		promediaComp(42,4);
+    });
+	$("input[name1='44']").change(function(){
+		promediaComp(42,4);
+    });
+	$("input[name1='45']").change(function(){
+		promediaComp(42,4);
+    });
+	$("input[name1='valorfinal46']").change(function(){
+		validaCompetencias('valorfinal46',42,4);
+    });
+	$("input[name1='valorfinalvista46']").change(function(){
+		validaCompetencias('valorfinalvista46',42,4);
+    });
+	
+	
+	$("#BTNvalida1").click(function() {
+		validaCompetencias();
+    });
 });
 
 

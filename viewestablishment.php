@@ -50,6 +50,7 @@ $modulecontext = context_module::instance($cm->id);
     <meta charset="UTF-8">
     <meta name="title" content="Establecimiento de objetivos">
     <meta name="description" content="Descripción de la WEB">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="./css/w3.css"  rel="stylesheet">
     <link href="./css/select2.min.css" rel="stylesheet" />
     <link href="./css/style.css" rel="stylesheet" />
@@ -391,35 +392,35 @@ $establecimiento .='<form id="establecimientoobj" method="POST" action="envio.ph
                                 <input type="hidden" id="courseid'.$i.'" name="courseid'.$i.'" value="'.$courseid.'" '.$requerido.'>
                                 <input type="hidden" id="idobjetivo'.$i.'" name="idobjetivo'.$i.'" value="'.$id.'" '.$requerido.'>
                                 <div class="w3-col m2 w3-white w3-center">
-                                    <p class="text-cuestion">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
+                                    <p class="text-cuestion" style="font-size:10px;">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
                                     <!--<p><input  class="w3-input w3-border" type="text"></p>-->
-                                    <p>'.$valuecontrol->targetnumber.'</p>
+                                    <p class="w3-input w3-border" style="margin-top: 19px;">'.$valuecontrol->targetnumber.'</p>
                                 </div>
                                 <div class="w3-col m2 w3-white w3-center">
                                     <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
-                                    <p>'.$valuecontrol->whatquestion.'</p>
+                                    <p class="w3-input w3-border">'.$valuecontrol->whatquestion.'</p>
                                 </div>
                                 <div class="w3-col m2 w3-white w3-center">
                                     <p class="text-cuestion">2. ¿Cómo se quiere medir?</p>
-                                    <p>'.$valuecontrol->howquestion.'</p>
+                                    <p class="w3-input w3-border">'.$valuecontrol->howquestion.'</p>
                                 </div>
                                 <div class="w3-col m2 w3-white w3-center">
                                     <p class="text-cuestion">3. ¿Cuánto quieres que mida?</p>
-                                    <p>'.$valuecontrol->thatquestion.'</p>
+                                    <p class="w3-input w3-border">'.$valuecontrol->thatquestion.'</p>
                                 </div>
                                 <div class="w3-col m2 w3-white w3-center">
                                     <p class="text-cuestion">4. ¿Cómo se quiere medir?</p>
-                                    <p>'.$valuecontrol->specifyquestion.'</p>
+                                    <p class="w3-input w3-border">'.$valuecontrol->specifyquestion.'</p>
                                 </div>
                                 <div class="w3-col m2 w3-white w3-center">
                                     <p class="text-cuestion">5. ¿Cuánto quieres que mida?</p>
-                                    <p>'.$valuecontrol->periodquestion.'</p>
+                                    <p class="w3-input w3-border">'.$valuecontrol->periodquestion.'</p>
                                 </div>
                             </div>
                             <div class="w3-row">
                                 <div class="w3-col m12 w3-white w3-center">
                                     <p class="text-oc">Objetivo Completo</p>
-                                    <p>'.$valuecontrol->objectivecomplete.'</p>
+                                    <p class="w3-input w3-border">'.$valuecontrol->objectivecomplete.'</p>
                                 </div>
                             </div>
                             <div class="row">
@@ -429,15 +430,15 @@ $establecimiento .='<form id="establecimientoobj" method="POST" action="envio.ph
                                 </div>
                                 <div class="w3-col m2 w3-white w3-center">
                                     <p class="text-cuestion">Fecha inicial</p>
-                                    <p>'.$valuecontrol->fechaini.'</p>
+                                    <p class="w3-input w3-border">'.$valuecontrol->fechaini.'</p>
                                 </div>
                                 <div class="w3-col m2 w3-white w3-center">
                                     <p class="text-cuestion">Fecha final</p>
-                                    <p>'.$valuecontrol->fechafin.'</p>
+                                    <p class="w3-input w3-border">'.$valuecontrol->fechafin.'</p>
                                 </div>
                                 <div class="w3-col m2 w3-white w3-center">
                                     <p class="text-cuestion">Valor del objetivo sobre 100</p>
-                                    <p>'.$valuecontrol->valueobjective.'%</p>
+                                    <p class="w3-input w3-border">'.$valuecontrol->valueobjective.'%</p>
                                 </div>
                             </div>
                         </div>
@@ -954,120 +955,120 @@ if($estatusa==1 || $estatusa==2){
         $cont=$valuecontrol->contador;
         $actionp=$valuecontrol->actionp;
         $establecimientorevision .='<div id="revisionobjetivos'.$cont.'">
-        <div class="w3-row">
-            <div class="w3-col l8 w3-dark-grey">
-                <p>Breve descripción del objetivo '.$cont.'</p>
-            </div>
-            <div class="w3-col l2">
-                <p></p>
-            </div>
-            <div class="w3-col l2">
-                <p></p>
-            </div>
-        </div>
-        <div class="w3-row">
-            <input type="hidden" id="id'.$cont.'" name="idobjestablecido'.$cont.'" value="'.$valuecontrol->id.'" '.$requeridcolaborador.'>
-            <input type="hidden" id="userid'.$cont.'" name="userid'.$cont.'" value="'.$USER->id.'" '.$requeridcolaborador.'>
-            <input type="hidden" id="courseid'.$cont.'" name="courseid'.$cont.'" value="'.$courseid.'" '.$requeridcolaborador.'>
-            <input type="hidden" id="idobjetivo'.$cont.'" name="idobjetivo'.$cont.'" value="'.$id.'" '.$requeridcolaborador.'>
-            <div class="w3-col m2 w3-white w3-center">
-                <p class="text-cuestion">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
-            <!--<p><input  class="w3-input w3-border" type="text"></p>-->
-                <p>'.$valuecontrol->targetnumber.'</p>
-            </div>
-            <div class="w3-col m2 w3-white w3-center">
-                <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
-                <p>'.$valuecontrol->whatquestion.'</p>
-            </div>
-            <div class="w3-col m2 w3-white w3-center">
-                <p class="text-cuestion">2. ¿Cómo se quiere medir?</p>
-                <p>'.$valuecontrol->howquestion.'</p>
-            </div>
-            <div class="w3-col m2 w3-white w3-center">
-                <p class="text-cuestion">3. ¿Cuánto quieres que mida?</p>
-                <p>'.$valuecontrol->thatquestion.'</p>
-            </div>
-            <div class="w3-col m2 w3-white w3-center">
-                <p class="text-cuestion">4. ¿Cómo se quiere medir?</p>
-                <p>'.$valuecontrol->specifyquestion.'</p>
-            </div>
-            <div class="w3-col m2 w3-white w3-center">
-                <p class="text-cuestion">5. ¿Cuánto quieres que mida?</p>
-                <p>'.$valuecontrol->periodquestion.'</p>
-            </div>
-        </div>
-        <div class="w3-row">
-            <div class="w3-col m12 w3-white w3-center">
-                <p class="text-oc">Objetivo Completo</p>
-                <p>'.$valuecontrol->objectivecomplete.'</p>
-            </div>
-        </div>
-        <div class="row">
-            <div class="w3-col m6 w3-white w3-center">
-                <p class="text-cuestion" style="height: 33px;"></p>
-                <p class="w3-input" style="background-color: #ffffff; border-bottom: 1px solid #ffff;"><br></p>
-            </div>
-            <div class="w3-col m2 w3-white w3-center">
-                <p class="text-cuestion">Fecha inicial</p>
-                <p>'.$valuecontrol->fechaini.'</p>
-            </div>
-            <div class="w3-col m2 w3-white w3-center">
-                <p class="text-cuestion">Fecha final</p>
-                <p>'.$valuecontrol->fechafin.'</p>
-            </div>
-            <div class="w3-col m2 w3-white w3-center">
-                <p class="text-cuestion">Valor del objetivo sobre 100</p>
-                <p>'.$valuecontrol->valueobjective.'%</p>
-            </div>
-        </div><!--aqui empieza-->
-        <div class="w3-row">
-            <div class="w3-col m5 w3-white w3-center">
-                <div class="w3-row">
-                    <div class="w3-col m6 w3-white w3-center">
-                        <p class="text-cuestion">Qué acciones he implementado:</p>';
-                        if(empty($actionp)){
-                            $establecimientorevision .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="racciones'.$cont.'" name="racciones'.$cont.'" '.$requeridcolaborador.'></textarea></p>';
-                        }else{
-                            $establecimientorevision .='<p class="w3-input w3-border">'.$actionp.'</p>';
-                        }
-                        $establecimientorevision .='</div>
-                    <div class="w3-col m6 w3-white w3-center">
-                        <p class="text-cuestion">Acciones para los siguientes 6 meses:</p>';
-                        if(empty($valuecontrol->actions)){
-                            $establecimientorevision .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rmeses'.$cont.'" name="rmeses'.$cont.'" '.$requeridcolaborador.'></textarea></p>';
-                        }else{
-                            $establecimientorevision .='<p class="w3-input w3-border">'.$valuecontrol->actions.'</p>';
-                        }
-                        
-                        $establecimientorevision .='</div>
-                </div>
-            </div>
-            <div class="w3-col m2 w3-white w3-center">
-                <p class="text-cuestion" style="height: 68px;">Retroalimentación de mi jefe: </p>
-                <p class="text-cuestion"><br></p>
-            </div>
-            <div class="w3-col m5 w3-white w3-center">
-            <div class="w3-row">
-            <div class="w3-col m6 w3-white w3-center">
-                <p class="text-cuestion">Cometarios sobre acciones ya implementadas:</p>';
-                if(empty($valuecontrol->bossc)){
-                    $establecimientorevision .='<p class="w3-input w3-border"></p>';
-                }else{
-                    $establecimientorevision .='<p class="w3-input w3-border">'.$valuecontrol->bossc.'</p>';
-                }
-                $establecimientorevision .='</div>
-            <div class="w3-col m6 w3-white w3-center">
-                <p class="text-cuestion">Sugerencias sobre acciones a implementar:</p>';
-                if(empty($valuecontrol->bosss)){
-                    $establecimientorevision .='<p class="w3-input w3-border"></p>';
-                }else{
-                    $establecimientorevision .='<p class="w3-input w3-border">'.$valuecontrol->bosss.'</p>';
-                }
-                $establecimientorevision .='</div>
-            </div>
-            </div>
-        </div>
-        </div>';
+                                    <div class="w3-row">
+                                        <div class="w3-col l8 w3-dark-grey">
+                                            <p>Breve descripción del objetivo '.$cont.'</p>
+                                        </div>
+                                        <div class="w3-col l2">
+                                            <p></p>
+                                        </div>
+                                        <div class="w3-col l2">
+                                            <p></p>
+                                        </div>
+                                    </div>
+                                    <div class="w3-row">
+                                        <input type="hidden" id="id'.$cont.'" name="idobjestablecido'.$cont.'" value="'.$valuecontrol->id.'" '.$requeridcolaborador.'>
+                                        <input type="hidden" id="userid'.$cont.'" name="userid'.$cont.'" value="'.$USER->id.'" '.$requeridcolaborador.'>
+                                        <input type="hidden" id="courseid'.$cont.'" name="courseid'.$cont.'" value="'.$courseid.'" '.$requeridcolaborador.'>
+                                        <input type="hidden" id="idobjetivo'.$cont.'" name="idobjetivo'.$cont.'" value="'.$id.'" '.$requeridcolaborador.'>
+                                        <div class="w3-col m2 w3-white w3-center">
+                                            <p class="text-cuestion" style="font-size:10px;">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
+                                        <!--<p><input  class="w3-input w3-border" type="text"></p>-->
+                                            <p class="w3-input w3-border" style="margin-top: 19px;">'.$valuecontrol->targetnumber.'</p>
+                                        </div>
+                                        <div class="w3-col m2 w3-white w3-center">
+                                            <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
+                                            <p class="w3-input w3-border">'.$valuecontrol->whatquestion.'</p>
+                                        </div>
+                                        <div class="w3-col m2 w3-white w3-center">
+                                            <p class="text-cuestion">2. ¿Cómo se quiere medir?</p>
+                                            <p class="w3-input w3-border">'.$valuecontrol->howquestion.'</p>
+                                        </div>
+                                        <div class="w3-col m2 w3-white w3-center">
+                                            <p class="text-cuestion">3. ¿Cuánto quieres que mida?</p>
+                                            <p class="w3-input w3-border">'.$valuecontrol->thatquestion.'</p>
+                                        </div>
+                                        <div class="w3-col m2 w3-white w3-center">
+                                            <p class="text-cuestion">4. ¿Cómo se quiere medir?</p>
+                                            <p class="w3-input w3-border">'.$valuecontrol->specifyquestion.'</p>
+                                        </div>
+                                        <div class="w3-col m2 w3-white w3-center">
+                                            <p class="text-cuestion">5. ¿Cuánto quieres que mida?</p>
+                                            <p class="w3-input w3-border">'.$valuecontrol->periodquestion.'</p>
+                                        </div>
+                                    </div>
+                                    <div class="w3-row">
+                                        <div class="w3-col m12 w3-white w3-center">
+                                            <p class="text-oc">Objetivo Completo</p>
+                                            <p class="w3-input w3-border">'.$valuecontrol->objectivecomplete.'</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="w3-col m6 w3-white w3-center">
+                                            <p class="text-cuestion" style="height: 33px;"></p>
+                                            <p class="w3-input" style="background-color: #ffffff; border-bottom: 1px solid #ffff;"><br></p>
+                                        </div>
+                                        <div class="w3-col m2 w3-white w3-center">
+                                            <p class="text-cuestion">Fecha inicial</p>
+                                            <p class="w3-input w3-border">'.$valuecontrol->fechaini.'</p>
+                                        </div>
+                                        <div class="w3-col m2 w3-white w3-center">
+                                            <p class="text-cuestion">Fecha final</p>
+                                            <p class="w3-input w3-border">'.$valuecontrol->fechafin.'</p>
+                                        </div>
+                                        <div class="w3-col m2 w3-white w3-center">
+                                            <p class="text-cuestion">Valor del objetivo sobre 100</p>
+                                            <p class="w3-input w3-border">'.$valuecontrol->valueobjective.'%</p>
+                                        </div>
+                                    </div><!--aqui empieza-->
+                                    <div class="w3-row">
+                                        <div class="w3-col m5 w3-white w3-center">
+                                            <div class="w3-row">
+                                                <div class="w3-col m6 w3-white w3-center">
+                                                    <p class="text-cuestion">Qué acciones he implementado:</p>';
+                                                    if(empty($actionp)){
+                                                        $establecimientorevision .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="racciones'.$cont.'" name="racciones'.$cont.'" '.$requeridcolaborador.'></textarea></p>';
+                                                    }else{
+                                                        $establecimientorevision .='<p class="w3-input w3-border">'.$actionp.'</p>';
+                                                    }
+                                                    $establecimientorevision .='</div>
+                                                <div class="w3-col m6 w3-white w3-center">
+                                                    <p class="text-cuestion">Acciones para los siguientes 6 meses:</p>';
+                                                    if(empty($valuecontrol->actions)){
+                                                        $establecimientorevision .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rmeses'.$cont.'" name="rmeses'.$cont.'" '.$requeridcolaborador.'></textarea></p>';
+                                                    }else{
+                                                        $establecimientorevision .='<p class="w3-input w3-border">'.$valuecontrol->actions.'</p>';
+                                                    }
+                                                    
+                                                    $establecimientorevision .='</div>
+                                            </div>
+                                        </div>
+                                        <div class="w3-col m2 w3-white w3-center">
+                                            <p class="text-cuestion" style="height: 68px;">Retroalimentación de mi jefe: </p>
+                                            <p class="text-cuestion"><br></p>
+                                        </div>
+                                        <div class="w3-col m5 w3-white w3-center">
+                                        <div class="w3-row">
+                                        <div class="w3-col m6 w3-white w3-center">
+                                            <p class="text-cuestion">Cometarios sobre acciones ya implementadas:</p>';
+                                            if(empty($valuecontrol->bossc)){
+                                                $establecimientorevision .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rimplementadas'.$cont.'" name="rimplementadas'.$cont.'" disabled></textarea></p>';
+                                            }else{
+                                                $establecimientorevision .='<p class="w3-input w3-border">'.$valuecontrol->bossc.'</p>';
+                                            }
+                                            $establecimientorevision .='</div>
+                                        <div class="w3-col m6 w3-white w3-center">
+                                            <p class="text-cuestion">Sugerencias sobre acciones a implementar:</p>';
+                                            if(empty($valuecontrol->bosss)){
+                                                $establecimientorevision .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rimplementar'.$cont.'" name="rimplementar'.$cont.'" disabled></textarea></p>';
+                                            }else{
+                                                $establecimientorevision .='<p class="w3-input w3-border">'.$valuecontrol->bosss.'</p>';
+                                            }
+                                            $establecimientorevision .='</div>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </div>';
 
         }
 
@@ -1448,7 +1449,7 @@ if($estatusa==2){
                 $establecimientorevisionfinal .='<div id="revisionobjetivos'.$contfinal.'">
                 <div class="w3-row">
                     <div class="w3-col l8 w3-dark-grey">
-                        <p>Breve descripción del objetivo '.$cont.'</p>
+                        <p>Breve descripción del objetivo '.$contfinal.'</p>
                     </div>
                     <div class="w3-col l2">
                         <p></p>
@@ -1463,49 +1464,49 @@ if($estatusa==2){
                     <input type="hidden" id="courseid'.$contfinal.'" name="courseidfinal'.$contfinal.'" value="'.$courseid.'" '.$requeridcolaborador.'>
                     <input type="hidden" id="idobjetivo'.$contfinal.'" name="idobjetivofinal'.$contfinal.'" value="'.$id.'" '.$requeridcolaborador.'>
                     <div class="w3-col m2 w3-white w3-center">
-                        <p class="text-cuestion">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
+                        <p class="text-cuestion" style="font-size:10px;">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
                     <!--<p><input  class="w3-input w3-border" type="text"></p>-->
-                        <p>'.$valuecontrol->targetnumber.'</p>
+                        <p class="w3-input w3-border" style="margin-top: 19px;">'.$valuecontrol->targetnumber.'</p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
-                        <p>'.$valuecontrol->whatquestion.'</p>
+                        <p class="w3-input w3-border">'.$valuecontrol->whatquestion.'</p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">2. ¿Cómo se quiere medir?</p>
-                        <p>'.$valuecontrol->howquestion.'</p>
+                        <p class="w3-input w3-border">'.$valuecontrol->howquestion.'</p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">3. ¿Cuánto quieres que mida?</p>
-                        <p>'.$valuecontrol->thatquestion.'</p>
+                        <p class="w3-input w3-border">'.$valuecontrol->thatquestion.'</p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">4. ¿Cómo se quiere medir?</p>
-                        <p>'.$valuecontrol->specifyquestion.'</p>
+                        <p class="w3-input w3-border">'.$valuecontrol->specifyquestion.'</p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">5. ¿Cuánto quieres que mida?</p>
-                        <p>'.$valuecontrol->periodquestion.'</p>
+                        <p class="w3-input w3-border">'.$valuecontrol->periodquestion.'</p>
                     </div>
                 </div>
                 <div class="w3-row">
                     <div class="w3-col m12 w3-white w3-center">
                         <p class="text-oc">Objetivo Completo</p>
-                        <p>'.$valuecontrol->objectivecomplete.'</p>
+                        <p class="w3-input w3-border">'.$valuecontrol->objectivecomplete.'</p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="w3-col m3 w3-white w3-center">
                         <p class="text-cuestion">Fecha inicial</p>
-                        <p>'.$valuecontrol->fechaini.'</p>
+                        <p class="w3-input w3-border">'.$valuecontrol->fechaini.'</p>
                     </div>
                     <div class="w3-col m3 w3-white w3-center">
                         <p class="text-cuestion">Fecha final</p>
-                        <p>'.$valuecontrol->fechafin.'</p>
+                        <p class="w3-input w3-border">'.$valuecontrol->fechafin.'</p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">Valor del objetivo sobre 100</p>
-                        <p>'.$valuecontrol->valueobjective.'%</p>
+                        <p class="w3-input w3-border">'.$valuecontrol->valueobjective.'%</p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">Auto - Evaluación final</p>';
