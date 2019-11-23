@@ -251,8 +251,8 @@ $vista .='<div id="vista1" class="w3-light-grey vistas">
                                             <p></p>
                                         </div>
                                         <div class="w3-col l10 w3-center">
-                                            <p>Este apartado está estrechamente ligado con el rubro de objetivos del puesto de trabajo; con esta evaluación conoceremos en qué medida se logran. Es importante que consideres los objetivos de tu jefe inmediato que te presentamos a
-                                                continuación: *No todos deberán </p>
+                                            <p>Este apartado está estrechamente ligado con el rubro de objetivos del puesto de trabajo con esta evaluación conoceremos en qué medida se logran.</p><p> Es importante que consideres los objetivos de tu jefe inmediato que te presentamos a
+                                                continuación:</p><p> *No todos deberán </p>
                                         </div>
                                         <div class="w3-col l1">
                                             <p></p>
@@ -458,24 +458,24 @@ $competencias1 .='<div class="w3-container">
                         <div class="w3-col l10">
                             <div class="w3-container">
                 ';
-$colaboradortemp.='<div class="w3-row">
+$colaboradortemp.='<div class="espacio"></div><div class="w3-row">
                             <div class="w3-round-xlarge w3-col l3 w3-pale-red w3-center">
                             <p>2a.Parte</p>
                             </div>
                             <div class="w3-round-xlarge w3-col l9 w3-dark-grey w3-center">
                                 <p>Evaluación de competencias</p>
                             </div>
-                    </div>';
-$jefetemp.='<div class="w3-row">
+                    </div><div class="espacio"></div>';
+$jefetemp.='<div class="espacio"></div><div class="w3-row">
                 <div class="w3-round-xlarge w3-col l12 w3-dark-grey w3-center">
                     <p>Si eres Gestor de Personal, se te evaluarán las siguientes competencias de liderazgo.</p>
                 </div>
-            </div>';
-$director.='<div class="w3-row">
+            </div><div class="espacio"></div>';
+$director.='<div class="espacio"></div><div class="w3-row">
                 <div class="w3-round-xlarge w3-col l12 w3-dark-grey w3-center">
                     <p>Si eres Director, la siguiente competencia también será evaluada.</p>
                 </div>
-            </div>';
+            </div><div class="espacio"></div>';
 $competencias2 .=' </div>
                         </div>
                         </div>
@@ -925,7 +925,7 @@ if($estatusa==1 || $estatusa==2){
                                         <p></p>
                                     </div>
                                     <div class="w3-col l10 w3-center">
-                                        <p>Este apartado está estrechamente ligado con el rubro de objetivos del puesto de trabajo; con esta evaluación conoceremos en qué medida se logran.</p>
+                                        <p>Este apartado está estrechamente ligado con el rubro de objetivos del puesto de trabajo con esta evaluación conoceremos en qué medida se logran.</p>
                                     </div>
                                     <div class="w3-col l1">
                                         <p></p>

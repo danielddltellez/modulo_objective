@@ -24,11 +24,11 @@ $record1-> enddate = strtotime($_POST['fechafinal1']);
 $record1-> valueobjective = $_POST['valorobjetivo1'];
 try{
 $lastinsertid1 = $DB->update_record('objective_establishment_captured', $record1, $bulk=false);
-echo 'OBJETIVO 1 ACTUALIZADO';
+//echo 'OBJETIVO 1 ACTUALIZADO';
 
 } catch(\Throwable $e) {
     // PHP 7 
-echo 'ERROR AL ACTUALIZAR OBJETIVO 1';
+//echo 'ERROR AL ACTUALIZAR OBJETIVO 1';
 } 
 }
 
@@ -53,11 +53,11 @@ $record2-> valueobjective = $_POST['valorobjetivo2'];
 try{
 $lastinsertid2 = $DB->update_record('objective_establishment_captured', $record2, $bulk=false);
 
-echo 'OBJETIVO 2 ACTUALIZADO';
+//echo 'OBJETIVO 2 ACTUALIZADO';
 
 } catch(\Throwable $e) {
     // PHP 7 
-echo 'ERROR AL ACTUALIZAR OBJETIVO 2';
+//echo 'ERROR AL ACTUALIZAR OBJETIVO 2';
 } 
 
 }
@@ -81,10 +81,10 @@ $record3-> valueobjective = $_POST['valorobjetivo3'];
 
 try{
 $lastinsertid3 = $DB->update_record('objective_establishment_captured', $record3, $bulk=false);
-echo 'OBJETIVO 3 ACTUALIZADO';
+//echo 'OBJETIVO 3 ACTUALIZADO';
 }catch(\Throwable $e) {
     // PHP 7 
-echo 'ERROR AL ACTUALIZAR OBJETIVO 3';
+//echo 'ERROR AL ACTUALIZAR OBJETIVO 3';
 } 
 }
 if(isset($_POST['idobj4'])){
@@ -106,10 +106,10 @@ $record4-> valueobjective = $_POST['valorobjetivo4'];
 
 try{
 $lastinsertid4 = $DB->update_record('objective_establishment_captured', $record4, $bulk=false);
-echo 'OBJETIVO 4 ACTUALIZADO';
+echo 'enviado correctamente';
 }catch(\Throwable $e) {
     // PHP 7 
-echo 'ERROR AL ACTUALIZAR OBJETIVO 4';
+echo 'Error al actualizar';
 } 
 }
 if(isset($_POST['idobj5'])){
@@ -130,10 +130,10 @@ $record5-> enddate = strtotime($_POST['fechafinal5']);
 $record5-> valueobjective = $_POST['valorobjetivo5'];
 try{
 $lastinsertid5 = $DB->update_record('objective_establishment_captured', $record5, $bulk=false);
-echo 'OBJETIVO 5 ACTUALIZADO';
+//echo 'OBJETIVO 5 ACTUALIZADO';
 }catch(\Throwable $e) {
     // PHP 7 
-echo 'ERROR AL ACTUALIZAR OBJETIVO 5';
+//echo 'ERROR AL ACTUALIZAR OBJETIVO 5';
 } 
 
 }else if($_POST['objetivocompleto5'] != NULL && $_POST['valorobjetivo5'] != NULL){
@@ -181,10 +181,10 @@ $record6-> enddate = strtotime($_POST['fechafinal6']);
 $record6-> valueobjective = $_POST['valorobjetivo6'];
 try{
 $lastinsertid6 = $DB->update_record('objective_establishment_captured', $record6, $bulk=false);
-echo 'OBJETIVO 6 ACTUALIZADO';
+//echo 'OBJETIVO 6 ACTUALIZADO';
 }catch(\Throwable $e) {
     // PHP 7 
-echo 'ERROR AL ACTUALIZAR OBJETIVO 6';
+//echo 'ERROR AL ACTUALIZAR OBJETIVO 6';
 } 
 
 }else if($_POST['objetivocompleto6'] != NULL && $_POST['valorobjetivo6'] != NULL){

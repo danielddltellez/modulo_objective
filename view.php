@@ -70,7 +70,7 @@ $btncompetititon = new single_button(new moodle_url('/mod/objective/viewcompetit
 $btncompetititon->class = 'buttoncompetition';
 $btncompetititon->formid = 'newcompetition';
 
-$btnestablishment = new single_button(new moodle_url('/mod/objective/establishment.php', array('idmod' => $id)),'Agrega tu objetivo', $buttonadd, 'get');
+$btnestablishment = new single_button(new moodle_url('/mod/objective/establishment.php', array('idmod' => $id)),'agrega tus objetivos', $buttonadd, 'get');
 $btnestablishment->class = 'establishment';
 $btnestablishment->formid = 'establishment';
 
