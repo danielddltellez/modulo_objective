@@ -278,4 +278,8 @@ if($_POST['idobjestablecido6'] != NULL){
 }
 
 */
+
+$my = new moodle_url('/mod/objective/view.php?id='.$idins.'');
+redirect($my);
+exit();
 ?>

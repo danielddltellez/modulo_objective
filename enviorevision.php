@@ -130,5 +130,17 @@ if($_POST['idobjestablecido6'] != NULL){
     } 
 }
 
+$iduser=$USER->id;
+$querycontrol='select idmod from mdl_objective_establishment where userid=?';
 
+$resultcontrol = $DB->get_records_sql($querycontrol, array($iduser));
+$idins='';
+foreach($resultcontrol as $value){
+
+    $idins=$value->idmod;
+}
+
+$my = new moodle_url('/mod/objective/view.php?id='.$idins.'');
+redirect($my);
+exit();
 ?>

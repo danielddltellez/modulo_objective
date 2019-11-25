@@ -60,8 +60,8 @@ $modulecontext = context_module::instance($cm->id);
     <script src="./js/jquery-ui.js"></script>
     <script src="./js/functions.js"></script>
    <!-- <script src="./js/enviar.js"></script>-->
-    <script src="./js/es.js" type="text/javascript"></script>
     <script src="./js/parsley.js" type="text/javascript"></script>
+    <script src="./js/es.js" type="text/javascript"></script>
 </head>
 <body>
 <?php
@@ -102,6 +102,7 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
                         
     echo '<div class="w3-bar w3-black">
                     <button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>
+                    <button class="w3-bar-item w3-button"><a href="https://e-learning.triplei.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>
                     <!--<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>
                     <button class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>-->
             </div>';
@@ -144,6 +145,7 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
 
     echo '<div class="w3-bar w3-black">
                     <button class="w3-bar-item w3-button" onclick="openCity("vista1")">Establecimiento de objetivos</button>
+                    <button class="w3-bar-item w3-button"><a href="https://e-learning.triplei.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>
                   <!--  <button class="w3-bar-item w3-button" onclick="openCity("vista3")">Revision Final</button>-->
                 </div>';
                 $vistajefeinmediato .='<br>';
@@ -324,11 +326,11 @@ $estatus=1;
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
-                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Rotación" id="que<?php echo $i;?>" name="que<?php echo $i;?>" value="<?php echo $valuecontrol->whatquestion; ?>"  data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Rotación" id="que<?php echo $i;?>" name="que<?php echo $i;?>" value="<?php echo $valuecontrol->whatquestion; ?>"></p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">2. ¿Cómo se quiere medir?</p>
-                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Aumentar" id="como<?php echo $i;?>" name="como<?php echo $i;?>" value="<?php echo $valuecontrol->howquestion; ?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Aumentar" id="como<?php echo $i;?>" name="como<?php echo $i;?>" value="<?php echo $valuecontrol->howquestion; ?>"></p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">3. ¿Cuánto quieres que mida?</p>
@@ -336,11 +338,11 @@ $estatus=1;
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">4. Especifica</p>
-                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Vacantes operativos" id="especifica<?php echo $i;?>" name="especifica<?php echo $i;?>" value="<?php echo $valuecontrol->specifyquestion;?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Vacantes operativos" id="especifica<?php echo $i;?>" name="especifica<?php echo $i;?>" value="<?php echo $valuecontrol->specifyquestion;?>"></p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">5. Periodo</p>
-                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Semestral" id="periodo<?php echo $i;?>" name="periodo<?php echo $i;?>" value="<?php echo $valuecontrol->periodquestion;?>" data-parsley-pattern="^[a-zA-Z ]+$"></p>
+                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Semestral" id="periodo<?php echo $i;?>" name="periodo<?php echo $i;?>" value="<?php echo $valuecontrol->periodquestion;?>"></p>
                     </div>
                 </div>
                 <div class="w3-row">
@@ -471,7 +473,7 @@ if($rolprincipal=='COLABORADOR'){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=3
-    order by obc.idnivel asc ;';
+    order by obc.orden asc ;';
     $resultados = $DB->get_records_sql($sql, array($courseid));
 
     echo $colaboradortemp;
@@ -535,7 +537,7 @@ if($rolprincipal=='COLABORADOR'){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=3
-    order by obc.idnivel asc';
+    order by obc.orden asc';
     $resultados = $DB->get_records_sql($sql, array($courseid));
 
     echo $colaboradortemp;
@@ -594,10 +596,10 @@ if($rolprincipal=='COLABORADOR'){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=2
-    order by obc.idnivel asc';
+    order by obc.orden asc';
     $resultados2 = $DB->get_records_sql($sql2, array($courseid));
     echo $jefetemp;
-   foreach($resultados2 as $valores2){
+    foreach($resultados2 as $valores2){
 
         echo '<div class="espacio"></div>
         <div class="w3-row">
@@ -656,7 +658,7 @@ if($rolprincipal=='COLABORADOR'){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=3
-    order by obc.idnivel asc';
+    order by obc.orden asc';
     $resultados = $DB->get_records_sql($sql, array($courseid));
 
     echo $colaboradortemp;
@@ -715,7 +717,7 @@ if($rolprincipal=='COLABORADOR'){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=2
-    order by obc.idnivel asc';
+    order by obc.orden asc';
     $resultados2 = $DB->get_records_sql($sql2, array($courseid));
     echo $jefetemp;
     foreach($resultados2 as $valores2){
@@ -772,7 +774,7 @@ if($rolprincipal=='COLABORADOR'){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=1
-    order by obc.idnivel asc';
+    order by obc.orden asc';
     $resultados3 = $DB->get_records_sql($sql3, array($courseid));
     echo $director;
     foreach($resultados3 as $valores3){

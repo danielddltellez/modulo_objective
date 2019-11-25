@@ -62,8 +62,8 @@ $modulecontext = context_module::instance($cm->id);
     <script src="./js/jquery-ui.js" type="text/javascript"></script>
     <script src="./js/functions.js" type="text/javascript"></script>
    <!-- <script src="./js/enviar.js"></script>-->
-    <script src="./js/es.js" type="text/javascript"></script>
     <script src="./js/parsley.js" type="text/javascript"></script>
+    <script src="./js/es.js" type="text/javascript"></script>
 </head>
 <body>
 <?php
@@ -107,15 +107,18 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
     echo '<div class="w3-bar w3-black">';
     if($estatusa==0){
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
+        echo '<button class="w3-bar-item w3-button"><a href="https://e-learning.triplei.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
     }else if($estatusa==1){
 
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>';
+        echo '<button class="w3-bar-item w3-button"><a href="https://e-learning.triplei.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
     }else if($estatusa==2){
 
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>';
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>';
+        echo '<button class="w3-bar-item w3-button"><a href="https://e-learning.triplei.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
     }
     echo'</div>';
                                             $vistajefeinmediato .='<div class="w3-row">
@@ -323,11 +326,11 @@ $establecimiento .='<form id="establecimientoobj" method="POST" action="envio.ph
                                     </div>
                                     <div class="w3-col m2 w3-white w3-center">
                                         <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
-                                        <p><input class="w3-input w3-border" maxlength="25"  type="text" placeholder="Ej. Rotación" id="que'.$i.'" name="que'.$i.'" data-parsley-pattern="^[a-zA-Z ]+$" '.$requerido.'></p>
+                                        <p><input class="w3-input w3-border" maxlength="25"  type="text" placeholder="Ej. Rotación" id="que'.$i.'" name="que'.$i.'" '.$requerido.'></p>
                                     </div>
                                     <div class="w3-col m2 w3-white w3-center">
                                         <p class="text-cuestion">2. ¿Cómo se quiere medir?</p>
-                                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Aumentar" id="como'.$i.'" name="como'.$i.'" data-parsley-pattern="^[a-zA-Z ]+$" '.$requerido.'></p>
+                                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Aumentar" id="como'.$i.'" name="como'.$i.'" '.$requerido.'></p>
                                     </div>
                                     <div class="w3-col m2 w3-white w3-center">
                                         <p class="text-cuestion">3. ¿Cuánto quieres que mida?</p>
@@ -335,11 +338,11 @@ $establecimiento .='<form id="establecimientoobj" method="POST" action="envio.ph
                                     </div>
                                     <div class="w3-col m2 w3-white w3-center">
                                         <p class="text-cuestion">4. Especifica</p>
-                                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Vacantes operativos" id="especifica'.$i.'" name="especifica'.$i.'" data-parsley-pattern="^[a-zA-Z ]+$" '.$requerido.'></p>
+                                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Vacantes operativos" id="especifica'.$i.'" name="especifica'.$i.'" '.$requerido.'></p>
                                     </div>
                                     <div class="w3-col m2 w3-white w3-center">
                                         <p class="text-cuestion">5. Periodo</p>
-                                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Semestral" id="periodo'.$i.'" name="periodo'.$i.'" data-parsley-pattern="^[a-zA-Z ]+$" '.$requerido.'></p>
+                                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Semestral" id="periodo'.$i.'" name="periodo'.$i.'"  '.$requerido.'></p>
                                     </div>
                                 </div>
                                 <div class="w3-row">
@@ -515,7 +518,7 @@ if($rolprincipal=='COLABORADOR'){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=3
-    order by obc.idnivel asc ;';
+    order by obc.orden asc';
     $resultados = $DB->get_records_sql($sql, array($courseid));
 
     echo $colaboradortemp;
@@ -579,7 +582,7 @@ if($rolprincipal=='COLABORADOR'){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=3
-    order by obc.idnivel asc';
+    order by obc.orden asc';
     $resultados = $DB->get_records_sql($sql, array($courseid));
 
     echo $colaboradortemp;
@@ -638,7 +641,7 @@ if($rolprincipal=='COLABORADOR'){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=2
-    order by obc.idnivel asc';
+    order by obc.orden asc';
     $resultados2 = $DB->get_records_sql($sql2, array($courseid));
     echo $jefetemp;
    foreach($resultados2 as $valores2){
@@ -700,7 +703,7 @@ if($rolprincipal=='COLABORADOR'){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=3
-    order by obc.idnivel asc';
+    order by obc.orden asc';
     $resultados = $DB->get_records_sql($sql, array($courseid));
 
     echo $colaboradortemp;
@@ -759,7 +762,7 @@ if($rolprincipal=='COLABORADOR'){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=2
-    order by obc.idnivel asc';
+    order by obc.orden asc';
     $resultados2 = $DB->get_records_sql($sql2, array($courseid));
     echo $jefetemp;
     foreach($resultados2 as $valores2){
@@ -816,7 +819,7 @@ if($rolprincipal=='COLABORADOR'){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=1
-    order by obc.idnivel asc';
+    order by obc.orden asc';
     $resultados3 = $DB->get_records_sql($sql3, array($courseid));
     echo $director;
     foreach($resultados3 as $valores3){
@@ -1111,7 +1114,7 @@ if($estatusa==1 || $estatusa==2){
             inner join mdl_objective_nivel obn on obn.id = obc.idnivel
             where c.id=?
             and obn.id=3
-            order by obc.idnivel asc';
+            order by obc.orden asc';
             $resultados = $DB->get_records_sql($sql, array($courseid));
 
             echo $colaboradortemp;
@@ -1148,38 +1151,59 @@ if($estatusa==1 || $estatusa==2){
             inner join mdl_objective_establishment_competition oec on oec.idbehavior = ocb.id
             where ocb.idcompetition=? and oec.idobjectiveestablishment=? and ocb.status=0 order by ocb.code asc';
             $valorresultado = $DB->get_records_sql($valorconsulta, array($valores->idcompe, $id));
-
-            //print_r($resultado);
-            echo '<div class="w3-col l9">
-            <table class="w3-table-all">';
-            foreach($valorresultado as $comportamientofinal){
-            // $idcomportamiento=$comportamiento->id;
-            if($comportamientofinal->code==1){
-                echo'<tr><td>'.$comportamientofinal->description.'</td>';
-                echo'<td>';
-                ?>
-                            <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">4</label>
-                            <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">3</label>
-                            <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="2" <?php if (!(strcmp(2, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">2</label>
-                            <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="1" <?php if (!(strcmp(1, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">1</label>
-                <?php
-                echo'</td></tr>';
-
-                }else if ($comportamientofinal->code==2){
+            if(!empty($valorresultado)){
+                //print_r($resultado);
+                echo '<div class="w3-col l9">
+                <table class="w3-table-all">';
+                foreach($valorresultado as $comportamientofinal){
+                // $idcomportamiento=$comportamiento->id;
+                if($comportamientofinal->code==1){
                     echo'<tr><td>'.$comportamientofinal->description.'</td>';
-                    echo'<td><p class="w3-input w3-border" type="text" id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]" >'.$comportamientofinal->value.'</p></td>';
-                    echo'</tr>';
-                }else if($comportamientofinal->code==3){
-                    echo'<tr><td>'.$comportamientofinal->description.'</td></tr>';
-                    echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]">'.$comportamientofinal->value.'</p></td>';
-                    echo'</tr>';
-                }else{
+                    echo'<td>';
+                    ?>
+                                <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">4</label>
+                                <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">3</label>
+                                <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="2" <?php if (!(strcmp(2, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">2</label>
+                                <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="1" <?php if (!(strcmp(1, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">1</label>
+                    <?php
+                    echo'</td></tr>';
+
+                    }else if ($comportamientofinal->code==2){
+                        echo'<tr><td>'.$comportamientofinal->description.'</td>';
+                        echo'<td><p class="w3-input w3-border" type="text" id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]" >'.$comportamientofinal->value.'</p></td>';
+                        echo'</tr>';
+                    }else if($comportamientofinal->code==3){
+                        echo'<tr><td>'.$comportamientofinal->description.'</td></tr>';
+                        echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]">'.$comportamientofinal->value.'</p></td>';
+                        echo'</tr>';
+                    }else{
+
+
+
+                    }
+
 
                 }
+                echo '</table></div>';
+            }else{
 
-
+                $valorconsultavista='select ocb.id, ocb.description, ocb.idcompetition 
+                from mdl_objective_competition_behavior ocb 
+                inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+                where ocb.idcompetition=? and ocb.code=1';
+                $valorresultadovista = $DB->get_records_sql($valorconsultavista, array($valores->idcompe));
+                echo '<div class="w3-col l9">
+                <table class="w3-table-all">';
+                    foreach($valorresultadovista as $vistacomportamiento){
+                    
+                            echo'<tr>
+                                <td>'.$vistacomportamiento->description.'</td>
+                            </tr>';
+                        
+                    
+                    }
+                    echo '</table></div>';
             }
-            echo '</table></div>';
             echo'</div><div class="espacio"></div>';
 
             }
@@ -1196,7 +1220,7 @@ if($estatusa==1 || $estatusa==2){
                 inner join mdl_objective_nivel obn on obn.id = obc.idnivel
                 where c.id=?
                 and obn.id=3
-                order by obc.idnivel asc';
+                order by obc.orden asc';
                 $resultados = $DB->get_records_sql($sql, array($courseid));
 
                 echo $colaboradortemp;
@@ -1233,38 +1257,59 @@ if($estatusa==1 || $estatusa==2){
                 inner join mdl_objective_establishment_competition oec on oec.idbehavior = ocb.id
                 where ocb.idcompetition=? and oec.idobjectiveestablishment=? and ocb.status=0 order by ocb.code asc';
                 $valorresultado = $DB->get_records_sql($valorconsulta, array($valores->idcompe, $id));
+                if(!empty($valorresultado)){
+                        //print_r($resultado);
+                        echo '<div class="w3-col l9">
+                        <table class="w3-table-all">';
+                        foreach($valorresultado as $comportamientofinal){
+                        // $idcomportamiento=$comportamiento->id;
+                        if($comportamientofinal->code==1){
+                            echo'<tr><td>'.$comportamientofinal->description.'</td>';
+                            echo'<td>';
+                            ?>
+                                        <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">4</label>
+                                        <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">3</label>
+                                        <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="2" <?php if (!(strcmp(2, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">2</label>
+                                        <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="1" <?php if (!(strcmp(1, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">1</label>
+                            <?php
+                            echo'</td></tr>';
 
-                //print_r($resultado);
-                echo '<div class="w3-col l9">
-                <table class="w3-table-all">';
-                foreach($valorresultado as $comportamientofinal){
-                // $idcomportamiento=$comportamiento->id;
-                if($comportamientofinal->code==1){
-                    echo'<tr><td>'.$comportamientofinal->description.'</td>';
-                    echo'<td>';
-                    ?>
-                                <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">4</label>
-                                <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">3</label>
-                                <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="2" <?php if (!(strcmp(2, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">2</label>
-                                <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="1" <?php if (!(strcmp(1, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">1</label>
-                    <?php
-                    echo'</td></tr>';
+                            }else if ($comportamientofinal->code==2){
+                                echo'<tr><td>'.$comportamientofinal->description.'</td>';
+                                echo'<td><p class="w3-input w3-border" type="text" id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]" >'.$comportamientofinal->value.'</p></td>';
+                                echo'</tr>';
+                            }else if($comportamientofinal->code==3){
+                                echo'<tr><td>'.$comportamientofinal->description.'</td></tr>';
+                                echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]">'.$comportamientofinal->value.'</p></td>';
+                                echo'</tr>';
+                            }else{
 
-                    }else if ($comportamientofinal->code==2){
-                        echo'<tr><td>'.$comportamientofinal->description.'</td>';
-                        echo'<td><p class="w3-input w3-border" type="text" id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]" >'.$comportamientofinal->value.'</p></td>';
-                        echo'</tr>';
-                    }else if($comportamientofinal->code==3){
-                        echo'<tr><td>'.$comportamientofinal->description.'</td></tr>';
-                        echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]">'.$comportamientofinal->value.'</p></td>';
-                        echo'</tr>';
+                            }
+
+
+                        }
+                        echo '</table></div>';
                     }else{
 
+                        $valorconsultavista='select ocb.id, ocb.description, ocb.idcompetition 
+                        from mdl_objective_competition_behavior ocb 
+                        inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+                        where ocb.idcompetition=? and ocb.code=1';
+                        $valorresultadovista = $DB->get_records_sql($valorconsultavista, array($valores->idcompe));
+                        echo '<div class="w3-col l9">
+                        <table class="w3-table-all">';
+                            foreach($valorresultadovista as $vistacomportamiento){
+                            
+                                    echo'<tr>
+                                        <td>'.$vistacomportamiento->description.'</td>
+                                    </tr>';
+                                
+                            
+                            }
+                            echo '</table></div>';
+
+
                     }
-
-
-                }
-                echo '</table></div>';
                 echo'</div><div class="espacio"></div>';
 
                 }
@@ -1276,9 +1321,10 @@ if($estatusa==1 || $estatusa==2){
                 inner join mdl_objective_nivel obn on obn.id = obc.idnivel
                 where c.id=?
                 and obn.id=2
-                order by obc.idnivel asc';
+                order by obc.orden asc';
                 $resultados2 = $DB->get_records_sql($sql2, array($courseid));
                 echo $jefetemp;
+
                 foreach($resultados2 as $valores2){
 
                 echo '<div class="espacio"></div>
@@ -1311,36 +1357,55 @@ if($estatusa==1 || $estatusa==2){
                 inner join mdl_objective_establishment_competition oec on oec.idbehavior = ocb.id
                 where ocb.idcompetition=? and oec.idobjectiveestablishment=? and ocb.status=0 order by ocb.code asc';
                 $valorresultadojefe = $DB->get_records_sql($valorconsultajefe, array($valores2->idcompe, $id));
+                if(!empty($valorresultadojefe)){
+                            // print_r($resultado2);
+                            echo '<div class="w3-col l9">
+                            <table class="w3-table-all">';
+                            foreach($valorresultadojefe  as $comportamientojefe){
+                            //$idcomportamiento2=$comportamiento2->id;
+                            if($comportamientojefe->code==1){
+                                echo'<tr><td>'.$comportamientojefe->description.'</td>';
+                                echo'<td>';
+                                ?>
+                                            <input type="radio" id="valores<?php echo $comportamientojefe->id; ?>" name="valores[<?php echo $comportamientojefe->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($comportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientojefe->id;?>">4</label>
+                                            <input type="radio" id="valores<?php echo $comportamientojefe->id; ?>" name="valores[<?php echo $comportamientojefe->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($comportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientojefe->id;?>">3</label>
+                                            <input type="radio" id="valores<?php echo $comportamientojefe->id; ?>" name="valores[<?php echo $comportamientojefe->id; ?>][valor]" value="2" <?php if (!(strcmp(2, htmlentities($comportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientojefe->id;?>">2</label>
+                                            <input type="radio" id="valores<?php echo $comportamientojefe->id; ?>" name="valores[<?php echo $comportamientojefe->id; ?>][valor]" value="1" <?php if (!(strcmp(1, htmlentities($comportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientojefe->id;?>">1</label>
+                                <?php
+                                echo'</td></tr>';
 
-                // print_r($resultado2);
-                echo '<div class="w3-col l9">
-                <table class="w3-table-all">';
-                foreach($valorresultadojefe  as $comportamientojefe){
-                //$idcomportamiento2=$comportamiento2->id;
-                if($comportamientojefe->code==1){
-                    echo'<tr><td>'.$comportamientojefe->description.'</td>';
-                    echo'<td>';
-                    ?>
-                                <input type="radio" id="valores<?php echo $comportamientojefe->id; ?>" name="valores[<?php echo $comportamientojefe->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($comportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientojefe->id;?>">4</label>
-                                <input type="radio" id="valores<?php echo $comportamientojefe->id; ?>" name="valores[<?php echo $comportamientojefe->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($comportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientojefe->id;?>">3</label>
-                                <input type="radio" id="valores<?php echo $comportamientojefe->id; ?>" name="valores[<?php echo $comportamientojefe->id; ?>][valor]" value="2" <?php if (!(strcmp(2, htmlentities($comportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientojefe->id;?>">2</label>
-                                <input type="radio" id="valores<?php echo $comportamientojefe->id; ?>" name="valores[<?php echo $comportamientojefe->id; ?>][valor]" value="1" <?php if (!(strcmp(1, htmlentities($comportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientojefe->id;?>">1</label>
-                    <?php
-                    echo'</td></tr>';
+                                }else if ($comportamientojefe->code==2){
+                                    echo'<tr><td>'.$comportamientojefe->description.'</td>';
+                                    echo'<td><p class="w3-input w3-border" type="text" id="valores'.$comportamientojefe->id.'" name="valores['.$comportamientojefe->id.'][valor]">'.$comportamientojefe->value.'</p></td>';
+                                    echo'</tr>';
+                                }else if($comportamientojefe->code==3){
+                                    echo'<tr><td>'.$comportamientojefe->description.'</td></tr>';
+                                    echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valores'.$comportamientojefe->id.'" name="valores['.$comportamientojefe->id.'][valor]">'.$comportamientojefe->value.'</p></td>';
+                                    echo'</tr>';
+                                }else{
 
-                    }else if ($comportamientojefe->code==2){
-                        echo'<tr><td>'.$comportamientojefe->description.'</td>';
-                        echo'<td><p class="w3-input w3-border" type="text" id="valores'.$comportamientojefe->id.'" name="valores['.$comportamientojefe->id.'][valor]">'.$comportamientojefe->value.'</p></td>';
-                        echo'</tr>';
-                    }else if($comportamientojefe->code==3){
-                        echo'<tr><td>'.$comportamientojefe->description.'</td></tr>';
-                        echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valores'.$comportamientojefe->id.'" name="valores['.$comportamientojefe->id.'][valor]">'.$comportamientojefe->value.'</p></td>';
-                        echo'</tr>';
-                    }else{
+                                }
+                            }
+                            echo '</table></div>';
+                }else{
+                            $valorconsultavistajefe='select ocb.id, ocb.description, ocb.idcompetition 
+                            from mdl_objective_competition_behavior ocb 
+                            inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+                            where ocb.idcompetition=? and ocb.code=1';
+                            $valorresultadovistajefe = $DB->get_records_sql($valorconsultavistajefe, array($valores->idcompe));
+                            echo '<div class="w3-col l9">
+                            <table class="w3-table-all">';
+                                foreach($valorresultadovistajefe as $vistacomportamientojefe){
+                                
+                                        echo'<tr>
+                                            <td>'.$vistacomportamientojefe->description.'</td>
+                                        </tr>';
+                                    
+                                
+                                }
+                                echo '</table></div>';
 
-                    }
                 }
-                echo '</table></div>';
                 echo'</div><div class="espacio"></div>';
 
                 }
@@ -1419,7 +1484,7 @@ if($estatusa==2){
                                             </div>
                                         </div>';
                 echo $vistarevisionfinal;
-            //  echo $vistajefeinmediato;
+                    //  echo $vistajefeinmediato;
                 echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-container">';
                 ?>
                 <div class="espacio"></div><div class="w3-container"><div class="w3-row"><div class="w3-col l1"><p></p></div><div class="w3-col l10 w3-center"><div class="w3-container">
@@ -1611,11 +1676,11 @@ if($estatusa==2){
                         inner join mdl_objective_nivel obn on obn.id = obc.idnivel
                         where c.id=?
                         and obn.id=3
-                        order by obc.idnivel asc';
-                        $resultados = $DB->get_records_sql($sql, array($courseid));
+                        order by obc.orden asc';
+                        $resultados3 = $DB->get_records_sql($sql, array($courseid));
 
                         echo $colaboradortemp;
-                        foreach($resultados as $valores){
+                        foreach($resultados3 as $valores3){
 
                         echo '<div class="espacio"></div>
                         <div class="w3-row">
@@ -1637,49 +1702,69 @@ if($estatusa==2){
 
                         echo '<div class="w3-row">
                         <div class="w3-col l3">
-                        <p>'.$valores->nombrecompetencia.'</p>
+                        <p>'.$valores3->nombrecompetencia.'</p>
                         </div>';
 
 
 
-                        $valorconsulta='select ocb.id, ocb.description, oc.id as idcompetencia, oc.courseid, oc.idinstance ,ocb.code, oec.value
+                        $valorconsulta3='select ocb.id, ocb.description, oc.id as idcompetencia, oc.courseid, oc.idinstance ,ocb.code, oec.value
                         from mdl_objective_competition_behavior ocb 
                         inner join mdl_objective_competition oc on oc.id=ocb.idcompetition 
                         inner join mdl_objective_establishment_competition_final oec on oec.idbehavior = ocb.id
                         where ocb.idcompetition=? and oec.idobjectiveestablishment=? and ocb.status=0 order by ocb.code asc';
-                        $valorresultado = $DB->get_records_sql($valorconsulta, array($valores->idcompe, $id));
+                        $valorresultado3 = $DB->get_records_sql($valorconsulta3, array($valores3->idcompe, $id));
+                        if(!empty($valorresultado3)){
+                                //print_r($resultado);
+                                echo '<div class="w3-col l9">
+                                <table class="w3-table-all">';
+                                foreach($valorresultado as $comportamientofinal){
+                                // $idcomportamiento=$comportamiento->id;
+                                if($comportamientofinal->code==1){
+                                    echo'<tr><td>'.$comportamientofinal->description.'</td>';
+                                    echo'<td>';
+                                    ?>
+                                                <input type="radio" id="valoresrf<?php echo $comportamientofinal->id; ?>" name="valoresrf[<?php echo $comportamientofinal->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $comportamientofinal->id;?>">4</label>
+                                                <input type="radio" id="valoresrf<?php echo $comportamientofinal->id; ?>" name="valoresrf[<?php echo $comportamientofinal->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $comportamientofinal->id;?>">3</label>
+                                                <input type="radio" id="valoresrf<?php echo $comportamientofinal->id; ?>" name="valoresrf[<?php echo $comportamientofinal->id; ?>][valor]" value="2" <?php if (!(strcmp(2, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $comportamientofinal->id;?>">2</label>
+                                                <input type="radio" id="valoresrf<?php echo $comportamientofinal->id; ?>" name="valoresrf[<?php echo $comportamientofinal->id; ?>][valor]" value="1" <?php if (!(strcmp(1, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $comportamientofinal->id;?>">1</label>
+                                    <?php
+                                    echo'</td></tr>';
 
-                        //print_r($resultado);
-                        echo '<div class="w3-col l9">
-                        <table class="w3-table-all">';
-                        foreach($valorresultado as $comportamientofinal){
-                        // $idcomportamiento=$comportamiento->id;
-                        if($comportamientofinal->code==1){
-                            echo'<tr><td>'.$comportamientofinal->description.'</td>';
-                            echo'<td>';
-                            ?>
-                                        <input type="radio" id="valoresrf<?php echo $comportamientofinal->id; ?>" name="valoresrf[<?php echo $comportamientofinal->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $comportamientofinal->id;?>">4</label>
-                                        <input type="radio" id="valoresrf<?php echo $comportamientofinal->id; ?>" name="valoresrf[<?php echo $comportamientofinal->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $comportamientofinal->id;?>">3</label>
-                                        <input type="radio" id="valoresrf<?php echo $comportamientofinal->id; ?>" name="valoresrf[<?php echo $comportamientofinal->id; ?>][valor]" value="2" <?php if (!(strcmp(2, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $comportamientofinal->id;?>">2</label>
-                                        <input type="radio" id="valoresrf<?php echo $comportamientofinal->id; ?>" name="valoresrf[<?php echo $comportamientofinal->id; ?>][valor]" value="1" <?php if (!(strcmp(1, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $comportamientofinal->id;?>">1</label>
-                            <?php
-                            echo'</td></tr>';
+                                    }else if ($comportamientofinal->code==2){
+                                        echo'<tr><td>'.$comportamientofinal->description.'</td>';
+                                        echo'<td><p class="w3-input w3-border" type="text" id="valoresrf'.$comportamientofinal->id.'" name="valoresrf['.$comportamientofinal->id.'][valor]" >'.$comportamientofinal->value.'</p></td>';
+                                        echo'</tr>';
+                                    }else if($comportamientofinal->code==3){
+                                        echo'<tr><td>'.$comportamientofinal->description.'</td></tr>';
+                                        echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valoresrf'.$comportamientofinal->id.'" name="valoresrf['.$comportamientofinal->id.'][valor]">'.$comportamientofinal->value.'</p></td>';
+                                        echo'</tr>';
+                                    }else{
 
-                            }else if ($comportamientofinal->code==2){
-                                echo'<tr><td>'.$comportamientofinal->description.'</td>';
-                                echo'<td><p class="w3-input w3-border" type="text" id="valoresrf'.$comportamientofinal->id.'" name="valoresrf['.$comportamientofinal->id.'][valor]" >'.$comportamientofinal->value.'</p></td>';
-                                echo'</tr>';
-                            }else if($comportamientofinal->code==3){
-                                echo'<tr><td>'.$comportamientofinal->description.'</td></tr>';
-                                echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valoresrf'.$comportamientofinal->id.'" name="valoresrf['.$comportamientofinal->id.'][valor]">'.$comportamientofinal->value.'</p></td>';
-                                echo'</tr>';
-                            }else{
+                                    }
 
-                            }
+
+                                }
+                                echo '</table></div>';
+                        }else{
+                            $valorconsultavista2='select ocb.id, ocb.description, ocb.idcompetition 
+                            from mdl_objective_competition_behavior ocb 
+                            inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+                            where ocb.idcompetition=? and ocb.code=1';
+                            $valorresultadovista2 = $DB->get_records_sql($valorconsultavista2, array($valores->idcompe));
+                            echo '<div class="w3-col l9">
+                            <table class="w3-table-all">';
+                                foreach($valorresultadovista2 as $vistacomportamiento2){
+                                
+                                        echo'<tr>
+                                            <td>'.$vistacomportamiento2->description.'</td>
+                                        </tr>';
+                                    
+                                
+                                }
+                                echo '</table></div>';
 
 
                         }
-                        echo '</table></div>';
                         echo'</div><div class="espacio"></div>';
 
                         }
@@ -1696,7 +1781,7 @@ if($estatusa==2){
                             inner join mdl_objective_nivel obn on obn.id = obc.idnivel
                             where c.id=?
                             and obn.id=3
-                            order by obc.idnivel asc';
+                            order by obc.orden asc';
                             $finalresultados = $DB->get_records_sql($finalsql, array($courseid));
 
                             echo $colaboradortemp;
@@ -1733,38 +1818,59 @@ if($estatusa==2){
                             inner join mdl_objective_establishment_competition_final oec on oec.idbehavior = ocb.id
                             where ocb.idcompetition=? and oec.idobjectiveestablishment=? and ocb.status=0 order by ocb.code asc';
                             $finalvalorresultado = $DB->get_records_sql($finalvalorconsulta, array($finalvalores->idcompe, $id));
-
-                            //print_r($resultado);
-                            echo '<div class="w3-col l9">
-                            <table class="w3-table-all">';
-                            foreach($finalvalorresultado as $finalcomportamiento){
-                            // $idcomportamiento=$comportamiento->id;
-                            if($finalcomportamiento->code==1){
-                                echo'<tr><td>'.$finalcomportamiento->description.'</td>';
-                                echo'<td>';
-                                ?>
-                                            <input type="radio" id="valoresrf<?php echo $finalcomportamiento->id; ?>" name="valoresrf[<?php echo $finalcomportamiento->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($finalcomportamiento->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamiento->id;?>">4</label>
-                                            <input type="radio" id="valoresrf<?php echo $finalcomportamiento->id; ?>" name="valoresrf[<?php echo $finalcomportamiento->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($finalcomportamiento->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamiento->id;?>">3</label>
-                                            <input type="radio" id="valoresrf<?php echo $finalcomportamiento->id; ?>" name="valoresrf[<?php echo $finalcomportamiento->id; ?>][valor]" value="2" <?php if (!(strcmp(2, htmlentities($finalcomportamiento->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamiento->id;?>">2</label>
-                                            <input type="radio" id="valoresrf<?php echo $finalcomportamiento->id; ?>" name="valoresrf[<?php echo $finalcomportamiento->id; ?>][valor]" value="1" <?php if (!(strcmp(1, htmlentities($finalcomportamiento->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamiento->id;?>">1</label>
-                                <?php
-                                echo'</td></tr>';
-
-                                }else if ($finalcomportamiento->code==2){
+                            if(!empty($finalvalorresultado)){
+                                //print_r($resultado);
+                                echo '<div class="w3-col l9">
+                                <table class="w3-table-all">';
+                                foreach($finalvalorresultado as $finalcomportamiento){
+                                // $idcomportamiento=$comportamiento->id;
+                                if($finalcomportamiento->code==1){
                                     echo'<tr><td>'.$finalcomportamiento->description.'</td>';
-                                    echo'<td><p class="w3-input w3-border" type="text" id="valoresrf'.$finalcomportamiento->id.'" name="valoresrf['.$finalcomportamiento->id.'][valor]" >'.$finalcomportamiento->value.'</p></td>';
-                                    echo'</tr>';
-                                }else if($finalcomportamiento->code==3){
-                                    echo'<tr><td>'.$finalcomportamiento->description.'</td></tr>';
-                                    echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valoresrf'.$finalcomportamiento->id.'" name="valoresrf['.$finalcomportamiento->id.'][valor]">'.$finalcomportamiento->value.'</p></td>';
-                                    echo'</tr>';
-                                }else{
+                                    echo'<td>';
+                                    ?>
+                                                <input type="radio" id="valoresrf<?php echo $finalcomportamiento->id; ?>" name="valoresrf[<?php echo $finalcomportamiento->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($finalcomportamiento->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamiento->id;?>">4</label>
+                                                <input type="radio" id="valoresrf<?php echo $finalcomportamiento->id; ?>" name="valoresrf[<?php echo $finalcomportamiento->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($finalcomportamiento->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamiento->id;?>">3</label>
+                                                <input type="radio" id="valoresrf<?php echo $finalcomportamiento->id; ?>" name="valoresrf[<?php echo $finalcomportamiento->id; ?>][valor]" value="2" <?php if (!(strcmp(2, htmlentities($finalcomportamiento->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamiento->id;?>">2</label>
+                                                <input type="radio" id="valoresrf<?php echo $finalcomportamiento->id; ?>" name="valoresrf[<?php echo $finalcomportamiento->id; ?>][valor]" value="1" <?php if (!(strcmp(1, htmlentities($finalcomportamiento->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamiento->id;?>">1</label>
+                                    <?php
+                                    echo'</td></tr>';
+
+                                    }else if ($finalcomportamiento->code==2){
+                                        echo'<tr><td>'.$finalcomportamiento->description.'</td>';
+                                        echo'<td><p class="w3-input w3-border" type="text" id="valoresrf'.$finalcomportamiento->id.'" name="valoresrf['.$finalcomportamiento->id.'][valor]" >'.$finalcomportamiento->value.'</p></td>';
+                                        echo'</tr>';
+                                    }else if($finalcomportamiento->code==3){
+                                        echo'<tr><td>'.$finalcomportamiento->description.'</td></tr>';
+                                        echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valoresrf'.$finalcomportamiento->id.'" name="valoresrf['.$finalcomportamiento->id.'][valor]">'.$finalcomportamiento->value.'</p></td>';
+                                        echo'</tr>';
+                                    }else{
+
+                                    }
+
 
                                 }
+                                echo '</table></div>';
+                            }else{
+
+                                $valorconsultavista3='select ocb.id, ocb.description, ocb.idcompetition 
+                                from mdl_objective_competition_behavior ocb 
+                                inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+                                where ocb.idcompetition=? and ocb.code=1';
+                                $valorresultadovista3 = $DB->get_records_sql($valorconsultavista3, array($finalvalores->idcompe));
+                                echo '<div class="w3-col l9">
+                                <table class="w3-table-all">';
+                                    foreach($valorresultadovista3 as $vistacomportamiento3){
+                                    
+                                            echo'<tr>
+                                                <td>'.$vistacomportamiento3->description.'</td>
+                                            </tr>';
+                                        
+                                    
+                                    }
+                                    echo '</table></div>';
 
 
                             }
-                            echo '</table></div>';
                             echo'</div><div class="espacio"></div>';
 
                             }
@@ -1776,7 +1882,7 @@ if($estatusa==2){
                             inner join mdl_objective_nivel obn on obn.id = obc.idnivel
                             where c.id=?
                             and obn.id=2
-                            order by obc.idnivel asc';
+                            order by obc.orden asc';
                             $finalresultados2 = $DB->get_records_sql($finalsql2, array($courseid));
                             echo $jefetemp;
                             foreach($finalresultados2 as $finalvalores2){
@@ -1811,39 +1917,61 @@ if($estatusa==2){
                             inner join mdl_objective_establishment_competition_final oec on oec.idbehavior = ocb.id
                             where ocb.idcompetition=? and oec.idobjectiveestablishment=? and ocb.status=0 order by ocb.code asc';
                             $finalvalorresultadojefe = $DB->get_records_sql($finalvalorconsultajefe, array($finalvalores2->idcompe, $id));
-
-                            // print_r($resultado2);
-                            echo '<div class="w3-col l9">
-                            <table class="w3-table-all">';
-                            foreach($finalvalorresultadojefe  as $finalcomportamientojefe){
-                            
-                                if($finalcomportamientojefe->code==1){
-                                echo'<tr><td>'.$finalcomportamientojefe->description.'</td>';
-                                echo'<td>';
-                                ?>
-                                            <input type="radio" id="valoresrf<?php echo $finalcomportamientojefe->id; ?>" name="valoresrf[<?php echo $finalcomportamientojefe->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($finalcomportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamientojefe->id;?>" disabled>4</label>
-                                            <input type="radio" id="valoresrf<?php echo $finalcomportamientojefe->id; ?>" name="valoresrf[<?php echo $finalcomportamientojefe->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($finalcomportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamientojefe->id;?>" disabled>3</label>
-                                            <input type="radio" id="valoresrf<?php echo $finalcomportamientojefe->id; ?>" name="valoresrf[<?php echo $finalcomportamientojefe->id; ?>][valor]" value="2" <?php if (!(strcmp(2, htmlentities($finalcomportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamientojefe->id;?>" disabled>2</label>
-                                            <input type="radio" id="valoresrf<?php echo $finalcomportamientojefe->id; ?>" name="valoresrf[<?php echo $finalcomportamientojefe->id; ?>][valor]" value="1" <?php if (!(strcmp(1, htmlentities($finalcomportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamientojefe->id;?>" disabled>1</label>
-                                <?php
-                                echo'</td></tr>';
-
-                                }else if ($finalcomportamientojefe->code==2){
+                            if(!empty($finalvalorresultadojefe)){
+                                // print_r($resultado2);
+                                echo '<div class="w3-col l9">
+                                <table class="w3-table-all">';
+                                foreach($finalvalorresultadojefe  as $finalcomportamientojefe){
+                                
+                                    if($finalcomportamientojefe->code==1){
                                     echo'<tr><td>'.$finalcomportamientojefe->description.'</td>';
-                                    echo'<td><p class="w3-input w3-border" type="text" id="valoresrf'.$finalcomportamientojefe->id.'" name="valoresrf['.$finalcomportamientojefe->id.'][valor]">'.$finalcomportamientojefe->value.'</p></td>';
-                                    echo'</tr>';
-                                }else if($finalcomportamientojefe->code==3){
-                                    echo'<tr><td>'.$finalcomportamientojefe->description.'</td></tr>';
-                                    echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valoresrf'.$finalcomportamientojefe->id.'" name="valoresrf['.$finalcomportamientojefe->id.'][valor]">'.$finalcomportamientojefe->value.'</p></td>';
-                                    echo'</tr>';
-                                }else{
+                                    echo'<td>';
+                                    ?>
+                                                <input type="radio" id="valoresrf<?php echo $finalcomportamientojefe->id; ?>" name="valoresrf[<?php echo $finalcomportamientojefe->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($finalcomportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamientojefe->id;?>" disabled>4</label>
+                                                <input type="radio" id="valoresrf<?php echo $finalcomportamientojefe->id; ?>" name="valoresrf[<?php echo $finalcomportamientojefe->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($finalcomportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamientojefe->id;?>" disabled>3</label>
+                                                <input type="radio" id="valoresrf<?php echo $finalcomportamientojefe->id; ?>" name="valoresrf[<?php echo $finalcomportamientojefe->id; ?>][valor]" value="2" <?php if (!(strcmp(2, htmlentities($finalcomportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamientojefe->id;?>" disabled>2</label>
+                                                <input type="radio" id="valoresrf<?php echo $finalcomportamientojefe->id; ?>" name="valoresrf[<?php echo $finalcomportamientojefe->id; ?>][valor]" value="1" <?php if (!(strcmp(1, htmlentities($finalcomportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamientojefe->id;?>" disabled>1</label>
+                                    <?php
+                                    echo'</td></tr>';
 
+                                    }else if ($finalcomportamientojefe->code==2){
+                                        echo'<tr><td>'.$finalcomportamientojefe->description.'</td>';
+                                        echo'<td><p class="w3-input w3-border" type="text" id="valoresrf'.$finalcomportamientojefe->id.'" name="valoresrf['.$finalcomportamientojefe->id.'][valor]">'.$finalcomportamientojefe->value.'</p></td>';
+                                        echo'</tr>';
+                                    }else if($finalcomportamientojefe->code==3){
+                                        echo'<tr><td>'.$finalcomportamientojefe->description.'</td></tr>';
+                                        echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valoresrf'.$finalcomportamientojefe->id.'" name="valoresrf['.$finalcomportamientojefe->id.'][valor]">'.$finalcomportamientojefe->value.'</p></td>';
+                                        echo'</tr>';
+                                    }else{
+
+                                    }
                                 }
-                            }
-                            echo '</table></div>';
-                            echo'</div><div class="espacio"></div>';
+                                echo '</table></div>';
+                            
+
+                            }else{
+
+                                $valorconsultavista4='select ocb.id, ocb.description, ocb.idcompetition 
+                                from mdl_objective_competition_behavior ocb 
+                                inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+                                where ocb.idcompetition=? and ocb.code=1';
+                                $valorresultadovista4 = $DB->get_records_sql($valorconsultavista4, array($finalvalores2->idcompe));
+                                echo '<div class="w3-col l9">
+                                <table class="w3-table-all">';
+                                    foreach($valorresultadovista4 as $vistacomportamiento4){
+                                    
+                                            echo'<tr>
+                                                <td>'.$vistacomportamiento4->description.'</td>
+                                            </tr>';
+                                        
+                                    
+                                    }
+                                    echo '</table></div>';
+
 
                             }
+                            echo'</div><div class="espacio"></div>';
+                        }
 
 
 

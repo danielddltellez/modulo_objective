@@ -60,8 +60,8 @@ $modulecontext = context_module::instance($cm->id);
     <script src="./js/jquery-1.12.4.js"></script>
     <script src="./js/jquery-ui.js"></script>
     <script src="./js/functions.js"></script>
-    <script src="./js/es.js" type="text/javascript"></script>
     <script src="./js/parsley.js" type="text/javascript"></script>
+    <script src="./js/es.js" type="text/javascript"></script>
 </head>
 <body>
 <?php
@@ -107,6 +107,7 @@ echo '<div class="w3-bar w3-black">
                 <button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>
                 <button id="vistarevision1" class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>
                 <button id="vistarevision2" class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>
+                <button class="w3-bar-item w3-button"><a href="https://e-learning.triplei.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>
         </div>';
                 $vistajefeinmediato .='<div class="w3-row">
                             <div class="w3-col l1">
@@ -420,7 +421,7 @@ if($rolcolaborador==1){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=3
-    order by obc.idnivel asc ;';
+    order by obc.orden asc ;';
     $resultados = $DB->get_records_sql($sql, array($courseid));
 
     echo $colaboradortemp;
@@ -484,7 +485,7 @@ if($rolcolaborador==1){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=3
-    order by obc.idnivel asc';
+    order by obc.orden asc';
     $resultados = $DB->get_records_sql($sql, array($courseid));
 
     echo $colaboradortemp;
@@ -543,7 +544,7 @@ if($rolcolaborador==1){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=2
-    order by obc.idnivel asc';
+    order by obc.orden asc';
     $resultados2 = $DB->get_records_sql($sql2, array($courseid));
     echo $jefetemp;
    foreach($resultados2 as $valores2){
@@ -605,7 +606,7 @@ if($rolcolaborador==1){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=3
-    order by obc.idnivel asc';
+    order by obc.orden asc';
     $resultados = $DB->get_records_sql($sql, array($courseid));
 
     echo $colaboradortemp;
@@ -664,7 +665,7 @@ if($rolcolaborador==1){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=2
-    order by obc.idnivel asc';
+    order by obc.orden asc';
     $resultados2 = $DB->get_records_sql($sql2, array($courseid));
     echo $jefetemp;
     foreach($resultados2 as $valores2){
@@ -720,7 +721,7 @@ if($rolcolaborador==1){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=1
-    order by obc.idnivel asc';
+    order by obc.orden asc';
     $resultados3 = $DB->get_records_sql($sql3, array($courseid));
     echo $director;
     foreach($resultados3 as $valores3){
@@ -1019,7 +1020,7 @@ if($rolcolaborador==1){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=3
-    order by obc.idnivel asc';
+    order by obc.orden asc';
     $resultados = $DB->get_records_sql($sql, array($courseid));
 
     echo $colaboradortemp;
@@ -1031,11 +1032,8 @@ if($rolcolaborador==1){
             <div class="w3-round-xlarge w3-col l3  w3-pale-red w3-center">
                 <p>Competencias</p>
             </div>
-            <div class="w3-round-xlarge w3-col l7  w3-pale-red w3-center">
+            <div class="w3-round-xlarge w3-col l9 w3-pale-red w3-center">
                 <p>Comportamientos</p>
-            </div>
-            <div class="w3-round-xlarge w3-col l2  w3-pale-red w3-center">
-            <p>Escala de</p>
             </div>
         </div>
         <div class="w3-row">
@@ -1046,7 +1044,7 @@ if($rolcolaborador==1){
                 <p>Comportamientos asociados a la competencia</p>
             </div>
             <div class="w3-round-xlarge w3-col l2  w3-dark-grey w3-center">
-            <p>[4][3][2][1]</p>
+            <p>Escala de</p>
             </div>
         </div>';
 
@@ -1145,7 +1143,7 @@ if($rolcolaborador==1){
                                     </tr>';
                             }else if ($comportamiento2->code==2){
                                 echo'<tr><td>'.$comportamiento2->description.'</td>';
-                                echo'<td><p><input class="w3-input w3-border" name1="valorfinalvista'.$contadorfinal.'" type="text" id="valoresvista'.$comportamiento2->id.'" disabled></p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2->id.'" name1="valorfinal'.$contadorfinal.'" name="valores['.$comportamiento2->id.'][valor]" '.$requeridcolaborador.' style="display: none;"></td>';
+                                echo'<td><p><input class="w3-input w3-border" name1="valorfinalvista'.$contadorfinal.'" maxlength="4" type="text" id="valoresvista'.$comportamiento2->id.'" disabled></p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2->id.'" name1="valorfinal'.$contadorfinal.'" name="valores['.$comportamiento2->id.'][valor]" '.$requeridcolaborador.' style="display: none;"></td>';
                                 echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcompetencia'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcompetencia]" value="'.$comportamiento2->idcompetencia.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcomportamiento'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcomportamiento]" value="'.$comportamiento2->id.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valorescourseid'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][courseid]" value="'.$comportamiento2->courseid.'"></p></td>
@@ -1182,7 +1180,7 @@ if($rolcolaborador==1){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=3
-    order by obc.idnivel asc';
+    order by obc.orden asc';
     $resultados = $DB->get_records_sql($sql, array($courseid));
 
     echo $colaboradortemp;
@@ -1194,11 +1192,8 @@ if($rolcolaborador==1){
             <div class="w3-round-xlarge w3-col l3  w3-pale-red w3-center">
                 <p>Competencias</p>
             </div>
-            <div class="w3-round-xlarge w3-col l7  w3-pale-red w3-center">
+            <div class="w3-round-xlarge w3-col l9  w3-pale-red w3-center">
                 <p>Comportamientos</p>
-            </div>
-            <div class="w3-round-xlarge w3-col l2  w3-pale-red w3-center">
-            <p>Escala de</p>
             </div>
         </div>
         <div class="w3-row">
@@ -1209,7 +1204,7 @@ if($rolcolaborador==1){
                 <p>Comportamientos asociados a la competencia</p>
             </div>
             <div class="w3-round-xlarge w3-col l2  w3-dark-grey w3-center">
-            <p>[4][3][2][1]</p>
+            <p>Escala de</p>
             </div>
         </div>';
 
@@ -1305,7 +1300,7 @@ if($rolcolaborador==1){
                                     </tr>';
                             }else if ($comportamiento2->code==2){
                                 echo'<tr><td>'.$comportamiento2->description.'</td>';
-                                echo'<td><p><input class="w3-input w3-border" name1="valorfinalvista'.$contadorfinal.'" type="text" id="valoresvista'.$comportamiento2->id.'" disabled></p><input class="w3-input w3-border" name1="valorfinal'.$contadorfinal.'" type="text" id="valores'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][valor]" style="display: none;" '.$requeridcolaborador.'></p></td>';
+                                echo'<td><p><input class="w3-input w3-border" name1="valorfinalvista'.$contadorfinal.'" maxlength="4" type="text" id="valoresvista'.$comportamiento2->id.'" disabled></p><input class="w3-input w3-border" name1="valorfinal'.$contadorfinal.'" type="text" id="valores'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][valor]" style="display: none;" '.$requeridcolaborador.'></p></td>';
                                 echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcompetencia'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcompetencia]" value="'.$comportamiento2->idcompetencia.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcomportamiento'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcomportamiento]" value="'.$comportamiento2->id.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valorescourseid'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][courseid]" value="'.$comportamiento2->courseid.'"></p></td>
@@ -1340,7 +1335,7 @@ if($rolcolaborador==1){
     inner join mdl_objective_nivel obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=2
-    order by obc.idnivel asc';
+    order by obc.orden asc';
     $resultados2 = $DB->get_records_sql($sql2, array($courseid));
     echo $jefetemp;
     foreach($resultados2 as $valores2){
@@ -1350,11 +1345,8 @@ if($rolcolaborador==1){
                 <div class="w3-round-xlarge w3-col l3  w3-pale-red w3-center">
                     <p>Competencias</p>
                 </div>
-                <div class="w3-round-xlarge w3-col l7  w3-pale-red w3-center">
+                <div class="w3-round-xlarge w3-col l9  w3-pale-red w3-center">
                     <p>Comportamientos</p>
-                </div>
-                <div class="w3-round-xlarge w3-col l2  w3-pale-red w3-center">
-                <p>Escala de</p>
                 </div>
             </div>
             <div class="w3-row">
@@ -1365,7 +1357,7 @@ if($rolcolaborador==1){
                     <p>Comportamientos asociados a la competencia</p>
                 </div>
                 <div class="w3-round-xlarge w3-col l2  w3-dark-grey w3-center">
-                <p>[4][3][2][1]</p>
+                <p>Escala de</p>
                 </div>
             </div>';
 
@@ -1461,7 +1453,7 @@ if($rolcolaborador==1){
                 }else if ($comportamientofinal->code==2){
                 echo'<tr>
                     <td>'.$comportamientofinal->description.'</td>';
-                echo'<td><p><input class="w3-input w3-border" name1="valorfinalvista'.$contadorfinal.'" type="text" id="valoresvista'.$comportamiento2->id.'" disabled></p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal->id.'" name1="valorfinal'.$contadorfinal.'" name="valores['.$comportamientofinal->id.'][valor]" style="display: none;" '.$requeridcolaborador.'></p></td>';
+                echo'<td><p><input class="w3-input w3-border" name1="valorfinalvista'.$contadorfinal.'" maxlength="4" type="text" id="valoresvista'.$comportamiento2->id.'" disabled></p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal->id.'" name1="valorfinal'.$contadorfinal.'" name="valores['.$comportamientofinal->id.'][valor]" style="display: none;" '.$requeridcolaborador.'></p></td>';
                 echo'<td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcompetencia'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][idcompetencia]" value="'.$comportamientofinal->idcompetencia.'"></p></td>
                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcomportamiento'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][idcomportamiento]" value="'.$comportamientofinal->id.'"></p></td>
                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valorescourseid'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][courseid]" value="'.$comportamientofinal->courseid.'"></p></td>
@@ -1778,7 +1770,7 @@ echo $enviorevisionfinal;
         inner join mdl_objective_nivel obn on obn.id = obc.idnivel
         where c.id=?
         and obn.id=3
-        order by obc.idnivel asc';
+        order by obc.orden asc';
         $resultadosfinal = $DB->get_records_sql($sqlfinal, array($courseid));
 
         echo $colaboradortemp;
@@ -1940,7 +1932,7 @@ echo $enviorevisionfinal;
         inner join mdl_objective_nivel obn on obn.id = obc.idnivel
         where c.id=?
         and obn.id=3
-        order by obc.idnivel asc';
+        order by obc.orden asc';
         $resultadosfinal = $DB->get_records_sql($sqlfinal, array($courseid));
 
         echo $colaboradortemp;
@@ -2099,7 +2091,7 @@ echo $enviorevisionfinal;
         inner join mdl_objective_nivel obn on obn.id = obc.idnivel
         where c.id=?
         and obn.id=2
-        order by obc.idnivel asc';
+        order by obc.orden asc';
         $resultados2final = $DB->get_records_sql($sql2final, array($courseid));
         echo $jefetemp;
         foreach($resultados2final as $valores2final){
@@ -2262,7 +2254,7 @@ echo $enviorevisionfinal;
         inner join mdl_objective_nivel obn on obn.id = obc.idnivel
         where c.id=?
         and obn.id=3
-        order by obc.idnivel asc';
+        order by obc.orden asc';
         $resultadosfinal = $DB->get_records_sql($sqlfinal, array($courseid));
 
         echo $colaboradortemp;
@@ -2420,7 +2412,7 @@ echo $enviorevisionfinal;
         inner join mdl_objective_nivel obn on obn.id = obc.idnivel
         where c.id=?
         and obn.id=2
-        order by obc.idnivel asc';
+        order by obc.orden asc';
         $resultados2final = $DB->get_records_sql($sql2final, array($courseid));
         echo $jefetemp;
         foreach($resultados2final as $valores2final){
@@ -2578,7 +2570,7 @@ echo $enviorevisionfinal;
         inner join mdl_objective_nivel obn on obn.id = obc.idnivel
         where c.id=?
         and obn.id=1
-        order by obc.idnivel asc';
+        order by obc.orden asc';
         $resultados3final = $DB->get_records_sql($sql3final, array($courseid));
         echo $director;
         foreach($resultados3final as $valores3final){
