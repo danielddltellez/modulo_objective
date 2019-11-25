@@ -274,6 +274,7 @@ function promediaCompf(inicio, tam) {
     }
     if (contadorc > 0) {
         prom = prom / contadorc;
+        prom = prom.toFixed(2);
         $("input[name2='" + valorfinal + "']").val(prom);
         $("input[name2='" + valorfinalvista + "']").val(prom);
     }

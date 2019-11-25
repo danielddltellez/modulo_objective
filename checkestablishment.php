@@ -986,7 +986,10 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
         $enviorevision .='<br>';
         }
     }
-    $enviorevision .='
+
+    echo $establecimientorevision;
+    echo $enviorevision;
+?>
     </form>
     <hr><p id="rev"></p> <!-- ESTABLECIMIENTO DE OBJETIVOS 6-->
     </div>
@@ -996,11 +999,7 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
     </div>
     </div>
     <div class="espacio"></div>
-    </div><!-- Finaliza objetivos id-->';
-
-    echo $establecimientorevision;
-    echo $enviorevision;
-?>
+    </div><!-- Finaliza objetivos id-->
 <form id="idcompetencias" method="POST" action="enviocompetencias.php" data-parsley-validate="">
 <div class="w3-container">
         <div class="w3-row">
@@ -1510,8 +1509,9 @@ if($validacionrf==1){
     }
 }else{
     echo '<center><input type="submit" id="btnCompetencia" name="btnCompetencia"  value="Calificar Compétencias"></center>';
-    echo '</form>';
+    
 }
+echo '</form>';
 echo'<br>';
 echo '</div></div> <!-- cierra vista -->';
 echo $competencias2;
@@ -1588,8 +1588,8 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe-final" class="w3-
 <div class="w3-round-xlarge w3-col l2  w3-pale-red">
 <p>Peso anual en %</p>
 </div>
+<form id="revisionjefefinal" method="POST" action="updaterevisionfinal.php" data-parsley-validate="">
 <?php
-echo '<form id="revisionjefefinal" method="POST" action="updaterevisionfinal.php" data-parsley-validate="">';
 $requeridcolaboradorfinal='required=""';
 foreach($resultcontrol as $valuecontrol){
 
@@ -1730,25 +1730,27 @@ if(empty($comentarioscolaborador)){
     $enviorevisionfinal  .='<p>Colaborador aun no captura sus respuestas de la revision final</p>';
 }else{
     if(empty($totaljefe)){
-    $enviorevisionfinal .='<input type="submit" id="btnUpdate" name="btnUpdate"  value="Enviar">';
+    $enviorevisionfinal .='<input type="submit" id="btnUpdatefinal" name="btnUpdatefinal"  value="Enviar">';
     }else{
     $enviorevisionfinal .='<br>';
     }
 }
-$enviorevisionfinal .='
-                </form>
-                <hr><p id="revfinal"></p> <!-- ESTABLECIMIENTO DE OBJETIVOS 6-->
-                </div>
-                <div class="w3-col l1"><p></p></div>
-                </div>
-                </div>
-                </div>
-                </div>
-                <div class="espacio"></div>
-                </div><!-- Finaliza objetivos id-->';
+
 
 echo $establecimientorevisionfinal;
 echo $enviorevisionfinal;
+?>
+</form>
+<hr><p id="revfinal"></p> <!-- ESTABLECIMIENTO DE OBJETIVOS 6-->
+</div>
+<div class="w3-col l1"><p></p></div>
+</div>
+</div>
+</div>
+</div>
+<div class="espacio"></div>
+</div><!-- Finaliza objetivos id-->'
+<?php
 
 ?>
 <form id="idcompetenciasfinal" method="POST" action="enviocompetenciasfinal.php" data-parsley-validate="">
@@ -2756,9 +2758,9 @@ if($validacionrfinal==1){
     }
 }else{
     echo '<input type="submit" id="btnCompetenciafinal" name="btnCompetenciafinal"  value="Calificar Compétencias">';
-    echo '</form>';
-}
 
+}
+echo '</form>';
 echo'<br>';
 echo '</div></div> <!-- cierra vista -->';
     

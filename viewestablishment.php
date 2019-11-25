@@ -1506,7 +1506,7 @@ if($estatusa==2){
                 </div>
                 <?php
                 echo '<form id="revisionobjfinal" method="POST" action="enviorevisionfinal.php" data-parsley-validate="">';
-                //$requeridcolaborador='required=""';
+                $requeridv3='required=""';
                 foreach($resultcontrol as $valuecontrol){
 
                 $contfinal=$valuecontrol->contador;
@@ -1524,10 +1524,10 @@ if($estatusa==2){
                     </div>
                 </div>
                 <div class="w3-row">
-                    <input type="hidden" id="id'.$contfinal.'" name="idobjestablecidofinal'.$contfinal.'" value="'.$valuecontrol->id.'" '.$requeridcolaborador.'>
-                    <input type="hidden" id="userid'.$contfinal.'" name="useridfinal'.$contfinal.'" value="'.$USER->id.'" '.$requeridcolaborador.'>
-                    <input type="hidden" id="courseid'.$contfinal.'" name="courseidfinal'.$contfinal.'" value="'.$courseid.'" '.$requeridcolaborador.'>
-                    <input type="hidden" id="idobjetivo'.$contfinal.'" name="idobjetivofinal'.$contfinal.'" value="'.$id.'" '.$requeridcolaborador.'>
+                    <input type="hidden" id="id'.$contfinal.'" name="idobjestablecidofinal'.$contfinal.'" value="'.$valuecontrol->id.'" '.$requeridv3.'>
+                    <input type="hidden" id="userid'.$contfinal.'" name="useridfinal'.$contfinal.'" value="'.$USER->id.'" '.$requeridv3.'>
+                    <input type="hidden" id="courseid'.$contfinal.'" name="courseidfinal'.$contfinal.'" value="'.$courseid.'" '.$requeridv3.'>
+                    <input type="hidden" id="idobjetivo'.$contfinal.'" name="idobjetivofinal'.$contfinal.'" value="'.$id.'" '.$requeridv3.'>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion" style="font-size:10px;">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
                     <!--<p><input  class="w3-input w3-border" type="text"></p>-->
@@ -1576,7 +1576,7 @@ if($estatusa==2){
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">Auto - Evaluación final</p>';
                         if(empty($valuecontrol->autoevaluation)){
-                            $establecimientorevisionfinal .='<p><input class="w3-input w3-border" type="text" id="valorautoevaluacion'.$contfinal.'" name="valorautoevaluacion'.$contfinal.'" data-parsley-type="number" '.$requeridcolaborador.'></p>';
+                            $establecimientorevisionfinal .='<p><input class="w3-input w3-border" type="text" id="valorautoevaluacion'.$contfinal.'" name="valorautoevaluacion'.$contfinal.'" data-parsley-type="number" '.$requeridv3.'></p>';
                         }else{
                             $establecimientorevisionfinal .='<p class="w3-input w3-border">'.$valuecontrol->autoevaluation.'</p>';
                         }
@@ -1596,7 +1596,7 @@ if($estatusa==2){
                             <div class="w3-col m6 w3-white w3-center">
                                 <p class="text-cuestion">Mis comentarios:</p>';
                                 if(empty($mycomments)){
-                                    $establecimientorevisionfinal .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="micomentarios'.$contfinal.'" name="micomentarios'.$contfinal.'" '.$requeridcolaborador.'></textarea></p>';
+                                    $establecimientorevisionfinal .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="micomentarios'.$contfinal.'" name="micomentarios'.$contfinal.'" '.$requeridv3.'></textarea></p>';
                                 }else{
                                     $establecimientorevisionfinal .='<p class="w3-input w3-border">'.$mycomments.'</p>';
                                 }
@@ -1604,7 +1604,7 @@ if($estatusa==2){
                             <div class="w3-col m6 w3-white w3-center">
                                 <p class="text-cuestion">Mis comentarios, Evaluación Final:</p>';
                                 if(empty($valuecontrol->mycommentsfinal)){
-                                    $establecimientorevisionfinal .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="micomentariosef'.$contfinal.'" name="micomentariosef'.$contfinal.'" '.$requeridcolaborador.'></textarea></p>';
+                                    $establecimientorevisionfinal .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="micomentariosef'.$contfinal.'" name="micomentariosef'.$contfinal.'" '.$requeridv3.'></textarea></p>';
                                 }else{
                                     $establecimientorevisionfinal .='<p class="w3-input w3-border">'.$valuecontrol->mycommentsfinal.'</p>';
                                 }
