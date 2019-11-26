@@ -297,14 +297,8 @@ $establecimiento .='<form id="establecimientoobj" method="POST" action="envio.ph
                                                     
         $establecimiento .='<div id="establecimientoobjetivos'.$i.'">
                                 <div class="w3-row">
-                                        <div class="w3-col l8 w3-dark-grey">
+                                        <div class="w3-col l12 w3-dark-grey">
                                             <p>Breve descripción del objetivo '.$i.'</p>
-                                        </div>
-                                        <div class="w3-col l2">
-                                            <p></p>
-                                        </div>
-                                        <div class="w3-col l2">
-                                            <p></p>
                                         </div>
                                 </div>
                                 <div class="w3-row">
@@ -351,20 +345,24 @@ $establecimiento .='<form id="establecimientoobj" method="POST" action="envio.ph
                                         <p><textarea class="w3-input w3-border" maxlength="200" rows="4" cols="50" type="text" id="objetivocompleto'.$i.'" name="objetivocompleto'.$i.'" '.$requeridotext.'></textarea></p>
                                     </div>
                                 </div>
-                                <div class="row">
-                                    <div class="w3-col m6 w3-white w3-center">
-                                        <p class="text-cuestion"></p>
-                                        <p class="w3-input" style="background-color: #ffffff; border-bottom: 1px solid #ffff;"><br></p>
+                                <div class="w3-row">
+                                    <div class="w3-round-xlarge w3-col m8  w3-pale-red">
+                                        <p>Fecha compromiso</p>
                                     </div>
-                                    <div class="w3-col m2 w3-white w3-center">
+                                    <div class="w3-round-xlarge w3-col m4  w3-pale-red">
+                                        <p>Peso anual en %</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="w3-col m4 w3-white w3-center">
                                         <p class="text-cuestion">Fecha inicial</p>
                                         <p><input class="w3-input w3-border" type="date" id="fechainicio'.$i.'" name="fechainicio'.$i.'"></p>
                                     </div>
-                                    <div class="w3-col m2 w3-white w3-center">
+                                    <div class="w3-col m4 w3-white w3-center">
                                         <p class="text-cuestion">Fecha final</p>
                                         <p><input class="w3-input w3-border" type="date" id="fechafinal'.$i.'" name="fechafinal'.$i.'"></p>
                                     </div>
-                                    <div class="w3-col m2 w3-white w3-center">
+                                    <div class="w3-col m4 w3-white w3-center">
                                         <p class="text-cuestion">Valor del objetivo sobre 100</p>
                                         <p><input class="w3-input w3-border" type="text" id="valorobjetivo'.$i.'" name="valorobjetivo'.$i.'" data-parsley-type="number" '.$requerido.'></p>
                                     </div>
@@ -380,14 +378,8 @@ $establecimiento .='<form id="establecimientoobj" method="POST" action="envio.ph
     $cont=$valuecontrol->contador;
     $establecimiento .='<div id="establecimientoobj" data-parsley-validate=""><div id="establecimientoobjetivos'.$cont.'">
                             <div class="w3-row">
-                                    <div class="w3-col l8 w3-dark-grey">
+                                    <div class="w3-col l12 w3-dark-grey">
                                         <p>Breve descripción del objetivo '.$cont.'</p>
-                                    </div>
-                                    <div class="w3-col l2">
-                                        <p></p>
-                                    </div>
-                                    <div class="w3-col l2">
-                                        <p></p>
                                     </div>
                             </div>
                             <div class="w3-row">
@@ -396,8 +388,7 @@ $establecimiento .='<form id="establecimientoobj" method="POST" action="envio.ph
                                 <input type="hidden" id="idobjetivo'.$i.'" name="idobjetivo'.$i.'" value="'.$id.'" '.$requerido.'>
                                 <div class="w3-col m2 w3-white w3-center">
                                     <p class="text-cuestion" style="font-size:10px;">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
-                                    <!--<p><input  class="w3-input w3-border" type="text"></p>-->
-                                    <p class="w3-input w3-border" style="margin-top: 19px;">'.$valuecontrol->targetnumber.'</p>
+                                    <p class="w3-input w3-border" style="margin-top: 14px;">'.$valuecontrol->targetnumber.'</p>
                                 </div>
                                 <div class="w3-col m2 w3-white w3-center">
                                     <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
@@ -426,20 +417,24 @@ $establecimiento .='<form id="establecimientoobj" method="POST" action="envio.ph
                                     <p class="w3-input w3-border">'.$valuecontrol->objectivecomplete.'</p>
                                 </div>
                             </div>
-                            <div class="row">
-                                <div class="w3-col m6 w3-white w3-center">
-                                    <p class="text-cuestion"></p>
-                                    <p class="w3-input" style="background-color: #ffffff; border-bottom: 1px solid #ffff;"><br></p>
+                            <div class="w3-row">
+                                <div class="w3-round-xlarge w3-col m8  w3-pale-red">
+                                <p>Fecha compromiso</p>
                                 </div>
-                                <div class="w3-col m2 w3-white w3-center">
+                                <div class="w3-round-xlarge w3-col m4  w3-pale-red">
+                                <p>Peso anual en %</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="w3-col m4 w3-white w3-center">
                                     <p class="text-cuestion">Fecha inicial</p>
                                     <p class="w3-input w3-border">'.$valuecontrol->fechaini.'</p>
                                 </div>
-                                <div class="w3-col m2 w3-white w3-center">
+                                <div class="w3-col m4 w3-white w3-center">
                                     <p class="text-cuestion">Fecha final</p>
                                     <p class="w3-input w3-border">'.$valuecontrol->fechafin.'</p>
                                 </div>
-                                <div class="w3-col m2 w3-white w3-center">
+                                <div class="w3-col m4 w3-white w3-center">
                                     <p class="text-cuestion">Valor del objetivo sobre 100</p>
                                     <p class="w3-input w3-border">'.$valuecontrol->valueobjective.'%</p>
                                 </div>
@@ -495,14 +490,8 @@ echo $vistaobjetivosjefe;
 echo $vistajefeinmediato3;
 echo '<div class="espacio"></div><div class="w3-container"><div class="w3-row"><div class="w3-col l1"><p></p></div><div class="w3-col l10 w3-center"><div class="w3-container">
         <div class="w3-row">
-            <div class="w3-round-xxlarge w3-col l8  w3-pale-red">
+            <div class="w3-round-xxlarge w3-col l12  w3-pale-red">
                 <p>Objetivos</p>
-            </div>
-            <div class="w3-round-xlarge w3-col l2  w3-pale-red">
-                <p>Fecha compromiso</p>
-            </div>
-            <div class="w3-round-xlarge w3-col l2  w3-pale-red">
-                <p>Peso anual en %</p>
             </div>';
 
 echo $establecimiento;
@@ -935,20 +924,15 @@ if($estatusa==1 || $estatusa==2){
                                     </div>
                                 </div>';
         echo $vistarevision;
-      //  echo $vistajefeinmediato;
+                 //  echo $vistajefeinmediato;
         echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-container">';
         ?>
         <div class="espacio"></div><div class="w3-container"><div class="w3-row"><div class="w3-col l1"><p></p></div><div class="w3-col l10 w3-center"><div class="w3-container">
         <div class="w3-row">
-        <div class="w3-round-xxlarge w3-col l8  w3-pale-red">
+        <div class="w3-round-xxlarge w3-col l12  w3-pale-red">
         <p>Objetivos</p>
         </div>
-        <div class="w3-round-xlarge w3-col l2  w3-pale-red">
-        <p>Fecha compromiso</p>
-        </div>
-        <div class="w3-round-xlarge w3-col l2  w3-pale-red">
-        <p>Peso anual en %</p>
-        </div>
+
                 
         <?php
         echo '<form id="revisionobj" method="POST" action="enviorevision.php" data-parsley-validate="">';
@@ -959,14 +943,8 @@ if($estatusa==1 || $estatusa==2){
         $actionp=$valuecontrol->actionp;
         $establecimientorevision .='<div id="revisionobjetivos'.$cont.'">
                                     <div class="w3-row">
-                                        <div class="w3-col l8 w3-dark-grey">
+                                        <div class="w3-col l12 w3-dark-grey">
                                             <p>Breve descripción del objetivo '.$cont.'</p>
-                                        </div>
-                                        <div class="w3-col l2">
-                                            <p></p>
-                                        </div>
-                                        <div class="w3-col l2">
-                                            <p></p>
                                         </div>
                                     </div>
                                     <div class="w3-row">
@@ -976,8 +954,7 @@ if($estatusa==1 || $estatusa==2){
                                         <input type="hidden" id="idobjetivo'.$cont.'" name="idobjetivo'.$cont.'" value="'.$id.'" '.$requeridcolaborador.'>
                                         <div class="w3-col m2 w3-white w3-center">
                                             <p class="text-cuestion" style="font-size:10px;">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
-                                        <!--<p><input  class="w3-input w3-border" type="text"></p>-->
-                                            <p class="w3-input w3-border" style="margin-top: 19px;">'.$valuecontrol->targetnumber.'</p>
+                                            <p class="w3-input w3-border" style="margin-top: 14px;">'.$valuecontrol->targetnumber.'</p>
                                         </div>
                                         <div class="w3-col m2 w3-white w3-center">
                                             <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
@@ -1006,26 +983,30 @@ if($estatusa==1 || $estatusa==2){
                                             <p class="w3-input w3-border">'.$valuecontrol->objectivecomplete.'</p>
                                         </div>
                                     </div>
-                                    <div class="row">
-                                        <div class="w3-col m6 w3-white w3-center">
-                                            <p class="text-cuestion" style="height: 33px;"></p>
-                                            <p class="w3-input" style="background-color: #ffffff; border-bottom: 1px solid #ffff;"><br></p>
+                                    <div class="w3-row">
+                                        <div class="w3-round-xlarge w3-col l8  w3-pale-red">
+                                            <p>Fecha compromiso</p>
                                         </div>
-                                        <div class="w3-col m2 w3-white w3-center">
+                                        <div class="w3-round-xlarge w3-col l4  w3-pale-red">
+                                            <p>Peso anual en %</p>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="w3-col m4 w3-white w3-center">
                                             <p class="text-cuestion">Fecha inicial</p>
                                             <p class="w3-input w3-border">'.$valuecontrol->fechaini.'</p>
                                         </div>
-                                        <div class="w3-col m2 w3-white w3-center">
+                                        <div class="w3-col m4 w3-white w3-center">
                                             <p class="text-cuestion">Fecha final</p>
                                             <p class="w3-input w3-border">'.$valuecontrol->fechafin.'</p>
                                         </div>
-                                        <div class="w3-col m2 w3-white w3-center">
+                                        <div class="w3-col m4 w3-white w3-center">
                                             <p class="text-cuestion">Valor del objetivo sobre 100</p>
                                             <p class="w3-input w3-border">'.$valuecontrol->valueobjective.'%</p>
                                         </div>
                                     </div><!--aqui empieza-->
                                     <div class="w3-row">
-                                        <div class="w3-col m5 w3-white w3-center">
+                                        <div class="w3-col m6 w3-white w3-center">
                                             <div class="w3-row">
                                                 <div class="w3-col m6 w3-white w3-center">
                                                     <p class="text-cuestion">Qué acciones he implementado:</p>';
@@ -1046,11 +1027,11 @@ if($estatusa==1 || $estatusa==2){
                                                     $establecimientorevision .='</div>
                                             </div>
                                         </div>
-                                        <div class="w3-col m2 w3-white w3-center">
-                                            <p class="text-cuestion" style="height: 68px;">Retroalimentación de mi jefe: </p>
+                                        <!--<div class="w3-col m2 w3-white w3-center">
+                                            <p class="text-cuestion" style="height: 40px;">Retroalimentación de mi jefe: </p>
                                             <p class="text-cuestion"><br></p>
-                                        </div>
-                                        <div class="w3-col m5 w3-white w3-center">
+                                        </div>-->
+                                        <div class="w3-col m6 w3-white w3-center">
                                         <div class="w3-row">
                                         <div class="w3-col m6 w3-white w3-center">
                                             <p class="text-cuestion">Cometarios sobre acciones ya implementadas:</p>';
@@ -1489,20 +1470,8 @@ if($estatusa==2){
                 ?>
                 <div class="espacio"></div><div class="w3-container"><div class="w3-row"><div class="w3-col l1"><p></p></div><div class="w3-col l10 w3-center"><div class="w3-container">
                 <div class="w3-row">
-                <div class="w3-round-xxlarge w3-col l4  w3-pale-red">
+                <div class="w3-round-xxlarge w3-col l12  w3-pale-red">
                 <p>Objetivos</p>
-                </div>
-                <div class="w3-round-xlarge w3-col l2  w3-pale-red">
-                <p>Fecha compromiso</p>
-                </div>
-                <div class="w3-round-xlarge w3-col l2  w3-pale-red">
-                <p>Peso anual en %</p>
-                </div>
-                <div class="w3-round-xlarge w3-col l2  w3-pale-red">
-                <p>Auto - Evaluación final</p>
-                </div>
-                <div class="w3-round-xlarge w3-col l2  w3-pale-red">
-                <p>Evaluación final - jefe inmediato</p>
                 </div>
                 <?php
                 echo '<form id="revisionobjfinal" method="POST" action="enviorevisionfinal.php" data-parsley-validate="">';
@@ -1513,7 +1482,7 @@ if($estatusa==2){
                 $mycomments=$valuecontrol->mycomments;
                 $establecimientorevisionfinal .='<div id="revisionobjetivos'.$contfinal.'">
                 <div class="w3-row">
-                    <div class="w3-col l8 w3-dark-grey">
+                    <div class="w3-col l12 w3-dark-grey">
                         <p>Breve descripción del objetivo '.$contfinal.'</p>
                     </div>
                     <div class="w3-col l2">
@@ -1530,7 +1499,6 @@ if($estatusa==2){
                     <input type="hidden" id="idobjetivo'.$contfinal.'" name="idobjetivofinal'.$contfinal.'" value="'.$id.'" '.$requeridv3.'>
                     <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion" style="font-size:10px;">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
-                    <!--<p><input  class="w3-input w3-border" type="text"></p>-->
                         <p class="w3-input w3-border" style="margin-top: 19px;">'.$valuecontrol->targetnumber.'</p>
                     </div>
                     <div class="w3-col m2 w3-white w3-center">
@@ -1560,12 +1528,26 @@ if($estatusa==2){
                         <p class="w3-input w3-border">'.$valuecontrol->objectivecomplete.'</p>
                     </div>
                 </div>
+                <div>
+                    <div class="w3-round-xlarge w3-col m4  w3-pale-red">
+                    <p>Fecha compromiso</p>
+                    </div>
+                    <div class="w3-round-xlarge w3-col m2  w3-pale-red">
+                    <p>Peso anual en %</p>
+                    </div>
+                    <div class="w3-round-xlarge w3-col m3  w3-pale-red">
+                    <p>Auto - Evaluación final</p>
+                    </div>
+                    <div class="w3-round-xlarge w3-col m3  w3-pale-red">
+                    <p>Evaluación final - jefe inmediato</p>
+                    </div>
+                </div>
                 <div class="row">
-                    <div class="w3-col m3 w3-white w3-center">
+                    <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">Fecha inicial</p>
                         <p class="w3-input w3-border">'.$valuecontrol->fechaini.'</p>
                     </div>
-                    <div class="w3-col m3 w3-white w3-center">
+                    <div class="w3-col m2 w3-white w3-center">
                         <p class="text-cuestion">Fecha final</p>
                         <p class="w3-input w3-border">'.$valuecontrol->fechafin.'</p>
                     </div>
@@ -1573,7 +1555,7 @@ if($estatusa==2){
                         <p class="text-cuestion">Valor del objetivo sobre 100</p>
                         <p class="w3-input w3-border">'.$valuecontrol->valueobjective.'%</p>
                     </div>
-                    <div class="w3-col m2 w3-white w3-center">
+                    <div class="w3-col m3 w3-white w3-center">
                         <p class="text-cuestion">Auto - Evaluación final</p>';
                         if(empty($valuecontrol->autoevaluation)){
                             $establecimientorevisionfinal .='<p><input class="w3-input w3-border" type="text" id="valorautoevaluacion'.$contfinal.'" name="valorautoevaluacion'.$contfinal.'" data-parsley-type="number" '.$requeridv3.'></p>';
@@ -1581,7 +1563,7 @@ if($estatusa==2){
                             $establecimientorevisionfinal .='<p class="w3-input w3-border">'.$valuecontrol->autoevaluation.'</p>';
                         }
                         $establecimientorevisionfinal .='</div>
-                    <div class="w3-col m2 w3-white w3-center">
+                    <div class="w3-col m3 w3-white w3-center">
                         <p class="text-cuestion">Evaluación final - jefe inmediato</p>';
                         if(empty($valuecontrol->evaluationboss)){
                             $establecimientorevisionfinal .='<p class="w3-input w3-border">&nbsp;</p>';
@@ -1669,7 +1651,7 @@ if($estatusa==2){
 
                     if($rolprincipal=='COLABORADOR'){
 
-                        $sql='select  obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
+                        $finalsql='select  obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
                         from mdl_course c
                         inner join mdl_objective o on o.course = c.id
                         inner join mdl_objective_competition obc on obc.idinstance = o.id
@@ -1677,10 +1659,10 @@ if($estatusa==2){
                         where c.id=?
                         and obn.id=3
                         order by obc.orden asc';
-                        $resultados3 = $DB->get_records_sql($sql, array($courseid));
+                        $finalresultados = $DB->get_records_sql($finalsql, array($courseid));
 
                         echo $colaboradortemp;
-                        foreach($resultados3 as $valores3){
+                        foreach($finalresultados as $finalvalores){
 
                         echo '<div class="espacio"></div>
                         <div class="w3-row">
@@ -1702,61 +1684,62 @@ if($estatusa==2){
 
                         echo '<div class="w3-row">
                         <div class="w3-col l3">
-                        <p>'.$valores3->nombrecompetencia.'</p>
+                        <p>'.$finalvalores->nombrecompetencia.'</p>
                         </div>';
 
 
 
-                        $valorconsulta3='select ocb.id, ocb.description, oc.id as idcompetencia, oc.courseid, oc.idinstance ,ocb.code, oec.value
+                        $finalvalorconsulta='select ocb.id, ocb.description, oc.id as idcompetencia, oc.courseid, oc.idinstance ,ocb.code, oec.value
                         from mdl_objective_competition_behavior ocb 
                         inner join mdl_objective_competition oc on oc.id=ocb.idcompetition 
                         inner join mdl_objective_establishment_competition_final oec on oec.idbehavior = ocb.id
                         where ocb.idcompetition=? and oec.idobjectiveestablishment=? and ocb.status=0 order by ocb.code asc';
-                        $valorresultado3 = $DB->get_records_sql($valorconsulta3, array($valores3->idcompe, $id));
-                        if(!empty($valorresultado3)){
-                                //print_r($resultado);
-                                echo '<div class="w3-col l9">
-                                <table class="w3-table-all">';
-                                foreach($valorresultado as $comportamientofinal){
-                                // $idcomportamiento=$comportamiento->id;
-                                if($comportamientofinal->code==1){
-                                    echo'<tr><td>'.$comportamientofinal->description.'</td>';
-                                    echo'<td>';
-                                    ?>
-                                                <input type="radio" id="valoresrf<?php echo $comportamientofinal->id; ?>" name="valoresrf[<?php echo $comportamientofinal->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $comportamientofinal->id;?>">4</label>
-                                                <input type="radio" id="valoresrf<?php echo $comportamientofinal->id; ?>" name="valoresrf[<?php echo $comportamientofinal->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $comportamientofinal->id;?>">3</label>
-                                                <input type="radio" id="valoresrf<?php echo $comportamientofinal->id; ?>" name="valoresrf[<?php echo $comportamientofinal->id; ?>][valor]" value="2" <?php if (!(strcmp(2, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $comportamientofinal->id;?>">2</label>
-                                                <input type="radio" id="valoresrf<?php echo $comportamientofinal->id; ?>" name="valoresrf[<?php echo $comportamientofinal->id; ?>][valor]" value="1" <?php if (!(strcmp(1, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $comportamientofinal->id;?>">1</label>
-                                    <?php
-                                    echo'</td></tr>';
+                        $finalvalorresultado = $DB->get_records_sql($finalvalorconsulta, array($finalvalores->idcompe, $id));
+                        if(!empty($finalvalorresultado)){
+                            //print_r($resultado);
+                            echo '<div class="w3-col l9">
+                            <table class="w3-table-all">';
+                            foreach($finalvalorresultado as $finalcomportamiento){
+                            // $idcomportamiento=$comportamiento->id;
+                            if($finalcomportamiento->code==1){
+                                echo'<tr><td>'.$finalcomportamiento->description.'</td>';
+                                echo'<td>';
+                                ?>
+                                            <input type="radio" id="valoresrf<?php echo $finalcomportamiento->id; ?>" name="valoresrf[<?php echo $finalcomportamiento->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($finalcomportamiento->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamiento->id;?>">4</label>
+                                            <input type="radio" id="valoresrf<?php echo $finalcomportamiento->id; ?>" name="valoresrf[<?php echo $finalcomportamiento->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($finalcomportamiento->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamiento->id;?>">3</label>
+                                            <input type="radio" id="valoresrf<?php echo $finalcomportamiento->id; ?>" name="valoresrf[<?php echo $finalcomportamiento->id; ?>][valor]" value="2" <?php if (!(strcmp(2, htmlentities($finalcomportamiento->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamiento->id;?>">2</label>
+                                            <input type="radio" id="valoresrf<?php echo $finalcomportamiento->id; ?>" name="valoresrf[<?php echo $finalcomportamiento->id; ?>][valor]" value="1" <?php if (!(strcmp(1, htmlentities($finalcomportamiento->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamiento->id;?>">1</label>
+                                <?php
+                                echo'</td></tr>';
 
-                                    }else if ($comportamientofinal->code==2){
-                                        echo'<tr><td>'.$comportamientofinal->description.'</td>';
-                                        echo'<td><p class="w3-input w3-border" type="text" id="valoresrf'.$comportamientofinal->id.'" name="valoresrf['.$comportamientofinal->id.'][valor]" >'.$comportamientofinal->value.'</p></td>';
-                                        echo'</tr>';
-                                    }else if($comportamientofinal->code==3){
-                                        echo'<tr><td>'.$comportamientofinal->description.'</td></tr>';
-                                        echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valoresrf'.$comportamientofinal->id.'" name="valoresrf['.$comportamientofinal->id.'][valor]">'.$comportamientofinal->value.'</p></td>';
-                                        echo'</tr>';
-                                    }else{
-
-                                    }
-
+                                }else if ($finalcomportamiento->code==2){
+                                    echo'<tr><td>'.$finalcomportamiento->description.'</td>';
+                                    echo'<td><p class="w3-input w3-border" type="text" id="valoresrf'.$finalcomportamiento->id.'" name="valoresrf['.$finalcomportamiento->id.'][valor]" >'.$finalcomportamiento->value.'</p></td>';
+                                    echo'</tr>';
+                                }else if($finalcomportamiento->code==3){
+                                    echo'<tr><td>'.$finalcomportamiento->description.'</td></tr>';
+                                    echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valoresrf'.$finalcomportamiento->id.'" name="valoresrf['.$finalcomportamiento->id.'][valor]">'.$finalcomportamiento->value.'</p></td>';
+                                    echo'</tr>';
+                                }else{
 
                                 }
-                                echo '</table></div>';
+
+
+                            }
+                            echo '</table></div>';
                         }else{
-                            $valorconsultavista2='select ocb.id, ocb.description, ocb.idcompetition 
+
+                            $valorconsultavista3='select ocb.id, ocb.description, ocb.idcompetition 
                             from mdl_objective_competition_behavior ocb 
                             inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
                             where ocb.idcompetition=? and ocb.code=1';
-                            $valorresultadovista2 = $DB->get_records_sql($valorconsultavista2, array($valores->idcompe));
+                            $valorresultadovista3 = $DB->get_records_sql($valorconsultavista3, array($finalvalores->idcompe));
                             echo '<div class="w3-col l9">
                             <table class="w3-table-all">';
-                                foreach($valorresultadovista2 as $vistacomportamiento2){
+                                foreach($valorresultadovista3 as $vistacomportamiento3){
                                 
                                         echo'<tr>
-                                            <td>'.$vistacomportamiento2->description.'</td>
+                                            <td>'.$vistacomportamiento3->description.'</td>
                                         </tr>';
                                     
                                 
@@ -1998,12 +1981,14 @@ textarea.parsley-error:focus {
 ?>
 <script>
 $(document).on('ready', function() {
+    /*
+        $('#BTNvalida').parsley().on('field:validated', function() {
+            var ok = $('.parsley-error').length === 0;
+            $('.bs-callout-info').toggleClass('hidden', !ok);
+            $('.bs-callout-warning').toggleClass('hidden', ok);
+        });
 
-    $('#BTNvalida').parsley().on('field:validated', function() {
-        var ok = $('.parsley-error').length === 0;
-        $('.bs-callout-info').toggleClass('hidden', !ok);
-        $('.bs-callout-warning').toggleClass('hidden', ok);
-    });
+        */
 
 
     $("#establecimientoobj").bind("submit",function(){
@@ -2084,7 +2069,7 @@ $(document).on('ready', function() {
                 * correcta
                 * */
                 $("#rev").html(data);
-                location.reload();
+                //location.reload();
                 
             },
             error: function(data){
@@ -2134,7 +2119,7 @@ $(document).on('ready', function() {
                 * correcta
                 * */
                 $("#revfinal").html(data);
-                 location.reload();
+                 //location.reload();
                 
             },
             error: function(data){

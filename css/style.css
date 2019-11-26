@@ -4,7 +4,7 @@
     
     .text-cuestion {
         height: 50px;
-        font-size: 14px;
+        font-size: 12px;
         font-weight: bold;
     }
     
@@ -20,6 +20,7 @@
     
     .w3-border {
         background-color: #ccc;
+        font-size: 12px;
     }
     
     .w3-row {

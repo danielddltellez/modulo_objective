@@ -70,7 +70,7 @@ mf3.data
 FROM
 mdl_user_info_data mf3
 WHERE
-mf3.userid = u.id AND mf3.fieldid = 2) AS 'jefediecto', ogr.description as 'rol', oe.idjefedirecto as 'idjefe'
+mf3.userid = u.id AND mf3.fieldid = 2) AS 'jefediecto', ogr.description as 'rol', oe.idjefedirecto as 'idjefe',DATE_FORMAT(FROM_UNIXTIME(oe.timecreated), '%Y-%m-%d') AS fechaestab
 from mdl_user u 
 join mdl_user_info_data id on id.userid = u.id
 join mdl_user_info_field ii on ii.id = id.fieldid 
@@ -85,6 +85,7 @@ $idusuario='';
 $nombre='';
 $nombrejefe='';
 $rolprincipal='';
+$fechaestablecimiento='';
 foreach($result as $value){
 
         $idusuario=$value->iduser;
@@ -92,6 +93,7 @@ foreach($result as $value){
         $nombrejefe=$value->jefediecto;
         $rolprincipal=$value->rol;
         $idjefegrupo=$value->idjefe;
+        $fechaestablecimiento=$value->fechaestab;
 
     
 }
@@ -167,7 +169,7 @@ $vista .='<div id="vista1" class="w3-light-grey vistas">
                         <p></p>
                     </div>
                     <div class="w3-col l4">
-                    <input type="date" class="form-control"  value="'.$fcha.'"  disabled="yes">
+                    <input type="date" class="form-control"  value="'.$fechaestablecimiento.'"  disabled="yes">
                         <!--<p>Fecha de establecimiento:<input type="text"></p>-->
                         <!--<p>Fecha de establecimiento: <input type="text" id="datepicker"></p>-->
                     </div>
@@ -240,14 +242,8 @@ if(empty($resultcontrol)){
   foreach($resultcontrol as $valuecontrol){
     $establecimiento .='<div id="objetivosestablecidos'.$valuecontrol->targetnumber.'">
                             <div class="w3-row">
-                                    <div class="w3-col l8 w3-dark-grey">
+                                    <div class="w3-col l12 w3-dark-grey">
                                         <p>Breve descripción del objetivo '.$valuecontrol->targetnumber.'</p>
-                                    </div>
-                                    <div class="w3-col l2">
-                                        <p></p>
-                                    </div>
-                                    <div class="w3-col l2">
-                                        <p></p>
                                     </div>
                             </div>
                             <div class="w3-row">
@@ -288,19 +284,23 @@ if(empty($resultcontrol)){
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="w3-col m6 w3-white w3-center">
-                                    <p class="text-cuestion"></p>
-                                    <p class="w3-input" style="background-color: #ffffff; border-bottom: 1px solid #ffff;"><br></p>
+                                <div class="w3-round-xlarge w3-col l8  w3-pale-red">
+                                    <p>Fecha compromiso</p>
                                 </div>
-                                <div class="w3-col m2 w3-white w3-center">
+                                <div class="w3-round-xlarge w3-col l4  w3-pale-red">
+                                    <p>Peso anual en %</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="w3-col m4 w3-white w3-center">
                                     <p class="text-cuestion">Fecha inicial</p>
                                     <p class="w3-input w3-border">'.$valuecontrol->fechaini.'</p>
                                 </div>
-                                <div class="w3-col m2 w3-white w3-center">
+                                <div class="w3-col m4 w3-white w3-center">
                                     <p class="text-cuestion">Fecha final</p>
                                     <p class="w3-input w3-border">'.$valuecontrol->fechafin.'</p>
                                 </div>
-                                <div class="w3-col m2 w3-white w3-center">
+                                <div class="w3-col m4 w3-white w3-center">
                                     <p class="text-cuestion">Valor del objetivo sobre 100</p>
                                     <p class="w3-input w3-border">'.$valuecontrol->valueobjective.'%</p>
                                 </div>
@@ -382,15 +382,10 @@ echo $vistaobjetivosjefe;
 echo $vistajefeinmediato3;
 echo '<div class="espacio"></div><div class="w3-container"><div class="w3-row"><div class="w3-col l1"><p></p></div><div class="w3-col l10 w3-center"><div class="w3-container">
         <div class="w3-row">
-            <div class="w3-round-xxlarge w3-col l8  w3-pale-red">
+            <div class="w3-round-xxlarge w3-col l12  w3-pale-red">
                 <p>Objetivos</p>
             </div>
-            <div class="w3-round-xlarge w3-col l2  w3-pale-red">
-                <p>Fecha compromiso</p>
-            </div>
-            <div class="w3-round-xlarge w3-col l2  w3-pale-red">
-                <p>Peso anual en %</p>
-            </div>';
+';
 
 echo $establecimiento;
 echo '<hr><p id="respuesta"></p> <!-- ESTABLECIMIENTO DE OBJETIVOS 6-->
@@ -801,7 +796,7 @@ $vistarevision .='<div id="vista2" class="w3-light-grey vistas" style="display: 
                 <p></p>
             </div>
             <div class="w3-col l4">
-            <input type="date" class="form-control"  value="'.$fcha.'"  disabled="yes">
+            <input type="date" class="form-control"  value="'.$fechaestablecimiento.'"  disabled="yes">
                 <!--<p>Fecha de establecimiento:<input type="text"></p>-->
                 <!--<p>Fecha de establecimiento: <input type="text" id="datepicker"></p>-->
             </div>
@@ -828,8 +823,7 @@ $vistarevision .='<div id="vista2" class="w3-light-grey vistas" style="display: 
                 <p></p>
             </div>
             <div class="w3-col l10 w3-center">
-                <p>Este apartado está estrechamente ligado con el rubro de objetivos del puesto de trabajo con esta evaluación conoceremos en qué medida se logran.</p><p> Es importante que consideres los objetivos de tu jefe inmediato que te presentamos a
-                    continuación:</p><p> *No todos deberán </p>
+                <p>Este apartado está estrechamente ligado con el rubro de objetivos del puesto de trabajo con esta evaluación conoceremos en qué medida se logran.</p>
             </div>
             <div class="w3-col l1">
                 <p></p>
@@ -840,15 +834,10 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
 ?>
 <div class="espacio"></div><div class="w3-container"><div class="w3-row"><div class="w3-col l1"><p></p></div><div class="w3-col l10 w3-center"><div class="w3-container">
 <div class="w3-row">
-<div class="w3-round-xxlarge w3-col l8  w3-pale-red">
+<div class="w3-round-xxlarge w3-col l12  w3-pale-red">
 <p>Objetivos</p>
 </div>
-<div class="w3-round-xlarge w3-col l2  w3-pale-red">
-<p>Fecha compromiso</p>
-</div>
-<div class="w3-round-xlarge w3-col l2  w3-pale-red">
-<p>Peso anual en %</p>
-</div>
+
 <?php
     echo '<form id="revisionjefe" method="POST" action="updaterevision.php" data-parsley-validate="">';
     $requeridcolaborador='required=""';
@@ -859,14 +848,8 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
     $boos=$valuecontrol->bossc;
     $establecimientorevision .='<div id="revisionobjetivos'.$cont.'">
     <div class="w3-row">
-        <div class="w3-col l8 w3-dark-grey">
+        <div class="w3-col l12 w3-dark-grey">
             <p>Breve descripción del objetivo '.$cont.'</p>
-        </div>
-        <div class="w3-col l2">
-            <p></p>
-        </div>
-        <div class="w3-col l2">
-            <p></p>
         </div>
     </div>
     <div class="w3-row">
@@ -908,25 +891,29 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
         </div>
     </div>
     <div class="row">
-        <div class="w3-col m6 w3-white w3-center">
-            <p class="text-cuestion" style="height: 33px;"></p>
-            <p class="w3-input" style="background-color: #ffffff; border-bottom: 1px solid #ffff;"><br></p>
+        <div class="w3-round-xlarge w3-col l8  w3-pale-red">
+        <p>Fecha compromiso</p>
         </div>
-        <div class="w3-col m2 w3-white w3-center">
+        <div class="w3-round-xlarge w3-col l4  w3-pale-red">
+        <p>Peso anual en %</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="w3-col m4 w3-white w3-center">
             <p class="text-cuestion">Fecha inicial</p>
             <p class="w3-input w3-border">'.$valuecontrol->fechaini.'</p>
         </div>
-        <div class="w3-col m2 w3-white w3-center">
+        <div class="w3-col m4 w3-white w3-center">
             <p class="text-cuestion">Fecha final</p>
             <p class="w3-input w3-border">'.$valuecontrol->fechafin.'</p>
         </div>
-        <div class="w3-col m2 w3-white w3-center">
+        <div class="w3-col m4 w3-white w3-center">
             <p class="text-cuestion">Valor del objetivo sobre 100</p>
             <p class="w3-input w3-border">'.$valuecontrol->valueobjective.'%</p>
         </div>
     </div><!--aqui empieza-->
     <div class="w3-row">
-        <div class="w3-col m5 w3-white w3-center">
+        <div class="w3-col m6 w3-white w3-center">
             <div class="w3-row">
                 <div class="w3-col m6 w3-white w3-center">
                     <p class="text-cuestion">Qué acciones he implementado:</p>';
@@ -947,11 +934,7 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
                     $establecimientorevision .='</div>
             </div>
         </div>
-        <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion" style="height: 68px;">Retroalimentación de mi jefe: </p>
-            <p class="text-cuestion"><br></p>
-        </div>
-        <div class="w3-col m5 w3-white w3-center">
+        <div class="w3-col m6 w3-white w3-center">
         <div class="w3-row">
         <div class="w3-col m6 w3-white w3-center">
             <p class="text-cuestion">Cometarios sobre acciones ya implementadas:</p>';
@@ -1540,7 +1523,7 @@ $vistarevisionfinal .='<div id="vista3" class="w3-light-grey vistas" style="disp
                                                         <p></p>
                                                     </div>
                                                     <div class="w3-col l4">
-                                                    <input type="date" class="form-control"  value="'.$fcha.'"  disabled="yes">
+                                                    <input type="date" class="form-control"  value="'.$fechaestablecimiento.'"  disabled="yes">
                                                         <!--<p>Fecha de establecimiento:<input type="text"></p>-->
                                                         <!--<p>Fecha de establecimiento: <input type="text" id="datepicker"></p>-->
                                                     </div>
@@ -1567,8 +1550,7 @@ $vistarevisionfinal .='<div id="vista3" class="w3-light-grey vistas" style="disp
                                                         <p></p>
                                                     </div>
                                                     <div class="w3-col l10 w3-center">
-                                                        <p>Este apartado está estrechamente ligado con el rubro de objetivos del puesto de trabajo con esta evaluación conoceremos en qué medida se logran.</p><p> Es importante que consideres los objetivos de tu jefe inmediato que te presentamos a
-                                                            continuación:</p><p> *No todos deberán </p>
+                                                        <p>Este apartado está estrechamente ligado con el rubro de objetivos del puesto de trabajo con esta evaluación conoceremos en qué medida se logran.</p>
                                                     </div>
                                                     <div class="w3-col l1">
                                                         <p></p>
@@ -1579,15 +1561,10 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe-final" class="w3-
 ?>
 <div class="espacio"></div><div class="w3-container"><div class="w3-row"><div class="w3-col l1"><p></p></div><div class="w3-col l10 w3-center"><div class="w3-container">
 <div class="w3-row">
-<div class="w3-round-xxlarge w3-col l8  w3-pale-red">
+<div class="w3-round-xxlarge w3-col l12  w3-pale-red">
 <p>Objetivos</p>
 </div>
-<div class="w3-round-xlarge w3-col l2  w3-pale-red">
-<p>Fecha compromiso</p>
-</div>
-<div class="w3-round-xlarge w3-col l2  w3-pale-red">
-<p>Peso anual en %</p>
-</div>
+
 <form id="revisionjefefinal" method="POST" action="updaterevisionfinal.php" data-parsley-validate="">
 <?php
 $requeridcolaboradorfinal='required=""';
@@ -1600,14 +1577,8 @@ foreach($resultcontrol as $valuecontrol){
     $totaljefe=$valuecontrol->evaluationboss;
     $establecimientorevisionfinal .='<div id="revisionobjetivosfinal'.$contfinal.'">
     <div class="w3-row">
-        <div class="w3-col l8 w3-dark-grey">
+        <div class="w3-col l12 w3-dark-grey">
             <p>Breve descripción del objetivo '.$contfinal.'</p>
-        </div>
-        <div class="w3-col l2">
-            <p></p>
-        </div>
-        <div class="w3-col l2">
-            <p></p>
         </div>
     </div>
     <div class="w3-row">
@@ -1648,12 +1619,26 @@ foreach($resultcontrol as $valuecontrol){
             <p class="w3-input w3-border">'.$valuecontrol->objectivecomplete.'</p>
         </div>
     </div>
+    <div class="w3-row">
+        <div class="w3-round-xlarge w3-col l4  w3-pale-red">
+            <p>Fecha compromiso</p>
+        </div>
+        <div class="w3-round-xlarge w3-col l2  w3-pale-red">
+            <p>Peso anual en %</p>
+        </div>
+        <div class="w3-round-xlarge w3-col l3  w3-pale-red">
+            <p>Auto - Evaluación final</p>
+        </div>
+        <div class="w3-round-xlarge w3-col l3  w3-pale-red">
+            <p> Evaluación final - jefe inmediato</p>
+        </div>
+    </div>
     <div class="row">
-        <div class="w3-col m3 w3-white w3-center">
+        <div class="w3-col m2 w3-white w3-center">
             <p class="text-cuestion">Fecha inicial</p>
             <p class="w3-input w3-border">'.$valuecontrol->fechaini.'</p>
         </div>
-        <div class="w3-col m3 w3-white w3-center">
+        <div class="w3-col m2 w3-white w3-center">
             <p class="text-cuestion">Fecha final</p>
             <p class="w3-input w3-border">'.$valuecontrol->fechafin.'</p>
         </div>
@@ -1661,7 +1646,7 @@ foreach($resultcontrol as $valuecontrol){
             <p class="text-cuestion">Valor del objetivo sobre 100</p>
             <p class="w3-input w3-border">'.$valuecontrol->valueobjective.'%</p>
         </div>
-        <div class="w3-col m2 w3-white w3-center">
+        <div class="w3-col m3 w3-white w3-center">
         <p class="text-cuestion">Auto - Evaluación final</p>';
         if(empty($valuecontrol->autoevaluation)){
             
@@ -1670,7 +1655,7 @@ foreach($resultcontrol as $valuecontrol){
             $establecimientorevisionfinal .='<p class="w3-input w3-border">'.$valuecontrol->autoevaluation.'</p>';
         }
         $establecimientorevisionfinal .='</div>
-    <div class="w3-col m2 w3-white w3-center">
+    <div class="w3-col m3 w3-white w3-center">
         <p class="text-cuestion">Evaluación final - jefe inmediato</p>';
         if(empty($totaljefe)){
 
@@ -2736,7 +2721,7 @@ echo $enviorevisionfinal;
 
 if($validacionrfinal==1){
     if($primeravalidacion==2){
-        echo'<center><button type="button" onclick="document.getElementById(\'revisionfinal'.$id.'\').style.display=\'block\'" class="w3-button w3-pale-red">Validar Revision</button></center>';
+        echo'<center><button type="button" onclick="document.getElementById(\'revisionfinal'.$id.'\').style.display=\'block\'" class="w3-button w3-pale-red" style="display: none;">Validar Revision</button></center>';
         echo'<div id="revisionfinal'.$id.'" class="w3-modal">
                     <div class="w3-modal-content w3-card-4">
                     <header class="w3-container w3-pale-red"> 

@@ -120,6 +120,10 @@ function sumapobj(pobj) {
             pobjs[i - 1] = 0.0;
         } else if (pobjs[i - 1] == "") {
             pobjs[i - 1] = 0.0;
+        } else if (pobjs[i - 1] >= 100) {
+            $(porcentajeObj).val("");
+            pobjs[i - 1] = 0.0;
+
         }
     }
 
@@ -189,10 +193,12 @@ function concatena(obj) {
 
 //Revisa todo
 function revAll() {
+
     var resultF = 1;
     var resultO = 1;
     var objetivocompleto = "";
     for (var i = 1; i <= 6; i++) {
+
         objetivocompleto = "#objetivocompleto" + i;
         valobjetivocompleto = $.trim($(objetivocompleto).val());
         //		$.trim($("#comment").val())
@@ -219,7 +225,9 @@ function revAll() {
         }
     }
     resultO = sumapobj(i);
+
     if (resultF == 1 && resultO == 1) {
+
         $("#btnEnviar").attr('disabled', false);
 
         $("#btnEnviar").click();
