@@ -251,9 +251,9 @@ if(empty($resultcontrol)){
                                 <input type="hidden" id="courseid'.$i.'" name="courseid'.$i.'" value="'.$courseid.'" '.$requerido.'>
                                 <input type="hidden" id="idobjetivo'.$i.'" name="idobjetivo'.$i.'" value="'.$id.'" '.$requerido.'>
                                 <div class="w3-col m2 w3-white w3-center">
-                                    <p class="text-cuestion">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
+                                    <p class="text-cuestion" style="font-size:10px;">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
                                     <!--<p><input  class="w3-input w3-border" type="text"></p>-->
-                                    <p class="w3-input w3-border">'.$valuecontrol->targetnumber.'</p>
+                                    <p class="w3-input w3-border" style="margin-top: 14px;">'.$valuecontrol->targetnumber.'</p>
                                 </div>
                                 <div class="w3-col m2 w3-white w3-center">
                                     <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
@@ -859,9 +859,9 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
         <input type="hidden" id="idobjetivo'.$cont.'" name="idobjetivo'.$cont.'" value="'.$id.'" '.$requeridcolaborador.'>
         <input type="hidden" id="idrevision'.$cont.'" name="idrevision'.$cont.'" value="'.$valuecontrol->idrevision.'" '.$requeridcolaborador.'>
         <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
+            <p class="text-cuestion" style="font-size:10px;">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
         <!--<p><input  class="w3-input w3-border" type="text"></p>-->
-            <p class="w3-input w3-border">'.$valuecontrol->targetnumber.'</p>
+            <p class="w3-input w3-border" style="margin-top: 14px;">'.$valuecontrol->targetnumber.'</p>
         </div>
         <div class="w3-col m2 w3-white w3-center">
             <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
@@ -1052,8 +1052,8 @@ if($rolcolaborador==1){
                 /*echo'<tr>
                 <td>'.$comportamiento2->description.'</td>';*/
                 if($comportamiento2->code==1){
-                echo'<tr><td>'.$comportamiento2->description.'</td>';
-                echo'<td>';
+                echo'<tr><td style="width:80%;">'.$comportamiento2->description.'</td>';
+                echo'<td style="width:20%;">';
                 ?>
                             <input type="radio"  id="valores<?php echo $comportamiento2->id; ?>" name="valores[<?php echo $comportamiento2->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($comportamiento2->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamiento2->id;?>" >4</label>
                             <input type="radio"  id="valores<?php echo $comportamiento2->id; ?>" name="valores[<?php echo $comportamiento2->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($comportamiento2->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamiento2->id;?>" >3</label>
@@ -1068,8 +1068,8 @@ if($rolcolaborador==1){
                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidestablecimiento'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idestablecimiento]" value="'.$id.'"></p></td>
                     </tr>';
                 }else if ($comportamiento2->code==2){
-                    echo'<tr><td>'.$comportamiento2->description.'</td>';
-                    echo'<td><p class="w3-input w3-border" type="text" id="valores'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][valor]">'.$comportamiento2->value.'</p></td>';
+                    echo'<tr><td style="width:80%;">'.$comportamiento2->description.'</td>';
+                    echo'<td style="width:20%;"><p class="w3-input w3-border" type="text" id="valores'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][valor]">'.$comportamiento2->value.'</p></td>';
                     echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcompetencia'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcompetencia]" value="'.$comportamiento2->idcompetencia.'"></p></td>
                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcomportamiento'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcomportamiento]" value="'.$comportamiento2->id.'"></p></td>
                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valorescourseid'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][courseid]" value="'.$comportamiento2->courseid.'"></p></td>
@@ -1077,8 +1077,8 @@ if($rolcolaborador==1){
                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidestablecimiento'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idestablecimiento]" value="'.$id.'"></p></td>
                         </tr>';
                 }else if($comportamiento2->code==3){
-                    echo'<tr><td>'.$comportamiento2->description.'</td></tr>';
-                    echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][valor]">'.$comportamiento2->value.'</p></td>';
+                    echo'<tr><td style="width:80%;">'.$comportamiento2->description.'</td></tr>';
+                    echo'<tr><td style="width:20%;"><p class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][valor]">'.$comportamiento2->value.'</p></td>';
                     echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcompetencia'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcompetencia]" value="'.$comportamiento2->idcompetencia.'"></p></td>
                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcomportamiento'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcomportamiento]" value="'.$comportamiento2->id.'"></p></td>
                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valorescourseid'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][courseid]" value="'.$comportamiento2->courseid.'"></p></td>
@@ -1110,8 +1110,8 @@ if($rolcolaborador==1){
             foreach($resultado as $comportamiento2){
 
                             if($comportamiento2->code==1){
-                                echo'<tr><td>'.$comportamiento2->description.'</td>';
-                                echo'   <td>
+                                echo'<tr><td style="width:80%;">'.$comportamiento2->description.'</td>';
+                                echo'   <td style="width:20%;">
                                             <input type="radio" id="valores'.$comportamiento2->id.'" name1="'.$contadorfinal.'" name="valores['.$comportamiento2->id.'][valor]" value="4" '.$requeridcolaborador.'><label for="valores'.$comportamiento2->id.'">4</label>
                                             <input type="radio" id="valores'.$comportamiento2->id.'" name1="'.$contadorfinal.'" name="valores['.$comportamiento2->id.'][valor]" value="3" '.$requeridcolaborador.'><label for="valores'.$comportamiento2->id.'">3</label>
                                             <input type="radio" id="valores'.$comportamiento2->id.'" name1="'.$contadorfinal.'" name="valores['.$comportamiento2->id.'][valor]" value="2" '.$requeridcolaborador.'><label for="valores'.$comportamiento2->id.'">2</label>
@@ -1124,8 +1124,8 @@ if($rolcolaborador==1){
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidestablecimiento'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idestablecimiento]" value="'.$id.'"></p></td>
                                     </tr>';
                             }else if ($comportamiento2->code==2){
-                                echo'<tr><td>'.$comportamiento2->description.'</td>';
-                                echo'<td><p><input class="w3-input w3-border" name1="valorfinalvista'.$contadorfinal.'" maxlength="4" type="text" id="valoresvista'.$comportamiento2->id.'" disabled></p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2->id.'" name1="valorfinal'.$contadorfinal.'" name="valores['.$comportamiento2->id.'][valor]" '.$requeridcolaborador.' style="display: none;"></td>';
+                                echo'<tr><td style="width:80%;">'.$comportamiento2->description.'</td>';
+                                echo'<td style="width:20%;"><p><input class="w3-input w3-border" name1="valorfinalvista'.$contadorfinal.'" maxlength="4" type="text" id="valoresvista'.$comportamiento2->id.'" disabled></p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2->id.'" name1="valorfinal'.$contadorfinal.'" name="valores['.$comportamiento2->id.'][valor]" '.$requeridcolaborador.' style="display: none;"></td>';
                                 echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcompetencia'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcompetencia]" value="'.$comportamiento2->idcompetencia.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcomportamiento'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcomportamiento]" value="'.$comportamiento2->id.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valorescourseid'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][courseid]" value="'.$comportamiento2->courseid.'"></p></td>
@@ -1133,8 +1133,8 @@ if($rolcolaborador==1){
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidestablecimiento'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idestablecimiento]" value="'.$id.'"></p></td>
                                     </tr>';
                             }else if($comportamiento2->code==3){
-                                echo'<tr><td>'.$comportamiento2->description.'</td></tr>';
-                                echo'<tr><td><textarea class="w3-input w3-border" rows="4" name1="valordescripcion'.$contadorfinal.'" cols="50" type="text" id="valores'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][valor]"></textarea></td>';
+                                echo'<tr><td style="width:80%;">'.$comportamiento2->description.'</td></tr>';
+                                echo'<tr><td style="width:20%;"><textarea class="w3-input w3-border" rows="4" name1="valordescripcion'.$contadorfinal.'" cols="50" type="text" id="valores'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][valor]"></textarea></td>';
                                 echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcompetencia'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcompetencia]" value="'.$comportamiento2->idcompetencia.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcomportamiento'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcomportamiento]" value="'.$comportamiento2->id.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valorescourseid'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][courseid]" value="'.$comportamiento2->courseid.'"></p></td>
@@ -1212,8 +1212,8 @@ if($rolcolaborador==1){
                 /*echo'<tr>
                 <td>'.$comportamiento2->description.'</td>';*/
                 if($comportamiento2->code==1){
-                echo'<tr><td>'.$comportamiento2->description.'</td>';
-                echo'<td>';
+                echo'<tr><td style="width:80%;">'.$comportamiento2->description.'</td>';
+                echo'<td style="width:20%;">';
                 ?>
                             <input type="radio" id="valores<?php echo $comportamiento2->id; ?>" name="valores[<?php echo $comportamiento2->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($comportamiento2->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamiento2->id;?>" >4</label>
                             <input type="radio" id="valores<?php echo $comportamiento2->id; ?>" name="valores[<?php echo $comportamiento2->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($comportamiento2->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamiento2->id;?>" >3</label>
@@ -1228,8 +1228,8 @@ if($rolcolaborador==1){
                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidestablecimiento'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idestablecimiento]" value="'.$id.'"></p></td>
                     </tr>';
                 }else if ($comportamiento2->code==2){
-                    echo'<tr><td>'.$comportamiento2->description.'</td>';
-                    echo'<td><p class="w3-input w3-border" type="text" id="valores'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][valor]">'.$comportamiento2->value.'</p></td>';
+                    echo'<tr><td style="width:80%;">'.$comportamiento2->description.'</td>';
+                    echo'<td style="width:20%;"><p class="w3-input w3-border" type="text" id="valores'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][valor]">'.$comportamiento2->value.'</p></td>';
                     echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcompetencia'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcompetencia]" value="'.$comportamiento2->idcompetencia.'"></p></td>
                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcomportamiento'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcomportamiento]" value="'.$comportamiento2->id.'"></p></td>
                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valorescourseid'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][courseid]" value="'.$comportamiento2->courseid.'"></p></td>
@@ -1237,8 +1237,8 @@ if($rolcolaborador==1){
                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidestablecimiento'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idestablecimiento]" value="'.$id.'"></p></td>
                         </tr>';
                 }else if($comportamiento2->code==3){
-                    echo'<tr><td>'.$comportamiento2->description.'</td></tr>';
-                    echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][valor]">'.$comportamiento2->value.'</p></td>';
+                    echo'<tr><td style="width:80%;">'.$comportamiento2->description.'</td></tr>';
+                    echo'<tr><td style="width:20%;"><p class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][valor]">'.$comportamiento2->value.'</p></td>';
                     echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcompetencia'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcompetencia]" value="'.$comportamiento2->idcompetencia.'"></p></td>
                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcomportamiento'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcomportamiento]" value="'.$comportamiento2->id.'"></p></td>
                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valorescourseid'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][courseid]" value="'.$comportamiento2->courseid.'"></p></td>
@@ -1267,8 +1267,8 @@ if($rolcolaborador==1){
             foreach($resultado as $comportamiento2){
 
                             if($comportamiento2->code==1){
-                                echo'<tr><td>'.$comportamiento2->description.'</td>';
-                                echo'   <td>
+                                echo'<tr><td style="width:80%;">'.$comportamiento2->description.'</td>';
+                                echo'   <td style="width:20%;">
                                             <input type="radio" id="valores'.$comportamiento2->id.'" name1="'.$contadorfinal.'" name="valores['.$comportamiento2->id.'][valor]" value="4" '.$requeridcolaborador.'><label for="valores'.$comportamiento2->id.'">4</label>
                                             <input type="radio" id="valores'.$comportamiento2->id.'" name1="'.$contadorfinal.'" name="valores['.$comportamiento2->id.'][valor]" value="3" '.$requeridcolaborador.'><label for="valores'.$comportamiento2->id.'">3</label>
                                             <input type="radio" id="valores'.$comportamiento2->id.'" name1="'.$contadorfinal.'" name="valores['.$comportamiento2->id.'][valor]" value="2" '.$requeridcolaborador.'><label for="valores'.$comportamiento2->id.'">2</label>
@@ -1281,8 +1281,8 @@ if($rolcolaborador==1){
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidestablecimiento'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idestablecimiento]" value="'.$id.'"></p></td>
                                     </tr>';
                             }else if ($comportamiento2->code==2){
-                                echo'<tr><td>'.$comportamiento2->description.'</td>';
-                                echo'<td><p><input class="w3-input w3-border" name1="valorfinalvista'.$contadorfinal.'" maxlength="4" type="text" id="valoresvista'.$comportamiento2->id.'" disabled></p><input class="w3-input w3-border" name1="valorfinal'.$contadorfinal.'" type="text" id="valores'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][valor]" style="display: none;" '.$requeridcolaborador.'></p></td>';
+                                echo'<tr><td style="width:80%;">'.$comportamiento2->description.'</td>';
+                                echo'<td style="width:20%;"><p><input class="w3-input w3-border" name1="valorfinalvista'.$contadorfinal.'" maxlength="4" type="text" id="valoresvista'.$comportamiento2->id.'" disabled></p><input class="w3-input w3-border" name1="valorfinal'.$contadorfinal.'" type="text" id="valores'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][valor]" style="display: none;" '.$requeridcolaborador.'></p></td>';
                                 echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcompetencia'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcompetencia]" value="'.$comportamiento2->idcompetencia.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcomportamiento'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcomportamiento]" value="'.$comportamiento2->id.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valorescourseid'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][courseid]" value="'.$comportamiento2->courseid.'"></p></td>
@@ -1290,8 +1290,8 @@ if($rolcolaborador==1){
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidestablecimiento'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idestablecimiento]" value="'.$id.'"></p></td>
                                     </tr>';
                             }else if($comportamiento2->code==3){
-                                echo'<tr><td>'.$comportamiento2->description.'</td></tr>';
-                                echo'<tr><td><textarea class="w3-input w3-border" name1="valordescripcion'.$contadorfinal.'" rows="4" cols="50" type="text" id="valores'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][valor]"></textarea></td>';
+                                echo'<tr><td style="width:80%;">'.$comportamiento2->description.'</td></tr>';
+                                echo'<tr><td style="width:20%;"><textarea class="w3-input w3-border" name1="valordescripcion'.$contadorfinal.'" rows="4" cols="50" type="text" id="valores'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][valor]"></textarea></td>';
                                 echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcompetencia'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcompetencia]" value="'.$comportamiento2->idcompetencia.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcomportamiento'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][idcomportamiento]" value="'.$comportamiento2->id.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valorescourseid'.$comportamiento2->id.'" name="valores['.$comportamiento2->id.'][courseid]" value="'.$comportamiento2->courseid.'"></p></td>
@@ -1360,8 +1360,8 @@ if($rolcolaborador==1){
                     <table class="w3-table-all">';
                 foreach($valorresultado2 as $comportamientofinal){
                     if($comportamientofinal->code==1){
-                        echo'<tr><td>'.$comportamientofinal->description.'</td>';
-                        echo'<td>';
+                        echo'<tr><td style="width:80%;">'.$comportamientofinal->description.'</td>';
+                        echo'<td style="width:20%;">';
                         ?>
                                     <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>" >4</label>
                                     <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>" >3</label>
@@ -1376,8 +1376,8 @@ if($rolcolaborador==1){
                                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidestablecimiento'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][idestablecimiento]" value="'.$id.'"></p></td>
                             </tr>';
                         }else if ($comportamientofinal->code==2){
-                            echo'<tr><td>'.$comportamientofinal->description.'</td>';
-                            echo'<td><p class="w3-input w3-border" type="text" id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]">'.$comportamientofinal->value.'</p></td>';
+                            echo'<tr><td style="width:80%;">'.$comportamientofinal->description.'</td>';
+                            echo'<td style="width:20%;"><p class="w3-input w3-border" type="text" id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]">'.$comportamientofinal->value.'</p></td>';
                             echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresvaloresidcompetencia'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][idcompetencia]" value="'.$comportamientofinal->idcompetencia.'"></p></td>
                                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresvaloresidcomportamiento'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][idcomportamiento]" value="'.$comportamientofinal->id.'"></p></td>
                                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valorescourseid'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][courseid]" value="'.$comportamientofinal->courseid.'"></p></td>
@@ -1385,8 +1385,8 @@ if($rolcolaborador==1){
                                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidestablecimiento'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][idestablecimiento]" value="'.$id.'"></p></td>
                                 </tr>';
                         }else if($comportamientofinal->code==3){
-                            echo'<tr><td>'.$comportamientofinal->description.'</td></tr>';
-                            echo'<td><p class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]">'.$comportamientofinal->value.'</p></td>';
+                            echo'<tr><td style="width:80%;">'.$comportamientofinal->description.'</td></tr>';
+                            echo'<td style="width:20%;"><p class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]">'.$comportamientofinal->value.'</p></td>';
                             echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresvaloresidcompetencia'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][idcompetencia]" value="'.$comportamientofinal->idcompetencia.'"></p></td>
                                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresvaloresidcomportamiento'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][idcomportamiento]" value="'.$comportamientofinal->id.'"></p></td>
                                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valorescourseid'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][courseid]" value="'.$comportamientofinal->courseid.'"></p></td>
@@ -1418,8 +1418,8 @@ if($rolcolaborador==1){
                     
                 if($comportamientofinal->code==1){
                 echo'<tr>
-                        <td>'.$comportamientofinal->description.'</td>';
-                echo'<td>
+                        <td style="width:80%;">'.$comportamientofinal->description.'</td>';
+                echo'<td style="width:20%;">
                     <input type="radio" id="valores'.$comportamientofinal->id.'" name1="'.$contadorfinal.'" name="valores['.$comportamientofinal->id.'][valor]" value="4" '.$requeridcolaborador.'><label for="valores'.$comportamientofinal->id.'">4</label>
                     <input type="radio" id="valores'.$comportamientofinal->id.'" name1="'.$contadorfinal.'" name="valores['.$comportamientofinal->id.'][valor]" value="3" '.$requeridcolaborador.'><label for="valores'.$comportamientofinal->id.'">3</label>
                     <input type="radio" id="valores'.$comportamientofinal->id.'" name1="'.$contadorfinal.'" name="valores['.$comportamientofinal->id.'][valor]" value="2" '.$requeridcolaborador.'><label for="valores'.$comportamientofinal->id.'">2</label>
@@ -1434,8 +1434,8 @@ if($rolcolaborador==1){
 
                 }else if ($comportamientofinal->code==2){
                 echo'<tr>
-                    <td>'.$comportamientofinal->description.'</td>';
-                echo'<td><p><input class="w3-input w3-border" name1="valorfinalvista'.$contadorfinal.'" maxlength="4" type="text" id="valoresvista'.$comportamiento2->id.'" disabled></p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal->id.'" name1="valorfinal'.$contadorfinal.'" name="valores['.$comportamientofinal->id.'][valor]" style="display: none;" '.$requeridcolaborador.'></p></td>';
+                    <td style="width:80%;">'.$comportamientofinal->description.'</td>';
+                echo'<td style="width:20%;"><p><input class="w3-input w3-border" name1="valorfinalvista'.$contadorfinal.'" maxlength="4" type="text" id="valoresvista'.$comportamiento2->id.'" disabled></p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal->id.'" name1="valorfinal'.$contadorfinal.'" name="valores['.$comportamientofinal->id.'][valor]" style="display: none;" '.$requeridcolaborador.'></p></td>';
                 echo'<td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcompetencia'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][idcompetencia]" value="'.$comportamientofinal->idcompetencia.'"></p></td>
                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcomportamiento'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][idcomportamiento]" value="'.$comportamientofinal->id.'"></p></td>
                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valorescourseid'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][courseid]" value="'.$comportamientofinal->courseid.'"></p></td>
@@ -1444,8 +1444,8 @@ if($rolcolaborador==1){
                     </tr>';
                 }else if($comportamientofinal->code==3){
                 echo'<tr>
-                <td style="width: 82% !important;">'.$comportamientofinal->description.'</td><tr>';
-                echo'<tr><td><textarea class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamientofinal->id.'" name1="valordescripcion'.$contadorfinal.'" name="valores['.$comportamientofinal->id.'][valor]"></textarea></td></tr>';
+                <td sstyle="width:80%;">'.$comportamientofinal->description.'</td><tr>';
+                echo'<tr><td style="width:20%;"><textarea class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamientofinal->id.'" name1="valordescripcion'.$contadorfinal.'" name="valores['.$comportamientofinal->id.'][valor]"></textarea></td></tr>';
                 echo'<td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcompetencia'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][idcompetencia]" value="'.$comportamientofinal->idcompetencia.'"></p></td>
                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valoresidcomportamiento'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][idcomportamiento]" value="'.$comportamientofinal->id.'"></p></td>
                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valorescourseid'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][courseid]" value="'.$comportamientofinal->courseid.'"></p></td>
@@ -1588,9 +1588,9 @@ foreach($resultcontrol as $valuecontrol){
         <input type="hidden" id="idobjetivofinal'.$contfinal.'" name="idobjetivofinal'.$contfinal.'" value="'.$id.'" '.$requeridcolaboradorfinal.'>
         <input type="hidden" id="idrevisionfinal'.$contfinal.'" name="idrevisionfinal'.$contfinal.'" value="'.$valuecontrol->idrevisionfinal.'" '.$requeridcolaboradorfinal.'>
         <div class="w3-col m2 w3-white w3-center">
-            <p class="text-cuestion">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
+            <p class="text-cuestion" style="font-size:10px;">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
         <!--<p><input  class="w3-input w3-border" type="text"></p>-->
-            <p class="w3-input w3-border">'.$valuecontrol->targetnumber.'</p>
+            <p class="w3-input w3-border" style="margin-top: 14px;">'.$valuecontrol->targetnumber.'</p>
         </div>
         <div class="w3-col m2 w3-white w3-center">
             <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
@@ -1769,11 +1769,8 @@ echo $enviorevisionfinal;
                 <div class="w3-round-xlarge w3-col l3  w3-pale-red w3-center">
                     <p>Competencias</p>
                 </div>
-                <div class="w3-round-xlarge w3-col l7  w3-pale-red w3-center">
+                <div class="w3-round-xlarge w3-col l9  w3-pale-red w3-center">
                     <p>Comportamientos</p>
-                </div>
-                <div class="w3-round-xlarge w3-col l2  w3-pale-red w3-center">
-                <p>Escala de</p>
                 </div>
             </div>
             <div class="w3-row">
@@ -1784,7 +1781,7 @@ echo $enviorevisionfinal;
                     <p>Comportamientos asociados a la competencia</p>
                 </div>
                 <div class="w3-round-xlarge w3-col l2  w3-dark-grey w3-center">
-                <p>[4][3][2][1]</p>
+                <p>Escala de</p>
                 </div>
             </div>';
 
@@ -1809,8 +1806,8 @@ echo $enviorevisionfinal;
                     /*echo'<tr>
                     <td>'.$comportamiento2->description.'</td>';*/
                     if($comportamiento2final->code==1){
-                    echo'<tr><td>'.$comportamiento2final->description.'</td>';
-                    echo'<td>';
+                    echo'<tr><td style="width:80%;">'.$comportamiento2final->description.'</td>';
+                    echo'<td style="width:20%;">';
                     ?>
                                 <input type="radio" id="valores<?php echo $comportamiento2final->id; ?>" name="valores[<?php echo $comportamiento2final->id; ?>][valorfinal]" value="4" <?php if (!(strcmp(4, htmlentities($comportamiento2final->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresfinal<?php echo $comportamiento2final->id;?>" >4</label>
                                 <input type="radio" id="valores<?php echo $comportamiento2final->id; ?>" name="valores[<?php echo $comportamiento2final->id; ?>][valorfinal]" value="3" <?php if (!(strcmp(3, htmlentities($comportamiento2final->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresfinal<?php echo $comportamiento2final->id;?>" >3</label>
@@ -1825,8 +1822,8 @@ echo $enviorevisionfinal;
                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idestablecimientofinal]" value="'.$id.'"></p></td>
                         </tr>';
                     }else if ($comportamiento2final->code==2){
-                        echo'<tr><td>'.$comportamiento2final->description.'</td>';
-                        echo'<td><p class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][valorfinal]">'.$comportamiento2final->value.'</p></td>';
+                        echo'<tr><td style="width:80%;">'.$comportamiento2final->description.'</td>';
+                        echo'<td style="width:20%;"><p class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][valorfinal]">'.$comportamiento2final->value.'</p></td>';
                         echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcompetenciafinal]" value="'.$comportamiento2final->idcompetencia.'"></p></td>
                                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcomportamientofinal]" value="'.$comportamiento2final->id.'"></p></td>
                                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][courseidfinal]" value="'.$comportamiento2final->courseid.'"></p></td>
@@ -1834,8 +1831,8 @@ echo $enviorevisionfinal;
                                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idestablecimientofinal]" value="'.$id.'"></p></td>
                             </tr>';
                     }else if($comportamiento2final->code==3){
-                        echo'<tr><td>'.$comportamiento2final->description.'</td></tr>';
-                        echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][valorfinal]">'.$comportamiento2final->value.'</p></td>';
+                        echo'<tr><td style="width:80%;">'.$comportamiento2final->description.'</td></tr>';
+                        echo'<tr><td style="width:20%;"><p class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][valorfinal]">'.$comportamiento2final->value.'</p></td>';
                         echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcompetenciafinal]" value="'.$comportamiento2final->idcompetencia.'"></p></td>
                                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcomportamientofinal]" value="'.$comportamiento2final->id.'"></p></td>
                                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][courseidfinal]" value="'.$comportamiento2final->courseid.'"></p></td>
@@ -1865,8 +1862,8 @@ echo $enviorevisionfinal;
                     foreach($resultcolaboradorfinal as $comportamiento2final){
 
                                 if($comportamiento2final->code==1){
-                                    echo'<tr><td>'.$comportamiento2final->description.'</td>';
-                                    echo'   <td>
+                                    echo'<tr><td style="width:80%;">'.$comportamiento2final->description.'</td>';
+                                    echo'   <td style="width:20%;">
                                                 <input type="radio" id="valores'.$comportamiento2final->id.'" name2="'.$contadoresfinal.'" name="valores['.$comportamiento2final->id.'][valorfinal]" value="4"  '.$requeridcolaboradorfinal.'><label for="valores'.$comportamiento2final->id.'">4</label>
                                                 <input type="radio" id="valores'.$comportamiento2final->id.'" name2="'.$contadoresfinal.'" name="valores['.$comportamiento2final->id.'][valorfinal]" value="3"  '.$requeridcolaboradorfinal.'><label for="valores'.$comportamiento2final->id.'">3</label>
                                                 <input type="radio" id="valores'.$comportamiento2final->id.'" name2="'.$contadoresfinal.'" name="valores['.$comportamiento2final->id.'][valorfinal]" value="2"  '.$requeridcolaboradorfinal.'><label for="valores'.$comportamiento2final->id.'">2</label>
@@ -1879,8 +1876,8 @@ echo $enviorevisionfinal;
                                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idestablecimientofinal]" value="'.$id.'"></p></td>
                                         </tr>';
                                 }else if ($comportamiento2final->code==2){
-                                    echo'<tr><td>'.$comportamiento2final->description.'</td>';
-                                    echo'<td><p><input class="w3-input w3-border" name2="valorfinalvista'.$contadoresfinal.'" type="text" id="valoresvista'.$comportamiento2->id.'" disabled></p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name2="valorfinal'.$contadoresfinal.'" name="valores['.$comportamiento2final->id.'][valorfinal]" style="display: none;" '.$requeridcolaboradorfinal.'></td>';
+                                    echo'<tr><td style="width:80%;">'.$comportamiento2final->description.'</td>';
+                                    echo'<td style="width:20%;"><p><input class="w3-input w3-border" name2="valorfinalvista'.$contadoresfinal.'" type="text" id="valoresvista'.$comportamiento2->id.'" disabled></p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name2="valorfinal'.$contadoresfinal.'" name="valores['.$comportamiento2final->id.'][valorfinal]" style="display: none;" '.$requeridcolaboradorfinal.'></td>';
                                     echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcompetenciafinal]" value="'.$comportamiento2final->idcompetencia.'"></p></td>
                                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcomportamientofinal]" value="'.$comportamiento2final->id.'"></p></td>
                                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][courseidfinal]" value="'.$comportamiento2final->courseid.'"></p></td>
@@ -1888,8 +1885,8 @@ echo $enviorevisionfinal;
                                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idestablecimientofinal]" value="'.$id.'"></p></td>
                                         </tr>';
                                 }else if($comportamiento2final->code==3){
-                                    echo'<tr><td>'.$comportamiento2final->description.'</td></tr>';
-                                    echo'<tr><td><textarea class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamiento2final->id.'" name2="valordescripcion'.$contadoresfinal.'" name="valores['.$comportamiento2final->id.'][valorfinal]"></textarea></td>';
+                                    echo'<tr><td style="width:80%;">'.$comportamiento2final->description.'</td></tr>';
+                                    echo'<tr><td style="width:20%;"><textarea class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamiento2final->id.'" name2="valordescripcion'.$contadoresfinal.'" name="valores['.$comportamiento2final->id.'][valorfinal]"></textarea></td>';
                                     echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcompetenciafinal]" value="'.$comportamiento2final->idcompetencia.'"></p></td>
                                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcomportamientofinal]" value="'.$comportamiento2final->id.'"></p></td>
                                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][courseidfinal]" value="'.$comportamiento2final->courseid.'"></p></td>
@@ -1931,12 +1928,10 @@ echo $enviorevisionfinal;
                 <div class="w3-round-xlarge w3-col l3  w3-pale-red w3-center">
                     <p>Competencias</p>
                 </div>
-                <div class="w3-round-xlarge w3-col l7  w3-pale-red w3-center">
+                <div class="w3-round-xlarge w3-col l9  w3-pale-red w3-center">
                     <p>Comportamientos</p>
                 </div>
-                <div class="w3-round-xlarge w3-col l2  w3-pale-red w3-center">
-                <p>Escala de</p>
-                </div>
+
             </div>
             <div class="w3-row">
                 <div class="w3-round-xlarge w3-col l3  w3-dark-grey w3-center">
@@ -1946,7 +1941,7 @@ echo $enviorevisionfinal;
                     <p>Comportamientos asociados a la competencia</p>
                 </div>
                 <div class="w3-round-xlarge w3-col l2  w3-dark-grey w3-center">
-                <p>[4][3][2][1]</p>
+                <p>Escala de</p>
                 </div>
             </div>';
 
@@ -1971,8 +1966,8 @@ echo $enviorevisionfinal;
                     /*echo'<tr>
                     <td>'.$comportamiento2->description.'</td>';*/
                     if($comportamiento2final->code==1){
-                    echo'<tr><td>'.$comportamiento2final->description.'</td>';
-                    echo'<td>';
+                    echo'<tr><td style="width:80%;">'.$comportamiento2final->description.'</td>';
+                    echo'<td style="width:20%;">';
                     ?>
                                 <input type="radio" id="valores<?php echo $comportamiento2final->id; ?>" name="valores[<?php echo $comportamiento2final->id; ?>][valorfinal]" value="4" <?php if (!(strcmp(4, htmlentities($comportamiento2final->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresfinal<?php echo $comportamiento2final->id;?>" >4</label>
                                 <input type="radio" id="valores<?php echo $comportamiento2final->id; ?>" name="valores[<?php echo $comportamiento2final->id; ?>][valorfinal]" value="3" <?php if (!(strcmp(3, htmlentities($comportamiento2final->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresfinal<?php echo $comportamiento2final->id;?>" >3</label>
@@ -1987,8 +1982,8 @@ echo $enviorevisionfinal;
                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idestablecimientofinal]" value="'.$id.'"></p></td>
                         </tr>';
                     }else if ($comportamiento2final->code==2){
-                        echo'<tr><td>'.$comportamiento2final->description.'</td>';
-                        echo'<td><p class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][valorfinal]">'.$comportamiento2final->value.'</p></td>';
+                        echo'<tr><td style="width:80%;">'.$comportamiento2final->description.'</td>';
+                        echo'<td style="width:20%;"><p class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][valorfinal]">'.$comportamiento2final->value.'</p></td>';
                         echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcompetenciafinal]" value="'.$comportamiento2final->idcompetencia.'"></p></td>
                                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcomportamientofinal]" value="'.$comportamiento2final->id.'"></p></td>
                                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][courseidfinal]" value="'.$comportamiento2final->courseid.'"></p></td>
@@ -1996,8 +1991,8 @@ echo $enviorevisionfinal;
                                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idestablecimientofinal]" value="'.$id.'"></p></td>
                             </tr>';
                     }else if($comportamiento2final->code==3){
-                        echo'<tr><td>'.$comportamiento2final->description.'</td></tr>';
-                        echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][valorfinal]">'.$comportamiento2final->value.'</p></td>';
+                        echo'<tr><td style="width:80%;">'.$comportamiento2final->description.'</td></tr>';
+                        echo'<tr><td style="width:20%;"><p class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][valorfinal]">'.$comportamiento2final->value.'</p></td>';
                         echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcompetenciafinal]" value="'.$comportamiento2final->idcompetencia.'"></p></td>
                                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcomportamientofinal]" value="'.$comportamiento2final->id.'"></p></td>
                                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][courseidfinal]" value="'.$comportamiento2final->courseid.'"></p></td>
@@ -2088,11 +2083,8 @@ echo $enviorevisionfinal;
                     <div class="w3-round-xlarge w3-col l3  w3-pale-red w3-center">
                         <p>Competencias</p>
                     </div>
-                    <div class="w3-round-xlarge w3-col l7  w3-pale-red w3-center">
+                    <div class="w3-round-xlarge w3-col l9  w3-pale-red w3-center">
                         <p>Comportamientos</p>
-                    </div>
-                    <div class="w3-round-xlarge w3-col l2  w3-pale-red w3-center">
-                    <p>Escala de</p>
                     </div>
                 </div>
                 <div class="w3-row">
@@ -2103,7 +2095,7 @@ echo $enviorevisionfinal;
                         <p>Comportamientos asociados a la competencia</p>
                     </div>
                     <div class="w3-round-xlarge w3-col l2  w3-dark-grey w3-center">
-                    <p>[4][3][2][1]</p>
+                    <p>Escala de</p>
                     </div>
                 </div>';
 
@@ -2124,8 +2116,8 @@ echo $enviorevisionfinal;
                         <table class="w3-table-all">';
                     foreach($valorresultado2final as $comportamientofinal2){
                         if($comportamientofinal2->code==1){
-                            echo'<tr><td>'.$comportamientofinal2->description.'</td>';
-                            echo'<td>';
+                            echo'<tr><td style="width:80%;">'.$comportamientofinal2->description.'</td>';
+                            echo'<td style="width:20%;">';
                             ?>
                                         <input type="radio" id="valores<?php echo $comportamientofinal2->id; ?>" name="valores[<?php echo $comportamientofinal2->id; ?>][valorfinal]" value="4" <?php if (!(strcmp(4, htmlentities($comportamientofinal2->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal2->id;?>" >4</label>
                                         <input type="radio" id="valores<?php echo $comportamientofinal2->id; ?>" name="valores[<?php echo $comportamientofinal2->id; ?>][valorfinal]" value="3" <?php if (!(strcmp(3, htmlentities($comportamientofinal2->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal2->id;?>" >3</label>
@@ -2140,8 +2132,8 @@ echo $enviorevisionfinal;
                                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idestablecimientofinal]" value="'.$id.'"></p></td>
                                 </tr>';
                             }else if ($comportamientofinal2->code==2){
-                                echo'<tr><td>'.$comportamientofinal2->description.'</td>';
-                                echo'<td><p class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]">'.$comportamientofinal2->value.'</p></td>';
+                                echo'<tr><td style="width:80%;">'.$comportamientofinal2->description.'</td>';
+                                echo'<td style="width:20%;"><p class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]">'.$comportamientofinal2->value.'</p></td>';
                                 echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcompetenciafinal]" value="'.$comportamientofinal2->idcompetencia.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcomportamientofinal]" value="'.$comportamientofinal2->id.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][courseidfinal]" value="'.$comportamientofinal2->courseid.'"></p></td>
@@ -2149,8 +2141,8 @@ echo $enviorevisionfinal;
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idestablecimientofinal]" value="'.$id.'"></p></td>
                                     </tr>';
                             }else if($comportamientofinal2->code==3){
-                                echo'<tr><td>'.$comportamientofinal2->description.'</td></tr>';
-                                echo'<td><p class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]">'.$comportamientofinal2->value.'</p></td>';
+                                echo'<tr><td style="width:80%;">'.$comportamientofinal2->description.'</td></tr>';
+                                echo'<tr><td style="width:20%;"><p class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]">'.$comportamientofinal2->value.'</p></td>';
                                 echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcompetenciafinal]" value="'.$comportamientofinal2->idcompetencia.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcomportamientofinal]" value="'.$comportamientofinal2->id.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][courseidfinal]" value="'.$comportamientofinal2->courseid.'"></p></td>
@@ -2182,8 +2174,8 @@ echo $enviorevisionfinal;
                         
                     if($comportamientofinal2->code==1){
                     echo'<tr>
-                            <td>'.$comportamientofinal2->description.'</td>';
-                    echo'<td>
+                            <td style="width:80%;">'.$comportamientofinal2->description.'</td>';
+                    echo'<td style="width:20%;">
                         <input type="radio" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]" name2="'.$contadoresfinal.'" value="4" '.$requeridcolaboradorfinal.'><label for="valores'.$comportamientofinal2->id.'">4</label>
                         <input type="radio" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]" name2="'.$contadoresfinal.'" value="3" '.$requeridcolaboradorfinal.'><label for="valores'.$comportamientofinal2->id.'">3</label>
                         <input type="radio" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]" name2="'.$contadoresfinal.'" value="2" '.$requeridcolaboradorfinal.'><label for="valores'.$comportamientofinal2->id.'">2</label>
@@ -2198,8 +2190,8 @@ echo $enviorevisionfinal;
 
                     }else if ($comportamientofinal2->code==2){
                     echo'<tr>
-                        <td>'.$comportamientofinal2->description.'</td>';
-                    echo'<td><p><input class="w3-input w3-border" name2="valorfinalvista'.$contadoresfinal.'" type="text" id="valoresvista'.$comportamiento2->id.'" disabled></p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'"  name2="valorfinal'.$contadoresfinal.'" name="valores['.$comportamientofinal2->id.'][valorfinal]" style="display: none;" '.$requeridcolaboradorfinal.'></td>';
+                        <td style="width:80%;">'.$comportamientofinal2->description.'</td>';
+                    echo'<td style="width:20%;"><p><input class="w3-input w3-border" name2="valorfinalvista'.$contadoresfinal.'" type="text" id="valoresvista'.$comportamiento2->id.'" disabled></p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'"  name2="valorfinal'.$contadoresfinal.'" name="valores['.$comportamientofinal2->id.'][valorfinal]" style="display: none;" '.$requeridcolaboradorfinal.'></td>';
                     echo'<td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcompetenciafinal]" value="'.$comportamientofinal2->idcompetencia.'"></p></td>
                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcomportamientofinal]" value="'.$comportamientofinal2->id.'"></p></td>
                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][courseidfinal]" value="'.$comportamientofinal2->courseid.'"></p></td>
@@ -2208,8 +2200,8 @@ echo $enviorevisionfinal;
                         </tr>';
                     }else if($comportamientofinal2->code==3){
                     echo'<tr>
-                    <td style="width: 82% !important;">'.$comportamientofinal2->description.'</td><tr>';
-                    echo'<tr><td><textarea class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamientofinal2->id.'" name2="valordescripcion'.$contadoresfinal.'" name="valores['.$comportamientofinal2->id.'][valorfinal]"></textarea></td></tr>';
+                    <td style="width: 80%;">'.$comportamientofinal2->description.'</td><tr>';
+                    echo'<tr><td style="width:20%;"><textarea class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamientofinal2->id.'" name2="valordescripcion'.$contadoresfinal.'" name="valores['.$comportamientofinal2->id.'][valorfinal]"></textarea></td></tr>';
                     echo'<td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcompetenciafinal]" value="'.$comportamientofinal2->idcompetencia.'"></p></td>
                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcomportamientofinal]" value="'.$comportamientofinal2->id.'"></p></td>
                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][courseidfinal]" value="'.$comportamientofinal2->courseid.'"></p></td>
@@ -2233,7 +2225,6 @@ echo $enviorevisionfinal;
 
 
     }else if($rolcolaborador==3){
-
         $sqlfinal='select  obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
         from mdl_course c
         inner join mdl_objective o on o.course = c.id
@@ -2253,11 +2244,8 @@ echo $enviorevisionfinal;
                 <div class="w3-round-xlarge w3-col l3  w3-pale-red w3-center">
                     <p>Competencias</p>
                 </div>
-                <div class="w3-round-xlarge w3-col l7  w3-pale-red w3-center">
+                <div class="w3-round-xlarge w3-col l9  w3-pale-red w3-center">
                     <p>Comportamientos</p>
-                </div>
-                <div class="w3-round-xlarge w3-col l2  w3-pale-red w3-center">
-                <p>Escala de</p>
                 </div>
             </div>
             <div class="w3-row">
@@ -2268,7 +2256,7 @@ echo $enviorevisionfinal;
                     <p>Comportamientos asociados a la competencia</p>
                 </div>
                 <div class="w3-round-xlarge w3-col l2  w3-dark-grey w3-center">
-                <p>[4][3][2][1]</p>
+                <p>Escala de</p>
                 </div>
             </div>';
 
@@ -2293,13 +2281,13 @@ echo $enviorevisionfinal;
                     /*echo'<tr>
                     <td>'.$comportamiento2->description.'</td>';*/
                     if($comportamiento2final->code==1){
-                    echo'<tr><td>'.$comportamiento2final->description.'</td>';
-                    echo'<td>';
+                    echo'<tr><td style="width:80%;">'.$comportamiento2final->description.'</td>';
+                    echo'<td style="width:20%;">';
                     ?>
-                                <input type="radio" id="valores<?php echo $comportamiento2final->id; ?>" name="valores[<?php echo $comportamiento2final->id; ?>][valorfinal]" value="4" <?php if (!(strcmp(4, htmlentities($comportamiento2final->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?>><label for="valoresfinal<?php echo $comportamiento2final->id;?>" >4</label>
-                                <input type="radio" id="valores<?php echo $comportamiento2final->id; ?>" name="valores[<?php echo $comportamiento2final->id; ?>][valorfinal]" value="3" <?php if (!(strcmp(3, htmlentities($comportamiento2final->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?>><label for="valoresfinal<?php echo $comportamiento2final->id;?>" >3</label>
-                                <input type="radio" id="valores<?php echo $comportamiento2final->id; ?>" name="valores[<?php echo $comportamiento2final->id; ?>][valorfinal]" value="2" <?php if (!(strcmp(2, htmlentities($comportamiento2final->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?>><label for="valoresfinal<?php echo $comportamiento2final->id;?>" >2</label>
-                                <input type="radio" id="valores<?php echo $comportamiento2final->id; ?>" name="valores[<?php echo $comportamiento2final->id; ?>][valorfinal]" value="1" <?php if (!(strcmp(1, htmlentities($comportamiento2final->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?>><label for="valoresfinal<?php echo $comportamiento2final->id;?>" >1</label>
+                                <input type="radio" id="valores<?php echo $comportamiento2final->id; ?>" name="valores[<?php echo $comportamiento2final->id; ?>][valorfinal]" value="4" <?php if (!(strcmp(4, htmlentities($comportamiento2final->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresfinal<?php echo $comportamiento2final->id;?>" >4</label>
+                                <input type="radio" id="valores<?php echo $comportamiento2final->id; ?>" name="valores[<?php echo $comportamiento2final->id; ?>][valorfinal]" value="3" <?php if (!(strcmp(3, htmlentities($comportamiento2final->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresfinal<?php echo $comportamiento2final->id;?>" >3</label>
+                                <input type="radio" id="valores<?php echo $comportamiento2final->id; ?>" name="valores[<?php echo $comportamiento2final->id; ?>][valorfinal]" value="2" <?php if (!(strcmp(2, htmlentities($comportamiento2final->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresfinal<?php echo $comportamiento2final->id;?>" >2</label>
+                                <input type="radio" id="valores<?php echo $comportamiento2final->id; ?>" name="valores[<?php echo $comportamiento2final->id; ?>][valorfinal]" value="1" <?php if (!(strcmp(1, htmlentities($comportamiento2final->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresfinal<?php echo $comportamiento2final->id;?>" >1</label>
                     <?php
                     echo'</td>';
                     echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcompetenciafinal]" value="'.$comportamiento2final->idcompetencia.'"></p></td>
@@ -2309,8 +2297,8 @@ echo $enviorevisionfinal;
                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idestablecimientofinal]" value="'.$id.'"></p></td>
                         </tr>';
                     }else if ($comportamiento2final->code==2){
-                        echo'<tr><td>'.$comportamiento2final->description.'</td>';
-                        echo'<td><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][valorfinal]" value="'.$comportamiento2final->value.'"></p></td>';
+                        echo'<tr><td style="width:80%;">'.$comportamiento2final->description.'</td>';
+                        echo'<td style="width:20%;"><p class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][valorfinal]">'.$comportamiento2final->value.'</p></td>';
                         echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcompetenciafinal]" value="'.$comportamiento2final->idcompetencia.'"></p></td>
                                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcomportamientofinal]" value="'.$comportamiento2final->id.'"></p></td>
                                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][courseidfinal]" value="'.$comportamiento2final->courseid.'"></p></td>
@@ -2318,8 +2306,8 @@ echo $enviorevisionfinal;
                                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idestablecimientofinal]" value="'.$id.'"></p></td>
                             </tr>';
                     }else if($comportamiento2final->code==3){
-                        echo'<tr><td>'.$comportamiento2final->description.'</td></tr>';
-                        echo'<tr><td><textarea class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][valorfinal]">'.$comportamiento2final->value.'</textarea></td>';
+                        echo'<tr><td style="width:80%;">'.$comportamiento2final->description.'</td></tr>';
+                        echo'<tr><td style="width:20%;"><p class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][valorfinal]">'.$comportamiento2final->value.'</p></td>';
                         echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcompetenciafinal]" value="'.$comportamiento2final->idcompetencia.'"></p></td>
                                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcomportamientofinal]" value="'.$comportamiento2final->id.'"></p></td>
                                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][courseidfinal]" value="'.$comportamiento2final->courseid.'"></p></td>
@@ -2329,6 +2317,7 @@ echo $enviorevisionfinal;
                     }else{
 
                     }
+
                     $validacionrfinal=1;
 
                 }
@@ -2351,10 +2340,10 @@ echo $enviorevisionfinal;
                                 if($comportamiento2final->code==1){
                                     echo'<tr><td>'.$comportamiento2final->description.'</td>';
                                     echo'   <td>
-                                                <input type="radio" id="valores'.$comportamiento2final->id.'" name2="'.$contadoresfinal.'" name="valores['.$comportamiento2final->id.'][valorfinal]" value="4"><label for="valores'.$comportamiento2final->id.'">4</label>
-                                                <input type="radio" id="valores'.$comportamiento2final->id.'" name2="'.$contadoresfinal.'" name="valores['.$comportamiento2final->id.'][valorfinal]" value="3"><label for="valores'.$comportamiento2final->id.'">3</label>
-                                                <input type="radio" id="valores'.$comportamiento2final->id.'" name2="'.$contadoresfinal.'" name="valores['.$comportamiento2final->id.'][valorfinal]" value="2"><label for="valores'.$comportamiento2final->id.'">2</label>
-                                                <input type="radio" id="valores'.$comportamiento2final->id.'" name2="'.$contadoresfinal.'" name="valores['.$comportamiento2final->id.'][valorfinal]" value="1"><label for="valores'.$comportamiento2final->id.'">1</label>
+                                                <input type="radio" id="valores'.$comportamiento2final->id.'" name2="'.$contadoresfinal.'" name="valores['.$comportamiento2final->id.'][valorfinal]" value="4" '.$requeridcolaboradorfinal.'><label for="valores'.$comportamiento2final->id.'">4</label>
+                                                <input type="radio" id="valores'.$comportamiento2final->id.'" name2="'.$contadoresfinal.'" name="valores['.$comportamiento2final->id.'][valorfinal]" value="3" '.$requeridcolaboradorfinal.'><label for="valores'.$comportamiento2final->id.'">3</label>
+                                                <input type="radio" id="valores'.$comportamiento2final->id.'" name2="'.$contadoresfinal.'" name="valores['.$comportamiento2final->id.'][valorfinal]" value="2" '.$requeridcolaboradorfinal.'><label for="valores'.$comportamiento2final->id.'">2</label>
+                                                <input type="radio" id="valores'.$comportamiento2final->id.'" name2="'.$contadoresfinal.'" name="valores['.$comportamiento2final->id.'][valorfinal]" value="1" '.$requeridcolaboradorfinal.'><label for="valores'.$comportamiento2final->id.'">1</label>
                                             </td>';
                                     echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcompetenciafinal]" value="'.$comportamiento2final->idcompetencia.'"></p></td>
                                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcomportamientofinal]" value="'.$comportamiento2final->id.'"></p></td>
@@ -2364,7 +2353,7 @@ echo $enviorevisionfinal;
                                         </tr>';
                                 }else if ($comportamiento2final->code==2){
                                     echo'<tr><td>'.$comportamiento2final->description.'</td>';
-                                    echo'<td><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name2="valorfinal'.$contadoresfinal.'" name="valores['.$comportamiento2final->id.'][valorfinal]"></p></td>';
+                                    echo'<td><p><input class="w3-input w3-border" name2="valorfinalvista'.$contadoresfinal.'" type="text" id="valoresvista'.$comportamiento2->id.'" disabled></p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name2="valorfinal'.$contadoresfinal.'" name="valores['.$comportamiento2final->id.'][valorfinal]" style="display: none;" '.$requeridcolaboradorfinal.'></td>';
                                     echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcompetenciafinal]" value="'.$comportamiento2final->idcompetencia.'"></p></td>
                                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][idcomportamientofinal]" value="'.$comportamiento2final->id.'"></p></td>
                                             <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamiento2final->id.'" name="valores['.$comportamiento2final->id.'][courseidfinal]" value="'.$comportamiento2final->courseid.'"></p></td>
@@ -2409,11 +2398,8 @@ echo $enviorevisionfinal;
                     <div class="w3-round-xlarge w3-col l3  w3-pale-red w3-center">
                         <p>Competencias</p>
                     </div>
-                    <div class="w3-round-xlarge w3-col l7  w3-pale-red w3-center">
+                    <div class="w3-round-xlarge w3-col l9  w3-pale-red w3-center">
                         <p>Comportamientos</p>
-                    </div>
-                    <div class="w3-round-xlarge w3-col l2  w3-pale-red w3-center">
-                    <p>Escala de</p>
                     </div>
                 </div>
                 <div class="w3-row">
@@ -2424,7 +2410,7 @@ echo $enviorevisionfinal;
                         <p>Comportamientos asociados a la competencia</p>
                     </div>
                     <div class="w3-round-xlarge w3-col l2  w3-dark-grey w3-center">
-                    <p>[4][3][2][1]</p>
+                    <p>Escala de</p>
                     </div>
                 </div>';
 
@@ -2445,13 +2431,13 @@ echo $enviorevisionfinal;
                         <table class="w3-table-all">';
                     foreach($valorresultado2final as $comportamientofinal2){
                         if($comportamientofinal2->code==1){
-                            echo'<tr><td>'.$comportamientofinal2->description.'</td>';
-                            echo'<td>';
+                            echo'<tr><td style="width:80%;">'.$comportamientofinal2->description.'</td>';
+                            echo'<td style="width:20%;">';
                             ?>
-                                        <input type="radio" id="valores<?php echo $comportamientofinal2->id; ?>" name="valores[<?php echo $comportamientofinal2->id; ?>][valorfinal]" value="4" <?php if (!(strcmp(4, htmlentities($comportamientofinal2->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?>><label for="valores<?php echo $comportamientofinal2->id;?>" >4</label>
-                                        <input type="radio" id="valores<?php echo $comportamientofinal2->id; ?>" name="valores[<?php echo $comportamientofinal2->id; ?>][valorfinal]" value="3" <?php if (!(strcmp(3, htmlentities($comportamientofinal2->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?>><label for="valores<?php echo $comportamientofinal2->id;?>" >3</label>
-                                        <input type="radio" id="valores<?php echo $comportamientofinal2->id; ?>" name="valores[<?php echo $comportamientofinal2->id; ?>][valorfinal]" value="2" <?php if (!(strcmp(2, htmlentities($comportamientofinal2->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?>><label for="valores<?php echo $comportamientofinal2->id;?>" >2</label>
-                                        <input type="radio" id="valores<?php echo $comportamientofinal2->id; ?>" name="valores[<?php echo $comportamientofinal2->id; ?>][valorfinal]" value="1" <?php if (!(strcmp(1, htmlentities($comportamientofinal2->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?>><label for="valores<?php echo $comportamientofinal2->id;?>" >1</label>
+                                        <input type="radio" id="valores<?php echo $comportamientofinal2->id; ?>" name="valores[<?php echo $comportamientofinal2->id; ?>][valorfinal]" value="4" <?php if (!(strcmp(4, htmlentities($comportamientofinal2->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal2->id;?>" >4</label>
+                                        <input type="radio" id="valores<?php echo $comportamientofinal2->id; ?>" name="valores[<?php echo $comportamientofinal2->id; ?>][valorfinal]" value="3" <?php if (!(strcmp(3, htmlentities($comportamientofinal2->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal2->id;?>" >3</label>
+                                        <input type="radio" id="valores<?php echo $comportamientofinal2->id; ?>" name="valores[<?php echo $comportamientofinal2->id; ?>][valorfinal]" value="2" <?php if (!(strcmp(2, htmlentities($comportamientofinal2->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal2->id;?>" >2</label>
+                                        <input type="radio" id="valores<?php echo $comportamientofinal2->id; ?>" name="valores[<?php echo $comportamientofinal2->id; ?>][valorfinal]" value="1" <?php if (!(strcmp(1, htmlentities($comportamientofinal2->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal2->id;?>" >1</label>
                             <?php
                             echo'</td>';
                             echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcompetenciafinal]" value="'.$comportamientofinal2->idcompetencia.'"></p></td>
@@ -2461,8 +2447,8 @@ echo $enviorevisionfinal;
                                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idestablecimientofinal]" value="'.$id.'"></p></td>
                                 </tr>';
                             }else if ($comportamientofinal2->code==2){
-                                echo'<tr><td>'.$comportamientofinal2->description.'</td>';
-                                echo'<td><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]" value="'.$comportamientofinal2->value.'"></p></td>';
+                                echo'<tr><td style="width:80%;">'.$comportamientofinal2->description.'</td>';
+                                echo'<td style="width:20%;"><p class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]">'.$comportamientofinal2->value.'</p></td>';
                                 echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcompetenciafinal]" value="'.$comportamientofinal2->idcompetencia.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcomportamientofinal]" value="'.$comportamientofinal2->id.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][courseidfinal]" value="'.$comportamientofinal2->courseid.'"></p></td>
@@ -2470,8 +2456,8 @@ echo $enviorevisionfinal;
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idestablecimientofinal]" value="'.$id.'"></p></td>
                                     </tr>';
                             }else if($comportamientofinal2->code==3){
-                                echo'<tr><td>'.$comportamientofinal2->description.'</td></tr>';
-                                echo'<td><textarea class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]">'.$comportamientofinal2->value.'</textarea></td>';
+                                echo'<tr><td style="width:80%;">'.$comportamientofinal2->description.'</td></tr>';
+                                echo'<tr><td style="width:20%;"><p class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]">'.$comportamientofinal2->value.'</p></td>';
                                 echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcompetenciafinal]" value="'.$comportamientofinal2->idcompetencia.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcomportamientofinal]" value="'.$comportamientofinal2->id.'"></p></td>
                                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][courseidfinal]" value="'.$comportamientofinal2->courseid.'"></p></td>
@@ -2495,7 +2481,7 @@ echo $enviorevisionfinal;
                     where ocb.idcompetition=? and ocb.status=0 order by ocb.code asc';
                     $vresultado2final = $DB->get_records_sql($vconsulta2final, array($valores2final->idcompe));
 
-                // print_r($resultado2);
+                    // print_r($resultado2);
                     echo '<div class="w3-col l9">
                                     <table class="w3-table-all">';
                     foreach($vresultado2final as $comportamientofinal2){
@@ -2503,12 +2489,12 @@ echo $enviorevisionfinal;
                         
                     if($comportamientofinal2->code==1){
                     echo'<tr>
-                            <td>'.$comportamientofinal2->description.'</td>';
-                    echo'<td>
-                        <input type="radio" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]" name2="'.$contadoresfinal.'" value="4"><label for="valores'.$comportamientofinal2->id.'">4</label>
-                        <input type="radio" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]" name2="'.$contadoresfinal.'" value="3"><label for="valores'.$comportamientofinal2->id.'">3</label>
-                        <input type="radio" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]" name2="'.$contadoresfinal.'" value="2"><label for="valores'.$comportamientofinal2->id.'">2</label>
-                        <input type="radio" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]" name2="'.$contadoresfinal.'" value="1"><label for="valores'.$comportamientofinal2->id.'">1</label>
+                            <td style="width:80%;">'.$comportamientofinal2->description.'</td>';
+                    echo'<td style="width:20%;">
+                        <input type="radio" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]" name2="'.$contadoresfinal.'" value="4" '.$requeridcolaboradorfinal.'><label for="valores'.$comportamientofinal2->id.'">4</label>
+                        <input type="radio" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]" name2="'.$contadoresfinal.'" value="3" '.$requeridcolaboradorfinal.'><label for="valores'.$comportamientofinal2->id.'">3</label>
+                        <input type="radio" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]" name2="'.$contadoresfinal.'" value="2" '.$requeridcolaboradorfinal.'><label for="valores'.$comportamientofinal2->id.'">2</label>
+                        <input type="radio" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][valorfinal]" name2="'.$contadoresfinal.'" value="1" '.$requeridcolaboradorfinal.'><label for="valores'.$comportamientofinal2->id.'">1</label>
                     </td>';
                     echo'<td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcompetenciafinal]" value="'.$comportamientofinal2->idcompetencia.'"></p></td>
                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcomportamientofinal]" value="'.$comportamientofinal2->id.'"></p></td>
@@ -2519,8 +2505,8 @@ echo $enviorevisionfinal;
 
                     }else if ($comportamientofinal2->code==2){
                     echo'<tr>
-                        <td>'.$comportamientofinal2->description.'</td>';
-                    echo'<td><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'"  name2="valorfinal'.$contadoresfinal.'" name="valores['.$comportamientofinal2->id.'][valorfinal]"></p></td>';
+                        <td style="width:80%;">'.$comportamientofinal2->description.'</td>';
+                    echo'<td style="width:20%;"><p><input class="w3-input w3-border" name2="valorfinalvista'.$contadoresfinal.'" type="text" id="valoresvista'.$comportamiento2->id.'" disabled></p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'"  name2="valorfinal'.$contadoresfinal.'" name="valores['.$comportamientofinal2->id.'][valorfinal]" style="display: none;" '.$requeridcolaboradorfinal.'></td>';
                     echo'<td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcompetenciafinal]" value="'.$comportamientofinal2->idcompetencia.'"></p></td>
                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcomportamientofinal]" value="'.$comportamientofinal2->id.'"></p></td>
                         <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][courseidfinal]" value="'.$comportamientofinal2->courseid.'"></p></td>
@@ -2529,8 +2515,8 @@ echo $enviorevisionfinal;
                         </tr>';
                     }else if($comportamientofinal2->code==3){
                     echo'<tr>
-                    <td style="width: 82% !important;">'.$comportamientofinal2->description.'</td><tr>';
-                    echo'<tr><td><textarea class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamientofinal2->id.'" name2="valordescripcion'.$contadoresfinal.'" name="valores['.$comportamientofinal2->id.'][valorfinal]"></textarea></td></tr>';
+                    <td style="width: 80%;">'.$comportamientofinal2->description.'</td><tr>';
+                    echo'<tr><td style="width:20%;"><textarea class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamientofinal2->id.'" name2="valordescripcion'.$contadoresfinal.'" name="valores['.$comportamientofinal2->id.'][valorfinal]"></textarea></td></tr>';
                     echo'<td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcompetenciafinal]" value="'.$comportamientofinal2->idcompetencia.'"></p></td>
                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][idcomportamientofinal]" value="'.$comportamientofinal2->id.'"></p></td>
                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal2->id.'" name="valores['.$comportamientofinal2->id.'][courseidfinal]" value="'.$comportamientofinal2->courseid.'"></p></td>
@@ -2550,6 +2536,7 @@ echo $enviorevisionfinal;
                     echo'</div><div class="espacio"></div>';
                 
         }
+        
         $sql3final='select  obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
         from mdl_course c
         inner join mdl_objective o on o.course = c.id
@@ -2559,6 +2546,8 @@ echo $enviorevisionfinal;
         and obn.id=1
         order by obc.orden asc';
         $resultados3final = $DB->get_records_sql($sql3final, array($courseid));
+
+
         echo $director;
         foreach($resultados3final as $valores3final){
 
@@ -2567,11 +2556,8 @@ echo $enviorevisionfinal;
                 <div class="w3-round-xlarge w3-col l3  w3-pale-red w3-center">
                     <p>Competencias</p>
                 </div>
-                <div class="w3-round-xlarge w3-col l7  w3-pale-red w3-center">
+                <div class="w3-round-xlarge w3-col l8  w3-pale-red w3-center">
                     <p>Comportamientos</p>
-                </div>
-                <div class="w3-round-xlarge w3-col l2  w3-pale-red w3-center">
-                <p>Escala de</p>
                 </div>
             </div>
             <div class="w3-row">
@@ -2582,7 +2568,7 @@ echo $enviorevisionfinal;
                     <p>Comportamientos asociados a la competencia</p>
                 </div>
                 <div class="w3-round-xlarge w3-col l2  w3-dark-grey w3-center">
-                <p>[4][3][2][1]</p>
+                <p>Escala de</p>
                 </div>
             </div>';
 
@@ -2603,8 +2589,8 @@ echo $enviorevisionfinal;
                     <table class="w3-table-all">';
                 foreach($valorresultado3final as $comportamientofinal3){
                     if($comportamientofinal3->code==1){
-                        echo'<tr><td>'.$comportamientofinal3->description.'</td>';
-                        echo'<td>';
+                        echo'<tr><td style="width: 80%;">'.$comportamientofinal3->description.'</td>';
+                        echo'<td style="width: 20%;">';
                         ?>
                                     <input type="radio" id="valores<?php echo $comportamientofinal3->id; ?>" name="valores[<?php echo $comportamientofinal3->id; ?>][valorfinal]" value="4" <?php if (!(strcmp(4, htmlentities($comportamientofinal3->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?>><label for="valores<?php echo $comportamientofinal3->id;?>" >4</label>
                                     <input type="radio" id="valores<?php echo $comportamientofinal3->id; ?>" name="valores[<?php echo $comportamientofinal3->id; ?>][valorfinal]" value="3" <?php if (!(strcmp(3, htmlentities($comportamientofinal3->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?>><label for="valores<?php echo $comportamientofinal3->id;?>" >3</label>
@@ -2619,8 +2605,8 @@ echo $enviorevisionfinal;
                                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][idestablecimientofinal]" value="'.$id.'"></p></td>
                             </tr>';
                         }else if ($comportamientofinal3->code==2){
-                            echo'<tr><td>'.$comportamientofinal3->description.'</td>';
-                            echo'<td><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][valorfinal]" value="'.$comportamientofinal3->value.'"></p></td>';
+                            echo'<tr><td style="width: 80%;">'.$comportamientofinal3->description.'</td>';
+                            echo'<td style="width: 20%;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][valorfinal]" value="'.$comportamientofinal3->value.'"></p></td>';
                             echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][idcompetenciafinal]" value="'.$comportamientofinal3->idcompetencia.'"></p></td>
                                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][idcomportamientofinal]" value="'.$comportamientofinal3->id.'"></p></td>
                                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][courseidfinal]" value="'.$comportamientofinal3->courseid.'"></p></td>
@@ -2628,8 +2614,8 @@ echo $enviorevisionfinal;
                                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][idestablecimientofinal]" value="'.$id.'"></p></td>
                                 </tr>';
                         }else if($comportamientofinal3->code==3){
-                            echo'<tr><td>'.$comportamientofinal3->description.'</td></tr>';
-                            echo'<td><textarea class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][valorfinal]">'.$comportamientofinal3->value.'</textarea></td>';
+                            echo'<tr><td style="width: 80%;">'.$comportamientofinal3->description.'</td></tr>';
+                            echo'<tr><td style="width: 20%;"><textarea class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][valorfinal]">'.$comportamientofinal3->value.'</textarea></td>';
                             echo'   <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][idcompetenciafinal]" value="'.$comportamientofinal3->idcompetencia.'"></p></td>
                                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][idcomportamientofinal]" value="'.$comportamientofinal3->id.'"></p></td>
                                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][courseidfinal]" value="'.$comportamientofinal3->courseid.'"></p></td>
@@ -2661,8 +2647,8 @@ echo $enviorevisionfinal;
                     
                 if($comportamientofinal3->code==1){
                 echo'<tr>
-                        <td>'.$comportamientofinal3->description.'</td>';
-                echo'<td>
+                        <td style="width: 80%;">'.$comportamientofinal3->description.'</td>';
+                echo'<td style="width: 20%;">
                     <input type="radio" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][valorfinal]" name2="'.$contadoresfinal.'" value="4"><label for="valores'.$comportamientofinal3->id.'">4</label>
                     <input type="radio" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][valorfinal]" name2="'.$contadoresfinal.'" value="3"><label for="valores'.$comportamientofinal3->id.'">3</label>
                     <input type="radio" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][valorfinal]" name2="'.$contadoresfinal.'" value="2"><label for="valores'.$comportamientofinal3->id.'">2</label>
@@ -2677,8 +2663,8 @@ echo $enviorevisionfinal;
 
                 }else if ($comportamientofinal3->code==2){
                 echo'<tr>
-                    <td>'.$comportamientofinal3->description.'</td>';
-                echo'<td><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal3->id.'"  name2="valorfinal'.$contadoresfinal.'" name="valores['.$comportamientofinal3->id.'][valorfinal]"></p></td>';
+                    <td style="width: 80%;">'.$comportamientofinal3->description.'</td>';
+                echo'<td style="width: 20%;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal3->id.'"  name2="valorfinal'.$contadoresfinal.'" name="valores['.$comportamientofinal3->id.'][valorfinal]"></p></td>';
                 echo'<td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][idcompetenciafinal]" value="'.$comportamientofinal3->idcompetencia.'"></p></td>
                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][idcomportamientofinal]" value="'.$comportamientofinal3->id.'"></p></td>
                     <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][courseidfinal]" value="'.$comportamientofinal3->courseid.'"></p></td>
@@ -2687,8 +2673,8 @@ echo $enviorevisionfinal;
                     </tr>';
                 }else if($comportamientofinal3->code==3){
                 echo'<tr>
-                <td style="width: 82% !important;">'.$comportamientofinal3->description.'</td><tr>';
-                echo'<tr><td><textarea class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamientofinal3->id.'" name2="valordescripcion'.$contadoresfinal.'" name="valores['.$comportamientofinal3->id.'][valorfinal]"></textarea></td></tr>';
+                <td style="width: 80%;">'.$comportamientofinal3->description.'</td><tr>';
+                echo'<tr><td style="width: 20%;"><textarea class="w3-input w3-border" rows="4" cols="50" type="text" id="valores'.$comportamientofinal3->id.'" name2="valordescripcion'.$contadoresfinal.'" name="valores['.$comportamientofinal3->id.'][valorfinal]"></textarea></td></tr>';
                 echo'<td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][idcompetenciafinal]" value="'.$comportamientofinal3->idcompetencia.'"></p></td>
                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][idcomportamientofinal]" value="'.$comportamientofinal3->id.'"></p></td>
                 <td style="display: none;"><p><input class="w3-input w3-border" type="text" id="valores'.$comportamientofinal3->id.'" name="valores['.$comportamientofinal3->id.'][courseidfinal]" value="'.$comportamientofinal3->courseid.'"></p></td>

@@ -28,11 +28,11 @@ $record1-> timemodified = $fecha->getTimestamp();
 
 try{
 $lastinsertid1 = $DB->insert_record('objective_establishment_revise_final', $record1);
-echo 'REVISION 1 INSERTADO';
+//echo 'REVISION 1 INSERTADO';
 
 } catch(\Throwable $e) {
     // PHP 7 
-echo 'ERROR AL INSERTAR REVISION 1';
+//echo 'ERROR AL INSERTAR REVISION 1';
 } 
 
 
@@ -53,11 +53,11 @@ $record2-> timemodified = $fecha->getTimestamp();
 
 try{
 $lastinsertid2 = $DB->insert_record('objective_establishment_revise_final', $record2);
-echo 'REVISION 2 INSERTADO';
+//echo 'REVISION 2 INSERTADO';
 
 } catch(\Throwable $e) {
     // PHP 7 
-echo 'ERROR AL INSERTAR REVISION 2';
+//echo 'ERROR AL INSERTAR REVISION 2';
 } 
 
 $record3 = new stdClass();
@@ -77,11 +77,11 @@ $record3-> timemodified = $fecha->getTimestamp();
 
 try{
 $lastinsertid3 = $DB->insert_record('objective_establishment_revise_final', $record3);
-echo 'REVISION 3 INSERTADO';
+//echo 'REVISION 3 INSERTADO';
 
 } catch(\Throwable $e) {
     // PHP 7 
-echo 'ERROR AL INSERTAR REVISION 3';
+//echo 'ERROR AL INSERTAR REVISION 3';
 } 
 
 $record4 = new stdClass();
@@ -101,11 +101,11 @@ $record4-> timemodified = $fecha->getTimestamp();
 
 try{
 $lastinsertid4 = $DB->insert_record('objective_establishment_revise_final', $record4);
-echo 'REVISION 4 INSERTADO';
+echo 'Guardado con éxito';
 
 } catch(\Throwable $e) {
     // PHP 7 
-echo 'ERROR AL INSERTAR REVISION 4';
+echo 'Error al guardar';
 } 
 
 if($_POST['idobjestablecidofinal5'] != NULL){
@@ -127,11 +127,11 @@ if($_POST['idobjestablecidofinal5'] != NULL){
     
     try{
     $lastinsertid5 = $DB->insert_record('objective_establishment_revise_final', $record5);
-    echo 'REVISION 5 INSERTADO';
+//    echo 'REVISION 5 INSERTADO';
     
     } catch(\Throwable $e) {
         // PHP 7 
-    echo 'ERROR AL INSERTAR REVISION 5';
+ //   echo 'ERROR AL INSERTAR REVISION 5';
     } 
 
 }
@@ -155,11 +155,11 @@ $record6-> timemodified = $fecha->getTimestamp();
 
 try{
 $lastinsertid6 = $DB->insert_record('objective_establishment_revise_final', $record6);
-echo 'REVISION 6 INSERTADO';
+//echo 'REVISION 6 INSERTADO';
 
 } catch(\Throwable $e) {
     // PHP 7 
-echo 'ERROR AL INSERTAR REVISION 6';
+//echo 'ERROR AL INSERTAR REVISION 6';
 } 
 
 
@@ -278,6 +278,7 @@ if($_POST['idobjestablecido6'] != NULL){
 }
 
 */
+/*
 $iduser=$USER->id;
 $querycontrol='select idmod from mdl_objective_establishment where userid=?';
 
@@ -291,4 +292,5 @@ foreach($resultcontrol as $value){
 $my = new moodle_url('/mod/objective/view.php?id='.$idins.'');
 redirect($my);
 exit();
+*/
 ?>

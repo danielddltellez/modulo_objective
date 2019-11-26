@@ -1139,8 +1139,8 @@ if($estatusa==1 || $estatusa==2){
                 foreach($valorresultado as $comportamientofinal){
                 // $idcomportamiento=$comportamiento->id;
                 if($comportamientofinal->code==1){
-                    echo'<tr><td>'.$comportamientofinal->description.'</td>';
-                    echo'<td>';
+                    echo'<tr><td style="width:80%;">'.$comportamientofinal->description.'</td>';
+                    echo'<td style="width:20%;">';
                     ?>
                                 <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">4</label>
                                 <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">3</label>
@@ -1150,12 +1150,12 @@ if($estatusa==1 || $estatusa==2){
                     echo'</td></tr>';
 
                     }else if ($comportamientofinal->code==2){
-                        echo'<tr><td>'.$comportamientofinal->description.'</td>';
-                        echo'<td><p class="w3-input w3-border" type="text" id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]" >'.$comportamientofinal->value.'</p></td>';
+                        echo'<tr><td style="width:80%;">'.$comportamientofinal->description.'</td>';
+                        echo'<td style="width:20%;"><p class="w3-input w3-border" type="text" id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]" >'.$comportamientofinal->value.'</p></td>';
                         echo'</tr>';
                     }else if($comportamientofinal->code==3){
-                        echo'<tr><td>'.$comportamientofinal->description.'</td></tr>';
-                        echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]">'.$comportamientofinal->value.'</p></td>';
+                        echo'<tr><td style="width:80%;">'.$comportamientofinal->description.'</td></tr>';
+                        echo'<tr><td style="width:20%;"><p class="w3-input w3-border" rows="4" cols="50"  id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]">'.$comportamientofinal->value.'</p></td>';
                         echo'</tr>';
                     }else{
 
@@ -1245,8 +1245,8 @@ if($estatusa==1 || $estatusa==2){
                         foreach($valorresultado as $comportamientofinal){
                         // $idcomportamiento=$comportamiento->id;
                         if($comportamientofinal->code==1){
-                            echo'<tr><td>'.$comportamientofinal->description.'</td>';
-                            echo'<td>';
+                            echo'<tr><td style="width:80%;">'.$comportamientofinal->description.'</td>';
+                            echo'<td style="width:20%;">';
                             ?>
                                         <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">4</label>
                                         <input type="radio" id="valores<?php echo $comportamientofinal->id; ?>" name="valores[<?php echo $comportamientofinal->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($comportamientofinal->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientofinal->id;?>">3</label>
@@ -1256,12 +1256,12 @@ if($estatusa==1 || $estatusa==2){
                             echo'</td></tr>';
 
                             }else if ($comportamientofinal->code==2){
-                                echo'<tr><td>'.$comportamientofinal->description.'</td>';
-                                echo'<td><p class="w3-input w3-border" type="text" id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]" >'.$comportamientofinal->value.'</p></td>';
+                                echo'<tr><td style="width:80%;">'.$comportamientofinal->description.'</td>';
+                                echo'<td style="width:20%;"><p class="w3-input w3-border" type="text" id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]" >'.$comportamientofinal->value.'</p></td>';
                                 echo'</tr>';
                             }else if($comportamientofinal->code==3){
-                                echo'<tr><td>'.$comportamientofinal->description.'</td></tr>';
-                                echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]">'.$comportamientofinal->value.'</p></td>';
+                                echo'<tr><td style="width:80%;">'.$comportamientofinal->description.'</td></tr>';
+                                echo'<tr><td style="width:20%;"><p class="w3-input w3-border" rows="4" cols="50"  id="valores'.$comportamientofinal->id.'" name="valores['.$comportamientofinal->id.'][valor]">'.$comportamientofinal->value.'</p></td>';
                                 echo'</tr>';
                             }else{
 
@@ -1345,8 +1345,8 @@ if($estatusa==1 || $estatusa==2){
                             foreach($valorresultadojefe  as $comportamientojefe){
                             //$idcomportamiento2=$comportamiento2->id;
                             if($comportamientojefe->code==1){
-                                echo'<tr><td>'.$comportamientojefe->description.'</td>';
-                                echo'<td>';
+                                echo'<tr><td style="width:80%;">'.$comportamientojefe->description.'</td>';
+                                echo'<td style="width:20%;">';
                                 ?>
                                             <input type="radio" id="valores<?php echo $comportamientojefe->id; ?>" name="valores[<?php echo $comportamientojefe->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($comportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientojefe->id;?>">4</label>
                                             <input type="radio" id="valores<?php echo $comportamientojefe->id; ?>" name="valores[<?php echo $comportamientojefe->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($comportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valores<?php echo $comportamientojefe->id;?>">3</label>
@@ -1356,12 +1356,12 @@ if($estatusa==1 || $estatusa==2){
                                 echo'</td></tr>';
 
                                 }else if ($comportamientojefe->code==2){
-                                    echo'<tr><td>'.$comportamientojefe->description.'</td>';
-                                    echo'<td><p class="w3-input w3-border" type="text" id="valores'.$comportamientojefe->id.'" name="valores['.$comportamientojefe->id.'][valor]">'.$comportamientojefe->value.'</p></td>';
+                                    echo'<tr><td style="width:80%;">'.$comportamientojefe->description.'</td>';
+                                    echo'<td style="width:20%;"><p class="w3-input w3-border" type="text" id="valores'.$comportamientojefe->id.'" name="valores['.$comportamientojefe->id.'][valor]">'.$comportamientojefe->value.'</p></td>';
                                     echo'</tr>';
                                 }else if($comportamientojefe->code==3){
-                                    echo'<tr><td>'.$comportamientojefe->description.'</td></tr>';
-                                    echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valores'.$comportamientojefe->id.'" name="valores['.$comportamientojefe->id.'][valor]">'.$comportamientojefe->value.'</p></td>';
+                                    echo'<tr><td style="width:80%;">'.$comportamientojefe->description.'</td></tr>';
+                                    echo'<tr><td style="width:20%;"><p class="w3-input w3-border" rows="4" cols="50"  id="valores'.$comportamientojefe->id.'" name="valores['.$comportamientojefe->id.'][valor]">'.$comportamientojefe->value.'</p></td>';
                                     echo'</tr>';
                                 }else{
 
@@ -1702,8 +1702,8 @@ if($estatusa==2){
                             foreach($finalvalorresultado as $finalcomportamiento){
                             // $idcomportamiento=$comportamiento->id;
                             if($finalcomportamiento->code==1){
-                                echo'<tr><td>'.$finalcomportamiento->description.'</td>';
-                                echo'<td>';
+                                echo'<tr><td style="width:80%;">'.$finalcomportamiento->description.'</td>';
+                                echo'<td style="width:20%;">';
                                 ?>
                                             <input type="radio" id="valoresrf<?php echo $finalcomportamiento->id; ?>" name="valoresrf[<?php echo $finalcomportamiento->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($finalcomportamiento->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamiento->id;?>">4</label>
                                             <input type="radio" id="valoresrf<?php echo $finalcomportamiento->id; ?>" name="valoresrf[<?php echo $finalcomportamiento->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($finalcomportamiento->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamiento->id;?>">3</label>
@@ -1713,12 +1713,12 @@ if($estatusa==2){
                                 echo'</td></tr>';
 
                                 }else if ($finalcomportamiento->code==2){
-                                    echo'<tr><td>'.$finalcomportamiento->description.'</td>';
-                                    echo'<td><p class="w3-input w3-border" type="text" id="valoresrf'.$finalcomportamiento->id.'" name="valoresrf['.$finalcomportamiento->id.'][valor]" >'.$finalcomportamiento->value.'</p></td>';
+                                    echo'<tr><td style="width:80%;">'.$finalcomportamiento->description.'</td>';
+                                    echo'<td style="width:20%;"><p class="w3-input w3-border" type="text" id="valoresrf'.$finalcomportamiento->id.'" name="valoresrf['.$finalcomportamiento->id.'][valor]" >'.$finalcomportamiento->value.'</p></td>';
                                     echo'</tr>';
                                 }else if($finalcomportamiento->code==3){
-                                    echo'<tr><td>'.$finalcomportamiento->description.'</td></tr>';
-                                    echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valoresrf'.$finalcomportamiento->id.'" name="valoresrf['.$finalcomportamiento->id.'][valor]">'.$finalcomportamiento->value.'</p></td>';
+                                    echo'<tr><td style="width:80%;">'.$finalcomportamiento->description.'</td></tr>';
+                                    echo'<tr><td style="width:20%;"><p class="w3-input w3-border" rows="4" cols="50"  id="valoresrf'.$finalcomportamiento->id.'" name="valoresrf['.$finalcomportamiento->id.'][valor]">'.$finalcomportamiento->value.'</p></td>';
                                     echo'</tr>';
                                 }else{
 
@@ -1808,8 +1808,8 @@ if($estatusa==2){
                                 foreach($finalvalorresultado as $finalcomportamiento){
                                 // $idcomportamiento=$comportamiento->id;
                                 if($finalcomportamiento->code==1){
-                                    echo'<tr><td>'.$finalcomportamiento->description.'</td>';
-                                    echo'<td>';
+                                    echo'<tr><td style="width:80%;">'.$finalcomportamiento->description.'</td>';
+                                    echo'<td style="width:20%;">';
                                     ?>
                                                 <input type="radio" id="valoresrf<?php echo $finalcomportamiento->id; ?>" name="valoresrf[<?php echo $finalcomportamiento->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($finalcomportamiento->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamiento->id;?>">4</label>
                                                 <input type="radio" id="valoresrf<?php echo $finalcomportamiento->id; ?>" name="valoresrf[<?php echo $finalcomportamiento->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($finalcomportamiento->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamiento->id;?>">3</label>
@@ -1819,12 +1819,12 @@ if($estatusa==2){
                                     echo'</td></tr>';
 
                                     }else if ($finalcomportamiento->code==2){
-                                        echo'<tr><td>'.$finalcomportamiento->description.'</td>';
-                                        echo'<td><p class="w3-input w3-border" type="text" id="valoresrf'.$finalcomportamiento->id.'" name="valoresrf['.$finalcomportamiento->id.'][valor]" >'.$finalcomportamiento->value.'</p></td>';
+                                        echo'<tr><td style="width:80%;">'.$finalcomportamiento->description.'</td>';
+                                        echo'<td style="width:20%;"><p class="w3-input w3-border" type="text" id="valoresrf'.$finalcomportamiento->id.'" name="valoresrf['.$finalcomportamiento->id.'][valor]" >'.$finalcomportamiento->value.'</p></td>';
                                         echo'</tr>';
                                     }else if($finalcomportamiento->code==3){
-                                        echo'<tr><td>'.$finalcomportamiento->description.'</td></tr>';
-                                        echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valoresrf'.$finalcomportamiento->id.'" name="valoresrf['.$finalcomportamiento->id.'][valor]">'.$finalcomportamiento->value.'</p></td>';
+                                        echo'<tr><td style="width:80%;">'.$finalcomportamiento->description.'</td></tr>';
+                                        echo'<tr><td style="width:20%;"><p class="w3-input w3-border" rows="4" cols="50"  id="valoresrf'.$finalcomportamiento->id.'" name="valoresrf['.$finalcomportamiento->id.'][valor]">'.$finalcomportamiento->value.'</p></td>';
                                         echo'</tr>';
                                     }else{
 
@@ -1907,8 +1907,8 @@ if($estatusa==2){
                                 foreach($finalvalorresultadojefe  as $finalcomportamientojefe){
                                 
                                     if($finalcomportamientojefe->code==1){
-                                    echo'<tr><td>'.$finalcomportamientojefe->description.'</td>';
-                                    echo'<td>';
+                                    echo'<tr><td style="width:80%;">'.$finalcomportamientojefe->description.'</td>';
+                                    echo'<td style="width:20%;">';
                                     ?>
                                                 <input type="radio" id="valoresrf<?php echo $finalcomportamientojefe->id; ?>" name="valoresrf[<?php echo $finalcomportamientojefe->id; ?>][valor]" value="4" <?php if (!(strcmp(4, htmlentities($finalcomportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamientojefe->id;?>" disabled>4</label>
                                                 <input type="radio" id="valoresrf<?php echo $finalcomportamientojefe->id; ?>" name="valoresrf[<?php echo $finalcomportamientojefe->id; ?>][valor]" value="3" <?php if (!(strcmp(3, htmlentities($finalcomportamientojefe->value, ENT_COMPAT, 'utf-8')))) {echo "checked";} ?> disabled><label for="valoresrf<?php echo $finalcomportamientojefe->id;?>" disabled>3</label>
@@ -1918,12 +1918,12 @@ if($estatusa==2){
                                     echo'</td></tr>';
 
                                     }else if ($finalcomportamientojefe->code==2){
-                                        echo'<tr><td>'.$finalcomportamientojefe->description.'</td>';
-                                        echo'<td><p class="w3-input w3-border" type="text" id="valoresrf'.$finalcomportamientojefe->id.'" name="valoresrf['.$finalcomportamientojefe->id.'][valor]">'.$finalcomportamientojefe->value.'</p></td>';
+                                        echo'<tr><td style="width:80%;">'.$finalcomportamientojefe->description.'</td>';
+                                        echo'<td style="width:20%;"><p class="w3-input w3-border" type="text" id="valoresrf'.$finalcomportamientojefe->id.'" name="valoresrf['.$finalcomportamientojefe->id.'][valor]">'.$finalcomportamientojefe->value.'</p></td>';
                                         echo'</tr>';
                                     }else if($finalcomportamientojefe->code==3){
-                                        echo'<tr><td>'.$finalcomportamientojefe->description.'</td></tr>';
-                                        echo'<tr><td><p class="w3-input w3-border" rows="4" cols="50"  id="valoresrf'.$finalcomportamientojefe->id.'" name="valoresrf['.$finalcomportamientojefe->id.'][valor]">'.$finalcomportamientojefe->value.'</p></td>';
+                                        echo'<tr><td style="width:80%;">'.$finalcomportamientojefe->description.'</td></tr>';
+                                        echo'<tr><td style="width:20%;"><p class="w3-input w3-border" rows="4" cols="50"  id="valoresrf'.$finalcomportamientojefe->id.'" name="valoresrf['.$finalcomportamientojefe->id.'][valor]">'.$finalcomportamientojefe->value.'</p></td>';
                                         echo'</tr>';
                                     }else{
 
