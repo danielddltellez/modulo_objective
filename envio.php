@@ -5,6 +5,7 @@ if ($CFG->forcelogin) {
 }
 global $USER, $DB, $COURSE;
 
+if($_POST['objetivocompleto1'] != NULL && $_POST['valorobjetivo1'] != NULL){
 $record1 = new stdClass();
 $record1-> userid = $_POST['userid1'];
 $record1-> courseid = $_POST['courseid1'];
@@ -21,13 +22,14 @@ $record1-> enddate = strtotime($_POST['fechafinal1']);
 $record1-> valueobjective = $_POST['valorobjetivo1'];
 try{
 $lastinsertid1 = $DB->insert_record('objective_establishment_captured', $record1);
-//echo 'OBJETIVO 1 INSERTADO';
+echo 'OBJETIVO 1 INSERTADO';
 
 } catch(\Throwable $e) {
     // PHP 7 
-//echo 'ERROR AL INSERTAR OBJETIVO 1';
+echo 'ERROR AL INSERTAR OBJETIVO 1';
 } 
-
+}
+if($_POST['objetivocompleto2'] != NULL && $_POST['valorobjetivo2'] != NULL){
 $record2 = new stdClass();
 $record2-> userid = $_POST['userid2'];
 $record2-> courseid = $_POST['courseid2'];
@@ -46,14 +48,14 @@ $record2-> valueobjective = $_POST['valorobjetivo2'];
 try{
 $lastinsertid2 = $DB->insert_record('objective_establishment_captured', $record2);
 
-//echo 'OBJETIVO 2 INSERTADO';
+echo 'OBJETIVO 2 INSERTADO';
 
 } catch(\Throwable $e) {
     // PHP 7 
-//echo 'ERROR AL INSERTAR OBJETIVO 2';
+echo 'ERROR AL INSERTAR OBJETIVO 2';
 } 
-
-
+}
+if($_POST['objetivocompleto3'] != NULL && $_POST['valorobjetivo3'] != NULL){
 $record3 = new stdClass();
 $record3-> userid = $_POST['userid3'];
 $record3-> courseid = $_POST['courseid3'];
@@ -71,11 +73,13 @@ $record3-> valueobjective = $_POST['valorobjetivo3'];
 
 try{
 $lastinsertid3 = $DB->insert_record('objective_establishment_captured', $record3);
-//echo 'OBJETIVO 3 INSERTADO';
+echo 'OBJETIVO 3 INSERTADO';
 }catch(\Throwable $e) {
     // PHP 7 
-///echo 'ERROR AL INSERTAR OBJETIVO 3';
-} 
+echo 'ERROR AL INSERTAR OBJETIVO 3';
+}
+}
+if($_POST['objetivocompleto4'] != NULL && $_POST['valorobjetivo4'] != NULL){
 $record4 = new stdClass();
 $record4-> userid = $_POST['userid4'];
 $record4-> courseid = $_POST['courseid4'];
@@ -98,6 +102,7 @@ echo 'tus objetivos fueron guardados con éxito';
     // PHP 7 
 echo 'error al enviar tus objetivos';
 } 
+}
 if($_POST['objetivocompleto5'] != NULL && $_POST['valorobjetivo5'] != NULL){
 $record5 = new stdClass();
 $record5-> userid = $_POST['userid5'];
@@ -115,10 +120,10 @@ $record5-> enddate = strtotime($_POST['fechafinal5']);
 $record5-> valueobjective = $_POST['valorobjetivo5'];
 try{
 $lastinsertid5 = $DB->insert_record('objective_establishment_captured', $record5);
-//echo 'OBJETIVO 5 INSERTADO';
+echo 'OBJETIVO 5 INSERTADO';
 }catch(\Throwable $e) {
     // PHP 7 
-//echo 'ERROR AL INSERTAR OBJETIVO 5';
+echo 'ERROR AL INSERTAR OBJETIVO 5';
 } 
 }
 
@@ -141,10 +146,11 @@ $record6-> valueobjective = $_POST['valorobjetivo6'];
 try{
 $lastinsertid6 = $DB->insert_record('objective_establishment_captured', $record6);
 
-//echo 'OBJETIVO 6 INSERTADO';
+echo 'OBJETIVO 6 INSERTADO';
 }catch(\Throwable $e) {
     // PHP 7 
-//echo 'ERROR AL INSERTAR OBJETIVO 6';
+echo 'ERROR AL INSERTAR OBJETIVO 6';
 } 
 }
+
 ?>

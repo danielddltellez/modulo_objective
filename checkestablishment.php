@@ -204,7 +204,7 @@ $vista .='<div id="vista1" class="w3-light-grey vistas">
                     </div>
                 </div>';
 
-$querycontrol='select es.id, @rownum:=@rownum+1 contador,  es.userid,es.idobjective ,es.courseid, es.targetnumber, es.whatquestion, es.howquestion, es.thatquestion, es.specifyquestion, es.periodquestion, es.objectivecomplete, DATE_FORMAT(FROM_UNIXTIME(es.startdate), "%Y-%m-%d") as fechaini, DATE_FORMAT(FROM_UNIXTIME(es.enddate), "%Y-%m-%d") as fechafin, es.valueobjective
+$querycontrol='select es.id as idobj, @rownum:=@rownum+1 contador,  es.userid,es.idobjective ,es.courseid, es.targetnumber, es.whatquestion, es.howquestion, es.thatquestion, es.specifyquestion, es.periodquestion, es.objectivecomplete, DATE_FORMAT(FROM_UNIXTIME(es.startdate), "%Y-%m-%d") as fechaini, DATE_FORMAT(FROM_UNIXTIME(es.enddate), "%Y-%m-%d") as fechafin, es.valueobjective
 ,(select er.actionpartner from  mdl_objective_establishment_revise er where er.idobjectiveestablishment=es.id) as actionp
 ,(select er2.actionsixmonth from  mdl_objective_establishment_revise er2 where er2.idobjectiveestablishment=es.id) as actions
 ,(select er3.bosscomments from  mdl_objective_establishment_revise er3 where er3.idobjectiveestablishment=es.id) as bossc
@@ -217,6 +217,8 @@ $querycontrol='select es.id, @rownum:=@rownum+1 contador,  es.userid,es.idobject
 ,(select a5.autoevaluation from mdl_objective_establishment_revise_final a5 where a5.idobjectiveestablishment=es.id) as autoevaluation
 ,(select a6.evaluationboss from mdl_objective_establishment_revise_final a6 where a6.idobjectiveestablishment=es.id) as evaluationboss
 ,(select a7.id from  mdl_objective_establishment_revise_final a7 where a7.idobjectiveestablishment=es.id) as idrevisionfinal
+,es.comentariosjefe
+,es.status
 from  mdl_objective_establishment_captured es
 inner join mdl_objective_establishment o on o.id = es.idobjective,
 (SELECT @rownum:=0) R
@@ -240,6 +242,7 @@ if(empty($resultcontrol)){
    
 }else{
   foreach($resultcontrol as $valuecontrol){
+    $con=$valuecontrol->contador;
     $establecimiento .='<div id="objetivosestablecidos'.$valuecontrol->targetnumber.'">
                             <div class="w3-row">
                                     <div class="w3-col l12 w3-dark-grey">
@@ -247,9 +250,7 @@ if(empty($resultcontrol)){
                                     </div>
                             </div>
                             <div class="w3-row">
-                                <input type="hidden" id="userid'.$i.'" name="userid'.$i.'" value="'.$USER->id.'" '.$requerido.'>
-                                <input type="hidden" id="courseid'.$i.'" name="courseid'.$i.'" value="'.$courseid.'" '.$requerido.'>
-                                <input type="hidden" id="idobjetivo'.$i.'" name="idobjetivo'.$i.'" value="'.$id.'" '.$requerido.'>
+                                
                                 <div class="w3-col m2 w3-white w3-center">
                                     <p class="text-cuestion" style="font-size:10px;">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
                                     <!--<p><input  class="w3-input w3-border" type="text"></p>-->
@@ -304,8 +305,71 @@ if(empty($resultcontrol)){
                                     <p class="text-cuestion">Valor del objetivo sobre 100</p>
                                     <p class="w3-input w3-border">'.$valuecontrol->valueobjective.'%</p>
                                 </div>
+                            </div>';
+
+                            if(!empty($valuecontrol->comentariosjefe)){
+                            $establecimiento .='<div class="w3-row">
+                                                    <div class="w3-col m12 w3-white w3-center">
+                                                        <p class="text-oc">Comentarios jefe inmediato</p>
+                                                        <p class="w3-input w3-border">'.$valuecontrol->comentariosjefe.'</p>
+                                                    </div>
+                                                </div>';
+                            }
+                        $establecimiento .='</div>';
+
+                        $establecimiento .='<div class="w3-container">
+                        <button onclick="document.getElementById(\'addcomentario'.$con.'\').style.display=\'block\'" class="w3-button w3-green w3-large">Agrega tus comentarios</button>
+                        <button onclick="document.getElementById(\'validaobject'.$con.'\').style.display=\'block\'" class="w3-button w3-red w3-large">Valida Objetivo</button> 
+                        <div id="addcomentario'.$con.'" class="w3-modal">
+                        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+
+                            <form class="w3-container" id="formcomentario'.$con.'" method="POST" action="updateobjectiveji.php">
+                            <input type="hidden" id="comenuserid'.$con.'" name="comenuserid'.$con.'" value="'.$USER->id.'" '.$requerido.'>
+                            <input type="hidden" id="comencourseid'.$con.'" name="comencourseid'.$con.'" value="'.$courseid.'" '.$requerido.'>
+                            <input type="hidden" id="comenidobjetivo'.$con.'" name="comenidobjetivo'.$con.'" value="'.$valuecontrol->idobj.'" '.$requerido.'>
+                            <div class="w3-section">
+            
+
+                                <label><b>Agrega tus comentarios sobre el objetivo</b></label>
+                                <p><textarea class="w3-input w3-border" maxlength="200" rows="4" cols="50" type="text" id="comentariosobjetivo'.$con.'" name="comentariosobjetivo'.$con.'">'.$valuecontrol->comentariosjefe.'</textarea></p>
+
+                                <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                                    <button onclick="document.getElementById(\'addcomentario'.$con.'\').style.display=\'none\'" type="button" class="w3-button w3-red w3-left">Cancelar</button>
+                                    <input class="w3-button  w3-green  w3-right" id="editarbtnobjetivo'.$con.'" type="submit" value="Actualizar">
+                                </div>
+                                </form>
                             </div>
-                        </div>';
+                        </div>
+                    </div>
+                    <div id="validaobject'.$con.'" class="w3-modal">
+                        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+
+                            <form class="w3-container" id="formvalidaobj'.$con.'" method="POST" action="valideobjective.php">
+                            <input type="hidden" id="valideuserid'.$con.'" name="valideuserid'.$con.'" value="'.$USER->id.'" '.$requerido.'>
+                            <input type="hidden" id="validecourseid'.$con.'" name="validecourseid'.$con.'" value="'.$courseid.'" '.$requerido.'>
+                            <input type="hidden" id="valideidobjetivo'.$con.'" name="valideidobjetivo'.$con.'" value="'.$valuecontrol->idobj.'" '.$requerido.'>
+                            <div class="w3-section">
+
+
+                                    <h3>¿Estas seguro de validar el objetivo de tu colaborador?</h3>
+                                    <label><b>Selecciona el estatus en el que se encuentra el objetivo</b></label>
+                                    <select class="w3-select" name="estatusobj'.$con.'">
+                                    <option value="0" disabled selected>Creado</option>
+                                    <option value="1">Rechazado</option>
+                                    <option value="2">Aprobado</option>
+                                    <option value="3">Cancelado</option>
+                                    </select><div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                                    <button onclick="document.getElementById(\'validaobject'.$con.'\').style.display=\'none\'" type="button" class="w3-button w3-red w3-left">Cancelar</button>
+                                    <input class="w3-button  w3-green  w3-right" id="validebtnobjetivo'.$con.'" type="submit" value="Validar Objetivo">
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+            </div>';
+    
+
+                        
     
   }
 
@@ -316,7 +380,7 @@ if(empty($resultcontrol)){
         $primeravalidacion=$validacion1->status;
     }
     if($primeravalidacion==0){
-            $establecimiento .='<button onclick="document.getElementById(\''.$id.'\').style.display=\'block\'" class="w3-button w3-pale-red">Validar Objetivos</button>';
+            $establecimiento .='<button onclick="document.getElementById(\''.$id.'\').style.display=\'block\'" class="w3-button w3-pale-red w3-padding-16">Validar Objetivos</button>';
 
             $establecimiento .='<div id="'.$id.'" class="w3-modal">
                 <div class="w3-modal-content w3-card-4">
@@ -2753,6 +2817,107 @@ textarea.parsley-error:focus {
 ?>
 <script>
 $(document).on('ready', function() {
+
+    $("[id*='formcomentario']").bind("submit",function(){
+        // Capturamnos el boton de envío
+
+        var btnEnviar = $("[id*='editarbtnobjetivo']");
+
+        
+            $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("action"),
+                data:$(this).serialize(),
+                beforeSend: function(){
+                    /*
+                    * Esta función se ejecuta durante el envió de la petición al
+                    * servidor.
+                    * */
+                    // btnEnviar.text("Enviando"); Para button 
+
+                    btnEnviar.val("Enviando"); // Para input de tipo button
+                    btnEnviar.attr("disabled","disabled");
+                },
+                complete:function(data){
+                    /*
+                    * Se ejecuta al termino de la petición
+                    * */
+                    btnEnviar.val("Enviar formulario");
+                    btnEnviar.removeAttr("disabled");
+                },
+                success: function(data){
+                    /*
+                    * Se ejecuta cuando termina la petición y esta ha sido
+                    * correcta
+                    * */
+
+                    $("#respuesta").html(data);
+                    location.reload(); 
+
+                },
+                error: function(data){
+                    /*
+                    * Se ejecuta si la peticón ha sido erronea
+                    * */
+                    alert("Problemas al tratar de enviar el formulario");
+                }
+            });
+
+        // Nos permite cancelar el envio del formulario
+        return false;
+    });
+
+    $("[id*='formvalidaobj']").bind("submit",function(){
+        // Capturamnos el boton de envío
+
+        var btnValide = $("[id*='validebtnobjetivo']");
+
+        
+            $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("action"),
+                data:$(this).serialize(),
+                beforeSend: function(){
+                    /*
+                    * Esta función se ejecuta durante el envió de la petición al
+                    * servidor.
+                    * */
+                    // btnEnviar.text("Enviando"); Para button 
+
+                    btnValide.val("Enviando"); // Para input de tipo button
+                    btnValide.attr("disabled","disabled");
+                },
+                complete:function(data){
+                    /*
+                    * Se ejecuta al termino de la petición
+                    * */
+                    btnValide.val("Validar Objetivo");
+                    btnValide.removeAttr("disabled");
+                },
+                success: function(data){
+                    /*
+                    * Se ejecuta cuando termina la petición y esta ha sido
+                    * correcta
+                    * */
+
+                    $("#respuesta").html(data);
+                    location.reload(); 
+
+                },
+                error: function(data){
+                    /*
+                    * Se ejecuta si la peticón ha sido erronea
+                    * */
+                    alert("Problemas al tratar de enviar el formulario");
+                }
+            });
+
+        // Nos permite cancelar el envio del formulario
+        return false;
+    });
+
+
+
 
     $('#revisionjefe').parsley().on('field:validated', function() {
         var ok = $('.parsley-error').length === 0;

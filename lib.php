@@ -535,11 +535,6 @@ function objective_print_establishment($viewestablishment, $return = 0){
        $display .= html_writer::start_tag('table', array('class' => 'table table-striped'));
        $display .= html_writer::start_tag('thead');
        $display .= html_writer::start_tag('tr' , array('style' => 'background-color:  #878786; color: #fff;'));
-       /*
-       $display .= html_writer::start_tag('th');
-       $display .= clean_text('<strong>Id usuario</strong>');
-       $display .= html_writer::end_tag('th');
-       */
        $display .= html_writer::start_tag('th');
        $display .= clean_text('<strong>Nombre Completo</strong>');
        $display .= html_writer::end_tag('th');
@@ -570,11 +565,6 @@ function objective_print_establishment($viewestablishment, $return = 0){
            $idinstancia=$valuest->idinstance;
            $role=$valuest->finalrol;
            $display .= html_writer::start_tag('tr', array('style' => 'background-color: #d0cdcc;'));
-           /*
-           $display .= html_writer::start_tag('td');
-           $display .= clean_text($valuest->iduser);
-           $display .= html_writer::end_tag('td');
-           */
            $display .= html_writer::start_tag('td');
            $display .= clean_text($valuest->ncompleto);
            $display .= html_writer::end_tag('td');
@@ -591,24 +581,18 @@ function objective_print_establishment($viewestablishment, $return = 0){
            $display .= clean_text($valuest->estatus);
            $display .= html_writer::end_tag('td');
            $display .= html_writer::start_tag('td');
-           $display .= html_writer::start_tag('a',array('class' => 'btn btn-info','href' => ''.$CFG->wwwroot.'/mod/objective/viewestablishment.php?courseid='.$idcurso.'&instance='.$idmodulo.'&id='.$valuest->id.''));
+           $display .= html_writer::start_tag('a',array('class' => 'btn btn-info color-boton','href' => ''.$CFG->wwwroot.'/mod/objective/viewestablishment.php?courseid='.$idcurso.'&instance='.$idmodulo.'&id='.$valuest->id.''));
            $display .= html_writer::start_tag('em', array('class' => 'fa fa-search'));
            $display .= html_writer::end_tag('em');
            $display .= html_writer::end_tag('a');
            if($valuest->status==0){
-           $display .= html_writer::start_tag('a',array('class' => 'btn btn-info','href' => ''.$CFG->wwwroot.'/mod/objective/editestablishment.php?courseid='.$idcurso.'&instance='.$idmodulo.'&id='.$valuest->id.''));
+           $display .= html_writer::start_tag('a',array('class' => 'btn btn-info color-boton','href' => ''.$CFG->wwwroot.'/mod/objective/editestablishment.php?courseid='.$idcurso.'&instance='.$idmodulo.'&id='.$valuest->id.''));
            $display .= html_writer::start_tag('em', array('class' => 'fa fa-pencil'));
            $display .= html_writer::end_tag('em');
            $display .= html_writer::end_tag('a');
            }else{
 
            }
-           /*
-           $display .= html_writer::start_tag('a',array('class' => 'btn btn-danger', 'data-toggle'=>'modal', 'href' => '#delete_establishment'.$valuest->id.''));
-           $display .= html_writer::start_tag('em', array('class' => 'fa fa-trash'));
-           $display .= html_writer::end_tag('em');
-           $display .= html_writer::end_tag('a');
-           */
            include('modals/modal.php');
            $display .= html_writer::end_tag('td');
            $display .= html_writer::end_tag('tr');
@@ -650,11 +634,6 @@ function objective_print_establishment($viewestablishment, $return = 0){
                 $display .= html_writer::start_tag('table', array('class' => 'table table-striped'));
                 $display .= html_writer::start_tag('thead');
                 $display .= html_writer::start_tag('tr' , array('style' => 'background-color:  #878786; color: #fff;'));
-                /*
-                $display .= html_writer::start_tag('th');
-                $display .= clean_text('<strong>Id usuario</strong>');
-                $display .= html_writer::end_tag('th');
-                */
                 $display .= html_writer::start_tag('th');
                 $display .= clean_text('<strong>Colaboradores</strong>');
                 $display .= html_writer::end_tag('th');
@@ -679,11 +658,6 @@ function objective_print_establishment($viewestablishment, $return = 0){
                 foreach ($result as $valores) {
 
                     $display .= html_writer::start_tag('tr', array('style' => 'background-color: #d0cdcc;'));
-                    /*
-                    $display .= html_writer::start_tag('td');
-                    $display .= clean_text($valores->iduser);
-                    $display .= html_writer::end_tag('td');
-                    */
                     $display .= html_writer::start_tag('td');
                     $display .= clean_text($valores->ncompleto);
                     $display .= html_writer::end_tag('td');
@@ -700,21 +674,10 @@ function objective_print_establishment($viewestablishment, $return = 0){
                     $display .= clean_text($valores->estatus);
                     $display .= html_writer::end_tag('td');
                     $display .= html_writer::start_tag('td');
-                    $display .= html_writer::start_tag('a',array('class' => 'btn btn-info','href' => ''.$CFG->wwwroot.'/mod/objective/checkestablishment.php?courseid='.$valores->courseid.'&instance='.$valores->idmod.'&id='.$valores->id.''));
+                    $display .= html_writer::start_tag('a',array('class' => 'btn btn-info color-boton','href' => ''.$CFG->wwwroot.'/mod/objective/checkestablishment.php?courseid='.$valores->courseid.'&instance='.$valores->idmod.'&id='.$valores->id.''));
                     $display .= html_writer::start_tag('em', array('class' => 'fa fa-search'));
                     $display .= html_writer::end_tag('em');
                     $display .= html_writer::end_tag('a');
-                    /*
-                    $display .= html_writer::start_tag('a',array('class' => 'btn btn-info', 'data-toggle'=>'modal', 'href' => '#edit_establishment'.$valores->id.''));
-                    $display .= html_writer::start_tag('em', array('class' => 'fa fa-pencil'));
-                    $display .= html_writer::end_tag('em');
-                    $display .= html_writer::end_tag('a');
-                    $display .= html_writer::start_tag('a',array('class' => 'btn btn-danger', 'data-toggle'=>'modal', 'href' => '#delete_establishment'.$valores->id.''));
-                    $display .= html_writer::start_tag('em', array('class' => 'fa fa-trash'));
-                    $display .= html_writer::end_tag('em');
-                    $display .= html_writer::end_tag('a');
-                    */
-                    //include('modals/modal.php');
                     $display .= html_writer::end_tag('td');
                     $display .= html_writer::end_tag('tr');
                 }
@@ -722,6 +685,8 @@ function objective_print_establishment($viewestablishment, $return = 0){
                     $display .= html_writer::end_tag('tbody');
                     $display .= html_writer::end_tag('table');
                      $display .= html_writer::end_tag('div');
+
+
 
 
 

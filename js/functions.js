@@ -109,7 +109,7 @@ function calfecha(fechatxt) {
     var fecha = new Date(ms);
     return fecha;
 }
-
+/*
 function sumapobj(pobj) {
     var pobjs = new Array(6)
 
@@ -129,7 +129,7 @@ function sumapobj(pobj) {
 
     var suma = parseInt(pobjs[0]) + parseInt(pobjs[1]) + parseInt(pobjs[2]) + parseInt(pobjs[3]) + parseInt(pobjs[4]) + parseInt(pobjs[5]);
 
-    suma = suma.toFixed(2);
+    suma = suma.toFixed(1);
     //	alert("Suma: "+suma);
     if (suma < 100) {
         $("#btnEnviar").attr('disabled', true);
@@ -157,7 +157,7 @@ function sumapobj(pobj) {
     }
     //    calREspInt();
 }
-
+*/
 function concatena(obj) {
     //alert(obj);
     var como = "#como" + obj;
@@ -192,6 +192,7 @@ function concatena(obj) {
 }
 
 //Revisa todo
+/*
 function revAll() {
 
     var resultF = 1;
@@ -240,6 +241,7 @@ function revAll() {
     }
 }
 
+*/
 //Promedia Competencias en Revisión 1
 function promediaComp(inicio, tam) {
     var radioName = "";
@@ -261,7 +263,7 @@ function promediaComp(inicio, tam) {
     }
     if (contadorc > 0) {
         prom = prom / contadorc;
-        prom = prom.toFixed(2);
+        prom = prom.toFixed(1);
         $("input[name1='" + valorfinal + "']").val(prom);
         $("input[name1='" + valorfinalvista + "']").val(prom);
     }
@@ -282,7 +284,7 @@ function promediaCompf(inicio, tam) {
     }
     if (contadorc > 0) {
         prom = prom / contadorc;
-        prom = prom.toFixed(2);
+        prom = prom.toFixed(1);
         $("input[name2='" + valorfinal + "']").val(prom);
         $("input[name2='" + valorfinalvista + "']").val(prom);
     }
@@ -310,10 +312,6 @@ function validaCFinal(obj) {
         $(obj).focus();
     }
 }
-
-
-
-
 
 $(document).on('ready', function() {
 
@@ -892,3 +890,45 @@ $(document).on('ready', function() {
         validaCompetencias();
     });
 });
+
+/**/ 
+
+function validaActobj(pasar, actsumatotal){
+
+    var i=pasar;
+    var totalobj=actsumatotal;
+
+    
+    
+    var oldvalor = $("#actualizacionobjec"+i).val();
+    var actvalor = $("#valorobjetivo"+i).blur().val();
+    var totalobj = parseInt(totalobj) - parseInt(oldvalor);
+    var actvalor = parseInt(actvalor);
+    
+
+
+    //alert(totalobj);
+    //alert(actvalor);
+    
+    var acttotales = totalobj + actvalor;
+    
+
+    if(acttotales >= 101){
+        
+       alert("La suma de tus objetivos no debe de ser ni mayor ni menor a 100");
+       return false;
+    }else if(acttotales <= 100){
+     
+       return true;
+    }else{
+
+        alert('aqui esta entrando');
+        return false;
+
+
+    }
+
+
+
+
+}

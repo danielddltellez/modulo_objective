@@ -140,6 +140,19 @@ echo '</ul><div class="tab-content">
 
 echo '</div></div>';
 
+echo '<style>
+
+.color-boton {
+    color: #fff !important;
+    background-color: #db8877 !important;
+    background-image: linear-gradient(to bottom, #db8877, #db8877) !important;
+}
+
+.color-boton:hover {
+    color: #fff !important;
+    background-color: #db8877 !important;
+}</style>';
+
 echo $OUTPUT->footer($course);
 
 

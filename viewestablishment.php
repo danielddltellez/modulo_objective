@@ -61,27 +61,41 @@ $modulecontext = context_module::instance($cm->id);
     <script src="./js/jquery-1.12.4.js" type="text/javascript"></script>
     <script src="./js/jquery-ui.js" type="text/javascript"></script>
     <script src="./js/functions.js" type="text/javascript"></script>
-   <!-- <script src="./js/enviar.js"></script>-->
     <script src="./js/parsley.js" type="text/javascript"></script>
     <script src="./js/es.js" type="text/javascript"></script>
 </head>
 <body>
 <?php
-$query="select distinct u.id as 'iduser', concat(u.firstname, ' ',u.lastname) as 'ncomnpleto'  , (SELECT 
-mf3.data
-FROM
-mdl_user_info_data mf3
-WHERE
-mf3.userid = u.id AND mf3.fieldid = 2) AS 'jefediecto', ogr.description as 'rol', oe.idjefedirecto as 'idjefe',oe.status as 'estatusavance' ,DATE_FORMAT(FROM_UNIXTIME(oe.timecreated), '%Y-%m-%d') AS fechaestab
-from mdl_user u 
-join mdl_user_info_data id on id.userid = u.id
-join mdl_user_info_field ii on ii.id = id.fieldid 
-inner join mdl_objective_establishment oe on oe.userid = u.id
-inner join mdl_objective o on o.id = oe.idinstance
-inner join mdl_objective_groups_users ogu on ogu.idusuario = u.id
-inner join mdl_objective_groups og on og.id = ogu.idgroup
-inner join mdl_objective_groups_rol  ogr on ogr.id =  oe.rol
-where u.id=?";
+$query=" SELECT DISTINCT
+            u.id AS 'iduser',
+            concat(u.firstname, ' ', u.lastname) AS 'ncomnpleto',
+            (
+                SELECT
+                    mf3. DATA
+                FROM
+                    mdl_user_info_data mf3
+                WHERE
+                    mf3.userid = u.id
+                AND mf3.fieldid = 2
+            ) AS 'jefediecto',
+            ogr.description AS 'rol',
+            oe.idjefedirecto AS 'idjefe',
+            oe. STATUS AS 'estatusavance',
+            DATE_FORMAT(
+                FROM_UNIXTIME(oe.timecreated),
+                '%Y-%m-%d'
+            ) AS fechaestab
+        FROM
+            mdl_user u
+        JOIN mdl_user_info_data id ON id.userid = u.id
+        JOIN mdl_user_info_field ii ON ii.id = id.fieldid
+        INNER JOIN mdl_objective_establishment oe ON oe.userid = u.id
+        INNER JOIN mdl_objective o ON o.id = oe.idinstance
+        INNER JOIN mdl_objective_groups_users ogu ON ogu.idusuario = u.id
+        INNER JOIN mdl_objective_groups og ON og.id = ogu.idgroup
+        INNER JOIN mdl_objective_groups_rol ogr ON ogr.id = oe.rol
+        WHERE
+            u.id =?";
 $result = $DB->get_records_sql($query, array($USER->id));
 $idusuario='';
 $nombre='';
@@ -90,18 +104,18 @@ $rolprincipal='';
 $estatusa='';
 $fechaestablecimiento='';
         
-        foreach($result as $value){
+foreach($result as $value){
 
-               $idusuario=$value->iduser;
-               $nombre=$value->ncomnpleto;
-               $nombrejefe=$value->jefediecto;
-               $rolprincipal=$value->rol;
-               $idjefegrupo=$value->idjefe;
-               $estatusa=$value->estatusavance;
-               $fechaestablecimiento=$value->fechaestab;
+    $idusuario=$value->iduser;
+    $nombre=$value->ncomnpleto;
+    $nombrejefe=$value->jefediecto;
+    $rolprincipal=$value->rol;
+    $idjefegrupo=$value->idjefe;
+    $estatusa=$value->estatusavance;
+    $fechaestablecimiento=$value->fechaestab;
 
-           
-        }
+    
+}
 if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
                         
     echo '<div class="w3-bar w3-black">';
@@ -121,75 +135,103 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
         echo '<button class="w3-bar-item w3-button"><a href="https://e-learning.triplei.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
     }
     echo'</div>';
-                                            $vistajefeinmediato .='<div class="w3-row">
-                                                                        <div class="w3-col l1">
-                                                                            <p></p>
-                                                                        </div>
-                                                                        <div class="w3-round-xxlarge w3-col l5 w3-pale-red w3-center">
-                                                                            <p>Objetivos del jefe inmediato</p>
-                                                                        </div>
-                                                                        <div class="w3-round-xxlarge w3-col l5 w3-dark-grey w3-center">  
-                                                                            <p>'.$nombrejefe.'</p>
-                                                                        </div>
-                                                                        <div class="w3-col l1">
-                                                                            <p></p>
-                                                                        </div>
-                                                                </div>';   
-                                            $vistajefeinmediato2 .='<div class="w3-row">
-                                                                        <div class="w3-col l1"><p></p></div>
-                                                                        <div id="jefe-inmediato" class="w3-col l10 w3-pale-red w3-center">
-                                                                            <table class="w3-table-all">';
-                                            $objetivosjefe='select id, userid, targetnumber, objectivecomplete  from mdl_objective_establishment_captured where userid=?';
-                                            $obtenerobj = $DB->get_records_sql($objetivosjefe, array($idjefegrupo));
-                                            $j=1;
-                                            foreach($obtenerobj as $valueobj){
-                                            $contador = $j++;
-                                                              $vistaobjetivosjefe.='<tr>
-                                                                    <td></td>
-                                                                    <td></td>
-                                                                    <td>'.$contador.'</td>
-                                                                    <td style="text-align: justify;">'.$valueobj->objectivecomplete.'</td>
-                                                                </tr>';
-                                                            }
-                                            $vistajefeinmediato3 .='</table>
-                                                        </div>
-                                                    <div class="w3-col l1"><p></p></div>
-                                                </div>';
+    $vistajefeinmediato .='<div class="w3-row">
+                                <div class="w3-col l1">
+                                    <p></p>
+                                </div>
+                                <div class="w3-round-xxlarge w3-col l5 w3-pale-red w3-center">
+                                    <p>Objetivos del jefe inmediato</p>
+                                </div>
+                                <div class="w3-round-xxlarge w3-col l5 w3-dark-grey w3-center">  
+                                    <p>'.$nombrejefe.'</p>
+                                </div>
+                                <div class="w3-col l1">
+                                    <p></p>
+                                </div>
+                            </div>';   
+    $vistajefeinmediato2 .='<div class="w3-row">
+                                <div class="w3-col l1"><p></p></div>
+                                <div id="jefe-inmediato" class="w3-col l10 w3-pale-red w3-center">
+                                    <table class="w3-table-all">';
+    $objetivosjefe='select id, userid, targetnumber, objectivecomplete  from mdl_objective_establishment_captured where userid=?';
+    $obtenerobj = $DB->get_records_sql($objetivosjefe, array($idjefegrupo));
+    if(empty($obtenerobj)){
+        $vistaobjetivosjefe.='<tr>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td style="text-align: justify;">NO EXISTEN OBJETIVOS DEL JEFE INMEDIATO</td>
+        </tr>';
+
+        $vistajefeinmediato3 .='</table>
+            </div>
+        <div class="w3-col l1"><p></p></div>
+    </div>';
+
+    $my = new moodle_url('/mod/objective/view.php?id='.$instance.'');
+    echo '  <div class="w3-container">
+                <div class="w3-row">
+                    <div class="w3-col l12 w3-red  w3-center">
+                    <h1>TU JEFE INMEDIATO AUN NO CAPTURA SUS OBJETIVOS</h1>
+                    </div>
+                </div>
+            </div>';
+    header( "refresh:3;url='".$my."'" );
+    exit();
+    }else{
+    $j=1;
+    foreach($obtenerobj as $valueobj){
+    $contador = $j++;
+                    $vistaobjetivosjefe.='<tr>
+                            <td></td>
+                            <td></td>
+                            <td>'.$contador.'</td>
+                            <td style="text-align: justify;">'.$valueobj->objectivecomplete.'</td>
+                        </tr>';
+                    }
+    $vistajefeinmediato3 .='</table>
+                </div>
+            <div class="w3-col l1"><p></p></div>
+        </div>';
+    }
 
 } else if ($rolprincipal=='DIRECTOR'){
 
-                                        echo '<div class="w3-bar w3-black">
-                                                            <button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>
-                                                            <button class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>
-                                                        </div>';
-                                                        $vistajefeinmediato .='<div class="w3-row">
-                                                                <div class="w3-col l1">
-                                                                    <p></p>
-                                                                </div>
-                                                                <div class="w3-round-xxlarge w3-col l5 w3-center">
-                                                                    <p></p>
-                                                                </div>
-                                                                <div class="w3-round-xxlarge w3-col l5 w3-center">  
-                                                                    <p></p>
-                                                                </div>
-                                                                <div class="w3-col l1">
-                                                                    <p></p>
-                                                                </div>
-                                                        </div>';
-                                                        $vistajefeinmediato2 .='<div class="w3-row">
-                                                                                    <div class="w3-col l1"><p></p></div>
-                                                                                        <div id="jefe-inmediato" class="w3-col l10 w3-pale-red w3-center">
-                                                                                            <table>';
-                                                        $vistaobjetivosjefe.='<tr>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td></td>
-                                                                                <td style="text-align: justify;"></td>
-                                                                            </tr>';
-                                                        $vistajefeinmediato3 .='</table>
-                                                        </div>
-                                                    <div class="w3-col l1"><p></p></div>
-                                                </div>';
+    echo '<div class="w3-bar w3-black">';
+    echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
+    if($estatusa==2){
+    echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>';
+    }
+    echo '<button class="w3-bar-item w3-button"><a href="https://e-learning.triplei.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
+    echo ' </div>';
+                    $vistajefeinmediato .='<div class="w3-row">
+                            <div class="w3-col l1">
+                                <p></p>
+                            </div>
+                            <div class="w3-round-xxlarge w3-col l5 w3-center">
+                                <p></p>
+                            </div>
+                            <div class="w3-round-xxlarge w3-col l5 w3-center">  
+                                <p></p>
+                            </div>
+                            <div class="w3-col l1">
+                                <p></p>
+                            </div>
+                    </div>';
+                    $vistajefeinmediato2 .='<div class="w3-row">
+                                                <div class="w3-col l1"><p></p></div>
+                                                    <div id="jefe-inmediato" class="w3-col l10 w3-pale-red w3-center">
+                                                        <table>';
+                    $vistaobjetivosjefe.='<tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td style="text-align: justify;"></td>
+                                        </tr>';
+                    $vistajefeinmediato3 .='</table>
+                    </div>
+                <div class="w3-col l1"><p></p></div>
+            </div>';
 
 }else{
                     
@@ -263,7 +305,7 @@ $vista .='<div id="vista1" class="w3-light-grey vistas">
                                     </div>';
 
 //$queryfinal='select * from mdl_objective_establishment_captured where userid=? and courseid=? and idobjective=? order by idobjective ASC';
-$querycontrol='select es.id, @rownum:=@rownum+1 contador,  es.userid,es.idobjective ,es.courseid, es.targetnumber, es.whatquestion, es.howquestion, es.thatquestion, es.specifyquestion, es.periodquestion, es.objectivecomplete, DATE_FORMAT(FROM_UNIXTIME(es.startdate), "%Y-%m-%d") as fechaini, DATE_FORMAT(FROM_UNIXTIME(es.enddate), "%Y-%m-%d") as fechafin, es.valueobjective
+$querycontrol='select es.id as idobj, @rownum:=@rownum+1 contador,  es.userid,es.idobjective ,es.courseid, es.targetnumber, es.whatquestion, es.howquestion, es.thatquestion, es.specifyquestion, es.periodquestion, es.objectivecomplete, DATE_FORMAT(FROM_UNIXTIME(es.startdate), "%Y-%m-%d") as fechaini, DATE_FORMAT(FROM_UNIXTIME(es.enddate), "%Y-%m-%d") as fechafin, es.valueobjective
 ,(select er.actionpartner from  mdl_objective_establishment_revise er where er.idobjectiveestablishment=es.id) as actionp
 ,(select er2.actionsixmonth from  mdl_objective_establishment_revise er2 where er2.idobjectiveestablishment=es.id) as actions
 ,(select er3.bosscomments from  mdl_objective_establishment_revise er3 where er3.idobjectiveestablishment=es.id) as bossc
@@ -274,16 +316,166 @@ $querycontrol='select es.id, @rownum:=@rownum+1 contador,  es.userid,es.idobject
 ,(select a4.feedbackevaluation from mdl_objective_establishment_revise_final a4 where a4.idobjectiveestablishment=es.id) as feddbackevaluation
 ,(select a5.autoevaluation from mdl_objective_establishment_revise_final a5 where a5.idobjectiveestablishment=es.id) as autoevaluation
 ,(select a6.evaluationboss from mdl_objective_establishment_revise_final a6 where a6.idobjectiveestablishment=es.id) as evaluationboss
+,es.status as estatusobj
+,es.comentariosjefe
 from  mdl_objective_establishment_captured es
 inner join mdl_objective_establishment o on o.id = es.idobjective,
 (SELECT @rownum:=0) R
 where es.courseid=? and es.idobjective=? and es.userid=? order by es.id ASC';
 
 $resultcontrol = $DB->get_records_sql($querycontrol, array($courseid, $id, $USER->id));
-if(empty($resultcontrol)){
-$i=1;
+//print_r($resultcontrol);
+$totalobjetivos=0;
+foreach($resultcontrol as $valuecontrol){
+   
+    $cont=$valuecontrol->contador;
+    $establecimiento .='<div id="vistaestablecimientoobj'.$cont.'" data-parsley-validate="">
+                            <div id="establecimientoobjetivos'.$cont.'">
+                                <div class="w3-row">
+                                        <div class="w3-col l12 w3-dark-grey">
+                                            <p>Breve descripción del objetivo '.$cont.'</p>
+                                        </div>
+                                </div>
+                                <div class="w3-row">
+                                <!--
+                                    <input type="hidden" id="userid'.$cont.'" name="userid'.$cont.'" value="'.$USER->id.'" '.$requerido.'>
+                                    <input type="hidden" id="courseid'.$cont.'" name="courseid'.$cont.'" value="'.$courseid.'" '.$requerido.'>
+                                    <input type="hidden" id="idobjetivo'.$cont.'" name="idobjetivo'.$cont.'" value="'.$valuecontrol->idobj.'" '.$requerido.'>
+                                    -->
+                                    <div class="w3-col m2 w3-white w3-center">
+                                        <p class="text-cuestion" style="font-size:10px;">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
+                                        <p class="w3-input w3-border" style="margin-top: 14px;">'.$valuecontrol->targetnumber.'</p>
+                                    </div>
+                                    <div class="w3-col m2 w3-white w3-center">
+                                        <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
+                                        <p class="w3-input w3-border">'.$valuecontrol->whatquestion.'</p>
+                                    </div>
+                                    <div class="w3-col m2 w3-white w3-center">
+                                        <p class="text-cuestion">2. ¿Cómo se quiere medir?</p>
+                                        <p class="w3-input w3-border">'.$valuecontrol->howquestion.'</p>
+                                    </div>
+                                    <div class="w3-col m2 w3-white w3-center">
+                                        <p class="text-cuestion">3. ¿Cuánto quieres que mida?</p>
+                                        <p class="w3-input w3-border">'.$valuecontrol->thatquestion.'</p>
+                                    </div>
+                                    <div class="w3-col m2 w3-white w3-center">
+                                        <p class="text-cuestion">4. ¿Cómo se quiere medir?</p>
+                                        <p class="w3-input w3-border">'.$valuecontrol->specifyquestion.'</p>
+                                    </div>
+                                    <div class="w3-col m2 w3-white w3-center">
+                                        <p class="text-cuestion">5. ¿Cuánto quieres que mida?</p>
+                                        <p class="w3-input w3-border">'.$valuecontrol->periodquestion.'</p>
+                                    </div>
+                                </div>
+                                <div class="w3-row">
+                                    <div class="w3-col m12 w3-white w3-center">
+                                        <p class="text-oc">Objetivo Completo</p>
+                                        <p class="w3-input w3-border">'.$valuecontrol->objectivecomplete.'</p>
+                                    </div>
+                                </div>
+                                <div class="w3-row">
+                                    <div class="w3-round-xlarge w3-col m8  w3-pale-red">
+                                    <p>Fecha compromiso</p>
+                                    </div>
+                                    <div class="w3-round-xlarge w3-col m4  w3-pale-red">
+                                    <p>Peso anual en %</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="w3-col m4 w3-white w3-center">
+                                        <p class="text-cuestion">Fecha inicial</p>
+                                        <p class="w3-input w3-border">'.$valuecontrol->fechaini.'</p>
+                                    </div>
+                                    <div class="w3-col m4 w3-white w3-center">
+                                        <p class="text-cuestion">Fecha final</p>
+                                        <p class="w3-input w3-border">'.$valuecontrol->fechafin.'</p>
+                                    </div>
+                                    <div class="w3-col m4 w3-white w3-center">
+                                        <p class="text-cuestion">Valor del objetivo sobre 100</p>
+                                        <p class="w3-input w3-border">'.$valuecontrol->valueobjective.'%</p>
+                                    </div>
+                                </div>';
+                                if(!empty($valuecontrol->comentariosjefe)){
+                                    $establecimiento .='<div class="w3-row">
+                                                            <div class="w3-col m12 w3-white w3-center">
+                                                                <p class="text-oc">Comentarios jefe inmediato</p>
+                                                                <p class="w3-input w3-border">'.$valuecontrol->comentariosjefe.'</p>
+                                                            </div>
+                                                        </div>';
+                                }
+                                $establecimiento .='</div>
+                                                    </div>';
+
+                    if($estatusobj == 0){
+                            $establecimiento .='<div class="w3-container">
+                                <button onclick="document.getElementById(\'modal'.$cont.'\').style.display=\'block\'" class="w3-button w3-green w3-large">Actualizar</button>
+                                <button onclick="document.getElementById(\'delete'.$cont.'\').style.display=\'block\'" class="w3-button w3-red w3-large">Eliminar</button>
+                                
+                                <div id="modal'.$cont.'" class="w3-modal">
+                                    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+            
+                                        <form class="w3-container" id="formularioact'.$cont.'" method="POST" action="updateobjective.php">
+                                        <input type="hidden" id="userid'.$cont.'" name="userid'.$cont.'" value="'.$USER->id.'" '.$requerido.'>
+                                        <input type="hidden" id="courseid'.$cont.'" name="courseid'.$cont.'" value="'.$courseid.'" '.$requerido.'>
+                                        <input type="hidden" id="idobjetivo'.$cont.'" name="idobjetivo'.$cont.'" value="'.$valuecontrol->idobj.'" '.$requerido.'>
+                                        <input type="hidden" id="actualizacionobjec'.$cont.'" name="actualizacionobjec'.$cont.'" value="'.$valuecontrol->valueobjective.'" '.$requerido.'>
+                                        <div class="w3-section">
+                                            <label><b>Objetivo Completo</b></label>
+                                            <p><textarea class="w3-input w3-border" maxlength="200" rows="4" cols="50" type="text" id="objetivocompleto'.$cont.'" name="objetivocompleto'.$cont.'">'.$valuecontrol->objectivecomplete.'</textarea></p>
+                                            <label><b>Fecha inicial</b></label>
+                                            <p><input class="w3-input w3-border" type="date" id="fechainicio'.$cont.'" name="fechainicio'.$cont.'" value="'.$valuecontrol->fechaini.'"></p>
+                                            <label><b>Fecha final</b></label>
+                                            <p><input class="w3-input w3-border" type="date" id="fechafinal'.$cont.'" name="fechafinal'.$cont.'" value="'.$valuecontrol->fechafin.'"></p>
+                                            <label><b>Valor del objetivo sobre 100</b></label>
+                                            <p><input class="w3-input w3-border" type="text" id="valorobjetivo'.$cont.'" name="valorobjetivo'.$cont.'" data-parsley-type="number" value="'.$valuecontrol->valueobjective.'"></p>
+                                            <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                                                <button onclick="document.getElementById(\'modal'.$cont.'\').style.display=\'none\'" type="button" class="w3-button w3-red w3-left">Cancelar</button>
+                                                <input class="w3-button  w3-green  w3-right" id="editarobjetivo'.$cont.'" type="submit" value="Actualizar">
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div id="delete'.$cont.'" class="w3-modal">
+                                    <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+
+                                        <form class="w3-container" id="deleteobj'.$cont.'" method="POST" action="deleteobjective.php?idobjec='.$valuecontrol->idobj.'">
+                                        <input type="hidden" id="userid'.$cont.'" name="userid'.$cont.'" value="'.$USER->id.'" '.$requerido.'>
+                                        <input type="hidden" id="courseid'.$cont.'" name="courseid'.$cont.'" value="'.$courseid.'" '.$requerido.'>
+                                        <input type="hidden" id="idobjetivo'.$cont.'" name="idobjetivo'.$cont.'" value="'.$valuecontrol->idobj.'" '.$requerido.'>
+                                        <div class="w3-section">
+
+
+                                                <h1>¿Estas seguro de eliminar el objetivo?</h1>
+            
+                                            <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                                                <button onclick="document.getElementById(\'delete'.$cont.'\').style.display=\'none\'" type="button" class="w3-button w3-red w3-left">Cancelar</button>
+                                                <input class="w3-button  w3-green  w3-right" id="eliminarobjetivo'.$cont.'" type="submit" value="Eliminar">
+                                            </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                        </div>';
+                    }
+
+                    $totalobjetivos=$totalobjetivos + $valuecontrol->valueobjective;
+    
+}
+
+if($cont==0){
+    $i=1; 
+} else{
+    $i=$cont+1;
+}
 
 $establecimiento .='<form id="establecimientoobj" method="POST" action="envio.php" data-parsley-validate="">';
+$requerido='required=""';
+$requeridotext='data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Debes de capturar la descripcion de tu objetivo" data-parsley-validation-threshold="10"';
+
+
+if($i<=6){
+   /*
     for($i;$i<=6; $i++){
                                             
         if($i<=4){
@@ -294,7 +486,7 @@ $establecimiento .='<form id="establecimientoobj" method="POST" action="envio.ph
             $requerido='';
             $requeridotext='';
         }
-                                                    
+           */                                         
         $establecimiento .='<div id="establecimientoobjetivos'.$i.'">
                                 <div class="w3-row">
                                         <div class="w3-col l12 w3-dark-grey">
@@ -364,90 +556,26 @@ $establecimiento .='<form id="establecimientoobj" method="POST" action="envio.ph
                                     </div>
                                     <div class="w3-col m4 w3-white w3-center">
                                         <p class="text-cuestion">Valor del objetivo sobre 100</p>
-                                        <p><input class="w3-input w3-border" type="text" id="valorobjetivo'.$i.'" name="valorobjetivo'.$i.'" data-parsley-type="number" '.$requerido.'></p>
+                                        <p><input class="w3-input w3-border" type="text" id="valorobjetivo" name="valorobjetivo'.$i.'" data-parsley-type="number" '.$requerido.'></p>
                                     </div>
                                 </div>
                             </div>';
 
         
-    }
-    $establecimiento .='<button type="button" id="BTNvalida" class="button">Registrar Objetivos</button><input type="submit" id="btnEnviar" name="btnEnviar" style="display: none;" value="Enviar formulario"></form>';
+    //}
+        $establecimiento .='<input type="submit" id="btnEnviar" name="btnEnviar" value="Guardar Objetivo"></form>';
+
+        $envio .='<hr><p id="respuesta"></p></div><hr><p id="actualiza"></p></div><div class="w3-col l1"><p></p></div></div>';
+        if($i <= 4){
+        $mensajeobjetivos .='<div class="w3-container"><div class="row"><div class="w3-col l1"><p>&nbsp;</p></div><div class="w3-col l10 w3-red w3-center w3-round-xlarge"><h3>CAPTURA MINIMO 4 OBJETIVOS</h3></div><div class="w3-col l1"><p>&nbsp;</p></div></div></div>';
+        }else{
+            $mensajeobjetivos .='';
+        }
+        
+        $envio .='</div></div></div><div class="espacio"></div>';
 }else{
-  foreach($resultcontrol as $valuecontrol){
-
-    $cont=$valuecontrol->contador;
-    $establecimiento .='<div id="establecimientoobj" data-parsley-validate=""><div id="establecimientoobjetivos'.$cont.'">
-                            <div class="w3-row">
-                                    <div class="w3-col l12 w3-dark-grey">
-                                        <p>Breve descripción del objetivo '.$cont.'</p>
-                                    </div>
-                            </div>
-                            <div class="w3-row">
-                                <input type="hidden" id="userid'.$i.'" name="userid'.$i.'" value="'.$USER->id.'" '.$requerido.'>
-                                <input type="hidden" id="courseid'.$i.'" name="courseid'.$i.'" value="'.$courseid.'" '.$requerido.'>
-                                <input type="hidden" id="idobjetivo'.$i.'" name="idobjetivo'.$i.'" value="'.$id.'" '.$requerido.'>
-                                <div class="w3-col m2 w3-white w3-center">
-                                    <p class="text-cuestion" style="font-size:10px;">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
-                                    <p class="w3-input w3-border" style="margin-top: 14px;">'.$valuecontrol->targetnumber.'</p>
-                                </div>
-                                <div class="w3-col m2 w3-white w3-center">
-                                    <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
-                                    <p class="w3-input w3-border">'.$valuecontrol->whatquestion.'</p>
-                                </div>
-                                <div class="w3-col m2 w3-white w3-center">
-                                    <p class="text-cuestion">2. ¿Cómo se quiere medir?</p>
-                                    <p class="w3-input w3-border">'.$valuecontrol->howquestion.'</p>
-                                </div>
-                                <div class="w3-col m2 w3-white w3-center">
-                                    <p class="text-cuestion">3. ¿Cuánto quieres que mida?</p>
-                                    <p class="w3-input w3-border">'.$valuecontrol->thatquestion.'</p>
-                                </div>
-                                <div class="w3-col m2 w3-white w3-center">
-                                    <p class="text-cuestion">4. ¿Cómo se quiere medir?</p>
-                                    <p class="w3-input w3-border">'.$valuecontrol->specifyquestion.'</p>
-                                </div>
-                                <div class="w3-col m2 w3-white w3-center">
-                                    <p class="text-cuestion">5. ¿Cuánto quieres que mida?</p>
-                                    <p class="w3-input w3-border">'.$valuecontrol->periodquestion.'</p>
-                                </div>
-                            </div>
-                            <div class="w3-row">
-                                <div class="w3-col m12 w3-white w3-center">
-                                    <p class="text-oc">Objetivo Completo</p>
-                                    <p class="w3-input w3-border">'.$valuecontrol->objectivecomplete.'</p>
-                                </div>
-                            </div>
-                            <div class="w3-row">
-                                <div class="w3-round-xlarge w3-col m8  w3-pale-red">
-                                <p>Fecha compromiso</p>
-                                </div>
-                                <div class="w3-round-xlarge w3-col m4  w3-pale-red">
-                                <p>Peso anual en %</p>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="w3-col m4 w3-white w3-center">
-                                    <p class="text-cuestion">Fecha inicial</p>
-                                    <p class="w3-input w3-border">'.$valuecontrol->fechaini.'</p>
-                                </div>
-                                <div class="w3-col m4 w3-white w3-center">
-                                    <p class="text-cuestion">Fecha final</p>
-                                    <p class="w3-input w3-border">'.$valuecontrol->fechafin.'</p>
-                                </div>
-                                <div class="w3-col m4 w3-white w3-center">
-                                    <p class="text-cuestion">Valor del objetivo sobre 100</p>
-                                    <p class="w3-input w3-border">'.$valuecontrol->valueobjective.'%</p>
-                                </div>
-                            </div>
-                        </div>
-                        </div>';
     
-  }
-    
-
-}
-$envio .='<hr><p id="respuesta"></p> <!-- ESTABLECIMIENTO DE OBJETIVOS 6--></div><div class="w3-col l1"><p></p></div></div></div></div></div><div class="espacio"></div>';
-           
+}       
 $competencias1 .='<div class="w3-container">
                     <div class="w3-row">
                         <div class="w3-col l1">
@@ -484,7 +612,21 @@ $competencias2 .=' </div>
                 </div></div><!-- </div></div></div> div final-->';
 echo $vista;
 echo $vistajefeinmediato;
-echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-container">';
+echo '</div><div class="espacio"></div><div class="w3-container">
+        <div class="w3-row">
+            <div class="w3-col l4">
+                <p>&nbsp;</p>
+            </div>
+            <div  class="w3-col l4">
+                <p>&nbsp;</p>
+            </div>
+            <div class="w3-col l4">
+                <h3>Total: <span class="w3-badge w3-xlarge w3-red w3-padding">'.$totalobjetivos.'%</span></h3>
+            </div>
+        </div>
+        </div>';
+echo $mensajeobjetivos;
+echo '<div id="objetivos-jefe" class="w3-container">';
 echo $vistajefeinmediato2;
 echo $vistaobjetivosjefe;
 echo $vistajefeinmediato3;
@@ -496,6 +638,8 @@ echo '<div class="espacio"></div><div class="w3-container"><div class="w3-row"><
 
 echo $establecimiento;
 echo $envio;
+
+
 echo $competencias1;
 
 if($rolprincipal=='COLABORADOR'){
@@ -1989,12 +2133,87 @@ $(document).on('ready', function() {
         });
 
         */
+        
 
 
     $("#establecimientoobj").bind("submit",function(){
         // Capturamnos el boton de envío
+
         var btnEnviar = $("#btnEnviar");
-        $.ajax({
+        var sumatotal = "<?php echo $totalobjetivos;?>";
+        var valor = $("#valorobjetivo").val();
+        var valor = parseInt(valor);
+        var sumatotal = parseInt(sumatotal);
+
+        var totales = sumatotal + valor;
+        
+
+        if(totales >= 101){
+            
+           alert("La suma de tus objetivos no debe de ser ni mayor ni menor a 1000");
+        }else if(totales <= 100){
+
+            $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("action"),
+                data:$(this).serialize(),
+                beforeSend: function(){
+                    /*
+                    * Esta función se ejecuta durante el envió de la petición al
+                    * servidor.
+                    * */
+                    // btnEnviar.text("Enviando"); Para button 
+
+                    btnEnviar.val("Enviando"); // Para input de tipo button
+                    btnEnviar.attr("disabled","disabled");
+                },
+                complete:function(data){
+                    /*
+                    * Se ejecuta al termino de la petición
+                    * */
+                    btnEnviar.val("Enviar formulario");
+                    btnEnviar.removeAttr("disabled");
+                },
+                success: function(data){
+                    /*
+                    * Se ejecuta cuando termina la petición y esta ha sido
+                    * correcta
+                    * */
+
+                    $("#respuesta").html(data);
+                    location.reload(); 
+
+                },
+                error: function(data){
+                    /*
+                    * Se ejecuta si la peticón ha sido erronea
+                    * */
+                    alert("Problemas al tratar de enviar el formulario");
+                }
+            });
+
+        }else{
+
+        }
+        // Nos permite cancelar el envio del formulario
+        return false;
+    });
+
+
+    /*Actualizar todos los objetivos */
+    $("#formularioact1").bind("submit",function(){
+        // Capturamnos el boton de envío
+        //alert('hola');
+        var pasar=1;
+        var actsumatotal = "<?php echo $totalobjetivos;?>";
+        var editarobjetivo1 = $("#editarobjetivo"+pasar);
+        var a=validaActobj(pasar, actsumatotal);
+
+       //alert(a);
+
+        if(a==true){
+
+            $.ajax({
             type: $(this).attr("method"),
             url: $(this).attr("action"),
             data:$(this).serialize(),
@@ -2004,22 +2223,27 @@ $(document).on('ready', function() {
                 * servidor.
                 * */
                 // btnEnviar.text("Enviando"); Para button 
-                btnEnviar.val("Enviando"); // Para input de tipo button
-                btnEnviar.attr("disabled","disabled");
+
+                editarobjetivo1.val("Actualizado"); // Para input de tipo button
+                editarobjetivo1.attr("disabled","disabled");
             },
             complete:function(data){
                 /*
                 * Se ejecuta al termino de la petición
                 * */
-                btnEnviar.val("Enviar formulario");
-                btnEnviar.removeAttr("disabled");
+                editarobjetivo1.val("Actualizar");
+                editarobjetivo1.removeAttr("disabled");
             },
             success: function(data){
                 /*
                 * Se ejecuta cuando termina la petición y esta ha sido
                 * correcta
                 * */
-                $("#respuesta").html(data);
+
+                $("#actualiza").html(data);
+                location.reload(); 
+                 
+
             },
             error: function(data){
                 /*
@@ -2028,6 +2252,370 @@ $(document).on('ready', function() {
                 alert("Problemas al tratar de enviar el formulario");
             }
         });
+        }else{
+
+        }
+
+
+        // Nos permite cancelar el envio del formulario
+        return false;
+    });
+        /*Actualizar todos los objetivos */
+    $("#formularioact2").bind("submit",function(){
+        // Capturamnos el boton de envío
+        //alert('hola');
+        var pasar=2;
+        var actsumatotal = "<?php echo $totalobjetivos;?>";
+        validaActobj(pasar, actsumatotal);
+        var editarobjetivo2 = $("#editarobjetivo"+pasar);
+        var b=validaActobj(pasar, actsumatotal);
+
+        alert(b);
+
+        if(b==true){
+
+                $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("action"),
+                data:$(this).serialize(),
+                beforeSend: function(){
+                    /*
+                    * Esta función se ejecuta durante el envió de la petición al
+                    * servidor.
+                    * */
+                    // btnEnviar.text("Enviando"); Para button 
+
+                    editarobjetivo2.val("Actualizado"); // Para input de tipo button
+                    editarobjetivo2.attr("disabled","disabled");
+                },
+                complete:function(data){
+                    /*
+                    * Se ejecuta al termino de la petición
+                    * */
+                    editarobjetivo2.val("Actualizar");
+                    editarobjetivo2.removeAttr("disabled");
+                },
+                success: function(data){
+                    /*
+                    * Se ejecuta cuando termina la petición y esta ha sido
+                    * correcta
+                    * */
+
+                    $("#actualiza").html(data);
+                    location.reload(); 
+                    
+
+                },
+                error: function(data){
+                    /*
+                    * Se ejecuta si la peticón ha sido erronea
+                    * */
+                    alert("Problemas al tratar de enviar el formulario");
+                }
+                });
+        }else{
+
+        }
+
+
+        // Nos permite cancelar el envio del formulario
+        return false;
+    });
+
+        /*Actualizar todos los objetivos */
+    $("#formularioact3").bind("submit",function(){
+        // Capturamnos el boton de envío
+        //alert('hola');
+        var pasar=3;
+        var actsumatotal = "<?php echo $totalobjetivos;?>";
+        validaActobj(pasar, actsumatotal);
+        var editarobjetivo3 = $("#editarobjetivo"+pasar);
+        var c=validaActobj(pasar, actsumatotal);
+
+        //alert(l);
+
+        if(c==true){
+
+                $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("action"),
+                data:$(this).serialize(),
+                beforeSend: function(){
+                    /*
+                    * Esta función se ejecuta durante el envió de la petición al
+                    * servidor.
+                    * */
+                    // btnEnviar.text("Enviando"); Para button 
+
+                    editarobjetivo3.val("Actualizado"); // Para input de tipo button
+                    editarobjetivo3.attr("disabled","disabled");
+                },
+                complete:function(data){
+                    /*
+                    * Se ejecuta al termino de la petición
+                    * */
+                    editarobjetivo3.val("Actualizar");
+                    editarobjetivo3.removeAttr("disabled");
+                },
+                success: function(data){
+                    /*
+                    * Se ejecuta cuando termina la petición y esta ha sido
+                    * correcta
+                    * */
+
+                    $("#actualiza").html(data);
+                    location.reload(); 
+                    
+
+                },
+                error: function(data){
+                    /*
+                    * Se ejecuta si la peticón ha sido erronea
+                    * */
+                    alert("Problemas al tratar de enviar el formulario");
+                }
+                });
+        }else{
+
+        }
+
+
+        // Nos permite cancelar el envio del formulario
+        return false;
+    });
+
+        /*Actualizar todos los objetivos */
+    $("#formularioact4").bind("submit",function(){
+        // Capturamnos el boton de envío
+        //alert('hola');
+        var pasar=4;
+        var actsumatotal = "<?php echo $totalobjetivos;?>";
+        validaActobj(pasar, actsumatotal);
+        var editarobjetivo4 = $("#editarobjetivo"+pasar);
+        var d=validaActobj(pasar, actsumatotal);
+
+        //alert(l);
+
+        if(d==true){
+
+                $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("action"),
+                data:$(this).serialize(),
+                beforeSend: function(){
+                    /*
+                    * Esta función se ejecuta durante el envió de la petición al
+                    * servidor.
+                    * */
+                    // btnEnviar.text("Enviando"); Para button 
+
+                    editarobjetivo4.val("Actualizado"); // Para input de tipo button
+                    editarobjetivo4.attr("disabled","disabled");
+                },
+                complete:function(data){
+                    /*
+                    * Se ejecuta al termino de la petición
+                    * */
+                    editarobjetivo4.val("Actualizar");
+                    editarobjetivo4.removeAttr("disabled");
+                },
+                success: function(data){
+                    /*
+                    * Se ejecuta cuando termina la petición y esta ha sido
+                    * correcta
+                    * */
+
+                    $("#actualiza").html(data);
+                    location.reload(); 
+                    
+
+                },
+                error: function(data){
+                    /*
+                    * Se ejecuta si la peticón ha sido erronea
+                    * */
+                    alert("Problemas al tratar de enviar el formulario");
+                }
+                });
+        }else{
+
+        }
+
+
+        // Nos permite cancelar el envio del formulario
+        return false;
+    });
+
+        /*Actualizar todos los objetivos */
+    $("#formularioact5").bind("submit",function(){
+        // Capturamnos el boton de envío
+        //alert('hola');
+        var pasar=5
+        var actsumatotal = "<?php echo $totalobjetivos;?>";
+        validaActobj(pasar, actsumatotal);
+        var editarobjetivo5 = $("#editarobjetivo"+pasar);
+        var e=validaActobj(pasar, actsumatotal);
+
+        //alert(l);
+
+        if(e==true){
+
+                $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("action"),
+                data:$(this).serialize(),
+                beforeSend: function(){
+                    /*
+                    * Esta función se ejecuta durante el envió de la petición al
+                    * servidor.
+                    * */
+                    // btnEnviar.text("Enviando"); Para button 
+
+                    editarobjetivo5.val("Actualizado"); // Para input de tipo button
+                    editarobjetivo5.attr("disabled","disabled");
+                },
+                complete:function(data){
+                    /*
+                    * Se ejecuta al termino de la petición
+                    * */
+                    editarobjetivo5.val("Actualizar");
+                    editarobjetivo5.removeAttr("disabled");
+                },
+                success: function(data){
+                    /*
+                    * Se ejecuta cuando termina la petición y esta ha sido
+                    * correcta
+                    * */
+
+                    $("#actualiza").html(data);
+                    location.reload(); 
+                    
+
+                },
+                error: function(data){
+                    /*
+                    * Se ejecuta si la peticón ha sido erronea
+                    * */
+                    alert("Problemas al tratar de enviar el formulario");
+                }
+                });
+        }else{
+
+        }
+
+
+        // Nos permite cancelar el envio del formulario
+        return false;
+    });
+
+        /*Actualizar todos los objetivos */
+    $("#formularioact6").bind("submit",function(){
+        // Capturamnos el boton de envío
+        //alert('hola');
+        var pasar=6;
+        var actsumatotal = "<?php echo $totalobjetivos;?>";
+        validaActobj(pasar, actsumatotal);
+        var editarobjetivo6 = $("#editarobjetivo"+pasar);
+        var f=validaActobj(pasar, actsumatotal);
+
+        //alert(l);
+
+        if(f==true){
+
+                $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("action"),
+                data:$(this).serialize(),
+                beforeSend: function(){
+                    /*
+                    * Esta función se ejecuta durante el envió de la petición al
+                    * servidor.
+                    * */
+                    // btnEnviar.text("Enviando"); Para button 
+
+                    editarobjetivo6.val("Actualizado"); // Para input de tipo button
+                    editarobjetivo6.attr("disabled","disabled");
+                },
+                complete:function(data){
+                    /*
+                    * Se ejecuta al termino de la petición
+                    * */
+                    editarobjetivo6.val("Actualizar");
+                    editarobjetivo6.removeAttr("disabled");
+                },
+                success: function(data){
+                    /*
+                    * Se ejecuta cuando termina la petición y esta ha sido
+                    * correcta
+                    * */
+
+                    $("#actualiza").html(data);
+                    location.reload(); 
+                    
+
+                },
+                error: function(data){
+                    /*
+                    * Se ejecuta si la peticón ha sido erronea
+                    * */
+                    alert("Problemas al tratar de enviar el formulario");
+                }
+                });
+        }else{
+
+        }
+
+
+        // Nos permite cancelar el envio del formulario
+        return false;
+    });
+
+
+    $("#borrarobj1").bind("submit",function(){
+        // Capturamnos el boton de envío
+        //alert('hola');
+        var borrarobjetivo1 = $("#borrarobjetivo1");
+
+            $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("action"),
+                data:$(this).serialize(),
+                beforeSend: function(){
+                    /*
+                    * Esta función se ejecuta durante el envió de la petición al
+                    * servidor.
+                    * */
+                    // btnEnviar.text("Enviando"); Para button 
+
+                    borrarobjetivo1.val("Actualizado"); // Para input de tipo button
+                    borrarobjetivo1.attr("disabled","disabled");
+                },
+                complete:function(data){
+                    /*
+                    * Se ejecuta al termino de la petición
+                    * */
+                    borrarobjetivo1.val("Actualizar");
+                    borrarobjetivo1.removeAttr("disabled");
+                },
+                success: function(data){
+                    /*
+                    * Se ejecuta cuando termina la petición y esta ha sido
+                    * correcta
+                    * */
+
+                    $("#actualiza").html(data);
+                    location.reload(); 
+                     
+
+                },
+                error: function(data){
+                    /*
+                    * Se ejecuta si la peticón ha sido erronea
+                    * */
+                    alert("Problemas al tratar de enviar el formulario");
+                }
+            });
+
         // Nos permite cancelar el envio del formulario
         return false;
     });
@@ -2132,6 +2720,7 @@ $(document).on('ready', function() {
         // Nos permite cancelar el envio del formulario
         return false;
     });
+
     function openCity(cityName) {
             var i;
             var x = document.getElementsByClassName("vistas");
@@ -2140,6 +2729,7 @@ $(document).on('ready', function() {
             }
             document.getElementById(cityName).style.display = "block";
         }
+
 
 });
 </script>
