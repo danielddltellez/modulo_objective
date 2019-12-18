@@ -5,6 +5,24 @@ if ($CFG->forcelogin) {
 }
 
 global $USER, $DB, $COURSE;
+
+
+if(!empty($_POST['idformatoeo'])){
+
+    $record1 = new stdClass();
+    $record1-> id = $_POST['idformatoeo'];
+    $record1-> status = $_POST['estatusobj'];
+    try{
+    $lastinsertid1 = $DB->update_record('objective_establishment', $record1, $bulk=false);
+    echo 'Se actualizo el estatus del establecimiento';
+
+    } catch(\Throwable $e) {
+        // PHP 7 
+     echo 'Error al actualizar estatus';
+    } 
+}
+
+/*
 if(isset($_GET['id'])){
 $id = $_GET['id'];
 $idinstance = $_GET['instance'];
@@ -21,4 +39,6 @@ exit();
 }
 
 header("Location:".$_SERVER['HTTP_REFERER']);
+
+*/
 ?>

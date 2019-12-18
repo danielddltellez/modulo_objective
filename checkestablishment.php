@@ -219,6 +219,14 @@ $querycontrol='select es.id as idobj, @rownum:=@rownum+1 contador,  es.userid,es
 ,(select a7.id from  mdl_objective_establishment_revise_final a7 where a7.idobjectiveestablishment=es.id) as idrevisionfinal
 ,es.comentariosjefe
 ,es.status
+,o.status as formatoestatus
+,case
+   when es.status = 0 then "Creado"
+   when es.status = 1 then "No Autorizado"
+   when es.status = 2 then "Autorizado"
+   when es.status = 3 then "Cancelado"
+   else "NA"
+   end as estatusobj
 from  mdl_objective_establishment_captured es
 inner join mdl_objective_establishment o on o.id = es.idobjective,
 (SELECT @rownum:=0) R
@@ -245,9 +253,13 @@ if(empty($resultcontrol)){
     $con=$valuecontrol->contador;
     $establecimiento .='<div id="objetivosestablecidos'.$valuecontrol->targetnumber.'">
                             <div class="w3-row">
-                                    <div class="w3-col l12 w3-dark-grey">
+                                    <div class="w3-col l9 w3-dark-grey">
                                         <p>Breve descripción del objetivo '.$valuecontrol->targetnumber.'</p>
                                     </div>
+                                    <div class="w3-col l3 w3-grey">
+                                    <input type="hidden" id="aprobado'.$con.'" name="aprobado'.$con.'" value="'.$valuecontrol->estatusobj.'">
+                                    <p >Estatus: <b>'.$valuecontrol->estatusobj.'</b></p>
+                                </div>
                             </div>
                             <div class="w3-row">
                                 
@@ -316,6 +328,7 @@ if(empty($resultcontrol)){
                                                 </div>';
                             }
                         $establecimiento .='</div>';
+        if($valuecontrol->formatoestatus==0){
 
                         $establecimiento .='<div class="w3-container">
                         <button onclick="document.getElementById(\'addcomentario'.$con.'\').style.display=\'block\'" class="w3-button w3-green w3-large">Agrega tus comentarios</button>
@@ -355,8 +368,8 @@ if(empty($resultcontrol)){
                                     <label><b>Selecciona el estatus en el que se encuentra el objetivo</b></label>
                                     <select class="w3-select" name="estatusobj'.$con.'">
                                     <option value="0" disabled selected>Creado</option>
-                                    <option value="1">Rechazado</option>
-                                    <option value="2">Aprobado</option>
+                                    <option value="1">No Autorizado</option>
+                                    <option value="2">Autorizado</option>
                                     <option value="3">Cancelado</option>
                                     </select><div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
                                     <button onclick="document.getElementById(\'validaobject'.$con.'\').style.display=\'none\'" type="button" class="w3-button w3-red w3-left">Cancelar</button>
@@ -367,35 +380,50 @@ if(empty($resultcontrol)){
                         </div>
                     </div>
             </div>';
+
+        }else{
+
+        }
     
 
                         
     
   }
 
-    $queryvalida='select id, status from mdl_objective_establishment where courseid=? and id=?';
+    $queryvalida='select id as idformato, status as estatusformato from mdl_objective_establishment where courseid=? and id=?';
     $esql = $DB->get_records_sql($queryvalida, array($courseid, $id));
     $primeravalidacion='';
+    $idform='';
     foreach($esql as $validacion1){
-        $primeravalidacion=$validacion1->status;
-    }
-    if($primeravalidacion==0){
-            $establecimiento .='<button onclick="document.getElementById(\''.$id.'\').style.display=\'block\'" class="w3-button w3-pale-red w3-padding-16">Validar Objetivos</button>';
+        $idform=$validacion1->idformato;
+        $primeravalidacion=$validacion1->estatusformato;
 
-            $establecimiento .='<div id="'.$id.'" class="w3-modal">
-                <div class="w3-modal-content w3-card-4">
-                <header class="w3-container w3-pale-red"> 
-                    <span onclick="document.getElementById(\''.$id.'\').style.display=\'none\'" 
-                    class="w3-button w3-display-topright">&times;</span>
-                    <h2>Validar objetivos</h2>
-                </header>
-                <div class="w3-container">
-                    <p><p class="text-center">Esta seguro de validar los objetivos de tu colaborador</p></p>
+    }
+    if($primeravalidacion==0 || $primeravalidacion==1){
+
+            $establecimiento .='<button onclick="document.getElementById(\'val'.$idform.'\').style.display=\'block\'" class="w3-button w3-pale-red w3-padding-16">Validar Objetivos</button>';
+
+            $establecimiento .='<div id="val'.$idform.'" class="w3-modal">
+                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+                <form class="w3-container" id="validafinalobj" method="POST" action="validar_objetivos.php">
+                <input type="hidden" id="valfinuserid" name="valfinuserid" value="'.$USER->id.'" '.$requerido.'>
+                <input type="hidden" id="valfincourseid" name="valfincourseid" value="'.$courseid.'" '.$requerido.'>
+                <input type="hidden" id="idformatoeo" name="idformatoeo" value="'.$idform.'" '.$requerido.'>
+                <div class="w3-section">
+
+
+                <h3>Valida Establecimiento de Objetivos</h3>
+                <label><b>Selecciona el estatus de el establecimiento de objetivos</b></label>
+                <select class="w3-select" name="estatusobj">
+                <option value="0" selected>Abierto</option>
+                <option value="1">Cerrado</option>
+                </select>
+                <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                <button onclick="document.getElementById(\'val'.$idform.'\').style.display=\'none\'" type="button" class="w3-button w3-gray">Cancelar</button>
+                <input class="w3-button  w3-green  w3-right" id="finalbtnobjetivo" type="submit" value="Guardar">
                 </div>
-                <footer class="w3-container w3-pale-red">
-                <button onclick="document.getElementById(\''.$id.'\').style.display=\'none\'" type="button" class="w3-button w3-gray">Cancelar</button>
-                <a href="validar_objetivos.php?id='.$id.'&instance='.$instance.'" type="button" class="w3-button w3-red">Validar</a>
-                </footer>
+                </form>
+                </div>
                 </div>
             </div>';
     }else{
@@ -419,7 +447,9 @@ $colaboradortemp.='<div class="espacio"></div><div class="w3-row">
                         <div class="w3-round-xlarge w3-col l9 w3-dark-grey w3-center">
                             <p>Evaluación de competencias</p>
                         </div>
-                    </div><div class="espacio"></div>';
+                    </div><div class="w3-row"> <div class="w3-round-xlarge w3-col l12 w3-pale-red w3-center">
+                    <p>4 = Excelente  3 = Bueno 2 = Escaso 1 = Deficiente</p>
+                    </div></div><div class="espacio"></div>';
 $jefetemp.='<div class="espacio"></div><div class="w3-row">
                 <div class="w3-round-xlarge w3-col l12 w3-dark-grey w3-center">
                     <p>Si eres Gestor de Personal, se te evaluarán las siguientes competencias de liderazgo.</p>
@@ -2916,9 +2946,145 @@ $(document).on('ready', function() {
         return false;
     });
 
+    $("#validafinalobj").bind("submit",function(){
+        // Capturamnos el boton de envío
 
+        var btnValidefinal = $("#finalbtnobjetivo");
+        var valid = $("#aprobado1").val();
+        var valid1 = $("#aprobado2").val();
+        var valid2 = $("#aprobado3").val();
+        var valid3 = $("#aprobado4").val();
+        var valid4 = $("#aprobado5").val();
+        var valid5 = $("#aprobado6").val();
 
+        if(valid == "Autorizado" && valid1 == "Autorizado" && valid2 == "Autorizado" && valid3 == "Autorizado"){
+            $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("action"),
+                data:$(this).serialize(),
+                beforeSend: function(){
+                    /*
+                    * Esta función se ejecuta durante el envió de la petición al
+                    * servidor.
+                    * */
+                    // btnEnviar.text("Enviando"); Para button 
 
+                    btnValidefinal.val("Enviando"); // Para input de tipo button
+                    btnValidefinal.attr("disabled","disabled");
+                },
+                complete:function(data){
+                    /*
+                    * Se ejecuta al termino de la petición
+                    * */
+                    btnValide.val("Guardar");
+                    btnValide.removeAttr("disabled");
+                },
+                success: function(data){
+                    /*
+                    * Se ejecuta cuando termina la petición y esta ha sido
+                    * correcta
+                    * */
+
+                    $("#respuesta").html(data);
+                    location.reload(); 
+
+                },
+                error: function(data){
+                    /*
+                    * Se ejecuta si la peticón ha sido erronea
+                    * */
+                    alert("Problemas al tratar de enviar el formulario");
+                }
+            });
+        }else if(valid == "Autorizado" && valid1 == "Autorizado" && valid2 == "Autorizado" && valid3 == "Autorizado" && valid4 == "Autorizado"){
+            $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("action"),
+                data:$(this).serialize(),
+                beforeSend: function(){
+                    /*
+                    * Esta función se ejecuta durante el envió de la petición al
+                    * servidor.
+                    * */
+                    // btnEnviar.text("Enviando"); Para button 
+
+                    btnValidefinal.val("Enviando"); // Para input de tipo button
+                    btnValidefinal.attr("disabled","disabled");
+                },
+                complete:function(data){
+                    /*
+                    * Se ejecuta al termino de la petición
+                    * */
+                    btnValide.val("Guardar");
+                    btnValide.removeAttr("disabled");
+                },
+                success: function(data){
+                    /*
+                    * Se ejecuta cuando termina la petición y esta ha sido
+                    * correcta
+                    * */
+
+                    $("#respuesta").html(data);
+                    location.reload(); 
+
+                },
+                error: function(data){
+                    /*
+                    * Se ejecuta si la peticón ha sido erronea
+                    * */
+                    alert("Problemas al tratar de enviar el formulario");
+                }
+            });
+        }else if(valid == "Autorizado" && valid1 == "Autorizado" && valid2 == "Autorizado" && valid3 == "Autorizado" && valid4 == "Autorizado" && valid5 == "Autorizado"){
+            $.ajax({
+                type: $(this).attr("method"),
+                url: $(this).attr("action"),
+                data:$(this).serialize(),
+                beforeSend: function(){
+                    /*
+                    * Esta función se ejecuta durante el envió de la petición al
+                    * servidor.
+                    * */
+                    // btnEnviar.text("Enviando"); Para button 
+
+                    btnValidefinal.val("Enviando"); // Para input de tipo button
+                    btnValidefinal.attr("disabled","disabled");
+                },
+                complete:function(data){
+                    /*
+                    * Se ejecuta al termino de la petición
+                    * */
+                    btnValide.val("Guardar");
+                    btnValide.removeAttr("disabled");
+                },
+                success: function(data){
+                    /*
+                    * Se ejecuta cuando termina la petición y esta ha sido
+                    * correcta
+                    * */
+
+                    $("#respuesta").html(data);
+                    location.reload(); 
+
+                },
+                error: function(data){
+                    /*
+                    * Se ejecuta si la peticón ha sido erronea
+                    * */
+                    alert("Problemas al tratar de enviar el formulario");
+                }
+            });
+        }else{
+
+            alert ("Para poder validar establecimiento de objetivos deben de estar aprobados todos los objetivos");
+           
+        }
+
+        // Nos permite cancelar el envio del formulario
+        return false;
+    });
+
+    
     $('#revisionjefe').parsley().on('field:validated', function() {
         var ok = $('.parsley-error').length === 0;
         $('.bs-callout-info').toggleClass('hidden', !ok);

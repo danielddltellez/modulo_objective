@@ -316,12 +316,19 @@ $querycontrol='select es.id as idobj, @rownum:=@rownum+1 contador,  es.userid,es
 ,(select a4.feedbackevaluation from mdl_objective_establishment_revise_final a4 where a4.idobjectiveestablishment=es.id) as feddbackevaluation
 ,(select a5.autoevaluation from mdl_objective_establishment_revise_final a5 where a5.idobjectiveestablishment=es.id) as autoevaluation
 ,(select a6.evaluationboss from mdl_objective_establishment_revise_final a6 where a6.idobjectiveestablishment=es.id) as evaluationboss
-,es.status as estatusobj
 ,es.comentariosjefe
+,es.status as estatusobj
+,case
+   when es.status = 0 then "Creado"
+   when es.status = 1 then "No Autorizado"
+   when es.status = 2 then "Autorizado"
+   when es.status = 3 then "Cancelado"
+   else "NA"
+   end as estatuso
 from  mdl_objective_establishment_captured es
 inner join mdl_objective_establishment o on o.id = es.idobjective,
 (SELECT @rownum:=0) R
-where es.courseid=? and es.idobjective=? and es.userid=? order by es.id ASC';
+where es.courseid=? and es.idobjective=? and es.userid=? and es.status !=3 order by es.id ASC';
 
 $resultcontrol = $DB->get_records_sql($querycontrol, array($courseid, $id, $USER->id));
 //print_r($resultcontrol);
@@ -332,8 +339,11 @@ foreach($resultcontrol as $valuecontrol){
     $establecimiento .='<div id="vistaestablecimientoobj'.$cont.'" data-parsley-validate="">
                             <div id="establecimientoobjetivos'.$cont.'">
                                 <div class="w3-row">
-                                        <div class="w3-col l12 w3-dark-grey">
+                                        <div class="w3-col l9 w3-dark-grey">
                                             <p>Breve descripción del objetivo '.$cont.'</p>
+                                        </div>
+                                        <div class="w3-col l3 w3-grey">
+                                            <p>Estatus: <b>'.$valuecontrol->estatuso.'</b></p>
                                         </div>
                                 </div>
                                 <div class="w3-row">
@@ -406,7 +416,7 @@ foreach($resultcontrol as $valuecontrol){
                                 $establecimiento .='</div>
                                                     </div>';
 
-                    if($estatusobj == 0){
+                    if($valuecontrol->estatusobj == 0 || $valuecontrol->estatusobj == 1){
                             $establecimiento .='<div class="w3-container">
                                 <button onclick="document.getElementById(\'modal'.$cont.'\').style.display=\'block\'" class="w3-button w3-green w3-large">Actualizar</button>
                                 <button onclick="document.getElementById(\'delete'.$cont.'\').style.display=\'block\'" class="w3-button w3-red w3-large">Eliminar</button>
@@ -423,11 +433,11 @@ foreach($resultcontrol as $valuecontrol){
                                             <label><b>Objetivo Completo</b></label>
                                             <p><textarea class="w3-input w3-border" maxlength="200" rows="4" cols="50" type="text" id="objetivocompleto'.$cont.'" name="objetivocompleto'.$cont.'">'.$valuecontrol->objectivecomplete.'</textarea></p>
                                             <label><b>Fecha inicial</b></label>
-                                            <p><input class="w3-input w3-border" type="date" id="fechainicio'.$cont.'" name="fechainicio'.$cont.'" value="'.$valuecontrol->fechaini.'"></p>
+                                            <p><input class="w3-input w3-border" type="date" id="fechainicio'.$cont.'" min="'.$fcha.'" max="2020-12-31"  name="fechainicio'.$cont.'" value="'.$valuecontrol->fechaini.'"></p>
                                             <label><b>Fecha final</b></label>
-                                            <p><input class="w3-input w3-border" type="date" id="fechafinal'.$cont.'" name="fechafinal'.$cont.'" value="'.$valuecontrol->fechafin.'"></p>
+                                            <p><input class="w3-input w3-border" type="date" id="fechafinal'.$cont.'" min="'.$fcha.'" max="2020-12-31"  name="fechafinal'.$cont.'" value="'.$valuecontrol->fechafin.'"></p>
                                             <label><b>Valor del objetivo sobre 100</b></label>
-                                            <p><input class="w3-input w3-border" type="text" id="valorobjetivo'.$cont.'" name="valorobjetivo'.$cont.'" data-parsley-type="number" value="'.$valuecontrol->valueobjective.'"></p>
+                                            <p><input class="w3-input w3-border" type="text" id="valorobjetivo'.$cont.'"  name="valorobjetivo'.$cont.'" data-parsley-type="number" value="'.$valuecontrol->valueobjective.'"></p>
                                             <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
                                                 <button onclick="document.getElementById(\'modal'.$cont.'\').style.display=\'none\'" type="button" class="w3-button w3-red w3-left">Cancelar</button>
                                                 <input class="w3-button  w3-green  w3-right" id="editarobjetivo'.$cont.'" type="submit" value="Actualizar">
@@ -457,6 +467,8 @@ foreach($resultcontrol as $valuecontrol){
                                     </div>
                                 </div>
                         </div>';
+                    }else{
+
                     }
 
                     $totalobjetivos=$totalobjetivos + $valuecontrol->valueobjective;
@@ -473,20 +485,9 @@ $establecimiento .='<form id="establecimientoobj" method="POST" action="envio.ph
 $requerido='required=""';
 $requeridotext='data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Debes de capturar la descripcion de tu objetivo" data-parsley-validation-threshold="10"';
 
-
+if($estatusa==0){
 if($i<=6){
-   /*
-    for($i;$i<=6; $i++){
-                                            
-        if($i<=4){
-            $requerido='required=""';
-            $requeridotext='data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Debes de capturar la descripcion de tu objetivo" data-parsley-validation-threshold="10"';
-
-        }else{
-            $requerido='';
-            $requeridotext='';
-        }
-           */                                         
+                                     
         $establecimiento .='<div id="establecimientoobjetivos'.$i.'">
                                 <div class="w3-row">
                                         <div class="w3-col l12 w3-dark-grey">
@@ -548,11 +549,11 @@ if($i<=6){
                                 <div class="row">
                                     <div class="w3-col m4 w3-white w3-center">
                                         <p class="text-cuestion">Fecha inicial</p>
-                                        <p><input class="w3-input w3-border" type="date" id="fechainicio'.$i.'" name="fechainicio'.$i.'"></p>
+                                        <p><input class="w3-input w3-border" type="date" min="'.$fcha.'" max="2020-12-31" id="fechainicio'.$i.'" name="fechainicio'.$i.'"></p>
                                     </div>
                                     <div class="w3-col m4 w3-white w3-center">
                                         <p class="text-cuestion">Fecha final</p>
-                                        <p><input class="w3-input w3-border" type="date" id="fechafinal'.$i.'" name="fechafinal'.$i.'"></p>
+                                        <p><input class="w3-input w3-border" type="date" min="'.$fcha.'"" max="2020-12-31" id="fechafinal'.$i.'" name="fechafinal'.$i.'"></p>
                                     </div>
                                     <div class="w3-col m4 w3-white w3-center">
                                         <p class="text-cuestion">Valor del objetivo sobre 100</p>
@@ -575,7 +576,12 @@ if($i<=6){
         $envio .='</div></div></div><div class="espacio"></div>';
 }else{
     
-}       
+}
+}else{
+    $envio .='<hr><p id="respuesta"></p></div><hr><p id="actualiza"></p></div><div class="w3-col l1"><p></p></div></div>';
+    $envio .='</div></div></div><div class="espacio"></div>';
+
+}  
 $competencias1 .='<div class="w3-container">
                     <div class="w3-row">
                         <div class="w3-col l1">
@@ -591,7 +597,9 @@ $colaboradortemp.='<div class="espacio"></div><div class="w3-row">
                             <div class="w3-round-xlarge w3-col l9 w3-dark-grey w3-center">
                                 <p>Evaluación de competencias</p>
                             </div>
-                    </div><div class="espacio"></div>';
+                    </div><div class="w3-row"> <div class="w3-round-xlarge w3-col l12 w3-pale-red w3-center">
+                    <p>4 = Excelente  3 = Bueno 2 = Escaso 1 = Deficiente</p>
+                    </div></div><div class="espacio"></div>';
 $jefetemp.='<div class="espacio"></div><div class="w3-row">
                 <div class="w3-round-xlarge w3-col l12 w3-dark-grey w3-center">
                     <p>Si eres Gestor de Personal, se te evaluarán las siguientes competencias de liderazgo.</p>
@@ -2144,8 +2152,10 @@ $(document).on('ready', function() {
         var valor = $("#valorobjetivo").val();
         var valor = parseInt(valor);
         var sumatotal = parseInt(sumatotal);
-
+        alert(valor);
+        alert(sumatotal);
         var totales = sumatotal + valor;
+        
         
 
         if(totales >= 101){
