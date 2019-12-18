@@ -486,99 +486,99 @@ $requerido='required=""';
 $requeridotext='data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Debes de capturar la descripcion de tu objetivo" data-parsley-validation-threshold="10"';
 
 if($estatusa==0){
-if($i<=6){
-                                     
-        $establecimiento .='<div id="establecimientoobjetivos'.$i.'">
-                                <div class="w3-row">
-                                        <div class="w3-col l12 w3-dark-grey">
-                                            <p>Breve descripción del objetivo '.$i.'</p>
+    if($i<=6){
+                                        
+            $establecimiento .='<div id="establecimientoobjetivos'.$i.'">
+                                    <div class="w3-row">
+                                            <div class="w3-col l12 w3-dark-grey">
+                                                <p>Breve descripción del objetivo '.$i.'</p>
+                                            </div>
+                                    </div>
+                                    <div class="w3-row">
+                                        <input type="hidden" id="userid'.$i.'" name="userid'.$i.'" value="'.$USER->id.'" '.$requerido.'>
+                                        <input type="hidden" id="courseid'.$i.'" name="courseid'.$i.'" value="'.$courseid.'" '.$requerido.'>
+                                        <input type="hidden" id="idobjetivo'.$i.'" name="idobjetivo'.$i.'" value="'.$id.'" '.$requerido.'>
+                                        <div class="w3-col m2 w3-white w3-center">
+                                            <p class="text-cuestion">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
+                                            <!--<p><input  class="w3-input w3-border" type="text"></p>-->
+                                                <select class="w3-select w3-border" name="objetivo'.$i.'" id="objetivo'.$i.'" '.$requerido.'>
+                                                <option value="" disabled selected>Selecciona el objetivo de tu jefe</option>
+                                                <option value="1">Objetivo 1</option>
+                                                <option value="2">Objetivo 2</option>
+                                                <option value="3">Objetivo 3</option>
+                                                <option value="4">Objetivo 4</option>
+                                                <option value="5">Objetivo 5</option>
+                                                <option value="6">Objetivo 6</option>
+                                            </select> 
                                         </div>
-                                </div>
-                                <div class="w3-row">
-                                    <input type="hidden" id="userid'.$i.'" name="userid'.$i.'" value="'.$USER->id.'" '.$requerido.'>
-                                    <input type="hidden" id="courseid'.$i.'" name="courseid'.$i.'" value="'.$courseid.'" '.$requerido.'>
-                                    <input type="hidden" id="idobjetivo'.$i.'" name="idobjetivo'.$i.'" value="'.$id.'" '.$requerido.'>
-                                    <div class="w3-col m2 w3-white w3-center">
-                                        <p class="text-cuestion">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
-                                        <!--<p><input  class="w3-input w3-border" type="text"></p>-->
-                                            <select class="w3-select w3-border" name="objetivo'.$i.'" id="objetivo'.$i.'" '.$requerido.'>
-                                            <option value="" disabled selected>Selecciona el objetivo de tu jefe</option>
-                                            <option value="1">Objetivo 1</option>
-                                            <option value="2">Objetivo 2</option>
-                                            <option value="3">Objetivo 3</option>
-                                            <option value="4">Objetivo 4</option>
-                                            <option value="5">Objetivo 5</option>
-                                            <option value="6">Objetivo 6</option>
-                                        </select> 
+                                        <div class="w3-col m2 w3-white w3-center">
+                                            <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
+                                            <p><input class="w3-input w3-border" maxlength="25"  type="text" placeholder="Ej. Rotación" id="que'.$i.'" name="que'.$i.'" '.$requerido.'></p>
+                                        </div>
+                                        <div class="w3-col m2 w3-white w3-center">
+                                            <p class="text-cuestion">2. ¿Cómo se quiere medir?</p>
+                                            <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Aumentar" id="como'.$i.'" name="como'.$i.'" '.$requerido.'></p>
+                                        </div>
+                                        <div class="w3-col m2 w3-white w3-center">
+                                            <p class="text-cuestion">3. ¿Cuánto quieres que mida?</p>
+                                            <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. 10%" id="cuanto'.$i.'" name="cuanto'.$i.'" '.$requerido.'></p>
+                                        </div>
+                                        <div class="w3-col m2 w3-white w3-center">
+                                            <p class="text-cuestion">4. Especifica</p>
+                                            <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Vacantes operativos" id="especifica'.$i.'" name="especifica'.$i.'" '.$requerido.'></p>
+                                        </div>
+                                        <div class="w3-col m2 w3-white w3-center">
+                                            <p class="text-cuestion">5. Periodo</p>
+                                            <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Semestral" id="periodo'.$i.'" name="periodo'.$i.'"  '.$requerido.'></p>
+                                        </div>
                                     </div>
-                                    <div class="w3-col m2 w3-white w3-center">
-                                        <p class="text-cuestion">1. ¿Qué se quiere medir?</p>
-                                        <p><input class="w3-input w3-border" maxlength="25"  type="text" placeholder="Ej. Rotación" id="que'.$i.'" name="que'.$i.'" '.$requerido.'></p>
+                                    <div class="w3-row">
+                                        <div class="w3-col m12 w3-white w3-center">
+                                            <p class="text-oc">Objetivo Completo</p>
+                                            <p><textarea class="w3-input w3-border" maxlength="200" rows="4" cols="50" type="text" id="objetivocompleto'.$i.'" name="objetivocompleto'.$i.'" '.$requeridotext.'></textarea></p>
+                                        </div>
                                     </div>
-                                    <div class="w3-col m2 w3-white w3-center">
-                                        <p class="text-cuestion">2. ¿Cómo se quiere medir?</p>
-                                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Aumentar" id="como'.$i.'" name="como'.$i.'" '.$requerido.'></p>
+                                    <div class="w3-row">
+                                        <div class="w3-round-xlarge w3-col m8  w3-pale-red">
+                                            <p>Fecha compromiso</p>
+                                        </div>
+                                        <div class="w3-round-xlarge w3-col m4  w3-pale-red">
+                                            <p>Peso anual en %</p>
+                                        </div>
                                     </div>
-                                    <div class="w3-col m2 w3-white w3-center">
-                                        <p class="text-cuestion">3. ¿Cuánto quieres que mida?</p>
-                                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. 10%" id="cuanto'.$i.'" name="cuanto'.$i.'" '.$requerido.'></p>
+                                    <div class="row">
+                                        <div class="w3-col m4 w3-white w3-center">
+                                            <p class="text-cuestion">Fecha inicial</p>
+                                            <p><input class="w3-input w3-border" type="date" min="'.$fcha.'" max="2020-12-31" id="fechainicio'.$i.'" name="fechainicio'.$i.'"></p>
+                                        </div>
+                                        <div class="w3-col m4 w3-white w3-center">
+                                            <p class="text-cuestion">Fecha final</p>
+                                            <p><input class="w3-input w3-border" type="date" min="'.$fcha.'"" max="2020-12-31" id="fechafinal'.$i.'" name="fechafinal'.$i.'"></p>
+                                        </div>
+                                        <div class="w3-col m4 w3-white w3-center">
+                                            <p class="text-cuestion">Valor del objetivo sobre 100</p>
+                                            <p><input class="w3-input w3-border" type="text" id="valorobjetivo" name="valorobjetivo'.$i.'" data-parsley-type="number" '.$requerido.'></p>
+                                        </div>
                                     </div>
-                                    <div class="w3-col m2 w3-white w3-center">
-                                        <p class="text-cuestion">4. Especifica</p>
-                                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Vacantes operativos" id="especifica'.$i.'" name="especifica'.$i.'" '.$requerido.'></p>
-                                    </div>
-                                    <div class="w3-col m2 w3-white w3-center">
-                                        <p class="text-cuestion">5. Periodo</p>
-                                        <p><input class="w3-input w3-border" maxlength="25" type="text" placeholder="Ej. Semestral" id="periodo'.$i.'" name="periodo'.$i.'"  '.$requerido.'></p>
-                                    </div>
-                                </div>
-                                <div class="w3-row">
-                                    <div class="w3-col m12 w3-white w3-center">
-                                        <p class="text-oc">Objetivo Completo</p>
-                                        <p><textarea class="w3-input w3-border" maxlength="200" rows="4" cols="50" type="text" id="objetivocompleto'.$i.'" name="objetivocompleto'.$i.'" '.$requeridotext.'></textarea></p>
-                                    </div>
-                                </div>
-                                <div class="w3-row">
-                                    <div class="w3-round-xlarge w3-col m8  w3-pale-red">
-                                        <p>Fecha compromiso</p>
-                                    </div>
-                                    <div class="w3-round-xlarge w3-col m4  w3-pale-red">
-                                        <p>Peso anual en %</p>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="w3-col m4 w3-white w3-center">
-                                        <p class="text-cuestion">Fecha inicial</p>
-                                        <p><input class="w3-input w3-border" type="date" min="'.$fcha.'" max="2020-12-31" id="fechainicio'.$i.'" name="fechainicio'.$i.'"></p>
-                                    </div>
-                                    <div class="w3-col m4 w3-white w3-center">
-                                        <p class="text-cuestion">Fecha final</p>
-                                        <p><input class="w3-input w3-border" type="date" min="'.$fcha.'"" max="2020-12-31" id="fechafinal'.$i.'" name="fechafinal'.$i.'"></p>
-                                    </div>
-                                    <div class="w3-col m4 w3-white w3-center">
-                                        <p class="text-cuestion">Valor del objetivo sobre 100</p>
-                                        <p><input class="w3-input w3-border" type="text" id="valorobjetivo" name="valorobjetivo'.$i.'" data-parsley-type="number" '.$requerido.'></p>
-                                    </div>
-                                </div>
-                            </div>';
+                                </div>';
 
-        
-    //}
-        $establecimiento .='<input type="submit" id="btnEnviar" name="btnEnviar" value="Guardar Objetivo"></form>';
+            
+        //}
+            $establecimiento .='<input type="submit" id="btnEnviar" name="btnEnviar" value="Guardar Objetivo"></form>';
 
-        $envio .='<hr><p id="respuesta"></p></div><hr><p id="actualiza"></p></div><div class="w3-col l1"><p></p></div></div>';
-        if($i <= 4){
-        $mensajeobjetivos .='<div class="w3-container"><div class="row"><div class="w3-col l1"><p>&nbsp;</p></div><div class="w3-col l10 w3-red w3-center w3-round-xlarge"><h3>CAPTURA MINIMO 4 OBJETIVOS</h3></div><div class="w3-col l1"><p>&nbsp;</p></div></div></div>';
-        }else{
-            $mensajeobjetivos .='';
-        }
+            $envio .='<hr><p id="respuesta"></p></div><hr><p id="actualiza"></p></div><div class="w3-col l1"><p></p></div></div>';
+            if($i <= 4){
+            $mensajeobjetivos .='<div class="w3-container"><div class="row"><div class="w3-col l1"><p>&nbsp;</p></div><div class="w3-col l10 w3-red w3-center w3-round-xlarge"><h3>CAPTURA MINIMO 4 OBJETIVOS</h3></div><div class="w3-col l1"><p>&nbsp;</p></div></div></div>';
+            }else{
+                $mensajeobjetivos .='';
+            }
+            
+            $envio .='</div></div></div><div class="espacio"></div>';
+    }else{
         
-        $envio .='</div></div></div><div class="espacio"></div>';
+    }
 }else{
-    
-}
-}else{
-    $envio .='<hr><p id="respuesta"></p></div><hr><p id="actualiza"></p></div><div class="w3-col l1"><p></p></div></div>';
+    $envio .='</form><hr><p id="respuesta"></p></div><hr><p id="actualiza"></p></div><div class="w3-col l1"><p></p></div></div>';
     $envio .='</div></div></div><div class="espacio"></div>';
 
 }  
@@ -646,8 +646,6 @@ echo '<div class="espacio"></div><div class="w3-container"><div class="w3-row"><
 
 echo $establecimiento;
 echo $envio;
-
-
 echo $competencias1;
 
 if($rolprincipal=='COLABORADOR'){
@@ -1012,7 +1010,6 @@ if($rolprincipal=='COLABORADOR'){
 }else{
 
 }
-
 echo $competencias2;
 /*Vista 2 */
 if($estatusa==1 || $estatusa==2){
@@ -1100,7 +1097,7 @@ if($estatusa==1 || $estatusa==2){
                                         </div>
                                     </div>
                                     <div class="w3-row">
-                                        <input type="hidden" id="id'.$cont.'" name="idobjestablecido'.$cont.'" value="'.$valuecontrol->id.'" '.$requeridcolaborador.'>
+                                        <input type="hidden" id="id'.$cont.'" name="idobjestablecido'.$cont.'" value="'.$valuecontrol->idobj.'" '.$requeridcolaborador.'>
                                         <input type="hidden" id="userid'.$cont.'" name="userid'.$cont.'" value="'.$USER->id.'" '.$requeridcolaborador.'>
                                         <input type="hidden" id="courseid'.$cont.'" name="courseid'.$cont.'" value="'.$courseid.'" '.$requeridcolaborador.'>
                                         <input type="hidden" id="idobjetivo'.$cont.'" name="idobjetivo'.$cont.'" value="'.$id.'" '.$requeridcolaborador.'>
@@ -1213,8 +1210,7 @@ if($estatusa==1 || $estatusa==2){
         }else{
         $enviorevision .='<br>';
         }
-        $enviorevision .='
-        </form>
+        $enviorevision .='</form>
         <hr><p id="rev"></p> <!-- ESTABLECIMIENTO DE OBJETIVOS 6-->
         </div>
         <div class="w3-col l1"><p></p></div>
@@ -1645,7 +1641,7 @@ if($estatusa==2){
                     </div>
                 </div>
                 <div class="w3-row">
-                    <input type="hidden" id="id'.$contfinal.'" name="idobjestablecidofinal'.$contfinal.'" value="'.$valuecontrol->id.'" '.$requeridv3.'>
+                    <input type="hidden" id="id'.$contfinal.'" name="idobjestablecidofinal'.$contfinal.'" value="'.$valuecontrol->idobj.'" '.$requeridv3.'>
                     <input type="hidden" id="userid'.$contfinal.'" name="useridfinal'.$contfinal.'" value="'.$USER->id.'" '.$requeridv3.'>
                     <input type="hidden" id="courseid'.$contfinal.'" name="courseidfinal'.$contfinal.'" value="'.$courseid.'" '.$requeridv3.'>
                     <input type="hidden" id="idobjetivo'.$contfinal.'" name="idobjetivofinal'.$contfinal.'" value="'.$id.'" '.$requeridv3.'>
@@ -2152,8 +2148,7 @@ $(document).on('ready', function() {
         var valor = $("#valorobjetivo").val();
         var valor = parseInt(valor);
         var sumatotal = parseInt(sumatotal);
-        alert(valor);
-        alert(sumatotal);
+
         var totales = sumatotal + valor;
         
         

@@ -230,7 +230,7 @@ $querycontrol='select es.id as idobj, @rownum:=@rownum+1 contador,  es.userid,es
 from  mdl_objective_establishment_captured es
 inner join mdl_objective_establishment o on o.id = es.idobjective,
 (SELECT @rownum:=0) R
-where es.courseid=? and es.idobjective=? and o.idjefedirecto=? order by es.id ASC';
+where es.courseid=? and es.idobjective=? and o.idjefedirecto=? and es.status !=3 order by es.id ASC';
 $resultcontrol = $DB->get_records_sql($querycontrol, array($courseid, $id, $USER->id));
 if(empty($resultcontrol)){
 

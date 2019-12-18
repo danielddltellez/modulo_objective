@@ -585,6 +585,7 @@ function objective_print_establishment($viewestablishment, $return = 0){
            $display .= html_writer::start_tag('em', array('class' => 'fa fa-search'));
            $display .= html_writer::end_tag('em');
            $display .= html_writer::end_tag('a');
+           /*
            if($valuest->status==0){
            $display .= html_writer::start_tag('a',array('class' => 'btn btn-info color-boton','href' => ''.$CFG->wwwroot.'/mod/objective/editestablishment.php?courseid='.$idcurso.'&instance='.$idmodulo.'&id='.$valuest->id.''));
            $display .= html_writer::start_tag('em', array('class' => 'fa fa-pencil'));
@@ -592,7 +593,7 @@ function objective_print_establishment($viewestablishment, $return = 0){
            $display .= html_writer::end_tag('a');
            }else{
 
-           }
+           }*/
            include('modals/modal.php');
            $display .= html_writer::end_tag('td');
            $display .= html_writer::end_tag('tr');
