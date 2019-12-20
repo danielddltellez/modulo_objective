@@ -1078,6 +1078,17 @@ if($estatusa==1 || $estatusa==2){
         ?>
         <div class="espacio"></div><div class="w3-container"><div class="w3-row"><div class="w3-col l1"><p></p></div><div class="w3-col l10 w3-center"><div class="w3-container">
         <div class="w3-row">
+            <div class="w3-col l4">
+                <p>&nbsp;</p>
+            </div>
+            <div  class="w3-col l4">
+                <p>&nbsp;</p>
+            </div>
+            <div class="w3-col l4">
+                <h3>Total: <span class="w3-badge w3-xlarge w3-red w3-padding"><?php echo $totalobjetivos; ?>%</span></h3>
+            </div>
+        </div>
+        <div class="w3-row">
         <div class="w3-round-xxlarge w3-col l12  w3-pale-red">
         <p>Objetivos</p>
         </div>
@@ -1618,12 +1629,24 @@ if($estatusa==2){
                 ?>
                 <div class="espacio"></div><div class="w3-container"><div class="w3-row"><div class="w3-col l1"><p></p></div><div class="w3-col l10 w3-center"><div class="w3-container">
                 <div class="w3-row">
+                    <div class="w3-col l4">
+                        <p>&nbsp;</p>
+                    </div>
+                    <div  class="w3-col l4">
+                        <p>&nbsp;</p>
+                    </div>
+                    <div class="w3-col l4">
+                        <h3>Total: <span class="w3-badge w3-xlarge w3-red w3-padding"><?php echo $totalobjetivos; ?>%</span></h3>
+                    </div>
+                </div>
+                <div class="w3-row">
                 <div class="w3-round-xxlarge w3-col l12  w3-pale-red">
                 <p>Objetivos</p>
                 </div>
                 <?php
                 echo '<form id="revisionobjfinal" method="POST" action="enviorevisionfinal.php" data-parsley-validate="">';
                 $requeridv3='required=""';
+                $valorponderadofinal=0;
                 foreach($resultcontrol as $valuecontrol){
 
                 $contfinal=$valuecontrol->contador;
@@ -1764,6 +1787,10 @@ if($estatusa==2){
                 </div>
                 </div>';
 
+                $valorponderado = (($valuecontrol->evaluationboss * $valuecontrol->valueobjective) / 100);
+
+                $valorponderadofinal=$valorponderadofinal + $valorponderado;
+
                 }
 
                 if(empty($mycomments)){
@@ -1789,6 +1816,17 @@ if($estatusa==2){
                 ?>
                
                 <div class="w3-container">
+                <div class="w3-row">
+                    <div class="w3-col l4">
+                        <p>&nbsp;</p>
+                    </div>
+                    <div  class="w3-col l4">
+                        <p>&nbsp;</p>
+                    </div>
+                    <div class="w3-col l4">
+                        <h3>Total: <span class="w3-badge w3-xlarge w3-red w3-padding"><?php echo $valorponderadofinal; ?>%</span></h3>
+                    </div>
+                </div>
                 <div class="w3-row">
                 <div class="w3-col l1">
                 <p></p>
