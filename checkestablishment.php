@@ -947,7 +947,7 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
         </div>
     </div>
     <div class="w3-row">
-        <input type="hidden" id="id'.$cont.'" name="idobjestablecido'.$cont.'" value="'.$valuecontrol->id.'" '.$requeridcolaborador.'>
+        <input type="hidden" id="id'.$cont.'" name="idobjestablecido'.$cont.'" value="'.$valuecontrol->idobj.'" '.$requeridcolaborador.'>
         <input type="hidden" id="userid'.$cont.'" name="userid'.$cont.'" value="'.$USER->id.'" '.$requeridcolaborador.'>
         <input type="hidden" id="courseid'.$cont.'" name="courseid'.$cont.'" value="'.$courseid.'" '.$requeridcolaborador.'>
         <input type="hidden" id="idobjetivo'.$cont.'" name="idobjetivo'.$cont.'" value="'.$id.'" '.$requeridcolaborador.'>
@@ -1035,7 +1035,7 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
             if(empty($boos)){
                 $establecimientorevision .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rimplementadas'.$cont.'" name="rimplementadas'.$cont.'" '.$requeridcolaborador.'></textarea></p>';
             }else{
-                $establecimientorevision .='<p class="w3-input w3-border">'.$boos.'</p>';
+                $establecimientorevision .='<p style="display: none;"><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rimplementadas'.$cont.'" name="rimplementadas'.$cont.'" '.$requeridcolaborador.'>'.$boos.'</textarea></p><p class="w3-input w3-border">'.$boos.'</p>';
             }
             $establecimientorevision .='</div>
         <div class="w3-col m6 w3-white w3-center">
@@ -1044,7 +1044,7 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
             if(empty($valuecontrol->bosss)){
                 $establecimientorevision .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rimplementar'.$cont.'" name="rimplementar'.$cont.'" '.$requeridcolaborador.'></textarea></p>';
             }else{
-                $establecimientorevision .='<p class="w3-input w3-border">'.$valuecontrol->bosss.'</p>';
+                $establecimientorevision .='<p style="display: none;"><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rimplementar'.$cont.'" name="rimplementar'.$cont.'" '.$requeridcolaborador.'>'.$valuecontrol->bosss.'</textarea></p><p class="w3-input w3-border">'.$valuecontrol->bosss.'</p>';
             }
 
             $establecimientorevision .='</div>
