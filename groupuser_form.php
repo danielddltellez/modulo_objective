@@ -44,20 +44,21 @@ class newgroupuser_form extends moodleform {
 
         if($result != null){
 
-            $validacion="select id from mdl_objective_groups_users where courseid=? and idgroup=? and rol=? and status=?";
+            $validacion="select id from {objective_groups_users} where courseid=? and idgroup=? and rol=? and status=?";
             $resultado = $DB->get_records_sql($validacion, array($COURSE->id, $idgrupo, 3, 0));
             if($resultado == NULL){
             
             
                 $options2 = array(
-                    '3' => 'DIRECTOR',
-                    '1' => 'COLABORADOR'
+                    '2' => 'COLABORADOR',
+                    '3' => 'DIRECTOR'
+                    
                     
                 );
             }else{
                 $options2 = array(
                         
-                    '1' => 'COLABORADOR'
+                    '2' => 'COLABORADOR'
                 );
 
 
@@ -67,19 +68,19 @@ class newgroupuser_form extends moodleform {
 
                 $validacion="select id from {objective_groups_users} where courseid=? and idgroup=? and rol=? and status=?";
 
-                $resultado = $DB->get_records_sql($validacion, array($COURSE->id, $idgrupo, 2, 0));
+                $resultado = $DB->get_records_sql($validacion, array($COURSE->id, $idgrupo, 1, 0));
 
                 if($resultado == NULL){
                     $options2 = array(
-                        '2' => 'JEFE INMEDIATO',
-                        '1' => 'COLABORADOR'
+                        '1' => 'JEFE INMEDIATO',
+                        '2' => 'COLABORADOR'
                     );
                 
                     
                 }else{
                     $options2 = array(
                         
-                        '1' => 'COLABORADOR'
+                        '2' => 'COLABORADOR'
                     );
                 
                 
@@ -87,7 +88,6 @@ class newgroupuser_form extends moodleform {
                   
         }
 
-        
         $optionstatus = array(
                 
             '0' => 'HABILITADO',

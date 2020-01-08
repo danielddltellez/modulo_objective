@@ -913,7 +913,7 @@ function validaActobj(pasar, actsumatotal){
     var acttotales = totalobj + actvalor;
     
 
-    if(acttotales >= 101){  
+    if(acttotales >= 101){
         
        alert("La suma de tus objetivos no debe de ser ni mayor ni menor a 100");
        return false;
