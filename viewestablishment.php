@@ -119,15 +119,15 @@ foreach($result as $value){
 if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
                         
     echo '<div class="w3-bar w3-black">';
-    if($estatusa==0){
+    if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3){
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
         echo '<button class="w3-bar-item w3-button"><a href="https://e-learning.triplei.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
-    }else if($estatusa==1){
+    }else if($estatusa==5 || $estatusa==6 || $estatusa==7){
 
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>';
         echo '<button class="w3-bar-item w3-button"><a href="https://e-learning.triplei.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
-    }else if($estatusa==2){
+    }else if($estatusa==8 || $estatusa==9 || $estatusa==10){
 
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>';
@@ -199,7 +199,7 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
 
     echo '<div class="w3-bar w3-black">';
     echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
-    if($estatusa==2){
+    if($estatusa==8 || $estatusa==9 || $estatusa==10){
     echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>';
     }
     echo '<button class="w3-bar-item w3-button"><a href="https://e-learning.triplei.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
@@ -452,7 +452,7 @@ foreach($resultcontrol as $valuecontrol){
                                         <form class="w3-container" id="deleteobj'.$cont.'" method="POST" action="deleteobjective.php?idobjec='.$valuecontrol->idobj.'">
                                         <input type="hidden" id="userid'.$cont.'" name="userid'.$cont.'" value="'.$USER->id.'" '.$requerido.'>
                                         <input type="hidden" id="courseid'.$cont.'" name="courseid'.$cont.'" value="'.$courseid.'" '.$requerido.'>
-                                        <input type="hidden" id="idobjetivo'.$cont.'" name="idobjetivo'.$cont.'" value="'.$valuecontrol->idobj.'" '.$requerido.'>
+                                        <input type="hidden" id="idobjetivo'.$cont.'" name="idobjetivo'.$cont.'" value="'.$id.'" '.$requerido.'>
                                         <div class="w3-section">
 
 
@@ -480,12 +480,14 @@ if($cont==0){
 } else{
     $i=$cont+1;
 }
+//echo $cont;
 
+if($totalobjetivos<100){
 $establecimiento .='<form id="establecimientoobj" method="POST" action="envio.php" data-parsley-validate="">';
 $requerido='required=""';
 $requeridotext='data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Debes de capturar la descripcion de tu objetivo" data-parsley-validation-threshold="10"';
 
-if($estatusa==0){
+if($estatusa==0 || $estatusa==1 || $estatusa==2){
     if($i<=6){
                                         
             $establecimiento .='<div id="establecimientoobjetivos'.$i.'">
@@ -499,7 +501,7 @@ if($estatusa==0){
                                         <input type="hidden" id="courseid'.$i.'" name="courseid'.$i.'" value="'.$courseid.'" '.$requerido.'>
                                         <input type="hidden" id="idobjetivo'.$i.'" name="idobjetivo'.$i.'" value="'.$id.'" '.$requerido.'>
                                         <div class="w3-col m2 w3-white w3-center">
-                                            <p class="text-cuestion">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
+                                            <p class="text-cuestion" style="font-size:10px;">Indica el # de objetivo de tu jefe inmediato al que estará ligado tu objetivo</p>
                                             <!--<p><input  class="w3-input w3-border" type="text"></p>-->
                                                 <select class="w3-select w3-border" name="objetivo'.$i.'" id="objetivo'.$i.'" '.$requerido.'>
                                                 <option value="" disabled selected>Selecciona el objetivo de tu jefe</option>
@@ -582,6 +584,46 @@ if($estatusa==0){
     $envio .='</div></div></div><div class="espacio"></div>';
 
 }  
+
+}else if ($totalobjetivos==100){
+    $establecimiento .='<form id="establecimientoobj" method="POST" action="envio.php" data-parsley-validate="">';
+    $envio .='</form><hr><p id="respuesta"></p></div><hr><p id="actualiza"></p></div><div class="w3-col l1"><p></p></div></div>';
+    $envio .='</div></div></div><div class="espacio"></div>';
+    if($cont < 4){
+    $envio .='<div><p>Debes de insertar por lo menos 4 objetivos actualiza el valor de uno de tus objetivos y agrega uno mas </p></div>';
+    }else if ($cont == 4){
+    $envio .='<div><p>Envia a revision</p></div>';
+
+    $envio .='<div class="w3-container">
+    <button onclick="document.getElementById(\'validaestablecimiento'.$id.'\').style.display=\'block\'" class="w3-button w3-red w3-large">Envia a revision</button>
+    
+    <div id="validaestablecimiento'.$id.'" class="w3-modal">
+        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+
+            <form class="w3-container" id="validaestablecimiento'.$id.'" method="POST" action="updateobjective.php?sendobj='.$id.'">
+            <input type="hidden" id="userid'.$id.'" name="userid'.$id.'" value="'.$USER->id.'" '.$requerido.'>
+            <input type="hidden" id="courseid'.$id.'" name="courseid'.$id.'" value="'.$courseid.'" '.$requerido.'>
+            <input type="hidden" id="idobjetivo'.$id.'" name="idestablecimiento'.$id.'" value="'.$id.'" '.$requerido.'>
+            <div class="w3-section">
+
+
+                    <h1>¿Estas de enviar a revisión el establecimiento de objetivos?</h1>
+
+                <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                    <button onclick="document.getElementById(\'validaestablecimiento'.$id.'\').style.display=\'none\'" type="button" class="w3-button w3-red w3-left">Cancelar</button>
+                    <input class="w3-button  w3-green  w3-right" id="validarestablecimiento'.$id.'" type="submit" value="Enviar a revisión">
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>';
+
+    }
+
+}else{
+
+}
 $competencias1 .='<div class="w3-container">
                     <div class="w3-row">
                         <div class="w3-col l1">
@@ -597,9 +639,10 @@ $colaboradortemp.='<div class="espacio"></div><div class="w3-row">
                             <div class="w3-round-xlarge w3-col l9 w3-dark-grey w3-center">
                                 <p>Evaluación de competencias</p>
                             </div>
-                    </div><div class="w3-row"> <div class="w3-round-xlarge w3-col l12 w3-pale-red w3-center">
-                    <p>4 = Excelente  3 = Bueno 2 = Escaso 1 = Deficiente</p>
-                    </div></div><div class="espacio"></div>';
+                    </div>';
+$colaboradortempval.='<div class="w3-row"> <div class="w3-round-xlarge w3-col l12 w3-pale-red w3-center">
+<p>4 = Excelente  3 = Bueno 2 = Escaso 1 = Deficiente</p>
+</div></div><div class="espacio"></div>';
 $jefetemp.='<div class="espacio"></div><div class="w3-row">
                 <div class="w3-round-xlarge w3-col l12 w3-dark-grey w3-center">
                     <p>Si eres Gestor de Personal, se te evaluarán las siguientes competencias de liderazgo.</p>
@@ -1012,7 +1055,7 @@ if($rolprincipal=='COLABORADOR'){
 }
 echo $competencias2;
 /*Vista 2 */
-if($estatusa==1 || $estatusa==2){
+if($estatusa==5 || $estatusa==6 || $estatusa==7){
     if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
 
             /* INICIA VISTA 2*/
@@ -1258,6 +1301,7 @@ if($estatusa==1 || $estatusa==2){
             $resultados = $DB->get_records_sql($sql, array($courseid));
 
             echo $colaboradortemp;
+            echo $colaboradortempval;
             foreach($resultados as $valores){
 
             echo '<div class="espacio"></div>
@@ -1364,6 +1408,7 @@ if($estatusa==1 || $estatusa==2){
                 $resultados = $DB->get_records_sql($sql, array($courseid));
 
                 echo $colaboradortemp;
+                echo $colaboradortempval;
                 foreach($resultados as $valores){
 
                 echo '<div class="espacio"></div>
@@ -1562,7 +1607,7 @@ if($estatusa==1 || $estatusa==2){
     
 }
 /* INICIA VISTA 3*/
-if($estatusa==2){
+if($estatusa==8 || $estatusa==9 || $estatusa==10){
    
     //echo '<div id="vista3" class="w3-light-grey vistas" style="display:none;">Hola mundo vista 3</div>';
     if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO' || $rolprincipal=='DIRECTOR'){
@@ -1848,6 +1893,7 @@ if($estatusa==2){
                         $finalresultados = $DB->get_records_sql($finalsql, array($courseid));
 
                         echo $colaboradortemp;
+                        echo $colaboradortempval;
                         foreach($finalresultados as $finalvalores){
 
                         echo '<div class="espacio"></div>
@@ -1954,6 +2000,7 @@ if($estatusa==2){
                             $finalresultados = $DB->get_records_sql($finalsql, array($courseid));
 
                             echo $colaboradortemp;
+                            echo $colaboradortempval;
                             foreach($finalresultados as $finalvalores){
 
                             echo '<div class="espacio"></div>

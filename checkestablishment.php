@@ -221,9 +221,9 @@ $querycontrol='select es.id as idobj, @rownum:=@rownum+1 contador,  es.userid,es
 ,es.status
 ,o.status as formatoestatus
 ,case
-   when es.status = 0 then "Creado"
-   when es.status = 1 then "No Autorizado"
-   when es.status = 2 then "Autorizado"
+   when es.status = 0 then "Nuevo"
+   when es.status = 1 then "Rechazado"
+   when es.status = 2 then "Aprobado"
    when es.status = 3 then "Cancelado"
    else "NA"
    end as estatusobj
@@ -257,7 +257,7 @@ if(empty($resultcontrol)){
                                         <p>Breve descripción del objetivo '.$valuecontrol->targetnumber.'</p>
                                     </div>
                                     <div class="w3-col l3 w3-grey">
-                                    <input type="hidden" id="aprobado'.$con.'" name="aprobado'.$con.'" value="'.$valuecontrol->estatusobj.'">
+                                    <input type="hidden" id="aprobado'.$con.'" name="aprobado'.$con.'" value="'.$valuecontrol->status.'">
                                     <p >Estatus: <b>'.$valuecontrol->estatusobj.'</b></p>
                                 </div>
                             </div>
@@ -327,33 +327,28 @@ if(empty($resultcontrol)){
                                                     </div>
                                                 </div>';
                             }
+                        $r1='';
+                        $r2='';
+                        $r3='';
+                        $r4='';
+
+                        if($valuecontrol->status == 0){
+                        $r1="selected";
+                        }else if($valuecontrol->status == 1){
+                        $r2="selected";
+                        }else if($valuecontrol->status == 2){
+                        $r3="selected";
+                        }else if($valuecontrol->status == 3){
+                        $r4="selected";
+                        }else{
+
+                        }
                         $establecimiento .='</div>';
         if($valuecontrol->formatoestatus==0){
 
                         $establecimiento .='<div class="w3-container">
-                        <button onclick="document.getElementById(\'addcomentario'.$con.'\').style.display=\'block\'" class="w3-button w3-green w3-large">Agrega tus comentarios</button>
-                        <button onclick="document.getElementById(\'validaobject'.$con.'\').style.display=\'block\'" class="w3-button w3-red w3-large">Valida Objetivo</button> 
-                        <div id="addcomentario'.$con.'" class="w3-modal">
-                        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
-
-                            <form class="w3-container" id="formcomentario'.$con.'" method="POST" action="updateobjectiveji.php">
-                            <input type="hidden" id="comenuserid'.$con.'" name="comenuserid'.$con.'" value="'.$USER->id.'" '.$requerido.'>
-                            <input type="hidden" id="comencourseid'.$con.'" name="comencourseid'.$con.'" value="'.$courseid.'" '.$requerido.'>
-                            <input type="hidden" id="comenidobjetivo'.$con.'" name="comenidobjetivo'.$con.'" value="'.$valuecontrol->idobj.'" '.$requerido.'>
-                            <div class="w3-section">
-            
-
-                                <label><b>Agrega tus comentarios sobre el objetivo</b></label>
-                                <p><textarea class="w3-input w3-border" maxlength="200" rows="4" cols="50" type="text" id="comentariosobjetivo'.$con.'" name="comentariosobjetivo'.$con.'">'.$valuecontrol->comentariosjefe.'</textarea></p>
-
-                                <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                                    <button onclick="document.getElementById(\'addcomentario'.$con.'\').style.display=\'none\'" type="button" class="w3-button w3-red w3-left">Cancelar</button>
-                                    <input class="w3-button  w3-green  w3-right" id="editarbtnobjetivo'.$con.'" type="submit" value="Actualizar">
-                                </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                       
+                        <button onclick="document.getElementById(\'validaobject'.$con.'\').style.display=\'block\'" class="w3-button w3-red w3-large">Validar Objetivo</button> 
                     <div id="validaobject'.$con.'" class="w3-modal">
                         <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
 
@@ -364,16 +359,21 @@ if(empty($resultcontrol)){
                             <div class="w3-section">
 
 
-                                    <h3>¿Estas seguro de validar el objetivo de tu colaborador?</h3>
+                                    <h3>¿Estás seguro de APROBAR el objetivo de tu colaborador?</h3>
                                     <label><b>Selecciona el estatus en el que se encuentra el objetivo</b></label>
-                                    <select class="w3-select" name="estatusobj'.$con.'">
-                                    <option value="0" disabled selected>Creado</option>
-                                    <option value="1">No Autorizado</option>
-                                    <option value="2">Autorizado</option>
-                                    <option value="3">Cancelado</option>
-                                    </select><div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                                    <button onclick="document.getElementById(\'validaobject'.$con.'\').style.display=\'none\'" type="button" class="w3-button w3-red w3-left">Cancelar</button>
-                                    <input class="w3-button  w3-green  w3-right" id="validebtnobjetivo'.$con.'" type="submit" value="Validar Objetivo">
+                                    <select class="w3-select" id="estatusobj'.$con.'"  name="estatusobj'.$con.'">
+                                    <option value="0" disabled '.$r1.'>Nuevo</option>
+                                    <option value="2" '.$r3.'>Aprobado</option>
+                                    <option value="1" '.$r2.'>Rechazado</option>
+                                    <option value="3" '.$r4.'>Cancelado</option>
+                                    </select>
+                                    
+                                    <label><b>Agrega tus comentarios sobre el objetivo</b></label>
+                                    <p><textarea class="w3-input w3-border" maxlength="200" rows="4" cols="50" type="text" id="comentariosobjetivo'.$con.'" name="comentariosobjetivo'.$con.'" required>'.$valuecontrol->comentariosjefe.'</textarea></p>
+
+                                <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                                    <button onclick="document.getElementById(\'validaobject'.$con.'\').style.display=\'none\'" type="button" class="w3-button w3-red w3-left">Regresar</button>
+                                    <input class="w3-button  w3-green  w3-right" id="validebtnobjetivo'.$con.'" type="submit" value="Aprobar Objetivo">
                                 </div>
                                 </form>
                             </div>
@@ -447,9 +447,10 @@ $colaboradortemp.='<div class="espacio"></div><div class="w3-row">
                         <div class="w3-round-xlarge w3-col l9 w3-dark-grey w3-center">
                             <p>Evaluación de competencias</p>
                         </div>
-                    </div><div class="w3-row"> <div class="w3-round-xlarge w3-col l12 w3-pale-red w3-center">
-                    <p>4 = Excelente  3 = Bueno 2 = Escaso 1 = Deficiente</p>
-                    </div></div><div class="espacio"></div>';
+                    </div>';
+$colaboradortempvalores.='<div class="w3-row"> <div class="w3-round-xlarge w3-col l12 w3-pale-red w3-center">
+<p>4 = Excelente  3 = Bueno 2 = Escaso 1 = Deficiente</p>
+</div></div><div class="espacio"></div>';
 $jefetemp.='<div class="espacio"></div><div class="w3-row">
                 <div class="w3-round-xlarge w3-col l12 w3-dark-grey w3-center">
                     <p>Si eres Gestor de Personal, se te evaluarán las siguientes competencias de liderazgo.</p>
@@ -1100,6 +1101,7 @@ if($rolcolaborador==1){
     $resultados = $DB->get_records_sql($sql, array($courseid));
 
     echo $colaboradortemp;
+    echo $colaboradortempvalores;
     $contadorfinal=1;
     foreach($resultados as $valores){
 
@@ -1260,6 +1262,7 @@ if($rolcolaborador==1){
     $resultados = $DB->get_records_sql($sql, array($courseid));
 
     echo $colaboradortemp;
+    echo $colaboradortempvalores;
     $contadorfinal=1;
     foreach($resultados as $valores){
 
@@ -1855,6 +1858,7 @@ echo $enviorevisionfinal;
         $resultadosfinal = $DB->get_records_sql($sqlfinal, array($courseid));
 
         echo $colaboradortemp;
+        echo $colaboradortempvalores;
         $contadoresfinal=1;
         foreach($resultadosfinal as $valoresfinal){
 
@@ -2014,6 +2018,7 @@ echo $enviorevisionfinal;
         $resultadosfinal = $DB->get_records_sql($sqlfinal, array($courseid));
 
         echo $colaboradortemp;
+        echo $colaboradortempvalores;
         $contadoresfinal=1;   
         foreach($resultadosfinal as $valoresfinal){
 
@@ -2330,6 +2335,7 @@ echo $enviorevisionfinal;
         $resultadosfinal = $DB->get_records_sql($sqlfinal, array($courseid));
 
         echo $colaboradortemp;
+        echo $colaboradortempvalores;
         $contadoresfinal=1;   
         foreach($resultadosfinal as $valoresfinal){
 

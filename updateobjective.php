@@ -109,6 +109,44 @@ if(!empty($_POST['idobjetivo6'])){
     } 
 }
 
+if(isset($_GET['sendobj'])){
+    $idestablecimiento = $_GET['sendobj'];
+
+    $updateest = new stdClass();
+    $updateest-> id = $idestablecimiento;
+    $updateest-> status = 2;
+    $destinatario=new stdClass();
+    $destinatario-> id=449;
+    $destinatario-> email = 'lucio.garcia@triplei.mx';
+
+    
+    try{
+        $updateobjetivos = $DB->update_record('objective_establishment', $updateest, $bulk=false);
+
+        $subject='Tienes un nuevo establecimiento';
+        $message ="Estimado: Lucio Garcia \n\n";
+        $message .="Le confirmamos que ha registrado uno nuevo establecimiento de objetivos de daniel de la luz tellez\n\n";
+        $message .="¡ Ingresa a evaluarlo ! \n\n";
+        $message .="<p><img href="https://e-learning.triplei.mx/2546-Triplei/images/imagen.jpg"/></p>";
+        $message .="Que tenga un excelente día\n\n";
+        $fechaap=date("F j, Y, g:i a");
+        $message .="Fecha de aplicación: $fechaap";
+       // print_r($USER);
+        $sendenvio = email_to_user($destinatario, $USER , $subject, $message);
+
+        print_r($sendenvio);
+        exit();
+
+    
+        } catch(\Throwable $e) {
+            // PHP 7 
+        echo 'ERROR AL ACTUALIZAR OBJETIVO 6';
+        } 
+        header("Location:".$_SERVER['HTTP_REFERER']);
+
+
+}
+
 
 
 /*
