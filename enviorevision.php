@@ -75,10 +75,12 @@ if(!empty($_POST['racciones3']) && !empty($_POST['rmeses3'])){
 
 }
 if(!empty($_POST['racciones4']) && !empty($_POST['rmeses4'])){
+
+    $idobj=$_POST['idobjetivo4'];
     $record4 = new stdClass();
     $record4-> userid = $_POST['userid4'];
     $record4-> courseid = $_POST['courseid4'];
-    $record4-> idobjective = $_POST['idobjetivo4'];
+    $record4-> idobjective = $idobj;
     $record4-> idobjectiveestablishment  = $_POST['idobjestablecido4'];
     $record4-> actionpartner = $_POST['racciones4'];
     $record4-> actionsixmonth  = $_POST['rmeses4'];
@@ -87,14 +89,48 @@ if(!empty($_POST['racciones4']) && !empty($_POST['rmeses4'])){
     $record4-> timecreated = $fecha->getTimestamp();
     $record4-> timemodified = $fecha->getTimestamp();
     try{
-    $lastinsertid4 = $DB->insert_record('objective_establishment_revise', $record4);
-    echo 'Guardado con éxito';
+        $lastinsertid4 = $DB->insert_record('objective_establishment_revise', $record4);
+        $updaterevision = new stdClass();
+        $updaterevision-> id = $idobj;
+        $updaterevision-> status = 5;
+        $destinatario=new stdClass();
+        $destinatario-> id=449;
+        $destinatario-> email = 'daniel.delaluz@triplei.mx';
+
+        
+        try{
+            $updaterev = $DB->update_record('objective_establishment', $updaterevision, $bulk=false);
+
+            $fechaap=date("F j, Y, g:i a");
+            $subject='Establecimiento de Objetivos';
+            $message ="Estimado(a)  Lucio Garcia, \n\n";
+            $message .="Hacemos de tu conocimiento que NOMBRE DEL COLABORADOR ha finalizado el registrado de su Autoevaluación,  \n\n";
+            $message .="es momento de que ingreses a la plataforma e-learning a Colocar tus comentarios y brindar la Retroalimentación de medio año. \n\n";
+            $message .="Para registrar tus comentarios, ingresa a tu perfil dando clic aquí. \n\n";
+            $message .="La fecha límite para realizar esta acción es: $fechaap\n\n";
+            $message .="Que tenga un excelente día\n\n";
+           // print_r($USER);
+            $sendenvio = email_to_user($destinatario, $USER , $subject, $message);
+    
+          /*print_r($sendenvio);*/
+            
+             echo 'Guardado con éxito';
+        
+        } catch(\Throwable $e) {
+                // PHP 7 
+            echo 'Error al guardar';
+        } 
+         //   header("Location:".$_SERVER['HTTP_REFERER']);
 
     } catch(\Throwable $e) {
         // PHP 7 
     echo 'Error al guardar';
-    } 
+    }
+
+    
+    
 }
+
 if($_POST['idobjestablecido5'] != NULL){
     if(!empty($_POST['racciones5']) && !empty($_POST['rmeses5'])){
 
@@ -144,19 +180,5 @@ if($_POST['idobjestablecido6'] != NULL){
         } 
     }
 }
-/*
-$iduser=$USER->id;
-$querycontrol='select idmod from mdl_objective_establishment where userid=?';
-/*
-$resultcontrol = $DB->get_records_sql($querycontrol, array($iduser));
-$idins='';
-foreach($resultcontrol as $value){
 
-    $idins=$value->idmod;
-}
-
-$my = new moodle_url('/mod/objective/view.php?id='.$idins.'');
-redirect($my);
-exit();
-*/
 ?>

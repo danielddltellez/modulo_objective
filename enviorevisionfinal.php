@@ -83,11 +83,11 @@ $lastinsertid3 = $DB->insert_record('objective_establishment_revise_final', $rec
     // PHP 7 
 //echo 'ERROR AL INSERTAR REVISION 3';
 } 
-
+$idobjf=$_POST['idobjetivofinal4'];
 $record4 = new stdClass();
 $record4-> userid = $_POST['useridfinal4'];
 $record4-> courseid = $_POST['courseidfinal4'];
-$record4-> idobjective = $_POST['idobjetivofinal4'];
+$record4-> idobjective = $idobjf;
 $record4-> idobjectiveestablishment  = $_POST['idobjestablecidofinal4'];
 $record4-> mycomments = $_POST['micomentarios4'];
 $record4-> mycommentsfinals  = $_POST['micomentariosef4'];
@@ -101,9 +101,40 @@ $record4-> timemodified = $fecha->getTimestamp();
 
 try{
 $lastinsertid4 = $DB->insert_record('objective_establishment_revise_final', $record4);
-echo 'Guardado con éxito';
 
-} catch(\Throwable $e) {
+
+        $updaterevisionf = new stdClass();
+        $updaterevisionf-> id = $idobjf;
+        $updaterevisionf-> status = 8;
+        $destinatario=new stdClass();
+        $destinatario-> id=449;
+        $destinatario-> email = 'daniel.delaluz@triplei.mx';
+
+        
+        try{
+            $updaterev = $DB->update_record('objective_establishment', $updaterevisionf, $bulk=false);
+
+            $fechaap=date("F j, Y, g:i a");
+            $subject='Establecimiento de Objetivos';
+            $message ="Estimado(a)  Lucio Garcia, \n\n";
+            $message .="Hacemos de tu conocimiento que NOMBRE DEL COLABORADOR ha finalizado el registrado de su Autoevaluación,  \n\n";
+            $message .="es momento de que ingreses a la plataforma e-learning a Colocar tus comentarios y brindar la Retroalimentación de medio año. \n\n";
+            $message .="Para registrar tus comentarios, ingresa a tu perfil dando clic aquí. \n\n";
+            $message .="La fecha límite para realizar esta acción es: $fechaap\n\n";
+            $message .="Que tenga un excelente día\n\n";
+           // print_r($USER);
+            $sendenvio = email_to_user($destinatario, $USER , $subject, $message);
+    
+          /*print_r($sendenvio);*/
+            
+             echo 'Guardado con éxito';
+        
+        } catch(\Throwable $e) {
+                // PHP 7 
+            echo 'Error al guardar';
+        } 
+         //   header("Location:".$_SERVER['HTTP_REFERER']);
+        } catch(\Throwable $e) {
     // PHP 7 
 echo 'Error al guardar';
 } 

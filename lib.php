@@ -616,10 +616,16 @@ function objective_print_establishment($viewestablishment, $return = 0){
                 END AS rol,
                 gu.rol as rolfinal,
                 CASE
-                WHEN (oe.status) = 0 THEN 'Por Iniciar'
-                WHEN (oe.status) = 1 THEN 'En Proceso'
-                WHEN (oe.status) = 2 THEN 'Enviado a Aprobación'
-                WHEN (oe.status) = 3 THEN 'Finalizado'
+                WHEN (oe.status) = 0 THEN 'Por Iniciar Establecimiento'
+                WHEN (oe.status) = 1 THEN 'En Proceso Establecimiento'
+                WHEN (oe.status) = 2 THEN 'Enviado a Aprobación Establecimiento'
+                WHEN (oe.status) = 3 THEN 'Finalizado Establecimiento'
+                WHEN (oe.status) = 4 THEN 'En Proceso Revisión 1'
+                WHEN (oe.status) = 5 THEN 'Enviado a Aprobación Revisión 1'
+                WHEN (oe.status) = 6 THEN 'Finalizado Revisión 1'
+                WHEN (oe.status) = 7 THEN 'En Proceso Revisión Final'
+                WHEN (oe.status) = 8 THEN 'Enviado a Aprobación Revisión Final'
+                WHEN (oe.status) = 9 THEN 'Finalizado Revisión Final'
                 ELSE 'SIN VALOR'
                 END AS estatus
                 , og.id as idgrupo

@@ -221,10 +221,10 @@ $querycontrol='select es.id as idobj, @rownum:=@rownum+1 contador,  es.userid,es
 ,es.status
 ,o.status as formatoestatus
 ,case
-   when es.status = 0 then "Nuevo"
-   when es.status = 1 then "Rechazado"
-   when es.status = 2 then "Aprobado"
-   when es.status = 3 then "Cancelado"
+when es.status = 0 then "Nuevo"
+when es.status = 1 then "Rechazado"
+when es.status = 2 then "Aprobado"
+when es.status = 3 then "Cancelado"
    else "NA"
    end as estatusobj
 from  mdl_objective_establishment_captured es
@@ -257,7 +257,7 @@ if(empty($resultcontrol)){
                                         <p>Breve descripción del objetivo '.$valuecontrol->targetnumber.'</p>
                                     </div>
                                     <div class="w3-col l3 w3-grey">
-                                    <input type="hidden" id="aprobado'.$con.'" name="aprobado'.$con.'" value="'.$valuecontrol->status.'">
+                                    <input type="hidden" id="aprobado'.$con.'" name="aprobado'.$con.'" value="'.$valuecontrol->estatusobj.'">
                                     <p >Estatus: <b>'.$valuecontrol->estatusobj.'</b></p>
                                 </div>
                             </div>
@@ -344,7 +344,7 @@ if(empty($resultcontrol)){
 
                         }
                         $establecimiento .='</div>';
-        if($valuecontrol->formatoestatus==0){
+        if($valuecontrol->formatoestatus==0 || $valuecontrol->formatoestatus==1 || $valuecontrol->formatoestatus==2){
 
                         $establecimiento .='<div class="w3-container">
                        
@@ -399,7 +399,7 @@ if(empty($resultcontrol)){
         $primeravalidacion=$validacion1->estatusformato;
 
     }
-    if($primeravalidacion==0 || $primeravalidacion==1){
+    if($primeravalidacion==0 || $primeravalidacion==1 || $primeravalidacion==2 || $primeravalidacion==3){
 
             $establecimiento .='<button onclick="document.getElementById(\'val'.$idform.'\').style.display=\'block\'" class="w3-button w3-pale-red w3-padding-16">Validar Objetivos</button>';
 
@@ -415,8 +415,9 @@ if(empty($resultcontrol)){
                 <h3>Valida Establecimiento de Objetivos</h3>
                 <label><b>Selecciona el estatus de el establecimiento de objetivos</b></label>
                 <select class="w3-select" name="estatusobj">
-                <option value="0" selected>Abierto</option>
-                <option value="1">Cerrado</option>
+                <option value="2" selected>Modificar Establecimiento</option>
+                <option value="3">Finalizado Establecimiento</option>
+                <option value="4">En Proceso Revisión 1</option>
                 </select>
                 <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
                 <button onclick="document.getElementById(\'val'.$idform.'\').style.display=\'none\'" type="button" class="w3-button w3-gray">Cancelar</button>
@@ -427,6 +428,8 @@ if(empty($resultcontrol)){
                 </div>
             </div>';
     }else{
+
+        $establecimiento .='<form class="w3-container" id="validafinalobj" method="POST"></form>';
 
     }
   
@@ -1566,8 +1569,8 @@ if($rolcolaborador==1){
 }else{
 }
 if($validacionrf==1){
-    if($primeravalidacion==1){
-        echo'<center><button type="button" onclick="document.getElementById(\'revision'.$id.'\').style.display=\'block\'" class="w3-button w3-pale-red">Validar Revision</button>';
+    if($primeravalidacion==5){
+        echo'<center><button type="button" onclick="document.getElementById(\'revision'.$id.'\').style.display=\'block\'" class="w3-button w3-pale-red">Finalizar Revision 1</button>';
         echo'<div id="revision'.$id.'" class="w3-modal">
             <div class="w3-modal-content w3-card-4">
                 <header class="w3-container w3-pale-red"> 
@@ -1576,14 +1579,14 @@ if($validacionrf==1){
                 <h2>Validar objetivos</h2>
                 </header>
                 <div class="w3-container">
-                <p><p class="text-center">Esta seguro de validar los objetivos de tu colaborador</p></p>
+                <p><p class="text-center">Esta seguro de Finalizar Revision 1</p></p>
                 </div>
                 <footer class="w3-container w3-pale-red">
                 <button onclick="document.getElementById(\'revision'.$id.'\').style.display=\'none\'" type="button" class="w3-button w3-gray">Cancelar</button>
                 <a href="validar_revision.php?id='.$id.'&instance='.$instance.'" type="button" class="w3-button w3-red">Validar</a>
                 </footer>
             </div>';
-    
+
     }else{
     
     }
@@ -2803,11 +2806,10 @@ echo $enviorevisionfinal;
     }
     
  
-
-
 if($validacionrfinal==1){
-    if($primeravalidacion==2){
-        echo'<center><button type="button" onclick="document.getElementById(\'revisionfinal'.$id.'\').style.display=\'block\'" class="w3-button w3-pale-red" style="display: none;">Validar Revision</button></center>';
+
+    if($primeravalidacion==8){
+        echo'<center><button type="button" onclick="document.getElementById(\'revisionfinal'.$id.'\').style.display=\'block\'" class="w3-button w3-pale-red">Validar Revision final</button></center>';
         echo'<div id="revisionfinal'.$id.'" class="w3-modal">
                     <div class="w3-modal-content w3-card-4">
                     <header class="w3-container w3-pale-red"> 
@@ -2816,7 +2818,7 @@ if($validacionrfinal==1){
                         <h2>Validar objetivos</h2>
                     </header>
                     <div class="w3-container">
-                        <p><p class="text-center">Esta seguro de validar los objetivos de tu colaborador</p></p>
+                        <p><p class="text-center">Esta seguro de Validar Revision final</p></p>
                     </div>
                     <footer class="w3-container w3-pale-red">
                     <button onclick="document.getElementById(\'revisionfinal'.$id.'\').style.display=\'none\'" type="button" class="w3-button w3-gray">Cancelar</button>
@@ -2954,7 +2956,7 @@ $(document).on('ready', function() {
 
     $("#validafinalobj").bind("submit",function(){
         // Capturamnos el boton de envío
-
+    
         var btnValidefinal = $("#finalbtnobjetivo");
         var valid = $("#aprobado1").val();
         var valid1 = $("#aprobado2").val();
@@ -2963,7 +2965,7 @@ $(document).on('ready', function() {
         var valid4 = $("#aprobado5").val();
         var valid5 = $("#aprobado6").val();
 
-        if(valid == "Autorizado" && valid1 == "Autorizado" && valid2 == "Autorizado" && valid3 == "Autorizado"){
+        if(valid == "Aprobado" && valid1 == "Aprobado" && valid2 == "Aprobado" && valid3 == "Aprobado"){
             $.ajax({
                 type: $(this).attr("method"),
                 url: $(this).attr("action"),
@@ -3002,7 +3004,7 @@ $(document).on('ready', function() {
                     alert("Problemas al tratar de enviar el formulario");
                 }
             });
-        }else if(valid == "Autorizado" && valid1 == "Autorizado" && valid2 == "Autorizado" && valid3 == "Autorizado" && valid4 == "Autorizado"){
+        }else if(valid == "Aprobado" && valid1 == "Aprobado" && valid2 == "Aprobado" && valid3 == "Aprobado" && valid4 == "Aprobado"){
             $.ajax({
                 type: $(this).attr("method"),
                 url: $(this).attr("action"),
@@ -3041,7 +3043,7 @@ $(document).on('ready', function() {
                     alert("Problemas al tratar de enviar el formulario");
                 }
             });
-        }else if(valid == "Autorizado" && valid1 == "Autorizado" && valid2 == "Autorizado" && valid3 == "Autorizado" && valid4 == "Autorizado" && valid5 == "Autorizado"){
+        }else if(valid == "Aprobado" && valid1 == "Aprobado" && valid2 == "Aprobado" && valid3 == "Aprobado" && valid4 == "Aprobado" && valid5 == "Aprobado"){
             $.ajax({
                 type: $(this).attr("method"),
                 url: $(this).attr("action"),
@@ -3090,7 +3092,6 @@ $(document).on('ready', function() {
         return false;
     });
 
-    
     $('#revisionjefe').parsley().on('field:validated', function() {
         var ok = $('.parsley-error').length === 0;
         $('.bs-callout-info').toggleClass('hidden', !ok);
@@ -3139,6 +3140,7 @@ $(document).on('ready', function() {
         return false;
     });
 
+ 
     $('#revisionjefefinal').parsley().on('field:validated', function() {
         var ok = $('.parsley-error').length === 0;
         $('.bs-callout-info').toggleClass('hidden', !ok);

@@ -122,12 +122,12 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
     if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3){
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
         echo '<button class="w3-bar-item w3-button"><a href="https://e-learning.triplei.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
-    }else if($estatusa==5 || $estatusa==6 || $estatusa==7){
+    }else if($estatusa==4 || $estatusa==5 || $estatusa==6){
 
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>';
         echo '<button class="w3-bar-item w3-button"><a href="https://e-learning.triplei.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
-    }else if($estatusa==8 || $estatusa==9 || $estatusa==10){
+    }else if($estatusa==7 || $estatusa==8 || $estatusa==9){
 
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>';
@@ -319,9 +319,9 @@ $querycontrol='select es.id as idobj, @rownum:=@rownum+1 contador,  es.userid,es
 ,es.comentariosjefe
 ,es.status as estatusobj
 ,case
-   when es.status = 0 then "Creado"
-   when es.status = 1 then "No Autorizado"
-   when es.status = 2 then "Autorizado"
+   when es.status = 0 then "Nuevo"
+   when es.status = 1 then "Rechazado"
+   when es.status = 2 then "Aprobado"
    when es.status = 3 then "Cancelado"
    else "NA"
    end as estatuso
@@ -589,36 +589,36 @@ if($estatusa==0 || $estatusa==1 || $estatusa==2){
     $establecimiento .='<form id="establecimientoobj" method="POST" action="envio.php" data-parsley-validate="">';
     $envio .='</form><hr><p id="respuesta"></p></div><hr><p id="actualiza"></p></div><div class="w3-col l1"><p></p></div></div>';
     $envio .='</div></div></div><div class="espacio"></div>';
+    
     if($cont < 4){
     $envio .='<div><p>Debes de insertar por lo menos 4 objetivos actualiza el valor de uno de tus objetivos y agrega uno mas </p></div>';
-    }else if ($cont == 4){
-    $envio .='<div><p>Envia a revision</p></div>';
+    }else if ($cont >= 4 || $cont <=6 ){
+        if($estatusa==0 || $estatusa==1){
+                $envio .='<div class="w3-container  w3-center">
+                <button onclick="document.getElementById(\'validaestablecimiento'.$id.'\').style.display=\'block\'" class="w3-button w3-red w3-large">Envía a revisión</button>
+                
+                <div id="validaestablecimiento'.$id.'" class="w3-modal">
+                        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
 
-    $envio .='<div class="w3-container">
-    <button onclick="document.getElementById(\'validaestablecimiento'.$id.'\').style.display=\'block\'" class="w3-button w3-red w3-large">Envia a revision</button>
-    
-    <div id="validaestablecimiento'.$id.'" class="w3-modal">
-        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
-
-            <form class="w3-container" id="validaestablecimiento'.$id.'" method="POST" action="updateobjective.php?sendobj='.$id.'">
-            <input type="hidden" id="userid'.$id.'" name="userid'.$id.'" value="'.$USER->id.'" '.$requerido.'>
-            <input type="hidden" id="courseid'.$id.'" name="courseid'.$id.'" value="'.$courseid.'" '.$requerido.'>
-            <input type="hidden" id="idobjetivo'.$id.'" name="idestablecimiento'.$id.'" value="'.$id.'" '.$requerido.'>
-            <div class="w3-section">
+                            <form class="w3-container" id="validaestablecimiento'.$id.'" method="POST" action="updateobjective.php?sendobj='.$id.'">
+                            <input type="hidden" id="validauserid'.$id.'" name="validauserid'.$id.'" value="'.$USER->id.'" '.$requerido.'>
+                            <input type="hidden" id="validacourseid'.$id.'" name="validacourseid'.$id.'" value="'.$courseid.'" '.$requerido.'>
+                            <input type="hidden" id="validaidobjetivo'.$id.'" name="validaidobjetivo'.$id.'" value="'.$id.'" '.$requerido.'>
+                            <div class="w3-section">
 
 
-                    <h1>¿Estas de enviar a revisión el establecimiento de objetivos?</h1>
+                                    <h1>¿Estas seguro de enviar a revisión el establecimiento de objetivos?</h1>
 
-                <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                    <button onclick="document.getElementById(\'validaestablecimiento'.$id.'\').style.display=\'none\'" type="button" class="w3-button w3-red w3-left">Cancelar</button>
-                    <input class="w3-button  w3-green  w3-right" id="validarestablecimiento'.$id.'" type="submit" value="Enviar a revisión">
-                </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</div>';
-
+                                <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                                    <button onclick="document.getElementById(\'validaestablecimiento'.$id.'\').style.display=\'none\'" type="button" class="w3-button w3-red w3-left">Cancelar</button>
+                                    <input class="w3-button  w3-green  w3-right" id="validarestablecimiento'.$id.'" type="submit" value="Enviar a revisión">
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+        }
     }
 
 }else{
@@ -1055,7 +1055,7 @@ if($rolprincipal=='COLABORADOR'){
 }
 echo $competencias2;
 /*Vista 2 */
-if($estatusa==5 || $estatusa==6 || $estatusa==7){
+if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 || $estatusa==9){
     if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
 
             /* INICIA VISTA 2*/
@@ -1607,7 +1607,7 @@ if($estatusa==5 || $estatusa==6 || $estatusa==7){
     
 }
 /* INICIA VISTA 3*/
-if($estatusa==8 || $estatusa==9 || $estatusa==10){
+if($estatusa==7 || $estatusa==8 || $estatusa==9){
    
     //echo '<div id="vista3" class="w3-light-grey vistas" style="display:none;">Hola mundo vista 3</div>';
     if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO' || $rolprincipal=='DIRECTOR'){
@@ -2214,16 +2214,6 @@ textarea.parsley-error:focus {
 ?>
 <script>
 $(document).on('ready', function() {
-    /*
-        $('#BTNvalida').parsley().on('field:validated', function() {
-            var ok = $('.parsley-error').length === 0;
-            $('.bs-callout-info').toggleClass('hidden', !ok);
-            $('.bs-callout-warning').toggleClass('hidden', ok);
-        });
-
-        */
-        
-
 
     $("#establecimientoobj").bind("submit",function(){
         // Capturamnos el boton de envío

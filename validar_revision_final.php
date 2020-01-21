@@ -11,7 +11,7 @@ $idinstance = $_GET['instance'];
 
 $record1 = new stdClass();
 $record1-> id = $id;
-$record1-> status  = 7;
+$record1-> status  = 9;
 
 
 $DB->update_record('objective_establishment', $record1, $bulk=false);
