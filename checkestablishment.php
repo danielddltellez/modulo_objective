@@ -109,7 +109,7 @@ echo '<div class="w3-bar w3-black">
                 <button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>
                 <button id="vistarevision1" class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>
                 <button id="vistarevision2" class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>
-                <button class="w3-bar-item w3-button"><a href="https://e-learning.triplei.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>
+                <button class="w3-bar-item w3-button"><a href="https://www.portal3i.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>
         </div>';
                 $vistajefeinmediato .='<div class="w3-row">
                             <div class="w3-col l1">

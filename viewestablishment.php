@@ -121,18 +121,18 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
     echo '<div class="w3-bar w3-black">';
     if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3){
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
-        echo '<button class="w3-bar-item w3-button"><a href="https://e-learning.triplei.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
+        echo '<button class="w3-bar-item w3-button"><a href="https://www.portal3i.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
     }else if($estatusa==4 || $estatusa==5 || $estatusa==6){
 
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>';
-        echo '<button class="w3-bar-item w3-button"><a href="https://e-learning.triplei.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
+        echo '<button class="w3-bar-item w3-button"><a href="https://www.portal3i.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
     }else if($estatusa==7 || $estatusa==8 || $estatusa==9){
 
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>';
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>';
-        echo '<button class="w3-bar-item w3-button"><a href="https://e-learning.triplei.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
+        echo '<button class="w3-bar-item w3-button"><a href="https://www.portal3i.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
     }
     echo'</div>';
     $vistajefeinmediato .='<div class="w3-row">
@@ -202,7 +202,7 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
     if($estatusa==8 || $estatusa==9 || $estatusa==10){
     echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>';
     }
-    echo '<button class="w3-bar-item w3-button"><a href="https://e-learning.triplei.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
+    echo '<button class="w3-bar-item w3-button"><a href="https://www.portal3i.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
     echo ' </div>';
                     $vistajefeinmediato .='<div class="w3-row">
                             <div class="w3-col l1">
