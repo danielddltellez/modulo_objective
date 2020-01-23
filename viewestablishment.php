@@ -121,18 +121,18 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
     echo '<div class="w3-bar w3-black">';
     if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3){
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
-        echo '<button class="w3-bar-item w3-button"><a href="https://www.portal3i.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
+        echo '<button class="w3-bar-item w3-button"><a href="'.$CFG->wwwroot.'/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
     }else if($estatusa==4 || $estatusa==5 || $estatusa==6){
 
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>';
-        echo '<button class="w3-bar-item w3-button"><a href="https://www.portal3i.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
+        echo '<button class="w3-bar-item w3-button"><a href="'.$CFG->wwwroot.'/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
     }else if($estatusa==7 || $estatusa==8 || $estatusa==9){
 
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>';
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>';
-        echo '<button class="w3-bar-item w3-button"><a href="https://www.portal3i.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
+        echo '<button class="w3-bar-item w3-button"><a href="'.$CFG->wwwroot.'/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
     }
     echo'</div>';
     $vistajefeinmediato .='<div class="w3-row">
@@ -202,7 +202,7 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
     if($estatusa==8 || $estatusa==9 || $estatusa==10){
     echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>';
     }
-    echo '<button class="w3-bar-item w3-button"><a href="https://www.portal3i.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
+    echo '<button class="w3-bar-item w3-button"><a href="'.$CFG->wwwroot.'/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
     echo ' </div>';
                     $vistajefeinmediato .='<div class="w3-row">
                             <div class="w3-col l1">
@@ -418,8 +418,8 @@ foreach($resultcontrol as $valuecontrol){
 
                     if($valuecontrol->estatusobj == 0 || $valuecontrol->estatusobj == 1){
                             $establecimiento .='<div class="w3-container">
-                                <button onclick="document.getElementById(\'modal'.$cont.'\').style.display=\'block\'" class="w3-button w3-green w3-large">Actualizar</button>
-                                <button onclick="document.getElementById(\'delete'.$cont.'\').style.display=\'block\'" class="w3-button w3-red w3-large">Eliminar</button>
+                                <button onclick="document.getElementById(\'modal'.$cont.'\').style.display=\'block\'" class="w3-button w3-green w3-large w3-round-large">Actualizar</button>
+                                <button onclick="document.getElementById(\'delete'.$cont.'\').style.display=\'block\'" class="w3-button w3-red w3-large w3-round-large">Eliminar</button>
                                 
                                 <div id="modal'.$cont.'" class="w3-modal">
                                     <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
@@ -439,8 +439,8 @@ foreach($resultcontrol as $valuecontrol){
                                             <label><b>Valor del objetivo sobre 100</b></label>
                                             <p><input class="w3-input w3-border" type="text" id="valorobjetivo'.$cont.'"  name="valorobjetivo'.$cont.'" data-parsley-type="number" value="'.$valuecontrol->valueobjective.'"></p>
                                             <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                                                <button onclick="document.getElementById(\'modal'.$cont.'\').style.display=\'none\'" type="button" class="w3-button w3-red w3-left">Cancelar</button>
-                                                <input class="w3-button  w3-green  w3-right" id="editarobjetivo'.$cont.'" type="submit" value="Actualizar">
+                                                <button onclick="document.getElementById(\'modal'.$cont.'\').style.display=\'none\'" type="button" class="w3-button w3-red w3-left w3-round-large">Cancelar</button>
+                                                <input class="w3-button  w3-green  w3-right w3-round-large" id="editarobjetivo'.$cont.'" type="submit" value="Actualizar">
                                             </div>
                                             </form>
                                         </div>
@@ -459,8 +459,8 @@ foreach($resultcontrol as $valuecontrol){
                                                 <h1>¿Estas seguro de eliminar el objetivo?</h1>
             
                                             <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
-                                                <button onclick="document.getElementById(\'delete'.$cont.'\').style.display=\'none\'" type="button" class="w3-button w3-red w3-left">Cancelar</button>
-                                                <input class="w3-button  w3-green  w3-right" id="eliminarobjetivo'.$cont.'" type="submit" value="Eliminar">
+                                                <button onclick="document.getElementById(\'delete'.$cont.'\').style.display=\'none\'" type="button" class="w3-button w3-red w3-left w3-round-large">Cancelar</button>
+                                                <input class="w3-button  w3-green  w3-right w3-round-large" id="eliminarobjetivo'.$cont.'" type="submit" value="Eliminar">
                                             </div>
                                             </form>
                                         </div>
@@ -566,11 +566,11 @@ if($estatusa==0 || $estatusa==1 || $estatusa==2){
 
             
         //}
-            $establecimiento .='<input type="submit" id="btnEnviar" name="btnEnviar" value="Guardar Objetivo"></form>';
+            $establecimiento .='<input type="submit" id="btnEnviar" name="btnEnviar" class="w3-round-large w3-button w3-pale-red" value="Guardar Objetivo"></form>';
 
             $envio .='<hr><p id="respuesta"></p></div><hr><p id="actualiza"></p></div><div class="w3-col l1"><p></p></div></div>';
             if($i <= 4){
-            $mensajeobjetivos .='<div class="w3-container"><div class="row"><div class="w3-col l1"><p>&nbsp;</p></div><div class="w3-col l10 w3-red w3-center w3-round-xlarge"><h3>CAPTURA MINIMO 4 OBJETIVOS</h3></div><div class="w3-col l1"><p>&nbsp;</p></div></div></div>';
+            $mensajeobjetivos .='<div class="w3-container"><div class="row"><div class="w3-col l1"><p>&nbsp;</p></div><div class="w3-col l10 w3-red w3-center w3-round-xlarge"><h3>Captura mínimo 4 objetivos</h3></div><div class="w3-col l1"><p>&nbsp;</p></div></div></div>';
             }else{
                 $mensajeobjetivos .='';
             }
@@ -594,6 +594,7 @@ if($estatusa==0 || $estatusa==1 || $estatusa==2){
     $envio .='<div><p>Debes de insertar por lo menos 4 objetivos actualiza el valor de uno de tus objetivos y agrega uno mas </p></div>';
     }else if ($cont >= 4 || $cont <=6 ){
         if($estatusa==0 || $estatusa==1){
+            if($rolprincipal=='COLABORADOR' || $rolprincipal=='JEFE INMEDIATO'){
                 $envio .='<div class="w3-container  w3-center">
                 <button onclick="document.getElementById(\'validaestablecimiento'.$id.'\').style.display=\'block\'" class="w3-button w3-red w3-large">Envía a revisión</button>
                 
@@ -618,6 +619,36 @@ if($estatusa==0 || $estatusa==1 || $estatusa==2){
                         </div>
                     </div>
                 </div>';
+            }else if($rolprincipal=='DIRECTOR'){
+
+                $envio .='<div class="w3-container  w3-center">
+                <button onclick="document.getElementById(\'directorestablecimiento'.$id.'\').style.display=\'block\'" class="w3-button w3-red w3-large w3-round-large">Finalizar Establecimiento</button>
+                
+                <div id="directorestablecimiento'.$id.'" class="w3-modal">
+                        <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+
+                            <form class="w3-container" id="directorest'.$id.'" method="POST" action="validedirector.php?sendobj='.$id.'">
+                            <input type="hidden" id="validauserid'.$id.'" name="validauserid'.$id.'" value="'.$USER->id.'" '.$requerido.'>
+                            <input type="hidden" id="validacourseid'.$id.'" name="validacourseid'.$id.'" value="'.$courseid.'" '.$requerido.'>
+                            <input type="hidden" id="validaidobjetivo'.$id.'" name="validaidobjetivo'.$id.'" value="'.$id.'" '.$requerido.'>
+                            <div class="w3-section">
+
+
+                                    <h1>¿Estás seguro de Finalizar el Establecimiento de Objetivos?</h1>
+
+                                <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
+                                    <button onclick="document.getElementById(\'directorestablecimiento'.$id.'\').style.display=\'none\'" type="button" class="w3-button w3-red w3-left w3-round-large">Cancelar</button>
+                                    <input class="w3-button  w3-green  w3-right w3-round-large" id="btndirector'.$id.'" type="submit" value="Finalizar">
+                                </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>';
+
+            }else{
+
+            }
         }
     }
 

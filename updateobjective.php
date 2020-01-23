@@ -137,7 +137,7 @@ if(isset($_GET['sendobj'])){
        // print_r($USER);
         $sendenvio = email_to_user($destinatario, $USER , $subject, $message);
 
-        print_r($sendenvio);
+       // print_r($sendenvio);
         
 
     
