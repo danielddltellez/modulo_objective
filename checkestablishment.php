@@ -109,7 +109,7 @@ echo '<div class="w3-bar w3-black">
                 <button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>
                 <button id="vistarevision1" class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>
                 <button id="vistarevision2" class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>
-                <button class="w3-bar-item w3-button"><a href="https://www.portal3i.mx/2546-Triplei/mod/objective/view.php?id='.$instance.'">Regresar</a></button>
+                <button class="w3-bar-item w3-button"><a href="'.$CFG->wwwroot.'/mod/objective/view.php?id='.$instance.'">Regresar</a></button>
         </div>';
                 $vistajefeinmediato .='<div class="w3-row">
                             <div class="w3-col l1">
@@ -373,7 +373,7 @@ if(empty($resultcontrol)){
 
                                 <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
                                     <button onclick="document.getElementById(\'validaobject'.$con.'\').style.display=\'none\'" type="button" class="w3-button w3-red w3-left">Regresar</button>
-                                    <input class="w3-button  w3-green  w3-right" id="validebtnobjetivo'.$con.'" type="submit" value="Aprobar Objetivo">
+                                    <input class="w3-button  w3-green  w3-right" id="validebtnobjetivo'.$con.'" type="submit" value="Guardar">
                                 </div>
                                 </form>
                             </div>
@@ -401,7 +401,7 @@ if(empty($resultcontrol)){
     }
     if($primeravalidacion==0 || $primeravalidacion==1 || $primeravalidacion==2 || $primeravalidacion==3){
 
-            $establecimiento .='<button onclick="document.getElementById(\'val'.$idform.'\').style.display=\'block\'" class="w3-button w3-pale-red w3-padding-16">Validar Objetivos</button>';
+            $establecimiento .='<button onclick="document.getElementById(\'val'.$idform.'\').style.display=\'block\'" class="w3-button w3-pale-red w3-padding-16">Revisión Final</button>';
 
             $establecimiento .='<div id="val'.$idform.'" class="w3-modal">
                 <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
@@ -415,9 +415,9 @@ if(empty($resultcontrol)){
                 <h3>Valida Establecimiento de Objetivos</h3>
                 <label><b>Selecciona el estatus de el establecimiento de objetivos</b></label>
                 <select class="w3-select" name="estatusobj">
-                <option value="2" selected>Modificar Establecimiento</option>
-                <option value="3">Finalizado Establecimiento</option>
-                <option value="4">En Proceso Revisión 1</option>
+                <!--<option value="2" >Modificar Establecimiento</option>-->
+                <option value="3"selected>Finalizado Establecimiento</option>
+                <!--<option value="4">En Proceso Revisión 1</option>-->
                 </select>
                 <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
                 <button onclick="document.getElementById(\'val'.$idform.'\').style.display=\'none\'" type="button" class="w3-button w3-gray">Cancelar</button>

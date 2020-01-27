@@ -50,7 +50,7 @@ class newgroupuser_form extends moodleform {
             
             
                 $options2 = array(
-                    '2' => 'COLABORADOR',
+                    '1' => 'COLABORADOR',
                     '3' => 'DIRECTOR'
                     
                     
@@ -58,7 +58,7 @@ class newgroupuser_form extends moodleform {
             }else{
                 $options2 = array(
                         
-                    '2' => 'COLABORADOR'
+                    '1' => 'COLABORADOR'
                 );
 
 
@@ -72,15 +72,15 @@ class newgroupuser_form extends moodleform {
 
                 if($resultado == NULL){
                     $options2 = array(
-                        '1' => 'JEFE INMEDIATO',
-                        '2' => 'COLABORADOR'
+                        '2' => 'JEFE INMEDIATO',
+                        '1' => 'COLABORADOR'
                     );
                 
                     
                 }else{
                     $options2 = array(
                         
-                        '2' => 'COLABORADOR'
+                        '1' => 'COLABORADOR'
                     );
                 
                 

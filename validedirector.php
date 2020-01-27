@@ -28,7 +28,7 @@ if(isset($_GET['sendobj'])){
     }
                 
     $destinatario=new stdClass();
-    $destinatario-> id=1554;
+    $destinatario-> id=449;
     $destinatario-> email = 'daniel.delaluz@triplei.mx';
 
 
