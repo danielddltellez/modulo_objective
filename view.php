@@ -70,6 +70,10 @@ $btncompetititon = new single_button(new moodle_url('/mod/objective/viewcompetit
 $btncompetititon->class = 'buttoncompetition';
 $btncompetititon->formid = 'newcompetition';
 
+$btnnotificacion = new single_button(new moodle_url('/mod/objective/notificacionobjetivos.php', array('id' => $id)),'Notificacion', $buttonadd, 'get');
+$btnnotificacion->class = 'buttonnotificacion';
+$btnnotificacion->formid = 'newnotificacion';
+
 $btnestablishment = new single_button(new moodle_url('/mod/objective/establishment.php', array('idmod' => $id)),'agrega tus objetivos', $buttonadd, 'get');
 $btnestablishment->class = 'establishment';
 $btnestablishment->formid = 'establishment';
@@ -140,7 +144,10 @@ echo '</ul><div class="tab-content">
                 echo $OUTPUT->render($btnquiz);
                 echo ('<br></br>');
                 echo $OUTPUT->render($btncompetititon);
+                echo ('<br></br>');
+                echo $OUTPUT->render($btnnotificacion);
                 echo '</div>';
+                
                 }
 
 
