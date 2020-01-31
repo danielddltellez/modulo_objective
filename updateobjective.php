@@ -113,27 +113,37 @@ if(isset($_GET['sendobj'])){
     $updateest = new stdClass();
     $updateest-> id = $idestablecimiento;
     $updateest-> status = 2;
-    $destinatario=new stdClass();
-    $destinatario-> id=449;
-    $destinatario-> email = 'daniel.delaluz@triplei.mx';
 
-    
+    $query="select UPPER(concat(u.firstname, ' ', u.lastname)) as 'nombre', oe.idjefedirecto as 'idjefedirecto' , (select u2.email from mdl_user u2 where oe.idjefedirecto = u2.id) as 'emailjefedirecto'
+    from mdl_objective_establishment oe
+    join mdl_user u on oe.userid = u.id
+    where oe.id=?";
+    $resultcontrol = $DB->get_records_sql($query, array($idestablecimiento));
+    $nombrecom="";
+    foreach($resultcontrol as $vals){
+        $nombrecom=$vals->nombre;
+        $idjefed=$vals->idjefedirecto;
+        $emailjefed=$vals->emailjefedirecto;
+
+        $destinatario=new stdClass();
+        $destinatario-> id=$idjefed;
+        $destinatario-> email = $emailjefed;
+
+
+    }
     try{
         $updateobjetivos = $DB->update_record('objective_establishment', $updateest, $bulk=false);
-        $fechaap=date("F j, Y, g:i a");
+        $fechaap=date("d-m-Y H:i:s");
         $subject='Establecimiento de Objetivos';
-        $message ="Estimado(a)  Lucio Garcia, \n\n";
-        $message .="Hacemos de tu conocimiento que NOMBRE DEL COLABORADOR ha finalizado el \n\n";
-        $message .="registrado de sus Objetivos 2020, es momento de que ingreses a plataforma a  \n\n";
-        $message .="Validar sus Objetivos, ingresa a la plataforma e-learning para Aprobar, Rechazar y/o  \n\n";
-        $message .="Para validar los objetivos, ingresa a tu perfil dando clic aquí. \n\n";
-        $message .="La fecha límite para realizar esta acción es: $fechaap\n\n";
+        $message ="Estimado(a)  Marco Polo, \n\n";
+        $message .="Hacemos de tu conocimiento que $nombrecom ha finalizado el\n\n";
+        $message .="registrado de sus Objetivos 2020, es momento de que ingreses a plataforma a Validar sus Objetivos, ingresa a la plataforma e-learning para Aprobar, Rechazar y/o Para validar los objetivos, \n\n";
+        $message .="ingresa a tu perfil dando clic https://www.portal3i.mx/2546-Triplei/mod/objective/view.php?id=6105 \n\n";
+        $message .="La fecha límite para realizar esta acción es el 07 de febrero del 2020\n\n";
         $message .="Glosario: \n\n";
         $message .="•	Aprobar – Estas de acuerdo con el objetivo ingresado por tu colaborador ya que se encuentra alineado a los objetivos de la Organización. \n\n";
         $message .="•	Rechazar – Parte del objetivo deberá ser editarlo por tu colaborador y deberá redactarlo nuevamente desde su perfil, ya que no está apegado a la estrategia de la Organización. \n\n";
         $message .="•	Cancelar – El objetivo es Cancelado ya que la estrategia / rol / prioridades del colaborador/ puesto ha cambiado y ya no es necesario ese objetivo. \n\n";
-        $message .="Glosario: \n\n";
-        $message .="Que tenga un excelente día\n\n";
        // print_r($USER);
         $sendenvio = email_to_user($destinatario, $USER , $subject, $message);
 
