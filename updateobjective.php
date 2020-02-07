@@ -114,16 +114,23 @@ if(isset($_GET['sendobj'])){
     $updateest-> id = $idestablecimiento;
     $updateest-> status = 2;
 
-    $query="select UPPER(concat(u.firstname, ' ', u.lastname)) as 'nombre', oe.idjefedirecto as 'idjefedirecto' , (select u2.email from mdl_user u2 where oe.idjefedirecto = u2.id) as 'emailjefedirecto'
-    from mdl_objective_establishment oe
-    join mdl_user u on oe.userid = u.id
-    where oe.id=?";
+    $query="select UPPER(concat(u.firstname, ' ', u.lastname)) as 'nombre', oe.idjefedirecto as 'idjefedirecto' , (select u2.email from mdl_user u2 where oe.idjefedirecto = u2.id) as 'emailjefedirecto', oe.courseid as 'idcurso' ,
+    (select FROM_UNIXTIME(ue.timeend, '%Y-%m-%d')
+           FROM mdl_course AS course  
+           JOIN mdl_enrol AS en ON en.courseid = course.id 
+           JOIN mdl_user_enrolments AS ue ON ue.enrolid = en.id
+           WHERE ue.userid = oe.idjefedirecto and course.id=oe.courseid) AS finm 
+       from mdl_objective_establishment oe
+       join mdl_user u on oe.userid = u.id
+       where oe.id=?";
     $resultcontrol = $DB->get_records_sql($query, array($idestablecimiento));
     $nombrecom="";
     foreach($resultcontrol as $vals){
         $nombrecom=$vals->nombre;
         $idjefed=$vals->idjefedirecto;
         $emailjefed=$vals->emailjefedirecto;
+        $fechafinal=$vals->finm;
+        $idcursonot=$vals->idcurso;
 
         $destinatario=new stdClass();
         $destinatario-> id=$idjefed;
@@ -133,6 +140,45 @@ if(isset($_GET['sendobj'])){
     }
     try{
         $updateobjetivos = $DB->update_record('objective_establishment', $updateest, $bulk=false);
+
+        $clienteSOAP = new SoapClient('http://192.168.14.30:8080/svcELearning.svc?wsdl');
+           // https://www.portal3i.mx/URL/new_login.php?email=ingdanieltellez2015@gmail.com&courseid=12
+            $mensaje=''.$nombrecom.'  ha finalizado el registrado de sus Objetivos 2020, por favor ingresa a Validar sus Objetivos dando clic aquí~https://www.portal3i.mx/openlms/tripleI.php?email='.$emailjefed.'&courseid='.$idcursonot.'~. La fecha límite para realizar esta acción es '.$fechafinal.'';
+
+            $mensajeemail=''.$nombrecom.'  ha finalizado el registrado de sus Objetivos 2020, por favor ingresa a Validar sus Objetivos dando clic aquí https://www.portal3i.mx/openlms/tripleI.php?email='.$emailjefed.'&courseid='.$idcursonot.'. La fecha límite para realizar esta acción es '.$fechafinal.'';
+                try{
+                $parametros=array(); //parametros de la llamada
+                $parametros['mensaje']=$mensajeemail;
+                $parametros['correo']=$emailjefed;
+                $parametros['aplicacion']='Establecimiento de Objetivos';
+                $parametros['idAplicacion']=(int)9;
+                $parametros['IdAmbiente']=(int)1;
+                $parametros['IdTipoNotificacion']=(int)1;
+                $result = $clienteSOAP->Notificacion($parametros);
+                $statusfinal = $result->envioNotificacionUsuarioResult;
+               
+                } catch(SoapFault $e){
+                var_dump($e);
+                
+                 }
+                try{
+                    $parametros1=array(); //parametros de la llamada
+                    $parametros1['mensaje']=$mensaje;
+                    $parametros1['correo']=$emailjefed;
+                    $parametros1['aplicacion']='Establecimiento de Objetivos';
+                    $parametros1['idAplicacion']=(int)9;
+                    $parametros1['IdAmbiente']=(int)1;
+                    $parametros1['IdTipoNotificacion']=(int)0;
+                    $result1 = $clienteSOAP->Notificacion($parametros1);
+                    $statusfinal1 = $result1->envioNotificacionUsuarioResult;
+                   
+                    } catch(SoapFault $e){
+                    var_dump($e);
+                   
+                }
+                
+
+     /*
         $fechaap=date("d-m-Y H:i:s");
         $subject='Establecimiento de Objetivos';
         $message ="Estimado(a)  Marco Polo, \n\n";
@@ -149,14 +195,14 @@ if(isset($_GET['sendobj'])){
 
        // print_r($sendenvio);
         
-
+*/
     
     } catch(\Throwable $e) {
             // PHP 7 
         echo 'ERROR AL ACTUALIZAR OBJETIVO 6';
     } 
         header("Location:".$_SERVER['HTTP_REFERER']);
-
+   
 
 }
 

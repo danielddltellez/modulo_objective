@@ -254,7 +254,7 @@ if(empty($resultcontrol)){
     $establecimiento .='<div id="objetivosestablecidos'.$valuecontrol->targetnumber.'">
                             <div class="w3-row">
                                     <div class="w3-col l9 w3-dark-grey">
-                                        <p>Breve descripción del objetivo '.$valuecontrol->targetnumber.'</p>
+                                        <p>Breve descripción del objetivo '.$con.'</p>
                                     </div>
                                     <div class="w3-col l3 w3-grey">
                                     <input type="hidden" id="aprobado'.$con.'" name="aprobado'.$con.'" value="'.$valuecontrol->estatusobj.'">

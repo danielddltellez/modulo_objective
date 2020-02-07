@@ -431,11 +431,11 @@ foreach($resultcontrol as $valuecontrol){
                                         <input type="hidden" id="actualizacionobjec'.$cont.'" name="actualizacionobjec'.$cont.'" value="'.$valuecontrol->valueobjective.'" '.$requerido.'>
                                         <div class="w3-section">
                                             <label><b>Objetivo Completo</b></label>
-                                            <p><textarea class="w3-input w3-border" maxlength="200" rows="4" cols="50" type="text" id="objetivocompleto'.$cont.'" name="objetivocompleto'.$cont.'">'.$valuecontrol->objectivecomplete.'</textarea></p>
+                                            <p><textarea class="w3-input w3-border" maxlength="900" rows="4" cols="50" type="text" id="objetivocompleto'.$cont.'" name="objetivocompleto'.$cont.'">'.$valuecontrol->objectivecomplete.'</textarea></p>
                                             <label><b>Fecha inicial</b></label>
-                                            <p><input class="w3-input w3-border" type="date" id="fechainicio'.$cont.'" min="'.$fcha.'" max="2020-12-31"  name="fechainicio'.$cont.'" value="'.$valuecontrol->fechaini.'"></p>
+                                            <p><input class="w3-input w3-border" type="date" id="fechainicio'.$cont.'" min="2020-01-01" max="2020-12-31"  name="fechainicio'.$cont.'" value="'.$valuecontrol->fechaini.'"></p>
                                             <label><b>Fecha final</b></label>
-                                            <p><input class="w3-input w3-border" type="date" id="fechafinal'.$cont.'" min="'.$fcha.'" max="2020-12-31"  name="fechafinal'.$cont.'" value="'.$valuecontrol->fechafin.'"></p>
+                                            <p><input class="w3-input w3-border" type="date" id="fechafinal'.$cont.'" min="2020-01-01" max="2020-12-31"  name="fechafinal'.$cont.'" value="'.$valuecontrol->fechafin.'"></p>
                                             <label><b>Valor del objetivo sobre 100</b></label>
                                             <p><input class="w3-input w3-border" type="text" id="valorobjetivo'.$cont.'"  name="valorobjetivo'.$cont.'" data-parsley-type="number" value="'.$valuecontrol->valueobjective.'"></p>
                                             <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
@@ -537,7 +537,7 @@ if($estatusa==0 || $estatusa==1 || $estatusa==2){
                                     <div class="w3-row">
                                         <div class="w3-col m12 w3-white w3-center">
                                             <p class="text-oc">Objetivo Completo</p>
-                                            <p><textarea class="w3-input w3-border" maxlength="200" rows="4" cols="50" type="text" id="objetivocompleto'.$i.'" name="objetivocompleto'.$i.'" '.$requeridotext.'></textarea></p>
+                                            <p><textarea class="w3-input w3-border" maxlength="1000" rows="4" cols="50" type="text" id="objetivocompleto'.$i.'" name="objetivocompleto'.$i.'" '.$requeridotext.'></textarea></p>
                                         </div>
                                     </div>
                                     <div class="w3-row">
@@ -551,11 +551,11 @@ if($estatusa==0 || $estatusa==1 || $estatusa==2){
                                     <div class="row">
                                         <div class="w3-col m4 w3-white w3-center">
                                             <p class="text-cuestion">Fecha inicial</p>
-                                            <p><input class="w3-input w3-border" type="date" min="'.$fcha.'" max="2020-12-31" id="fechainicio'.$i.'" name="fechainicio'.$i.'"></p>
+                                            <p><input class="w3-input w3-border" type="date" min="2020-01-01" max="2020-12-31" id="fechainicio'.$i.'" name="fechainicio'.$i.'"></p>
                                         </div>
                                         <div class="w3-col m4 w3-white w3-center">
                                             <p class="text-cuestion">Fecha final</p>
-                                            <p><input class="w3-input w3-border" type="date" min="'.$fcha.'"" max="2020-12-31" id="fechafinal'.$i.'" name="fechafinal'.$i.'"></p>
+                                            <p><input class="w3-input w3-border" type="date" min="2020-01-01" max="2020-12-31" id="fechafinal'.$i.'" name="fechafinal'.$i.'"></p>
                                         </div>
                                         <div class="w3-col m4 w3-white w3-center">
                                             <p class="text-cuestion">Valor del objetivo sobre 100</p>

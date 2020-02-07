@@ -28,7 +28,8 @@ if(isset($_GET['sendobj'])){
     }
                 
     $destinatario=new stdClass();
-    $destinatario-> id=449;
+    // $destinatario-> id=449;
+    $destinatario-> id=771;
     $destinatario-> email = 'daniel.delaluz@triplei.mx';
 
 
@@ -42,7 +43,7 @@ if(isset($_GET['sendobj'])){
         
     } catch(\Throwable $e) {
         // PHP 7 
-    echo 'ERROR AL ACTUALIZAR OBJETIVO 6';
+    echo 'Error al enviar notificacion';
     } 
     header("Location:".$_SERVER['HTTP_REFERER']);
 
