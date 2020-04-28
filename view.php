@@ -23,6 +23,7 @@
 require(__DIR__.'/../../config.php');
 require_once(__DIR__.'/lib.php');
 
+
 global $DB, $OUTPUT, $USER;
 // Course_module ID, or
 $id = optional_param('id', 0, PARAM_INT);
@@ -121,6 +122,9 @@ echo '<head>
 </head><div class="tabbable">
 <ul class="nav nav-tabs">
 <li class="active"><a href="#tab1" data-toggle="tab">Mis Objetivos</a></li>';
+
+
+
 if (user_has_role_assignment($USER->id, 1) || is_siteadmin()) {          
 echo '<li><a href="#tab2" data-toggle="tab">Administrador</a></li>';
 }
@@ -134,7 +138,7 @@ echo '</ul><div class="tab-content">
             }
             objective_print_establishment($viewestablishment);
             echo '</div>';
-            if (user_has_role_assignment($USER->id, 1) || is_siteadmin()) {
+            if (is_siteadmin()) {
             echo '<div class="tab-pane" id="tab2">';
             
                 echo $OUTPUT->render($button);
@@ -148,7 +152,18 @@ echo '</ul><div class="tab-content">
                 echo $OUTPUT->render($btnnotificacion);
                 echo '</div>';
                 
-                }
+            }else if(user_has_role_assignment($USER->id, 1)){
+
+                echo '<div class="tab-pane" id="tab2">';
+            
+                echo $OUTPUT->render($button);
+                echo ('<br></br>');
+                echo '</div>';
+
+
+            }else{
+
+            }
 
 
 echo '</div></div>';

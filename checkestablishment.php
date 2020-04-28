@@ -232,6 +232,7 @@ inner join mdl_objective_establishment o on o.id = es.idobjective,
 (SELECT @rownum:=0) R
 where es.courseid=? and es.idobjective=? and o.idjefedirecto=? and es.status !=3 order by es.id ASC';
 $resultcontrol = $DB->get_records_sql($querycontrol, array($courseid, $id, $USER->id));
+$totalobjetivos=0;
 if(empty($resultcontrol)){
 
     $establecimiento .='<div class="w3-container"><div class="w3-row"> <div class="w3-col ml2">
@@ -384,6 +385,7 @@ if(empty($resultcontrol)){
         }else{
 
         }
+        $totalobjetivos=$totalobjetivos + $valuecontrol->valueobjective;
     
 
                         
@@ -399,6 +401,7 @@ if(empty($resultcontrol)){
         $primeravalidacion=$validacion1->estatusformato;
 
     }
+    if($totalobjetivos == 100){
     if($primeravalidacion==0 || $primeravalidacion==1 || $primeravalidacion==2 || $primeravalidacion==3){
 
             $establecimiento .='<button onclick="document.getElementById(\'val'.$idform.'\').style.display=\'block\'" class="w3-button w3-pale-red w3-padding-16">Revisión Final</button>';
@@ -432,10 +435,24 @@ if(empty($resultcontrol)){
         $establecimiento .='<form class="w3-container" id="validafinalobj" method="POST"></form>';
 
     }
+}
   
 
 }           
 $competencias1 .='<div class="w3-container">
+<div class="w3-row">
+    <div class="w3-col l4">
+        <p>&nbsp;</p>
+    </div>
+    <div  class="w3-col l4">
+        <p>&nbsp;</p>
+    </div>
+    <div class="w3-col l4">
+        <h3>Total: <span class="w3-badge w3-xlarge w3-red w3-padding">'.$totalobjetivos.'%</span></h3>
+    </div>
+</div>
+</div>
+<div class="espacio"></div><div class="w3-container">
                     <div class="w3-row">
                         <div class="w3-col l1">
                             <p></p>
@@ -2965,7 +2982,7 @@ $(document).on('ready', function() {
         var valid4 = $("#aprobado5").val();
         var valid5 = $("#aprobado6").val();
 
-        if(valid == "Aprobado" && valid1 == "Aprobado" && valid2 == "Aprobado" && valid3 == "Aprobado"){
+        if(valid == "Aprobado" && valid1 == "Aprobado" && valid2 == "Aprobado" && valid3 == "Aprobado" && valid4 == undefined && valid5 == undefined){
             $.ajax({
                 type: $(this).attr("method"),
                 url: $(this).attr("action"),
@@ -3004,7 +3021,7 @@ $(document).on('ready', function() {
                     alert("Problemas al tratar de enviar el formulario");
                 }
             });
-        }else if(valid == "Aprobado" && valid1 == "Aprobado" && valid2 == "Aprobado" && valid3 == "Aprobado" && valid4 == "Aprobado"){
+        }else if(valid == "Aprobado" && valid1 == "Aprobado" && valid2 == "Aprobado" && valid3 == "Aprobado" && valid4 == "Aprobado" && valid5 == undefined){
             $.ajax({
                 type: $(this).attr("method"),
                 url: $(this).attr("action"),

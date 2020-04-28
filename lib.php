@@ -111,10 +111,11 @@ function objective_print_groups($viewgroups, $return = 0){
            $display .= html_writer::start_tag('em', array('class' => 'fa fa-search'));
            $display .= html_writer::end_tag('em');
            $display .= html_writer::end_tag('a');
+           /*
            $display .= html_writer::start_tag('a',array('class' => 'btn btn-danger', 'data-toggle'=>'modal', 'href' => '#delete_group'.$value->id.''));
            $display .= html_writer::start_tag('em', array('class' => 'fa fa-trash'));
            $display .= html_writer::end_tag('em');
-           $display .= html_writer::end_tag('a');
+           $display .= html_writer::end_tag('a');*/
            include('modals/modal.php');
            $display .= html_writer::end_tag('td');
            $display .= html_writer::end_tag('tr');
@@ -154,9 +155,11 @@ function objective_print_groups_users($viewgroupusers, $return = 0){
        $display .= html_writer::start_tag('th');
        $display .= clean_text('<strong>Estatus</strong>');
        $display .= html_writer::end_tag('th');
+       /*
        $display .= html_writer::start_tag('th');
        $display .= clean_text('<strong>Acciones</strong>');
        $display .= html_writer::end_tag('th');
+       */
        $display .= html_writer::end_tag('tr');
        $display .= html_writer::end_tag('thead');
        $display .= html_writer::start_tag('tbody');
@@ -180,6 +183,7 @@ function objective_print_groups_users($viewgroupusers, $return = 0){
            $display .= html_writer::start_tag('td');
            $display .= clean_text($values->estatus);
            $display .= html_writer::end_tag('td');
+           /*
            $display .= html_writer::start_tag('td');
            $display .= html_writer::start_tag('a',array('class' => 'btn btn-info', 'data-toggle'=>'modal', 'href' => '#edit_group_user'.$values->id.''));
            $display .= html_writer::start_tag('em', array('class' => 'fa fa-pencil'));
@@ -191,6 +195,7 @@ function objective_print_groups_users($viewgroupusers, $return = 0){
            $display .= html_writer::end_tag('a');
            include('modals/modal.php');
            $display .= html_writer::end_tag('td');
+           */
            $display .= html_writer::end_tag('tr');
        }
       $display .= html_writer::end_tag('tbody');

@@ -369,11 +369,11 @@ foreach($resultcontrol as $valuecontrol){
                                         <p class="w3-input w3-border">'.$valuecontrol->thatquestion.'</p>
                                     </div>
                                     <div class="w3-col m2 w3-white w3-center">
-                                        <p class="text-cuestion">4. ¿Cómo se quiere medir?</p>
+                                        <p class="text-cuestion">4. Especifica</p>
                                         <p class="w3-input w3-border">'.$valuecontrol->specifyquestion.'</p>
                                     </div>
                                     <div class="w3-col m2 w3-white w3-center">
-                                        <p class="text-cuestion">5. ¿Cuánto quieres que mida?</p>
+                                        <p class="text-cuestion">5. Periodo</p>
                                         <p class="w3-input w3-border">'.$valuecontrol->periodquestion.'</p>
                                     </div>
                                 </div>
