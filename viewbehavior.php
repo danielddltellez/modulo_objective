@@ -73,8 +73,8 @@ WHEN ocb.status = 0 THEN 'HABILITADO'
 WHEN ocb.status = 1 THEN 'INHABILITADO'
 ELSE 'SIN VALOR'
 END AS estatus
-from mdl_objective_competition_behavior ocb
-inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+from {objective_competition_behavior} ocb
+inner join {objective_competition} oc on oc.id=ocb.idcompetition
 where ocb.idcompetition='".$id."' and oc.courseid='".$courseid."' ORDER BY ocb.id ASC";
 $viewbehavior = $DB->get_records_sql($sql, array());  
 

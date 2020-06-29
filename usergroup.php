@@ -31,8 +31,9 @@ global $DB, $OUTPUT, $USER;
 // Check for all required variables.
 $courseid = required_param('courseid', PARAM_INT);
 // Next look for optional variables.
-$id = optional_param('idgroup', 0, PARAM_INT);
+$id = optional_param('idgroup',0, PARAM_INT);
 $instance = optional_param('instance', 0, PARAM_INT); 
+//$a = optional_param('param', 0, PARAM_INT); 
 
 if (!$course = $DB->get_record('course', array('id' => $courseid))) {
     print_error('invalidcourse', 'objective', $courseid);
@@ -40,7 +41,7 @@ if (!$course = $DB->get_record('course', array('id' => $courseid))) {
 
 require_login($course); 
 
-$PAGE->set_url('/mod/objective/usergroup.php', array('courseid' => $courseid,'instance' => $instance, 'idgroup' => $id));
+$PAGE->set_url('/mod/objective/usergroup.php', array('courseid' => $courseid,'instance' => $instance, 'idgroup' => $id, 'param' => $a));
 $PAGE->set_pagelayout('standard');
 $groupuserform = new newgroupuser_form();
 $toform['userid'] = $USER->id;
@@ -64,9 +65,184 @@ if ($groupuserform->is_cancelled()) {
     //Handle form cancel operation, if cancel button is present on form
 } else if ($fromform = $groupuserform->get_data()) {
     global $DB;
-  //In this case you process validated data. $mform->get_data() returns data posted in form.
 
-  $lastinsertid = $DB->insert_record('objective_groups_users', $fromform);
+    //In this case you process validated data. $mform->get_data() returns data posted in form.
+   
+    $rol = $fromform->rol;
+    $idgrupos = $fromform->idgroup;
+    $idjefe = $fromform->idusuario;
+    $idcourse=$fromform->courseid;
+    $idmod=$fromform->instance;
+   // echo $rol;
+    //echo '<br>';
+   $insertusergroup = $DB->insert_record('objective_groups_users', $fromform);
+   //print_r($insertusergroup);
+   //echo '<br/>';
+   //echo $rol;
+   //exit();
+   // echo '<br>';
+  if($rol==2 || $rol==3){
+
+    $sql="select b.id , a.idgroup , b.userid, b.rol , b.status from {objective_groups_users} a
+    join {objective_establishment} b on a.idusuario=b.userid
+    where a.idgroup=?
+    and b.courseid=?
+    and b.idmod=?
+    and b.userid !=?";
+    $viewusers = $DB->get_records_sql($sql, array($idgrupos,$idcourse,$idmod,$idjefe));
+    //print_r($viewusers);
+    //exit();
+
+    foreach($viewusers as  $values){
+
+      $idestablecimiento= $values->id;
+
+      $record6 = new stdClass();
+      $record6-> id = $idestablecimiento;
+      $record6-> idjefedirecto = $idjefe;
+      $record6-> status = 1;
+        try{
+          $lastupdateid = $DB->update_record('objective_establishment', $record6, $bulk=false);
+        // print_r($lastupdateid);
+
+        } catch(\Throwable $e) {
+          // PHP 7 
+          echo 'ERROR AL ACTUALIZAR OBJETIVO 6';
+        } 
+    $sqlreiniciarobj="select id from {objective_establishment_captured} where idobjective=? and status !=?";
+    $idreiniciarobj = $DB->get_records_sql($sqlreiniciarobj, array($idestablecimiento,3));
+    foreach($idreiniciarobj as $val){
+
+      $idobj=$val->id;
+      $record = new stdClass();
+      $record-> id = $idobj;
+      $record-> comentariosjefe = NULL;
+      $record-> status = 0;
+
+          try{
+            $updatecaptured = $DB->update_record('objective_establishment_captured', $record, $bulk=false);
+          // print_r($lastupdateid);
+      
+          } catch(\Throwable $e) {
+            // PHP 7 
+            echo 'Error al actualizar los objetivos';
+          } 
+
+
+    }
+   }
+
+   $cambiorol="select id from {objective_establishment} where userid=?";
+   $cambior = $DB->get_records_sql($cambiorol, array($idjefe));
+
+   foreach($cambior as $vals){
+
+     $idest=$vals->id;
+     $record = new stdClass();
+     $record-> id = $idest;
+     $record-> rol = 2;
+
+     
+     try{
+       $updaterol = $DB->update_record('objective_establishment', $record, $bulk=false);
+     // print_r($lastupdateid);
+ 
+     } catch(\Throwable $e) {
+       // PHP 7 
+       echo 'Error al actualizar los objetivos';
+     } 
+
+
+
+
+   }
+
+   // print_r($viewusers);
+
+    //echo $idjefe;
+    //echo '<br>';
+
+
+  }else{
+
+
+
+    $queryestableciminetousuario="select id as idcolaboradorestablecimiento from mdl_objective_establishment where userid=? and courseid=?";
+    $querycolaborador = $DB->get_records_sql($queryestableciminetousuario, array($idjefe , $idcourse));
+
+    if(!empty($querycolaborador)){
+
+        foreach($querycolaborador as $valores){
+
+          $idestcolaborador=$valores->idcolaboradorestablecimiento;
+
+        } 
+
+
+
+        $query="select a.idusuario as idjefeinmediato
+        from {objective_groups_users} a
+        where a.idgroup=?
+        and a.courseid=?
+        and a.rol !=?";
+        $queryjefe = $DB->get_records_sql($query, array($idgrupos,$idcourse,1));
+
+        if(!empty($queryjefe)){
+
+          
+
+            foreach($queryjefe as $cat){
+            $idjefedecolab= $cat->idjefeinmediato;
+            }
+        }else{
+
+            $queryjefedejefe="select a.id, a.idusuario, 
+              (select a2.idusuario as jefe from mdl_objective_groups_users a2 where a2.rol !=1 and a2.idgroup = b.category) as idjefejefe
+              from {objective_groups_users} a
+              join {objective_groups} b on b.id=a.idgroup
+              where a.idgroup=?
+              and a.courseid=?
+              and a.rol =?
+              and a.idusuario = ?";
+              $resultadodejefe = $DB->get_records_sql($queryjefedejefe, array($idgrupos,$idcourse,1, $idjefe));
+            foreach($resultadodejefe as $cate){
+              $idjefedecolab=$cate->idjefejefe;
+            }
+
+        }
+
+        $actjefeesta = new stdClass();
+        $actjefeesta -> id = $idestcolaborador;
+        $actjefeesta -> idjefedirecto = $idjefedecolab;
+        $actjefeesta -> status = 1;
+
+        try{
+
+            $updateestabcolaborador = $DB->update_record('objective_establishment', $actjefeesta, $bulk=false);
+          // print_r($lastupdateid);
+  
+          } catch(\Throwable $e) {
+            // PHP 7 
+            echo 'ERROR AL ACTUALIZAR OBJETIVO 6';
+          } 
+
+
+
+    }
+
+  
+
+
+  
+  }
+  //exit();
+
+
+
+
+
+
+
   redirect($courseurl);
 
 

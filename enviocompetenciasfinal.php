@@ -69,7 +69,7 @@ foreach($_POST as $k=>$v){
 
 
 $iduser=$USER->id;
-$querycontrol='select idmod from mdl_objective_establishment where userid=?';
+$querycontrol='select idmod from {objective_establishment} where userid=?';
 
 $resultcontrol = $DB->get_records_sql($querycontrol, array($iduser));
 $idins='';

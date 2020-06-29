@@ -52,13 +52,28 @@ $PAGE->set_context($modulecontext);
 
 
 echo $OUTPUT->header();
+echo '<link rel="stylesheet" href="./css/w3.css">';
 echo '<h1><b>Grupos establecimiento de objetivos</b></h1>';
+?>
+<script>
+function myFunction() {
+  var x = document.getElementById("demo");
+  if (x.className.indexOf("w3-show") == -1) { 
+    x.className += " w3-show";
+  } else {
+    x.className = x.className.replace(" w3-show", "");
+  }
+}
+</script>
+<?php
 $button = new single_button(new moodle_url('/mod/objective/newgroup.php', array('courseid' => $cm->course, 'idinstance'=>$cm->instance, 'idmod'=>$id)),'Agrega grupo', $buttonadd, 'get');
 $button->class = 'singlebutton groupaddnew';
 $button->formid = 'newgroup';
 
+
+
 //Muestras informacion de los cursos
-$sql="select * from mdl_objective_groups where courseid='".$cm->course."' and idinstance='".$cm->instance."' and idmod='".$id."'";
+$sql="select * from {objective_groups} where courseid='".$cm->course."' and idinstance='".$cm->instance."' and idmod='".$id."'";
 $viewgroups = $DB->get_records_sql($sql, array());  
 echo $OUTPUT->render($button);
 objective_print_groups($viewgroups);

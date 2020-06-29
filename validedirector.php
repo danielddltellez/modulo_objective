@@ -14,7 +14,7 @@ if(isset($_GET['sendobj'])){
     $updateest-> status = 3;
     
     $updateobjetivos = $DB->update_record('objective_establishment', $updateest, $bulk=false);
-    $sql='select id as idestablecimiento from mdl_objective_establishment_captured where idobjective=?';
+    $sql='select id as idestablecimiento from {objective_establishment_captured} where idobjective=?';
     $resultcontrol = $DB->get_records_sql($sql, array($idestablecimiento));
 
     foreach($resultcontrol as $values){

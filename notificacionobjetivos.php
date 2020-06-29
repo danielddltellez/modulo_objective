@@ -54,8 +54,8 @@ $PAGE->set_context($modulecontext);
 echo $OUTPUT->header();
 $courseid=$cm->course;
 
-$sql='select user2.firstname AS nombre, user2.lastname AS apellido, user2.email AS correo, user2.username AS username, course.fullname AS curso ,(SELECT shortname FROM mdl_role WHERE id=en.roleid) AS ROLE ,(SELECT name FROM mdl_role WHERE id=en.roleid) AS RoleName ,FROM_UNIXTIME(ue.timestart, \'%Y-%m-%d\') AS iniciom ,FROM_UNIXTIME(ue.timeend, \'%Y-%m-%d\') AS finm
-FROM mdl_course AS course  JOIN mdl_enrol AS en ON en.courseid = course.id JOIN mdl_user_enrolments AS ue ON ue.enrolid = en.id JOIN mdl_user AS user2 ON ue.userid = user2.id
+$sql='select user2.firstname AS nombre, user2.lastname AS apellido, user2.email AS correo, user2.username AS username, course.fullname AS curso ,(SELECT shortname FROM {role} WHERE id=en.roleid) AS ROLE ,(SELECT name FROM {role} WHERE id=en.roleid) AS RoleName ,FROM_UNIXTIME(ue.timestart, \'%Y-%m-%d\') AS iniciom ,FROM_UNIXTIME(ue.timeend, \'%Y-%m-%d\') AS finm
+FROM {course} AS course  JOIN {enrol} AS en ON en.courseid = course.id JOIN {user_enrolments} AS ue ON ue.enrolid = en.id JOIN {user} AS user2 ON ue.userid = user2.id
 WHERE course.id=? AND FROM_UNIXTIME(ue.timestart, \'%Y-%m-%d\') = CURDATE()';
 try{
 $query = $DB->get_records_sql($sql, array($courseid));

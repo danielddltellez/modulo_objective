@@ -68,7 +68,7 @@ $button->formid = 'addquestion';
 echo $OUTPUT->render($button);
 //Muestras informacion de los cursos
 
-$sql="select * from mdl_objective_quiz_question where idquiz='".$id."' ORDER BY orden ASC";
+$sql="select * from {objective_quiz_question} where idquiz='".$id."' ORDER BY orden ASC";
 $viewquestion = $DB->get_records_sql($sql, array());  
 
 objective_print_quiz_question($viewquestion);

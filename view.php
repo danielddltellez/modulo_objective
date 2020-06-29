@@ -94,19 +94,19 @@ WHEN (oe.status) = 0 THEN 'Por Iniciar Establecimiento'
 WHEN (oe.status) = 1 THEN 'En Proceso Establecimiento'
 WHEN (oe.status) = 2 THEN 'Enviado a Aprobación Establecimiento'
 WHEN (oe.status) = 3 THEN 'Finalizado Establecimiento'
-WHEN (oe.status) = 4 THEN 'En Proceso Revisión 1'
-WHEN (oe.status) = 5 THEN 'Enviado a Aprobación Revisión 1'
-WHEN (oe.status) = 6 THEN 'Finalizado Revisión 1'
+WHEN (oe.status) = 4 THEN 'En Proceso Revisión Mitad de año'
+WHEN (oe.status) = 5 THEN 'Enviado a Aprobación Revisión Mitad de año'
+WHEN (oe.status) = 6 THEN 'Finalizado Revisión Mitad de año'
 WHEN (oe.status) = 7 THEN 'En Proceso Revisión Final'
 WHEN (oe.status) = 8 THEN 'Enviado a Aprobación Revisión Final'
 WHEN (oe.status) = 9 THEN 'Finalizado Revisión Final'
 ELSE 'SIN VALOR'
 END AS estatus
 ,og.id as idgrupo, oe.status, oe.idjefedirecto
-from mdl_objective_establishment oe
-inner join mdl_user u on u.id = oe.userid
-inner join mdl_objective_groups_users gu on  gu.idusuario = oe.userid and gu.rol = oe.rol
-inner join mdl_objective_groups og on og.id = gu.idgroup
+from {objective_establishment} oe
+inner join {user} u on u.id = oe.userid
+inner join {objective_groups_users} gu on  gu.idusuario = oe.userid and gu.rol = oe.rol
+inner join {objective_groups} og on og.id = gu.idgroup
 where oe.courseid=? and oe.idinstance=? and oe.idmod=? and u.id = ?";
 $viewestablishment = $DB->get_records_sql($sql, array($cm->course, $cm->instance, $id, $USER->id));  
 //$viewestablishment = $DB->get_records_sql($sql, array());  
@@ -125,7 +125,7 @@ echo '<head>
 
 
 
-if (user_has_role_assignment($USER->id, 1) || is_siteadmin()) {          
+if (user_has_role_assignment($USER->id, 1) || is_siteadmin() || user_has_role_assignment($USER->id, 2)) {          
 echo '<li><a href="#tab2" data-toggle="tab">Administrador</a></li>';
 }
 echo '</ul><div class="tab-content">
@@ -152,7 +152,7 @@ echo '</ul><div class="tab-content">
                 echo $OUTPUT->render($btnnotificacion);
                 echo '</div>';
                 
-            }else if(user_has_role_assignment($USER->id, 1)){
+            }else if(user_has_role_assignment($USER->id, 1) || user_has_role_assignment($USER->id, 2)){
 
                 echo '<div class="tab-pane" id="tab2">';
             

@@ -64,8 +64,8 @@ WHEN oq.status = 1 THEN 'Activo'
 WHEN oq.status = 0 THEN 'Inactivo'
 ELSE 'N/A'
 END AS estatus 
-from mdl_objective_quiz oq
-inner join mdl_objective_quiz_format oqf on oqf.id = oq.idformat
+from {objective_quiz} oq
+inner join {objective_quiz_format} oqf on oqf.id = oq.idformat
 where oq.courseid='".$cm->course."' and oq.idinstance='".$cm->instance."' and oq.idmod='".$id."'";
 $viewquiz = $DB->get_records_sql($sql, array());  
 

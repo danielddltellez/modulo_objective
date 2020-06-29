@@ -29,12 +29,12 @@
                                     <label class="col-xs-3 control-label" for="nombrecompleto"><?php echo $values->nombrecompleto; ?></label>
                                    
                                 <span class="help-block"></span></div>
-                                <div class="form-group" id="updatestatus">
-                                    <label class="control-label col-md-3" for="status">Estatus</label>
+                                <div class="form-group" id="updatestatus<?php echo  $values->id; ?>">
+                                    <label class="control-label col-md-3" for="status">Acciones</label>
                                     <div class="col-md-9">
-                                        <select class="form-control" id="status" name="status">
-                                            <option value="0" <?php if (!(strcmp("HABILITADO", htmlentities($values->estatus, ENT_COMPAT, 'utf-8')))) {echo "SELECTED";} ?> >HABILITADO</option>
-                                            <option value="1" <?php if (!(strcmp("INHABILITADO", htmlentities($values->estatus, ENT_COMPAT, 'utf-8')))) {echo "SELECTED";} ?> >INHABILITADO</option>
+                                        <select class="form-control" id="status" name="status<?php echo  $values->id; ?>">
+                                        <option value="0">Habilitar</option>
+                                        <option value="1">Inhabilitar</option>
                                         </select>
                                     </div>
                                 <span class="help-block"></span></div>
@@ -45,7 +45,7 @@
                            <button type="button" class="btn btn-link" data-dismiss="modal">Cerrar</button>
                           <input class="btn btn-primary submitBtn" name="editarusuariogrupo"  type="submit"  value="actualizar" />
                         </div>
-                          </form>
+                    </form>
                     </div>
                 </div>
 
@@ -86,3 +86,4 @@
         </div>
     </div>
 </div>
+

@@ -11,10 +11,7 @@
 require_once("{$CFG->libdir}/formslib.php");
 
 $idgrupo = $_GET['idgroup'];
-
-
-
- 
+//$parametro = $_GET['param'];
 class newgroupuser_form extends moodleform {
     //Lucius - En definition definimos la estructura de nuestro formulario.
     //Lucius - La funcion definition() está definida en la clase moodleform del archivo formslib.php
@@ -32,62 +29,60 @@ class newgroupuser_form extends moodleform {
         $mform->addElement('hidden', 'timecreated');
         $mform->addElement('hidden','timemodified');
         $mform->addElement('hidden','instance');
+  
+        $options2 = array();
 
 
+        $sqlgrupo = "select id, category from {objective_groups} where id=? and courseid=?";
+        $consulta = $DB->get_records_sql($sqlgrupo, array($idgrupo, $COURSE->id));
+        foreach($consulta as $valor){
+            $categoria=$valor->category;
+        }
+        
 
 
-
-        $validar="select distinct ob.id
-        from mdl_objective_groups ob 
-        where ob.courseid=? and ob.category=? and ob.id=?";
-        $result = $DB->get_records_sql($validar, array($COURSE->id, 0, $idgrupo));
-
-        if($result != null){
-
-            $validacion="select id from {objective_groups_users} where courseid=? and idgroup=? and rol=? and status=?";
-            $resultado = $DB->get_records_sql($validacion, array($COURSE->id, $idgrupo, 3, 0));
-            if($resultado == NULL){
-            
-            
-                $options2 = array(
-                    '1' => 'COLABORADOR',
-                    '3' => 'DIRECTOR'
-                    
-                    
-                );
-            }else{
-                $options2 = array(
-                        
-                    '1' => 'COLABORADOR'
-                );
-
-
-            }
-   
-        }else{
+            if($categoria = 0){
 
                 $validacion="select id from {objective_groups_users} where courseid=? and idgroup=? and rol=? and status=?";
-
-                $resultado = $DB->get_records_sql($validacion, array($COURSE->id, $idgrupo, 1, 0));
-
+                $resultado = $DB->get_records_sql($validacion, array($COURSE->id, $idgrupo, 3, 0));
                 if($resultado == NULL){
-                    $options2 = array(
-                        '2' => 'JEFE INMEDIATO',
-                        '1' => 'COLABORADOR'
-                    );
                 
-                    
-                }else{
+                
                     $options2 = array(
+                        '3' => 'DIRECTOR',  
+                        '1' => 'COLABORADOR'
                         
-                        '1' => 'COLABORADOR'
                     );
-                
-                
+                    
                 }
-                  
-        }
 
+    
+            }else{
+
+                    $val="select id from {objective_groups_users} where courseid=? and idgroup=? and rol=? and status=?";
+
+                    $res = $DB->get_records_sql($val, array($COURSE->id, $idgrupo, 2, 0));
+
+                    if($res == NULL){
+                        $options2 = array(
+                            '2' => 'JEFE INMEDIATO',
+                            '1' => 'COLABORADOR'
+                        );
+                    
+                        
+                    }else{
+                        $options2 = array(
+                            
+                            '1' => 'COLABORADOR'
+                        );
+                    
+                    
+                    }
+                    
+                    //echo 'no';
+                    //echo '<br>';
+    
+            }
         $optionstatus = array(
                 
             '0' => 'HABILITADO',
@@ -103,7 +98,7 @@ class newgroupuser_form extends moodleform {
 
             $options[$cat->idusuario]=$cat->nombrecompleto;
         }
-        
+    
        
          // Adding the standard "name" field.
         $select = $mform->addElement('select', 'idusuario', 'Selecciona Empleado', $options);

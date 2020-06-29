@@ -47,22 +47,22 @@ class newestablishment_form extends moodleform {
         WHEN MAX(gu.rol) = 3 THEN 'DIRECTOR'
         ELSE 'SIN VALOR'
         END AS estatus
-        from mdl_user u 
-        inner join mdl_objective_groups_users gu on gu.idusuario = u.id
-        inner join mdl_objective_groups g on g.id = gu.idgroup
-        inner join mdl_objective_groups_rol dr on dr.id=gu.rol
+        from {user} u 
+        inner join {objective_groups_users} gu on gu.idusuario = u.id
+        inner join {objective_groups} g on g.id = gu.idgroup
+        inner join {objective_groups_rol} dr on dr.id=gu.rol
         where u.id=?
         group by u.id";
 
-        $query="select distinct u.id as 'iduser',( SELECT gu.idusuario as 'idjefegrupo' from mdl_objective_groups_users gu where gu.idgroup=og.id and gu.rol in (3,2)) AS 'idjefegrupo'
-        from mdl_user u 
-        left join mdl_user_info_data id on id.userid = u.id
-        left join mdl_user_info_field ii on ii.id = id.fieldid 
-	left join mdl_objective_establishment oe on oe.userid = u.id
-        left join mdl_objective o on o.id = oe.idinstance
-        left join mdl_objective_groups_users ogu on ogu.idusuario = u.id
-        left join mdl_objective_groups og on og.id = ogu.idgroup
-        left join mdl_objective_groups_rol  ogr on ogr.id =  oe.rol
+        $query="select distinct u.id as 'iduser',( SELECT gu.idusuario as 'idjefegrupo' from {objective_groups_users} gu where gu.idgroup=og.id and gu.rol in (3,2)) AS 'idjefegrupo'
+        from {user} u 
+        left join {user_info_data} id on id.userid = u.id
+        left join {user_info_field} ii on ii.id = id.fieldid 
+	left join {objective_establishment} oe on oe.userid = u.id
+        left join {objective} o on o.id = oe.idinstance
+        left join {objective_groups_users} ogu on ogu.idusuario = u.id
+        left join {objective_groups} og on og.id = ogu.idgroup
+        left join {objective_groups_rol}  ogr on ogr.id =  oe.rol
         where u.id=? and ogu.rol=1";
 
         $result = $DB->get_records_sql($query, array($USER->id));

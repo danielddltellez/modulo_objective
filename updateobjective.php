@@ -114,14 +114,14 @@ if(isset($_GET['sendobj'])){
     $updateest-> id = $idestablecimiento;
     $updateest-> status = 2;
 
-    $query="select UPPER(concat(u.firstname, ' ', u.lastname)) as 'nombre', oe.idjefedirecto as 'idjefedirecto' , (select u2.email from mdl_user u2 where oe.idjefedirecto = u2.id) as 'emailjefedirecto', oe.courseid as 'idcurso' ,
+    $query="select UPPER(concat(u.firstname, ' ', u.lastname)) as 'nombre', oe.idjefedirecto as 'idjefedirecto' , (select u2.email from {user} u2 where oe.idjefedirecto = u2.id) as 'emailjefedirecto', oe.courseid as 'idcurso' ,
     (select FROM_UNIXTIME(ue.timeend, '%Y-%m-%d')
-           FROM mdl_course AS course  
-           JOIN mdl_enrol AS en ON en.courseid = course.id 
-           JOIN mdl_user_enrolments AS ue ON ue.enrolid = en.id
+           FROM {course} AS course  
+           JOIN {enrol} AS en ON en.courseid = course.id 
+           JOIN {user_enrolments} AS ue ON ue.enrolid = en.id
            WHERE ue.userid = oe.idjefedirecto and course.id=oe.courseid) AS finm 
-       from mdl_objective_establishment oe
-       join mdl_user u on oe.userid = u.id
+       from {objective_establishment} oe
+       join {user} u on oe.userid = u.id
        where oe.id=?";
     $resultcontrol = $DB->get_records_sql($query, array($idestablecimiento));
     $nombrecom="";
@@ -178,7 +178,7 @@ if(isset($_GET['sendobj'])){
                 }
                 
 
-     /*
+        /*
         $fechaap=date("d-m-Y H:i:s");
         $subject='Establecimiento de Objetivos';
         $message ="Estimado(a)  Marco Polo, \n\n";
@@ -195,7 +195,7 @@ if(isset($_GET['sendobj'])){
 
        // print_r($sendenvio);
         
-*/
+        */
     
     } catch(\Throwable $e) {
             // PHP 7 

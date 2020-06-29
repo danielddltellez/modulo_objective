@@ -63,7 +63,7 @@ $sql="select id, userid, idinstance, courseid,idmod, namenivel, description, CAS
 WHEN status = 1 THEN 'activo'
 WHEN status = 0 THEN 'Inactivo'
 ELSE 'N/A'
-END AS estatus from mdl_objective_nivel
+END AS estatus from {objective_nivel}
 where courseid='".$cm->course."' and idinstance='".$cm->instance."' and idmod='".$id."'";
 $viewnivel = $DB->get_records_sql($sql, array());  
 echo $OUTPUT->render($button);

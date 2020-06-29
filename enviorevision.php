@@ -93,38 +93,82 @@ if(!empty($_POST['racciones4']) && !empty($_POST['rmeses4'])){
         $updaterevision = new stdClass();
         $updaterevision-> id = $idobj;
         $updaterevision-> status = 5;
-        $destinatario=new stdClass();
-        $destinatario-> id=449;
-        $destinatario-> email = 'daniel.delaluz@triplei.mx';
-
-        
         try{
             $updaterev = $DB->update_record('objective_establishment', $updaterevision, $bulk=false);
 
-            $fechaap=date("F j, Y, g:i a");
-            $subject='Establecimiento de Objetivos';
-            $message ="Estimado(a)  Lucio Garcia, \n\n";
-            $message .="Hacemos de tu conocimiento que NOMBRE DEL COLABORADOR ha finalizado el registrado de su Autoevaluación,  \n\n";
-            $message .="es momento de que ingreses a la plataforma e-learning a Colocar tus comentarios y brindar la Retroalimentación de medio año. \n\n";
-            $message .="Para registrar tus comentarios, ingresa a tu perfil dando clic aquí. \n\n";
-            $message .="La fecha límite para realizar esta acción es: $fechaap\n\n";
-            $message .="Que tenga un excelente día\n\n";
-           // print_r($USER);
-            $sendenvio = email_to_user($destinatario, $USER , $subject, $message);
+            $querynotificacion="select UPPER(concat(u.firstname, ' ', u.lastname)) as 'nombre', oe.idjefedirecto as 'idjefedirecto' , (select u2.email from {user} u2 where oe.idjefedirecto = u2.id) as 'emailjefedirecto', oe.courseid as 'idcurso' ,
+                (select FROM_UNIXTIME(ue.timeend, '%Y-%m-%d')
+                    FROM {course} AS course  
+                    JOIN {enrol} AS en ON en.courseid = course.id 
+                    JOIN {user_enrolments} AS ue ON ue.enrolid = en.id
+                    WHERE ue.userid = oe.idjefedirecto and course.id=oe.courseid) AS finm 
+                from {objective_establishment} oe
+                join {user} u on oe.userid = u.id
+                where oe.id=?";
+                $resultnot = $DB->get_records_sql($querynotificacion, array($idobj));
+                $nombrenot="";
+                foreach($resultnot  as $vals){
+                    $nombrecom=$vals->nombre;
+                    $idjefed=$vals->idjefedirecto;
+                    $emailjefed=$vals->emailjefedirecto;
+                    $fechafinal=$vals->finm;
+                    $idcurso=$vals->idcurso;
+                }
+                try{
     
-          /*print_r($sendenvio);*/
-            
-             echo 'Guardado con éxito';
+                        $clienteSOAP = new SoapClient('http://192.168.14.30:8080/svcELearning.svc?wsdl');
+                    // https://www.portal3i.mx/URL/new_login.php?email=ingdanieltellez2015@gmail.com&courseid=12
+                    $mensaje=''.$nombrecom.' ha finalizado el registrado de su Autoevaluación, ingresa a colocar tus comentarios y retroalimentación de medio año dando clic aquí.~https://www.portal3i.mx/openlms/tripleI.php?email='.$emailjefed.'&courseid='.$idcurso.'~. La fecha límite para realizar esta acción es '.$fechafinal.'';
+
+                        $mensajeemail=''.$nombrecom.'  ha finalizado el registrado de su Autoevaluación, ingresa a colocar tus comentarios y retroalimentación de medio año dando clic aquí. https://www.portal3i.mx/openlms/tripleI.php?email='.$emailjefed.'&courseid='.$idcurso.'. La fecha límite para realizar esta acción es '.$fechafinal.'';
+                    try{
+                    $parametros=array(); //parametros de la llamada
+                    $parametros['mensaje']=$mensajeemail;
+                    $parametros['correo']=$emailjefed;
+                    $parametros['aplicacion']='Establecimiento de Objetivos';
+                    $parametros['idAplicacion']=(int)9;
+                    $parametros['IdAmbiente']=(int)1;
+                    $parametros['IdTipoNotificacion']=(int)1;
+                    $result = $clienteSOAP->Notificacion($parametros);
+                    $statusfinal = $result->envioNotificacionUsuarioResult;
+                
+                    } catch(SoapFault $e){
+                        var_dump($e);
+                
+                    }
+                    try{
+                    $parametros1=array(); //parametros de la llamada
+                    $parametros1['mensaje']=$mensaje;
+                    $parametros1['correo']=$emailjefed;
+                    $parametros1['aplicacion']='Establecimiento de Objetivos';
+                    $parametros1['idAplicacion']=(int)9;
+                    $parametros1['IdAmbiente']=(int)1;
+                    $parametros1['IdTipoNotificacion']=(int)0;
+                    $result1 = $clienteSOAP->Notificacion($parametros1);
+                    $statusfinal1 = $result1->envioNotificacionUsuarioResult;
+                
+                    } catch(SoapFault $e){
+                    var_dump($e);
+                
+                    }
+                
+                
+                } catch(\Throwable $e) {
+                        // PHP 7 
+                    //echo 'ERROR AL ACTUALIZAR OBJETIVO 6';
+                } 
+    
+                echo 'Guardado con éxito';
         
-        } catch(\Throwable $e) {
-                // PHP 7 
-            echo 'Error al guardar';
-        } 
-         //   header("Location:".$_SERVER['HTTP_REFERER']);
+            } catch(\Throwable $e) {
+                    // PHP 7 
+               // echo 'Error al guardar';
+            } 
+      
 
     } catch(\Throwable $e) {
         // PHP 7 
-    echo 'Error al guardar';
+        echo 'Error al guardar';
     }
 
     
@@ -180,5 +224,7 @@ if($_POST['idobjestablecido6'] != NULL){
         } 
     }
 }
+
+//header("Location:".$_SERVER['HTTP_REFERER']);
 
 ?>

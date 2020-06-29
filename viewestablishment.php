@@ -66,14 +66,14 @@ $modulecontext = context_module::instance($cm->id);
 </head>
 <body>
 <?php
-$query=" SELECT DISTINCT
+$query="select DISTINCT
             u.id AS 'iduser',
             concat(u.firstname, ' ', u.lastname) AS 'ncomnpleto',
             (
                 SELECT
                     mf3. DATA
                 FROM
-                    mdl_user_info_data mf3
+                    {user_info_data} mf3
                 WHERE
                     mf3.userid = u.id
                 AND mf3.fieldid = 2
@@ -86,14 +86,14 @@ $query=" SELECT DISTINCT
                 '%Y-%m-%d'
             ) AS fechaestab
         FROM
-            mdl_user u
-        JOIN mdl_user_info_data id ON id.userid = u.id
-        JOIN mdl_user_info_field ii ON ii.id = id.fieldid
-        INNER JOIN mdl_objective_establishment oe ON oe.userid = u.id
-        INNER JOIN mdl_objective o ON o.id = oe.idinstance
-        INNER JOIN mdl_objective_groups_users ogu ON ogu.idusuario = u.id
-        INNER JOIN mdl_objective_groups og ON og.id = ogu.idgroup
-        INNER JOIN mdl_objective_groups_rol ogr ON ogr.id = oe.rol
+            {user} u
+        JOIN {user_info_data} id ON id.userid = u.id
+        JOIN {user_info_field} ii ON ii.id = id.fieldid
+        INNER JOIN {objective_establishment} oe ON oe.userid = u.id
+        INNER JOIN {objective} o ON o.id = oe.idinstance
+        INNER JOIN {objective_groups_users} ogu ON ogu.idusuario = u.id
+        INNER JOIN {objective_groups} og ON og.id = ogu.idgroup
+        INNER JOIN {objective_groups_rol} ogr ON ogr.id = oe.rol
         WHERE
             u.id =?";
 $result = $DB->get_records_sql($query, array($USER->id));
@@ -125,13 +125,13 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
     }else if($estatusa==4 || $estatusa==5 || $estatusa==6){
 
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
-        echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>';
+        echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revisión Mitad de año</button>';
         echo '<button class="w3-bar-item w3-button"><a href="'.$CFG->wwwroot.'/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
     }else if($estatusa==7 || $estatusa==8 || $estatusa==9){
 
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
-        echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revision 1</button>';
-        echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>';
+        echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revisión Mitad de año</button>';
+      //  echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>';
         echo '<button class="w3-bar-item w3-button"><a href="'.$CFG->wwwroot.'/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
     }
     echo'</div>';
@@ -153,7 +153,7 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
                                 <div class="w3-col l1"><p></p></div>
                                 <div id="jefe-inmediato" class="w3-col l10 w3-pale-red w3-center">
                                     <table class="w3-table-all">';
-    $objetivosjefe='select id, userid, targetnumber, objectivecomplete  from mdl_objective_establishment_captured where userid=?';
+    $objetivosjefe='select id, userid, targetnumber, objectivecomplete  from {objective_establishment_captured} where userid=?';
     $obtenerobj = $DB->get_records_sql($objetivosjefe, array($idjefegrupo));
     if(empty($obtenerobj)){
         $vistaobjetivosjefe.='<tr>
@@ -304,18 +304,17 @@ $vista .='<div id="vista1" class="w3-light-grey vistas">
                                         </div>
                                     </div>';
 
-//$queryfinal='select * from mdl_objective_establishment_captured where userid=? and courseid=? and idobjective=? order by idobjective ASC';
 $querycontrol='select es.id as idobj, @rownum:=@rownum+1 contador,  es.userid,es.idobjective ,es.courseid, es.targetnumber, es.whatquestion, es.howquestion, es.thatquestion, es.specifyquestion, es.periodquestion, es.objectivecomplete, DATE_FORMAT(FROM_UNIXTIME(es.startdate), "%Y-%m-%d") as fechaini, DATE_FORMAT(FROM_UNIXTIME(es.enddate), "%Y-%m-%d") as fechafin, es.valueobjective
-,(select er.actionpartner from  mdl_objective_establishment_revise er where er.idobjectiveestablishment=es.id) as actionp
-,(select er2.actionsixmonth from  mdl_objective_establishment_revise er2 where er2.idobjectiveestablishment=es.id) as actions
-,(select er3.bosscomments from  mdl_objective_establishment_revise er3 where er3.idobjectiveestablishment=es.id) as bossc
-,(select er4.bosssuggestions from  mdl_objective_establishment_revise er4 where er4.idobjectiveestablishment=es.id) as bosss
-,(select a1.mycomments from  mdl_objective_establishment_revise_final a1 where a1.idobjectiveestablishment=es.id) as mycomments
-,(select a2.mycommentsfinals from  mdl_objective_establishment_revise_final a2 where a2.idobjectiveestablishment=es.id) as mycommentsfinal
-,(select a3.feedbackboos  from mdl_objective_establishment_revise_final a3 where a3.idobjectiveestablishment=es.id) as feedbackboos
-,(select a4.feedbackevaluation from mdl_objective_establishment_revise_final a4 where a4.idobjectiveestablishment=es.id) as feddbackevaluation
-,(select a5.autoevaluation from mdl_objective_establishment_revise_final a5 where a5.idobjectiveestablishment=es.id) as autoevaluation
-,(select a6.evaluationboss from mdl_objective_establishment_revise_final a6 where a6.idobjectiveestablishment=es.id) as evaluationboss
+,(select er.actionpartner from  {objective_establishment_revise} er where er.idobjectiveestablishment=es.id) as actionp
+,(select er2.actionsixmonth from  {objective_establishment_revise} er2 where er2.idobjectiveestablishment=es.id) as actions
+,(select er3.bosscomments from  {objective_establishment_revise} er3 where er3.idobjectiveestablishment=es.id) as bossc
+,(select er4.bosssuggestions from  {objective_establishment_revise} er4 where er4.idobjectiveestablishment=es.id) as bosss
+,(select a1.mycomments from  {objective_establishment_revise_final} a1 where a1.idobjectiveestablishment=es.id) as mycomments
+,(select a2.mycommentsfinals from  {objective_establishment_revise_final} a2 where a2.idobjectiveestablishment=es.id) as mycommentsfinal
+,(select a3.feedbackboos  from {objective_establishment_revise_final} a3 where a3.idobjectiveestablishment=es.id) as feedbackboos
+,(select a4.feedbackevaluation from {objective_establishment_revise_final} a4 where a4.idobjectiveestablishment=es.id) as feddbackevaluation
+,(select a5.autoevaluation from {objective_establishment_revise_final} a5 where a5.idobjectiveestablishment=es.id) as autoevaluation
+,(select a6.evaluationboss from {objective_establishment_revise_final} a6 where a6.idobjectiveestablishment=es.id) as evaluationboss
 ,es.comentariosjefe
 ,es.status as estatusobj
 ,case
@@ -325,8 +324,8 @@ $querycontrol='select es.id as idobj, @rownum:=@rownum+1 contador,  es.userid,es
    when es.status = 3 then "Cancelado"
    else "NA"
    end as estatuso
-from  mdl_objective_establishment_captured es
-inner join mdl_objective_establishment o on o.id = es.idobjective,
+from  {objective_establishment_captured} es
+inner join {objective_establishment} o on o.id = es.idobjective,
 (SELECT @rownum:=0) R
 where es.courseid=? and es.idobjective=? and es.userid=? and es.status !=3 order by es.id ASC';
 
@@ -725,10 +724,10 @@ echo $competencias1;
 if($rolprincipal=='COLABORADOR'){
 
     $sql='select obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
-    from mdl_course c
-    inner join mdl_objective o on o.course = c.id
-    inner join mdl_objective_competition obc on obc.idinstance = o.id
-    inner join mdl_objective_nivel obn on obn.id = obc.idnivel
+    from {course} c
+    inner join {objective} o on o.course = c.id
+    inner join {objective_competition} obc on obc.idinstance = o.id
+    inner join {objective_nivel} obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=3
     order by obc.orden asc';
@@ -762,8 +761,8 @@ if($rolprincipal=='COLABORADOR'){
 
     
         $consulta='select ocb.id, ocb.description, ocb.idcompetition 
-        from mdl_objective_competition_behavior ocb 
-        inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+        from {objective_competition_behavior} ocb 
+        inner join {objective_competition} oc on oc.id=ocb.idcompetition
         where ocb.idcompetition=? and ocb.code=1';
         $resultado = $DB->get_records_sql($consulta, array($valores->idcompe));
 
@@ -789,10 +788,10 @@ if($rolprincipal=='COLABORADOR'){
 }else if($rolprincipal=='JEFE INMEDIATO'){
 
     $sql='select  obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
-    from mdl_course c
-    inner join mdl_objective o on o.course = c.id
-    inner join mdl_objective_competition obc on obc.idinstance = o.id
-    inner join mdl_objective_nivel obn on obn.id = obc.idnivel
+    from {course} c
+    inner join {objective} o on o.course = c.id
+    inner join {objective_competition} obc on obc.idinstance = o.id
+    inner join {objective_nivel} obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=3
     order by obc.orden asc';
@@ -826,8 +825,8 @@ if($rolprincipal=='COLABORADOR'){
 
     
         $consulta='select ocb.id, ocb.description, ocb.idcompetition 
-        from mdl_objective_competition_behavior ocb 
-        inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+        from {objective_competition_behavior} ocb 
+        inner join {objective_competition} oc on oc.id=ocb.idcompetition
         where ocb.idcompetition=? and ocb.code=1';
         $resultado = $DB->get_records_sql($consulta, array($valores->idcompe));
 
@@ -848,10 +847,10 @@ if($rolprincipal=='COLABORADOR'){
     }
   
     $sql2='select  obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
-    from mdl_course c
-    inner join mdl_objective o on o.course = c.id
-    inner join mdl_objective_competition obc on obc.idinstance = o.id
-    inner join mdl_objective_nivel obn on obn.id = obc.idnivel
+    from {course} c
+    inner join {objective} o on o.course = c.id
+    inner join {objective_competition} obc on obc.idinstance = o.id
+    inner join {objective_nivel} obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=2
     order by obc.orden asc';
@@ -884,8 +883,8 @@ if($rolprincipal=='COLABORADOR'){
 
     
         $consulta2='select ocb.id, ocb.description, ocb.idcompetition 
-        from mdl_objective_competition_behavior ocb 
-        inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+        from {objective_competition_behavior} ocb 
+        inner join {objective_competition} oc on oc.id=ocb.idcompetition
         where ocb.idcompetition=? and ocb.code=1';
         $resultado2 = $DB->get_records_sql($consulta2, array($valores2->idcompe));
 
@@ -910,10 +909,10 @@ if($rolprincipal=='COLABORADOR'){
 }else if($rolprincipal=='DIRECTOR'){
 
     $sql='select  obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
-    from mdl_course c
-    inner join mdl_objective o on o.course = c.id
-    inner join mdl_objective_competition obc on obc.idinstance = o.id
-    inner join mdl_objective_nivel obn on obn.id = obc.idnivel
+    from {course} c
+    inner join {objective} o on o.course = c.id
+    inner join {objective_competition} obc on obc.idinstance = o.id
+    inner join {objective_nivel} obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=3
     order by obc.orden asc';
@@ -947,8 +946,8 @@ if($rolprincipal=='COLABORADOR'){
 
     
         $consulta='select ocb.id, ocb.description, ocb.idcompetition 
-        from mdl_objective_competition_behavior ocb 
-        inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+        from {objective_competition_behavior} ocb 
+        inner join {objective_competition} oc on oc.id=ocb.idcompetition
         where ocb.idcompetition=? and ocb.code=1';
         $resultado = $DB->get_records_sql($consulta, array($valores->idcompe));
 
@@ -969,10 +968,10 @@ if($rolprincipal=='COLABORADOR'){
     }
   
     $sql2='select  obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
-    from mdl_course c
-    inner join mdl_objective o on o.course = c.id
-    inner join mdl_objective_competition obc on obc.idinstance = o.id
-    inner join mdl_objective_nivel obn on obn.id = obc.idnivel
+    from {course} c
+    inner join {objective} o on o.course = c.id
+    inner join {objective_competition} obc on obc.idinstance = o.id
+    inner join {objective_nivel} obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=2
     order by obc.orden asc';
@@ -1005,8 +1004,8 @@ if($rolprincipal=='COLABORADOR'){
 
     
         $consulta2='select ocb.id, ocb.description, ocb.idcompetition 
-        from mdl_objective_competition_behavior ocb 
-        inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+        from {objective_competition_behavior} ocb 
+        inner join {objective_competition} oc on oc.id=ocb.idcompetition
         where ocb.idcompetition=? and ocb.code=1';
         $resultado2 = $DB->get_records_sql($consulta2, array($valores2->idcompe));
 
@@ -1026,10 +1025,10 @@ if($rolprincipal=='COLABORADOR'){
     
     }
     $sql3='select  obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
-    from mdl_course c
-    inner join mdl_objective o on o.course = c.id
-    inner join mdl_objective_competition obc on obc.idinstance = o.id
-    inner join mdl_objective_nivel obn on obn.id = obc.idnivel
+    from {course} c
+    inner join {objective} o on o.course = c.id
+    inner join {objective_competition} obc on obc.idinstance = o.id
+    inner join {objective_nivel} obn on obn.id = obc.idnivel
     where c.id=?
     and obn.id=1
     order by obc.orden asc';
@@ -1060,8 +1059,8 @@ if($rolprincipal=='COLABORADOR'){
                         <p>'.$valores3->nombrecompetencia.'</p>
                     </div>';
         $consulta3='select ocb.id, ocb.description, ocb.idcompetition 
-        from mdl_objective_competition_behavior ocb 
-        inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+        from {objective_competition_behavior} ocb 
+        inner join {objective_competition} oc on oc.id=ocb.idcompetition
         where ocb.idcompetition=? and ocb.code=1';
         $resultado3 = $DB->get_records_sql($consulta3, array($valores3->idcompe));
 
@@ -1245,7 +1244,7 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 
                                                 <div class="w3-col m6 w3-white w3-center">
                                                     <p class="text-cuestion">Qué acciones he implementado:</p>';
                                                     if(empty($actionp)){
-                                                        $establecimientorevision .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="racciones'.$cont.'" name="racciones'.$cont.'" '.$requeridcolaborador.'></textarea></p>';
+                                                        $establecimientorevision .='<p><textarea class="w3-input w3-border" maxlength="1000" rows="5" cols="10" type="text" id="racciones'.$cont.'" name="racciones'.$cont.'" '.$requeridcolaborador.'></textarea></p>';
                                                     }else{
                                                         $establecimientorevision .='<p class="w3-input w3-border">'.$actionp.'</p>';
                                                     }
@@ -1253,7 +1252,7 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 
                                                 <div class="w3-col m6 w3-white w3-center">
                                                     <p class="text-cuestion">Acciones para los siguientes 6 meses:</p>';
                                                     if(empty($valuecontrol->actions)){
-                                                        $establecimientorevision .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rmeses'.$cont.'" name="rmeses'.$cont.'" '.$requeridcolaborador.'></textarea></p>';
+                                                        $establecimientorevision .='<p><textarea class="w3-input w3-border" maxlength="1000" rows="5" cols="10" type="text" id="rmeses'.$cont.'" name="rmeses'.$cont.'" '.$requeridcolaborador.'></textarea></p>';
                                                     }else{
                                                         $establecimientorevision .='<p class="w3-input w3-border">'.$valuecontrol->actions.'</p>';
                                                     }
@@ -1270,7 +1269,7 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 
                                         <div class="w3-col m6 w3-white w3-center">
                                             <p class="text-cuestion">Cometarios sobre acciones ya implementadas:</p>';
                                             if(empty($valuecontrol->bossc)){
-                                                $establecimientorevision .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rimplementadas'.$cont.'" name="rimplementadas'.$cont.'" disabled></textarea></p>';
+                                                $establecimientorevision .='<p><textarea class="w3-input w3-border" maxlength="1000" rows="5" cols="10" type="text" id="rimplementadas'.$cont.'" name="rimplementadas'.$cont.'" disabled></textarea></p>';
                                             }else{
                                                 $establecimientorevision .='<p class="w3-input w3-border">'.$valuecontrol->bossc.'</p>';
                                             }
@@ -1278,7 +1277,7 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 
                                         <div class="w3-col m6 w3-white w3-center">
                                             <p class="text-cuestion">Sugerencias sobre acciones a implementar:</p>';
                                             if(empty($valuecontrol->bosss)){
-                                                $establecimientorevision .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="rimplementar'.$cont.'" name="rimplementar'.$cont.'" disabled></textarea></p>';
+                                                $establecimientorevision .='<p><textarea class="w3-input w3-border" maxlength="1000" rows="5" cols="10" type="text" id="rimplementar'.$cont.'" name="rimplementar'.$cont.'" disabled></textarea></p>';
                                             }else{
                                                 $establecimientorevision .='<p class="w3-input w3-border">'.$valuecontrol->bosss.'</p>';
                                             }
@@ -1322,10 +1321,10 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 
         if($rolprincipal=='COLABORADOR'){
 
             $sql='select  obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
-            from mdl_course c
-            inner join mdl_objective o on o.course = c.id
-            inner join mdl_objective_competition obc on obc.idinstance = o.id
-            inner join mdl_objective_nivel obn on obn.id = obc.idnivel
+            from {course} c
+            inner join {objective} o on o.course = c.id
+            inner join {objective_competition} obc on obc.idinstance = o.id
+            inner join {objective_nivel} obn on obn.id = obc.idnivel
             where c.id=?
             and obn.id=3
             order by obc.orden asc';
@@ -1361,9 +1360,9 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 
 
 
             $valorconsulta='select ocb.id, ocb.description, oc.id as idcompetencia, oc.courseid, oc.idinstance ,ocb.code, oec.value
-            from mdl_objective_competition_behavior ocb 
-            inner join mdl_objective_competition oc on oc.id=ocb.idcompetition 
-            inner join mdl_objective_establishment_competition oec on oec.idbehavior = ocb.id
+            from {objective_competition_behavior} ocb 
+            inner join {objective_competition} oc on oc.id=ocb.idcompetition 
+            inner join {objective_establishment_competition} oec on oec.idbehavior = ocb.id
             where ocb.idcompetition=? and oec.idobjectiveestablishment=? and ocb.status=0 order by ocb.code asc';
             $valorresultado = $DB->get_records_sql($valorconsulta, array($valores->idcompe, $id));
             if(!empty($valorresultado)){
@@ -1403,8 +1402,8 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 
             }else{
 
                 $valorconsultavista='select ocb.id, ocb.description, ocb.idcompetition 
-                from mdl_objective_competition_behavior ocb 
-                inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+                from {objective_competition_behavior} ocb 
+                inner join {objective_competition} oc on oc.id=ocb.idcompetition
                 where ocb.idcompetition=? and ocb.code=1';
                 $valorresultadovista = $DB->get_records_sql($valorconsultavista, array($valores->idcompe));
                 echo '<div class="w3-col l9">
@@ -1429,10 +1428,10 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 
         }else if($rolprincipal=='JEFE INMEDIATO'){
 
                 $sql='select  obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
-                from mdl_course c
-                inner join mdl_objective o on o.course = c.id
-                inner join mdl_objective_competition obc on obc.idinstance = o.id
-                inner join mdl_objective_nivel obn on obn.id = obc.idnivel
+                from {course} c
+                inner join {objective} o on o.course = c.id
+                inner join {objective_competition} obc on obc.idinstance = o.id
+                inner join {objective_nivel} obn on obn.id = obc.idnivel
                 where c.id=?
                 and obn.id=3
                 order by obc.orden asc';
@@ -1468,9 +1467,9 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 
 
 
                 $valorconsulta='select ocb.id, ocb.description, oc.id as idcompetencia, oc.courseid, oc.idinstance ,ocb.code, oec.value
-                from mdl_objective_competition_behavior ocb 
-                inner join mdl_objective_competition oc on oc.id=ocb.idcompetition 
-                inner join mdl_objective_establishment_competition oec on oec.idbehavior = ocb.id
+                from {objective_competition_behavior} ocb 
+                inner join {objective_competition} oc on oc.id=ocb.idcompetition 
+                inner join {objective_establishment_competition} oec on oec.idbehavior = ocb.id
                 where ocb.idcompetition=? and oec.idobjectiveestablishment=? and ocb.status=0 order by ocb.code asc';
                 $valorresultado = $DB->get_records_sql($valorconsulta, array($valores->idcompe, $id));
                 if(!empty($valorresultado)){
@@ -1508,8 +1507,8 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 
                     }else{
 
                         $valorconsultavista='select ocb.id, ocb.description, ocb.idcompetition 
-                        from mdl_objective_competition_behavior ocb 
-                        inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+                        from {objective_competition_behavior} ocb 
+                        inner join {objective_competition} oc on oc.id=ocb.idcompetition
                         where ocb.idcompetition=? and ocb.code=1';
                         $valorresultadovista = $DB->get_records_sql($valorconsultavista, array($valores->idcompe));
                         echo '<div class="w3-col l9">
@@ -1531,10 +1530,10 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 
                 }
 
                 $sql2='select  obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
-                from mdl_course c
-                inner join mdl_objective o on o.course = c.id
-                inner join mdl_objective_competition obc on obc.idinstance = o.id
-                inner join mdl_objective_nivel obn on obn.id = obc.idnivel
+                from {course} c
+                inner join {objective} o on o.course = c.id
+                inner join {objective_competition} obc on obc.idinstance = o.id
+                inner join {objective_nivel} obn on obn.id = obc.idnivel
                 where c.id=?
                 and obn.id=2
                 order by obc.orden asc';
@@ -1568,9 +1567,9 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 
 
 
                 $valorconsultajefe='select ocb.id, ocb.description, oc.id as idcompetencia, oc.courseid, oc.idinstance ,ocb.code, oec.value
-                from mdl_objective_competition_behavior ocb 
-                inner join mdl_objective_competition oc on oc.id=ocb.idcompetition 
-                inner join mdl_objective_establishment_competition oec on oec.idbehavior = ocb.id
+                from {objective_competition_behavior} ocb 
+                inner join {objective_competition} oc on oc.id=ocb.idcompetition 
+                inner join {objective_establishment_competition} oec on oec.idbehavior = ocb.id
                 where ocb.idcompetition=? and oec.idobjectiveestablishment=? and ocb.status=0 order by ocb.code asc';
                 $valorresultadojefe = $DB->get_records_sql($valorconsultajefe, array($valores2->idcompe, $id));
                 if(!empty($valorresultadojefe)){
@@ -1605,8 +1604,8 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 
                             echo '</table></div>';
                 }else{
                             $valorconsultavistajefe='select ocb.id, ocb.description, ocb.idcompetition 
-                            from mdl_objective_competition_behavior ocb 
-                            inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+                            from {objective_competition_behavior} ocb 
+                            inner join {objective_competition} oc on oc.id=ocb.idcompetition
                             where ocb.idcompetition=? and ocb.code=1';
                             $valorresultadovistajefe = $DB->get_records_sql($valorconsultavistajefe, array($valores->idcompe));
                             echo '<div class="w3-col l9">
@@ -1914,10 +1913,10 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                     if($rolprincipal=='COLABORADOR'){
 
                         $finalsql='select  obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
-                        from mdl_course c
-                        inner join mdl_objective o on o.course = c.id
-                        inner join mdl_objective_competition obc on obc.idinstance = o.id
-                        inner join mdl_objective_nivel obn on obn.id = obc.idnivel
+                        from {course} c
+                        inner join {objective} o on o.course = c.id
+                        inner join {objective_competition} obc on obc.idinstance = o.id
+                        inner join {objective_nivel} obn on obn.id = obc.idnivel
                         where c.id=?
                         and obn.id=3
                         order by obc.orden asc';
@@ -1953,9 +1952,9 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
 
 
                         $finalvalorconsulta='select ocb.id, ocb.description, oc.id as idcompetencia, oc.courseid, oc.idinstance ,ocb.code, oec.value
-                        from mdl_objective_competition_behavior ocb 
-                        inner join mdl_objective_competition oc on oc.id=ocb.idcompetition 
-                        inner join mdl_objective_establishment_competition_final oec on oec.idbehavior = ocb.id
+                        from {objective_competition_behavior} ocb 
+                        inner join {objective_competition} oc on oc.id=ocb.idcompetition 
+                        inner join {objective_establishment_competition_final} oec on oec.idbehavior = ocb.id
                         where ocb.idcompetition=? and oec.idobjectiveestablishment=? and ocb.status=0 order by ocb.code asc';
                         $finalvalorresultado = $DB->get_records_sql($finalvalorconsulta, array($finalvalores->idcompe, $id));
                         if(!empty($finalvalorresultado)){
@@ -1993,8 +1992,8 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                         }else{
 
                             $valorconsultavista3='select ocb.id, ocb.description, ocb.idcompetition 
-                            from mdl_objective_competition_behavior ocb 
-                            inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+                            from {objective_competition_behavior} ocb 
+                            inner join {objective_competition} oc on oc.id=ocb.idcompetition
                             where ocb.idcompetition=? and ocb.code=1';
                             $valorresultadovista3 = $DB->get_records_sql($valorconsultavista3, array($finalvalores->idcompe));
                             echo '<div class="w3-col l9">
@@ -2021,10 +2020,10 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                     }else if($rolprincipal=='JEFE INMEDIATO'){
 
                             $finalsql='select  obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
-                            from mdl_course c
-                            inner join mdl_objective o on o.course = c.id
-                            inner join mdl_objective_competition obc on obc.idinstance = o.id
-                            inner join mdl_objective_nivel obn on obn.id = obc.idnivel
+                            from {course} c
+                            inner join {objective} o on o.course = c.id
+                            inner join {objective_competition} obc on obc.idinstance = o.id
+                            inner join {objective_nivel} obn on obn.id = obc.idnivel
                             where c.id=?
                             and obn.id=3
                             order by obc.orden asc';
@@ -2060,9 +2059,9 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
 
 
                             $finalvalorconsulta='select ocb.id, ocb.description, oc.id as idcompetencia, oc.courseid, oc.idinstance ,ocb.code, oec.value
-                            from mdl_objective_competition_behavior ocb 
-                            inner join mdl_objective_competition oc on oc.id=ocb.idcompetition 
-                            inner join mdl_objective_establishment_competition_final oec on oec.idbehavior = ocb.id
+                            from {objective_competition_behavior} ocb 
+                            inner join {objective_competition} oc on oc.id=ocb.idcompetition 
+                            inner join {objective_establishment_competition_final} oec on oec.idbehavior = ocb.id
                             where ocb.idcompetition=? and oec.idobjectiveestablishment=? and ocb.status=0 order by ocb.code asc';
                             $finalvalorresultado = $DB->get_records_sql($finalvalorconsulta, array($finalvalores->idcompe, $id));
                             if(!empty($finalvalorresultado)){
@@ -2100,8 +2099,8 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                             }else{
 
                                 $valorconsultavista3='select ocb.id, ocb.description, ocb.idcompetition 
-                                from mdl_objective_competition_behavior ocb 
-                                inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+                                from {objective_competition_behavior} ocb 
+                                inner join {objective_competition} oc on oc.id=ocb.idcompetition
                                 where ocb.idcompetition=? and ocb.code=1';
                                 $valorresultadovista3 = $DB->get_records_sql($valorconsultavista3, array($finalvalores->idcompe));
                                 echo '<div class="w3-col l9">
@@ -2123,10 +2122,10 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                             }
 
                             $finalsql2='select  obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
-                            from mdl_course c
-                            inner join mdl_objective o on o.course = c.id
-                            inner join mdl_objective_competition obc on obc.idinstance = o.id
-                            inner join mdl_objective_nivel obn on obn.id = obc.idnivel
+                            from {course} c
+                            inner join {objective} o on o.course = c.id
+                            inner join {objective_competition} obc on obc.idinstance = o.id
+                            inner join {objective_nivel} obn on obn.id = obc.idnivel
                             where c.id=?
                             and obn.id=2
                             order by obc.orden asc';
@@ -2159,9 +2158,9 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
 
 
                             $finalvalorconsultajefe='select ocb.id, ocb.description, oc.id as idcompetencia, oc.courseid, oc.idinstance ,ocb.code, oec.value
-                            from mdl_objective_competition_behavior ocb 
-                            inner join mdl_objective_competition oc on oc.id=ocb.idcompetition 
-                            inner join mdl_objective_establishment_competition_final oec on oec.idbehavior = ocb.id
+                            from {objective_competition_behavior} ocb 
+                            inner join {objective_competition} oc on oc.id=ocb.idcompetition 
+                            inner join {objective_establishment_competition_final} oec on oec.idbehavior = ocb.id
                             where ocb.idcompetition=? and oec.idobjectiveestablishment=? and ocb.status=0 order by ocb.code asc';
                             $finalvalorresultadojefe = $DB->get_records_sql($finalvalorconsultajefe, array($finalvalores2->idcompe, $id));
                             if(!empty($finalvalorresultadojefe)){
@@ -2199,8 +2198,8 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                             }else{
 
                                 $valorconsultavista4='select ocb.id, ocb.description, ocb.idcompetition 
-                                from mdl_objective_competition_behavior ocb 
-                                inner join mdl_objective_competition oc on oc.id=ocb.idcompetition
+                                from {objective_competition_behavior} ocb 
+                                inner join {objective_competition} oc on oc.id=ocb.idcompetition
                                 where ocb.idcompetition=? and ocb.code=1';
                                 $valorresultadovista4 = $DB->get_records_sql($valorconsultavista4, array($finalvalores2->idcompe));
                                 echo '<div class="w3-col l9">
@@ -2768,7 +2767,7 @@ $(document).on('ready', function() {
                 * correcta
                 * */
                 $("#rev").html(data);
-                //location.reload();
+                location.reload();
                 
             },
             error: function(data){

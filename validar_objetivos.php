@@ -18,8 +18,8 @@ if(!empty($_POST['idformatoeo'])){
         $record1-> status = $idstatus;
 
         $query="select UPPER(concat(u.firstname, ' ', u.lastname)) as 'nombre', oe.courseid as 'idcurso' ,u.email as 'email'
-        from mdl_objective_establishment oe
-        join mdl_user u on oe.userid = u.id
+        from {objective_establishment} oe
+        join {user} u on oe.userid = u.id
         where oe.id=?";
         $resultcontrol = $DB->get_records_sql($query, array($idestab));
 
@@ -33,9 +33,11 @@ if(!empty($_POST['idformatoeo'])){
         echo 'Se actualizo el estatus del establecimiento';
             $clienteSOAP = new SoapClient('http://192.168.14.30:8080/svcELearning.svc?wsdl');
             // https://www.portal3i.mx/URL/new_login.php?email=ingdanieltellez2015@gmail.com&courseid=12
-            $mensaje= '¡Hola! Tu Gestor ha Finalizado con la revisión de tus Objetivos 2020,  para ingresa a revisar sus comentario, da clic aquí.~https://www.portal3i.mx/openlms/tripleI.php?email='.$email.'&courseid='.$idcursonot.'~.';
+           // $mensaje= '¡Hola! Tu Gestor ha Finalizado con la revisión de tus Objetivos 2020,  para ingresa a revisar sus comentario, da clic aquí.~https://www.portal3i.mx/openlms/tripleI.php?email='.$email.'&courseid='.$idcursonot.'~.';
+           $mensaje= '¡Hola! Te hemos asignado el formato Establecimiento de Objetivos 2020 - Revisión Mitad de año (Autoevaluación), para iniciar con el registro de tu Autoevaluación da clic.~https://www.portal3i.mx/openlms/tripleI.php?email='.$email.'&courseid='.$idcursonot.'~.';
 
-            $mensajeemail='¡Hola! Tu Gestor ha Finalizado con la revisión de tus Objetivos 2020,  para ingresa a revisar sus comentario, da clic aquí. https://www.portal3i.mx/openlms/tripleI.php?email='.$email.'&courseid='.$idcursonot.'.';
+            //$mensajeemail='¡Hola! Tu Gestor ha Finalizado con la revisión de tus Objetivos 2020,  para ingresa a revisar sus comentario, da clic aquí. https://www.portal3i.mx/openlms/tripleI.php?email='.$email.'&courseid='.$idcursonot.'.';
+            $mensajeemail='¡Hola! Te hemos asignado el formato Establecimiento de Objetivos 2020  - Revisión Mitad de año (Autoevaluación), para iniciar con el registro de tu Autoevaluación da clic. https://www.portal3i.mx/openlms/tripleI.php?email='.$email.'&courseid='.$idcursonot.'.';
             try{
                 $parametros=array(); //parametros de la llamada
                 $parametros['mensaje']=$mensajeemail;

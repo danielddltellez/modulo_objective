@@ -58,8 +58,8 @@ $button->class = 'singlebutton competitionaddnew';
 $button->formid = 'newcompetition';
 //Muestras informacion de los cursos
 
-$sql="select oc.id,oc.userid,oc.idinstance,oc.courseid, oc.idmod, oc.name,oc.code, oc.orden, obn.namenivel  from mdl_objective_competition oc
-inner join mdl_objective_nivel obn on obn.id=oc.idnivel
+$sql="select oc.id,oc.userid,oc.idinstance,oc.courseid, oc.idmod, oc.name,oc.code, oc.orden, obn.namenivel  from {objective_competition} oc
+inner join {objective_nivel} obn on obn.id=oc.idnivel
 where oc.courseid='".$cm->course."' and oc.idinstance='".$cm->instance."' and oc.idmod='".$id."'";
 $viewcompetition = $DB->get_records_sql($sql, array());  
 echo $OUTPUT->render($button);

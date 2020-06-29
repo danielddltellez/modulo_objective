@@ -82,9 +82,8 @@ function objective_delete_instance($id) {
 
 function objective_print_groups($viewgroups, $return = 0){
     global $OUTPUT, $USER, $DB, $CFG;
-       $display .= html_writer::start_tag('div', array('class' => 'container'));
-       $display .= html_writer::start_tag('table', array('class' => 'table table-striped'));
-       $display .= html_writer::start_tag('thead');
+       $display .= html_writer::start_tag('div', array('class' => 'w3-container'));
+       $display .= html_writer::start_tag('table', array('class' => 'w3-table-all w3-hoverable'));
        $display .= html_writer::start_tag('tr' , array('style' => 'background-color:  #878786; color: #fff;'));
        $display .= html_writer::start_tag('th');
        $display .= clean_text('<strong>id</strong>');
@@ -96,8 +95,6 @@ function objective_print_groups($viewgroups, $return = 0){
        $display .= clean_text('<strong>Acciones</strong>');
        $display .= html_writer::end_tag('th');
        $display .= html_writer::end_tag('tr');
-       $display .= html_writer::end_tag('thead');
-       $display .= html_writer::start_tag('tbody');
        foreach ($viewgroups as $value) {
            $display .= html_writer::start_tag('tr', array('style' => 'background-color: #d0cdcc;'));
            $display .= html_writer::start_tag('td');
@@ -111,16 +108,29 @@ function objective_print_groups($viewgroups, $return = 0){
            $display .= html_writer::start_tag('em', array('class' => 'fa fa-search'));
            $display .= html_writer::end_tag('em');
            $display .= html_writer::end_tag('a');
-           /*
+           $display .= html_writer::start_tag('a',array('onclick'=>'myFunction()','class' => 'btn btn-info'));
+           $display .= html_writer::start_tag('em', array('class' => 'fa fa-edit'));
+           $display .= html_writer::end_tag('em');
+           $display .= html_writer::end_tag('a');
+           $display .= html_writer::start_tag('div', array('id'=>'demo', 'class' => 'w3-dropdown-content w3-bar-block w3-border'));
+           $display .= html_writer::start_tag('a',array('class' => 'w3-bar-item w3-button'));
+           $display .= clean_text('<strong>link 1</strong>');
+           $display .= html_writer::end_tag('a');
+           $display .= html_writer::start_tag('a',array('class' => 'w3-bar-item w3-button'));
+           $display .= clean_text('<strong>link 2</strong>');
+           $display .= html_writer::end_tag('a');
+           $display .= html_writer::start_tag('a',array('class' => 'w3-bar-item w3-button'));
+           $display .= clean_text('<strong>link 3</strong>');
+           $display .= html_writer::end_tag('a');
+           $display .= html_writer::end_tag('div');
            $display .= html_writer::start_tag('a',array('class' => 'btn btn-danger', 'data-toggle'=>'modal', 'href' => '#delete_group'.$value->id.''));
            $display .= html_writer::start_tag('em', array('class' => 'fa fa-trash'));
            $display .= html_writer::end_tag('em');
-           $display .= html_writer::end_tag('a');*/
+           $display .= html_writer::end_tag('a');
            include('modals/modal.php');
            $display .= html_writer::end_tag('td');
            $display .= html_writer::end_tag('tr');
        }
-      $display .= html_writer::end_tag('tbody');
       $display .= html_writer::end_tag('table');
       $display .= html_writer::end_tag('div');
 
@@ -133,9 +143,8 @@ function objective_print_groups($viewgroups, $return = 0){
 
 function objective_print_groups_users($viewgroupusers, $return = 0){
     global $OUTPUT, $USER, $DB, $CFG;
-       $display .= html_writer::start_tag('div', array('class' => 'container'));
-       $display .= html_writer::start_tag('table', array('class' => 'table table-striped'));
-       $display .= html_writer::start_tag('thead');
+       $display .= html_writer::start_tag('div', array('class' => 'w3-container'));
+       $display .= html_writer::start_tag('table', array('class' => 'w3-table-all w3-hoverable'));
        $display .= html_writer::start_tag('tr');
        $display .= html_writer::start_tag('th');
        $display .= clean_text('<strong>Nombre completo</strong>');
@@ -155,14 +164,10 @@ function objective_print_groups_users($viewgroupusers, $return = 0){
        $display .= html_writer::start_tag('th');
        $display .= clean_text('<strong>Estatus</strong>');
        $display .= html_writer::end_tag('th');
-       /*
        $display .= html_writer::start_tag('th');
        $display .= clean_text('<strong>Acciones</strong>');
        $display .= html_writer::end_tag('th');
-       */
        $display .= html_writer::end_tag('tr');
-       $display .= html_writer::end_tag('thead');
-       $display .= html_writer::start_tag('tbody');
        foreach ($viewgroupusers as $values) {
            $display .= html_writer::start_tag('tr', array('style' => 'background-color: #d0cdcc;'));
            $display .= html_writer::start_tag('td');
@@ -183,7 +188,6 @@ function objective_print_groups_users($viewgroupusers, $return = 0){
            $display .= html_writer::start_tag('td');
            $display .= clean_text($values->estatus);
            $display .= html_writer::end_tag('td');
-           /*
            $display .= html_writer::start_tag('td');
            $display .= html_writer::start_tag('a',array('class' => 'btn btn-info', 'data-toggle'=>'modal', 'href' => '#edit_group_user'.$values->id.''));
            $display .= html_writer::start_tag('em', array('class' => 'fa fa-pencil'));
@@ -195,10 +199,8 @@ function objective_print_groups_users($viewgroupusers, $return = 0){
            $display .= html_writer::end_tag('a');
            include('modals/modal.php');
            $display .= html_writer::end_tag('td');
-           */
            $display .= html_writer::end_tag('tr');
        }
-      $display .= html_writer::end_tag('tbody');
       $display .= html_writer::end_tag('table');
       $display .= html_writer::end_tag('div');
 
@@ -611,7 +613,7 @@ function objective_print_establishment($viewestablishment, $return = 0){
 
 
       }else{
-                $esql="select oe.id, u.id as iduser, concat(u.firstname, ' ', u.lastname) as ncompleto, u.email, oe.courseid, oe.idmod, oe.idinstance,
+                /*$esql="select oe.id, u.id as iduser, concat(u.firstname, ' ', u.lastname) as ncompleto, u.email, oe.courseid, oe.idmod, oe.idinstance,
                 DATE_FORMAT(FROM_UNIXTIME(oe.timecreated), '%d-%m-%Y') AS fecha,
                 CASE
                 WHEN (oe.rol) = 1 THEN 'COLABORADOR'
@@ -634,13 +636,43 @@ function objective_print_establishment($viewestablishment, $return = 0){
                 ELSE 'SIN VALOR'
                 END AS estatus
                 , og.id as idgrupo
+                from {objective_establishment} oe
+                inner join {user} u on u.id = oe.userid
+                inner join {objective_groups_users} gu on  gu.idusuario = oe.userid
+                inner join {objective_groups} og on og.id = gu.idgroup
+                where oe.courseid=? and oe.idinstance=? and oe.idmod=? and u.id != ? and og.id=? order by ncompleto asc";*/
+
+                $esql="select distinct oe.id, u.id as iduser, concat(u.firstname, ' ', u.lastname) as ncompleto, u.email, oe.courseid, oe.idmod, oe.idinstance,
+                DATE_FORMAT(FROM_UNIXTIME(oe.timecreated), '%d-%m-%Y') AS fecha,
+                CASE
+                WHEN (MAX(oe.rol)) = 1 THEN 'COLABORADOR'
+                WHEN (MAX(oe.rol)) = 2 THEN 'JEFE INMEDIATO'
+                WHEN (MAX(oe.rol)) = 3 THEN 'DIRECTOR'
+                ELSE 'SIN VALOR'
+                END AS rol,
+                -- MAX(gu.rol) as rolfinal,
+                CASE
+                WHEN (oe.status) = 0 THEN 'Por Iniciar Establecimiento'
+                WHEN (oe.status) = 1 THEN 'En Proceso Establecimiento'
+                WHEN (oe.status) = 2 THEN 'Enviado a Aprobación Establecimiento'
+                WHEN (oe.status) = 3 THEN 'Finalizado Establecimiento'
+                WHEN (oe.status) = 4 THEN 'En Proceso Revisión Mitad de año'
+                WHEN (oe.status) = 5 THEN 'Enviado a Aprobación Revisión Mitad de año'
+                WHEN (oe.status) = 6 THEN 'Finalizado Revisión Mitad de año'
+                WHEN (oe.status) = 7 THEN 'En Proceso Revisión Final'
+                WHEN (oe.status) = 8 THEN 'Enviado a Aprobación Revisión Final'
+                WHEN (oe.status) = 9 THEN 'Finalizado Revisión Final'
+                ELSE 'SIN VALOR'
+                END AS estatus
+                -- , MAX(og.id) as idgrupo
                 from mdl_objective_establishment oe
                 inner join mdl_user u on u.id = oe.userid
                 inner join mdl_objective_groups_users gu on  gu.idusuario = oe.userid
                 inner join mdl_objective_groups og on og.id = gu.idgroup
-                where oe.courseid=? and oe.idinstance=? and oe.idmod=? and u.id != ? and og.id=? order by ncompleto asc";
+                where oe.courseid=? and oe.idinstance=? and oe.idmod=? and u.id != ? and oe.idjefedirecto=? and og.id=? and  gu.status=?
+				GROUP BY oe.id, u.id,oe.rol,gu.rol";
 
-                $result = $DB->get_records_sql($esql, array($idcurso, $idinstancia, $idmodulo, $idjefeinmediato, $idgrupojefe));  
+                $result = $DB->get_records_sql($esql, array($idcurso, $idinstancia, $idmodulo, $idjefeinmediato, $idjefeinmediato, $idgrupojefe,0));  
 
                 $display .= html_writer::start_tag('div', array('class' => 'container'));
                 $display .= html_writer::start_tag('table', array('class' => 'table table-striped'));

@@ -60,6 +60,19 @@ $PAGE->set_context($modulecontext);
 
 
 echo $OUTPUT->header();
+/*
+$consulta="select distinct ob.id
+from {objective_groups} ob 
+where ob.courseid=? and ob.category=? and ob.id=?";
+$r = $DB->get_records_sql($consulta, array($courseid, 0, $id));
+//print_r($r);
+
+if(!empty($r)){
+    $a=1; 
+}else{
+    $a=0;
+}
+*/
 
 echo '<h1><b>Grupos establecimiento de objetivos</b></h1>';
 $button = new single_button(new moodle_url('/mod/objective/usergroup.php', array('courseid' => $courseid,'instance' => $instance,'idgroup'=>$id)),'Agrega usuario', $buttonadd, 'get');
@@ -67,21 +80,22 @@ $button->class = 'singlebutton addusergroup';
 $button->formid = 'addusergroup';
 echo $OUTPUT->render($button);
 //Muestras informacion de los cursos
+echo '<link rel="stylesheet" href="./css/w3.css">';
 
 $sql="select  distinct ogu.id , CONCAT(u.firstname, ' ', u.lastname) as nombrecompleto, u.email as correo, ogr.description
-,(select mf3.data from mdl_user_info_data mf3 where mf3.userid=u.id and mf3.fieldid=3) as puesto 
-,(select mf4.data from mdl_user_info_data mf4 where mf4.userid=u.id and mf4.fieldid=2) as jefedirecto,
+,(select mf3.data from {user_info_data} mf3 where mf3.userid=u.id and mf3.fieldid=3) as puesto 
+,(select mf4.data from {user_info_data} mf4 where mf4.userid=u.id and mf4.fieldid=2) as jefedirecto,
 ogu.courseid ,ogu.idgroup,
 CASE
     WHEN ogu.status = 0 THEN 'HABILITADO'
     WHEN ogu.status = 1 THEN 'INHABILITADO'
     ELSE 'SIN VALOR'
 END AS estatus
-from mdl_objective_groups_users ogu
-inner join mdl_objective_groups_rol ogr on ogr.id=ogu.rol
-inner join mdl_user u on u.id = ogu.idusuario
-inner join mdl_user_info_data md ON md.userid = u.id
-inner join mdl_user_info_field mf ON mf.id = md.fieldid  where ogu.courseid='".$courseid."' and ogu.idgroup='".$id."' ORDER BY ogr.description DESC";
+from {objective_groups_users} ogu
+inner join {objective_groups_rol} ogr on ogr.id=ogu.rol
+inner join {user} u on u.id = ogu.idusuario
+inner join {user_info_data} md ON md.userid = u.id
+inner join {user_info_field} mf ON mf.id = md.fieldid  where ogu.courseid='".$courseid."' and ogu.idgroup='".$id."' ORDER BY ogr.description DESC";
 $viewgroupusers = $DB->get_records_sql($sql, array());  
 
 objective_print_groups_users($viewgroupusers);
