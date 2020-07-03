@@ -108,7 +108,7 @@ function objective_print_groups($viewgroups, $return = 0){
            $display .= html_writer::start_tag('em', array('class' => 'fa fa-search'));
            $display .= html_writer::end_tag('em');
            $display .= html_writer::end_tag('a');
-           $display .= html_writer::start_tag('a',array('onclick'=>'myFunction()','class' => 'btn btn-info'));
+          /* $display .= html_writer::start_tag('a',array('onclick'=>'myFunction()','class' => 'btn btn-info'));
            $display .= html_writer::start_tag('em', array('class' => 'fa fa-edit'));
            $display .= html_writer::end_tag('em');
            $display .= html_writer::end_tag('a');
@@ -122,7 +122,7 @@ function objective_print_groups($viewgroups, $return = 0){
            $display .= html_writer::start_tag('a',array('class' => 'w3-bar-item w3-button'));
            $display .= clean_text('<strong>link 3</strong>');
            $display .= html_writer::end_tag('a');
-           $display .= html_writer::end_tag('div');
+           $display .= html_writer::end_tag('div');*/
            $display .= html_writer::start_tag('a',array('class' => 'btn btn-danger', 'data-toggle'=>'modal', 'href' => '#delete_group'.$value->id.''));
            $display .= html_writer::start_tag('em', array('class' => 'fa fa-trash'));
            $display .= html_writer::end_tag('em');
@@ -665,10 +665,10 @@ function objective_print_establishment($viewestablishment, $return = 0){
                 ELSE 'SIN VALOR'
                 END AS estatus
                 -- , MAX(og.id) as idgrupo
-                from mdl_objective_establishment oe
-                inner join mdl_user u on u.id = oe.userid
-                inner join mdl_objective_groups_users gu on  gu.idusuario = oe.userid
-                inner join mdl_objective_groups og on og.id = gu.idgroup
+                from {objective_establishment} oe
+                inner join {user} u on u.id = oe.userid
+                inner join {objective_groups_users} gu on  gu.idusuario = oe.userid
+                inner join {objective_groups} og on og.id = gu.idgroup
                 where oe.courseid=? and oe.idinstance=? and oe.idmod=? and u.id != ? and oe.idjefedirecto=? and og.id=? and  gu.status=?
 				GROUP BY oe.id, u.id,oe.rol,gu.rol";
 

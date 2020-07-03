@@ -167,7 +167,7 @@ if ($groupuserform->is_cancelled()) {
 
 
 
-    $queryestableciminetousuario="select id as idcolaboradorestablecimiento from mdl_objective_establishment where userid=? and courseid=?";
+    $queryestableciminetousuario="select id as idcolaboradorestablecimiento from {objective_establishment} where userid=? and courseid=?";
     $querycolaborador = $DB->get_records_sql($queryestableciminetousuario, array($idjefe , $idcourse));
 
     if(!empty($querycolaborador)){
@@ -197,7 +197,7 @@ if ($groupuserform->is_cancelled()) {
         }else{
 
             $queryjefedejefe="select a.id, a.idusuario, 
-              (select a2.idusuario as jefe from mdl_objective_groups_users a2 where a2.rol !=1 and a2.idgroup = b.category) as idjefejefe
+              (select a2.idusuario as jefe from {objective_groups_users} a2 where a2.rol !=1 and a2.idgroup = b.category) as idjefejefe
               from {objective_groups_users} a
               join {objective_groups} b on b.id=a.idgroup
               where a.idgroup=?
