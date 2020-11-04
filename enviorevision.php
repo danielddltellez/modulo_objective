@@ -133,7 +133,7 @@ if(!empty($_POST['racciones4']) && !empty($_POST['rmeses4'])){
                     $statusfinal = $result->envioNotificacionUsuarioResult;
                 
                     } catch(SoapFault $e){
-                        var_dump($e);
+                     //   var_dump($e);
                 
                     }
                     try{
@@ -148,7 +148,7 @@ if(!empty($_POST['racciones4']) && !empty($_POST['rmeses4'])){
                     $statusfinal1 = $result1->envioNotificacionUsuarioResult;
                 
                     } catch(SoapFault $e){
-                    var_dump($e);
+                  //  var_dump($e);
                 
                     }
                 
@@ -168,7 +168,7 @@ if(!empty($_POST['racciones4']) && !empty($_POST['rmeses4'])){
 
     } catch(\Throwable $e) {
         // PHP 7 
-        echo 'Error al guardar';
+        //echo 'Error al guardar';
     }
 
     

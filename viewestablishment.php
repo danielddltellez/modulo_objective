@@ -1244,6 +1244,7 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 
                                                 <div class="w3-col m6 w3-white w3-center">
                                                     <p class="text-cuestion">Qué acciones he implementado:</p>';
                                                     if(empty($actionp)){
+                                                        $validador=1;
                                                         $establecimientorevision .='<p><textarea class="w3-input w3-border" maxlength="1000" rows="5" cols="10" type="text" id="racciones'.$cont.'" name="racciones'.$cont.'" '.$requeridcolaborador.'></textarea></p>';
                                                     }else{
                                                         $establecimientorevision .='<p class="w3-input w3-border">'.$actionp.'</p>';
@@ -1289,10 +1290,11 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 
 
         }
 
-        if(empty($actionp)){
+        if($validador >=1){
         $enviorevision .='<input type="submit" id="btnRevisar" name="btnRevisar"  value="Enviar">';
         }else{
         $enviorevision .='<br>';
+        //enviorevision .='<input type="submit" id="btnRevisar" name="btnRevisar"  value="Enviar">';
         }
         $enviorevision .='</form>
         <hr><p id="rev"></p> <!-- ESTABLECIMIENTO DE OBJETIVOS 6-->
@@ -2260,7 +2262,7 @@ $(document).on('ready', function() {
 
         if(totales >= 101){
             
-           alert("La suma de tus objetivos no debe de ser ni mayor ni menor a 1000");
+           alert("La suma de tus objetivos no debe de ser ni mayor ni menor a 100%");
         }else if(totales <= 100){
 
             $.ajax({

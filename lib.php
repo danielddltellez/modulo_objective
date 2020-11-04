@@ -669,10 +669,10 @@ function objective_print_establishment($viewestablishment, $return = 0){
                 inner join {user} u on u.id = oe.userid
                 inner join {objective_groups_users} gu on  gu.idusuario = oe.userid
                 inner join {objective_groups} og on og.id = gu.idgroup
-                where oe.courseid=? and oe.idinstance=? and oe.idmod=? and u.id != ? and oe.idjefedirecto=? and og.id=? and  gu.status=?
+                where oe.courseid=? and oe.idinstance=? and oe.idmod=? and u.id != ? and oe.idjefedirecto=?  and  gu.status=?
 				GROUP BY oe.id, u.id,oe.rol,gu.rol";
 
-                $result = $DB->get_records_sql($esql, array($idcurso, $idinstancia, $idmodulo, $idjefeinmediato, $idjefeinmediato, $idgrupojefe,0));  
+                $result = $DB->get_records_sql($esql, array($idcurso, $idinstancia, $idmodulo, $idjefeinmediato, $idjefeinmediato,0));  
 
                 $display .= html_writer::start_tag('div', array('class' => 'container'));
                 $display .= html_writer::start_tag('table', array('class' => 'table table-striped'));

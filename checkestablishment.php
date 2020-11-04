@@ -1033,6 +1033,7 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
                 <div class="w3-col m6 w3-white w3-center">
                     <p class="text-cuestion">Qué acciones he implementado:</p>';
                     if(empty($actionp)){
+                        $validacion=1;
                         $establecimientorevision .='<p><textarea class="w3-input w3-border" maxlength="1000" rows="5" cols="10" type="text" id="racciones'.$cont.'" name="racciones'.$cont.'" disabled></textarea></p>';
                     }else{
                         $establecimientorevision .='<p class="w3-input w3-border">'.$actionp.'</p>';
@@ -1075,7 +1076,7 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
     </div>';
 
     }
-    if(empty($actionp)){
+    if($validacion>=1){
         $enviorevision .='<p>Colaborador aun no captura sus respuestas</p>';
     }else{
         if(empty($boos)){
@@ -3145,6 +3146,7 @@ $(document).on('ready', function() {
                 * correcta
                 * */
                 $("#rev").html(data);
+                location.reload(); 
             },
             error: function(data){
                 /*

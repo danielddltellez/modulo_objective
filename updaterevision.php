@@ -57,7 +57,7 @@ echo 'Guardado con éxito';
 
 } catch(\Throwable $e) {
     // PHP 7 
-echo 'Error al Guardar';
+//echo 'Error al Guardar';
 } 
 if($_POST['idrevision5'] != NULL){
     $record5 = new stdClass();
