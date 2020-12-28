@@ -664,6 +664,8 @@ $(document).on('ready', function() {
         promediaComp(42, 4);
     });
 
+    /* */
+
 
     //Evento para promediar competencias Revisión final
     $("input[name2='1']").change(function() {

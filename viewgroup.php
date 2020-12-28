@@ -72,11 +72,13 @@ $button->formid = 'newgroup';
 
 
 
+
 //Muestras informacion de los cursos
 $sql="select * from {objective_groups} where courseid='".$cm->course."' and idinstance='".$cm->instance."' and idmod='".$id."'";
 $viewgroups = $DB->get_records_sql($sql, array());  
 echo $OUTPUT->render($button);
 objective_print_groups($viewgroups);
+
 
 
 

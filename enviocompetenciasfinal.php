@@ -67,7 +67,7 @@ foreach($_POST as $k=>$v){
 
 }
 
-
+/*
 $iduser=$USER->id;
 $querycontrol='select idmod from {objective_establishment} where userid=?';
 
@@ -81,6 +81,8 @@ foreach($resultcontrol as $value){
 $my = new moodle_url('/mod/objective/view.php?id='.$idins.'');
 redirect($my);
 exit();
+
+*/
 
 
 ?>

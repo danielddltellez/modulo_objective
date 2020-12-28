@@ -108,21 +108,10 @@ function objective_print_groups($viewgroups, $return = 0){
            $display .= html_writer::start_tag('em', array('class' => 'fa fa-search'));
            $display .= html_writer::end_tag('em');
            $display .= html_writer::end_tag('a');
-          /* $display .= html_writer::start_tag('a',array('onclick'=>'myFunction()','class' => 'btn btn-info'));
-           $display .= html_writer::start_tag('em', array('class' => 'fa fa-edit'));
+           $display .= html_writer::start_tag('a',array('class' => 'btn btn-info', 'data-toggle'=>'modal', 'href' => '#edit_group'.$value->id.''));
+           $display .= html_writer::start_tag('em', array('class' => 'fa fa-pencil'));
            $display .= html_writer::end_tag('em');
            $display .= html_writer::end_tag('a');
-           $display .= html_writer::start_tag('div', array('id'=>'demo', 'class' => 'w3-dropdown-content w3-bar-block w3-border'));
-           $display .= html_writer::start_tag('a',array('class' => 'w3-bar-item w3-button'));
-           $display .= clean_text('<strong>link 1</strong>');
-           $display .= html_writer::end_tag('a');
-           $display .= html_writer::start_tag('a',array('class' => 'w3-bar-item w3-button'));
-           $display .= clean_text('<strong>link 2</strong>');
-           $display .= html_writer::end_tag('a');
-           $display .= html_writer::start_tag('a',array('class' => 'w3-bar-item w3-button'));
-           $display .= clean_text('<strong>link 3</strong>');
-           $display .= html_writer::end_tag('a');
-           $display .= html_writer::end_tag('div');*/
            $display .= html_writer::start_tag('a',array('class' => 'btn btn-danger', 'data-toggle'=>'modal', 'href' => '#delete_group'.$value->id.''));
            $display .= html_writer::start_tag('em', array('class' => 'fa fa-trash'));
            $display .= html_writer::end_tag('em');

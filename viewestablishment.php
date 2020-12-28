@@ -124,14 +124,14 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
         echo '<button class="w3-bar-item w3-button"><a href="'.$CFG->wwwroot.'/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
     }else if($estatusa==4 || $estatusa==5 || $estatusa==6){
 
-        echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
+       // echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revisión Mitad de año</button>';
         echo '<button class="w3-bar-item w3-button"><a href="'.$CFG->wwwroot.'/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
     }else if($estatusa==7 || $estatusa==8 || $estatusa==9){
 
-        echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
-        echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revisión Mitad de año</button>';
-      //  echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>';
+       // echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
+       // echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revisión Mitad de año</button>';
+        echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>';
         echo '<button class="w3-bar-item w3-button"><a href="'.$CFG->wwwroot.'/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
     }
     echo'</div>';
@@ -240,6 +240,8 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
 }
 $fcha = date("Y-m-d");
 /* INICIA VISTA 1*/
+
+
 $vista .='<div id="vista1" class="w3-light-grey vistas">
                                 <div class="w3-container">
                                     <div class="w3-row">
@@ -296,8 +298,9 @@ $vista .='<div id="vista1" class="w3-light-grey vistas">
                                             <p></p>
                                         </div>
                                         <div class="w3-col l10 w3-center">
-                                            <p>Este apartado está estrechamente ligado con el rubro de objetivos del puesto de trabajo con esta evaluación conoceremos en qué medida se logran.</p><p> Es importante que consideres los objetivos de tu jefe inmediato que te presentamos a
-                                                continuación:</p><p> *No todos deberán </p>
+                                            <p> Este apartado está estrechamente ligado con el rubro de objetivos del puesto de trabajo. </p><p>
+                                            Es importante que consideres los objetivos de tu jefe inmediato que te presentamos a continuación:
+                                            </p>
                                         </div>
                                         <div class="w3-col l1">
                                             <p></p>
@@ -691,6 +694,7 @@ $competencias2 .=' </div>
                         </div>
                     </div>
                 </div></div><!-- </div></div></div> div final-->';
+if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3){
 echo $vista;
 echo $vistajefeinmediato;
 echo '</div><div class="espacio"></div><div class="w3-container">
@@ -1084,12 +1088,16 @@ if($rolprincipal=='COLABORADOR'){
 
 }
 echo $competencias2;
+
+}//cierra if
+
+
 /*Vista 2 */
-if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 || $estatusa==9){
+if($estatusa==4 || $estatusa==5 || $estatusa==6 /*|| $estatusa==7 || $estatusa==8 || $estatusa==9*/){
     if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
 
             /* INICIA VISTA 2*/
-        $vistarevision .='<div id="vista2" class="w3-light-grey vistas" style="display: none;">
+        $vistarevision .='<div id="vista2" class="w3-light-grey vistas">
                             <div class="w3-container">
                                 <div class="w3-row">
                                     <div class="w3-col l2">
@@ -1268,7 +1276,7 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 
                                         <div class="w3-col m6 w3-white w3-center">
                                         <div class="w3-row">
                                         <div class="w3-col m6 w3-white w3-center">
-                                            <p class="text-cuestion">Cometarios sobre acciones ya implementadas:</p>';
+                                            <p class="text-cuestion">Comentarios sobre acciones ya implementadas:</p>';
                                             if(empty($valuecontrol->bossc)){
                                                 $establecimientorevision .='<p><textarea class="w3-input w3-border" maxlength="1000" rows="5" cols="10" type="text" id="rimplementadas'.$cont.'" name="rimplementadas'.$cont.'" disabled></textarea></p>';
                                             }else{
@@ -1291,7 +1299,7 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 || $estatusa==7 || $estatusa==8 
         }
 
         if($validador >=1){
-        $enviorevision .='<input type="submit" id="btnRevisar" name="btnRevisar"  value="Enviar">';
+        $enviorevision .='<input type="submit" id="btnRevisar" name="btnRevisar"  value="Guardar">';
         }else{
         $enviorevision .='<br>';
         //enviorevision .='<input type="submit" id="btnRevisar" name="btnRevisar"  value="Enviar">';
@@ -1645,7 +1653,7 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
     if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO' || $rolprincipal=='DIRECTOR'){
 
                     /* INICIA VISTA 3*/
-                $vistarevisionfinal .='<div id="vista3" class="w3-light-grey vistas" style="display: none;">
+                $vistarevisionfinal .='<div id="vista3" class="w3-light-grey vistas">
                                     <div class="w3-container">
                                         <div class="w3-row">
                                             <div class="w3-col l2">
@@ -1703,6 +1711,7 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                 echo $vistarevisionfinal;
                     //  echo $vistajefeinmediato;
                 echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-container">';
+                $valorponderadofinal=0;
                 ?>
                 <div class="espacio"></div><div class="w3-container"><div class="w3-row"><div class="w3-col l1"><p></p></div><div class="w3-col l10 w3-center"><div class="w3-container">
                 <div class="w3-row">
@@ -1713,7 +1722,7 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                         <p>&nbsp;</p>
                     </div>
                     <div class="w3-col l4">
-                        <h3>Total: <span class="w3-badge w3-xlarge w3-red w3-padding"><?php echo $totalobjetivos; ?>%</span></h3>
+                       <!-- <h3>Total: <span class="w3-badge w3-xlarge w3-red w3-padding"><?php echo $valorponderadofinal; ?>%</span></h3>-->
                     </div>
                 </div>
                 <div class="w3-row">
@@ -1723,7 +1732,7 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                 <?php
                 echo '<form id="revisionobjfinal" method="POST" action="enviorevisionfinal.php" data-parsley-validate="">';
                 $requeridv3='required=""';
-                $valorponderadofinal=0;
+                
                 foreach($resultcontrol as $valuecontrol){
 
                 $contfinal=$valuecontrol->contador;
@@ -1787,7 +1796,7 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                     <p>Auto - Evaluación final</p>
                     </div>
                     <div class="w3-round-xlarge w3-col m3  w3-pale-red">
-                    <p>Evaluación final - jefe inmediato</p>
+                    <p>Evaluación final - Jefe inmediato</p>
                     </div>
                 </div>
                 <div class="row">
@@ -1812,7 +1821,7 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                         }
                         $establecimientorevisionfinal .='</div>
                     <div class="w3-col m3 w3-white w3-center">
-                        <p class="text-cuestion">Evaluación final - jefe inmediato</p>';
+                        <p class="text-cuestion">Evaluación final - Jefe inmediato</p>';
                         if(empty($valuecontrol->evaluationboss)){
                             $establecimientorevisionfinal .='<p class="w3-input w3-border">&nbsp;</p>';
                         }else{
@@ -1832,7 +1841,7 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                                 }
                                 $establecimientorevisionfinal .='</div>
                             <div class="w3-col m6 w3-white w3-center">
-                                <p class="text-cuestion">Mis comentarios, Evaluación Final:</p>';
+                                <p class="text-cuestion">Mis comentarios, Evaluación final:</p>';
                                 if(empty($valuecontrol->mycommentsfinal)){
                                     $establecimientorevisionfinal .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="micomentariosef'.$contfinal.'" name="micomentariosef'.$contfinal.'" '.$requeridv3.'></textarea></p>';
                                 }else{
@@ -1844,7 +1853,7 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                     <div class="w3-col m6 w3-white w3-center">
                     <div class="w3-row">
                     <div class="w3-col m6 w3-white w3-center">
-                        <p class="text-cuestion">Retroalimentación de mi jefe:</p>';
+                        <p class="text-cuestion">Retroalimentación de mi Jefe:</p>';
                         if(empty($valuecontrol->feedbackboos)){
                             $establecimientorevisionfinal .='<p class="w3-input w3-border">&nbsp;</p>';
                         }else{
@@ -1871,7 +1880,7 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                 }
 
                 if(empty($mycomments)){
-                $enviorevisionfinal .='<input type="submit" id="btnRevisarFinal" name="btnRevisarFinal"  value="Enviar">';
+                $enviorevisionfinal .='<input type="submit" id="btnRevisarFinal" name="btnRevisarFinal"  value="Guardar">';
                 }else{
                 $enviorevisionfinal .='<br>';
                 }
@@ -1900,8 +1909,8 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                     <div  class="w3-col l4">
                         <p>&nbsp;</p>
                     </div>
-                    <div class="w3-col l4">
-                        <h3>Total: <span class="w3-badge w3-xlarge w3-red w3-padding"><?php echo $valorponderadofinal; ?>%</span></h3>
+                    <div class="w3-col l4" style="position: fixed; bottom: 0; right: -22px; width: 145px;font-size: 19px;top: 10%;">
+                        <p>Evaluación final de año: <span class="w3-badge w3-xlarge w3-red w3-padding"><?php echo $valorponderadofinal; ?>%</span></p>
                     </div>
                 </div>
                 <div class="w3-row">
@@ -2243,6 +2252,8 @@ textarea.parsley-error:focus {
     border-color:#843534;
     box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #ce8483
 }</style>';
+if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3){
+
 ?>
 <script>
 $(document).on('ready', function() {
@@ -2732,6 +2743,31 @@ $(document).on('ready', function() {
         return false;
     });
 
+
+
+    /*
+    function openCity(cityName) {
+            var i;
+            var x = document.getElementsByClassName("vistas");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            document.getElementById(cityName).style.display = "block";
+        }
+        */
+
+
+});
+
+</script>
+<?php
+}
+if($estatusa==4 || $estatusa==5 || $estatusa==6){
+
+?>
+<script>
+$(document).on('ready', function() {
+
     $('#revisionobj').parsley().on('field:validated', function() {
         var mensaje = $('.parsley-error').length === 0;
         $('.bs-callout-info').toggleClass('hidden', !mensaje);
@@ -2782,16 +2818,21 @@ $(document).on('ready', function() {
         // Nos permite cancelar el envio del formulario
         return false;
     });
+});
+</script>
+<?php
+}
+if($estatusa==7 || $estatusa==8 || $estatusa==9){
 
+?>
+<script>
+$(document).on('ready', function() {
     $('#revisionobjfinal').parsley().on('field:validated', function() {
-        var mensaje = $('.parsley-error').length === 0;
-        $('.bs-callout-info').toggleClass('hidden', !mensaje);
-        $('.bs-callout-warning').toggleClass('hidden', mensaje);
+            var mensaje = $('.parsley-error').length === 0;
+            $('.bs-callout-info').toggleClass('hidden', !mensaje);
+            $('.bs-callout-warning').toggleClass('hidden', mensaje);
     });
-
-
     $("#revisionobjfinal").bind("submit",function(){
-        // Capturamnos el boton de envío
         var btnRevisarFinal = $("#btnRevisarFinal");
         $.ajax({
             type: $(this).attr("method"),
@@ -2811,7 +2852,7 @@ $(document).on('ready', function() {
                 * Se ejecuta al termino de la petición
                 * */
                 btnRevisarFinal.val("Enviar");
-              
+                
             },
             success: function(data){
                 /*
@@ -2819,7 +2860,7 @@ $(document).on('ready', function() {
                 * correcta
                 * */
                 $("#revfinal").html(data);
-                 //location.reload();
+                    location.reload();
                 
             },
             error: function(data){
@@ -2832,19 +2873,12 @@ $(document).on('ready', function() {
         // Nos permite cancelar el envio del formulario
         return false;
     });
-
-    function openCity(cityName) {
-            var i;
-            var x = document.getElementsByClassName("vistas");
-            for (i = 0; i < x.length; i++) {
-                x[i].style.display = "none";
-            }
-            document.getElementById(cityName).style.display = "block";
-        }
-
-
 });
 </script>
+<?php
+}
+?>
+
 </body>
 <?php
 

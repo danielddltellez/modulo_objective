@@ -63,7 +63,7 @@ $modulecontext = context_module::instance($cm->id);
     <script src="./js/parsley.js" type="text/javascript"></script>
     <script src="./js/es.js" type="text/javascript"></script>
 </head>
-<body>
+<body onload="actualiza_contenido()">
 <?php
 $query="select distinct u.id as 'iduser', concat(u.firstname, ' ',u.lastname) as 'ncomnpleto'  , (SELECT 
 mf3.data
@@ -97,20 +97,39 @@ foreach($result as $value){
 
     
 }
+
+
 /*VALIDA SI ES JEFE INMEDIATO DEL DOCUMENTO*/
-$valida="select * from {objective_establishment} where id=? and courseid=? and idmod=? and idjefedirecto=?";
+$valida="select id,status from {objective_establishment} where id=? and courseid=? and idmod=? and idjefedirecto=?";
 $validajefe = $DB->get_records_sql($valida, array($id, $courseid, $instance, $USER->id));
 if(empty($validajefe)){
              $my = new moodle_url('/mod/objective/view.php?id='.$instance.'');
             redirect($my);
             exit();
-}                       
-echo '<div class="w3-bar w3-black">
-                <button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>
-                <button id="vistarevision1" class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revisión Mitad de año</button>
-                <!--<button id="vistarevision2" class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>-->
-                <button class="w3-bar-item w3-button"><a href="'.$CFG->wwwroot.'/mod/objective/view.php?id='.$instance.'">Regresar</a></button>
-        </div>';
+}
+foreach($validajefe as $vals){
+    $estatusa=$vals->status;
+
+}
+
+                     
+echo '<div class="w3-bar w3-black">';
+if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3){
+    echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
+    echo '<button class="w3-bar-item w3-button"><a href="'.$CFG->wwwroot.'/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
+
+
+}else if($estatusa==4 || $estatusa==5 || $estatusa==6){
+    echo '<button id="vistarevision1" class="w3-bar-item w3-button" onclick="openCity(\'vista2\')">Revisión Mitad de año</button>';
+    echo '<button class="w3-bar-item w3-button"><a href="'.$CFG->wwwroot.'/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
+
+}else if($estatusa==7 || $estatusa==8 || $estatusa==9){
+    echo '<button id="vistarevision2" class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>';
+    echo '<button class="w3-bar-item w3-button"><a href="'.$CFG->wwwroot.'/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
+
+
+}
+    echo '</div>';
                 $vistajefeinmediato .='<div class="w3-row">
                             <div class="w3-col l1">
                                 <p></p>
@@ -196,8 +215,9 @@ $vista .='<div id="vista1" class="w3-light-grey vistas">
                         <p></p>
                     </div>
                     <div class="w3-col l10 w3-center">
-                        <p>Este apartado está estrechamente ligado con el rubro de objetivos del puesto de trabajo con esta evaluación conoceremos en qué medida se logran.</p><p> Es importante que consideres los  objetivos de tu jefe inmediato que te presentamos a
-                            continuación:</p><p> *No todos deberán </p>
+                    <p> Este apartado está estrechamente ligado con el rubro de objetivos del puesto de trabajo. </p><p>
+                    Es importante que consideres los objetivos de tu jefe inmediato que te presentamos a continuación:
+                    </p>
                     </div>
                     <div class="w3-col l1">
                         <p></p>
@@ -404,7 +424,7 @@ if(empty($resultcontrol)){
     if($totalobjetivos == 100){
     if($primeravalidacion==0 || $primeravalidacion==1 || $primeravalidacion==2 || $primeravalidacion==3){
 
-            $establecimiento .='<button onclick="document.getElementById(\'val'.$idform.'\').style.display=\'block\'" class="w3-button w3-pale-red w3-padding-16">Revisión Final</button>';
+            $establecimiento .='<button onclick="document.getElementById(\'val'.$idform.'\').style.display=\'block\'" class="w3-button w3-pale-red w3-padding-16">Finalizar Establecimiento</button>';
 
             $establecimiento .='<div id="val'.$idform.'" class="w3-modal">
                 <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
@@ -436,8 +456,6 @@ if(empty($resultcontrol)){
 
     }
 }
-  
-
 }           
 $competencias1 .='<div class="w3-container">
 <div class="w3-row">
@@ -489,6 +507,8 @@ $competencias2 .='</div>
                         </div>
                         </div>
                         </div><!-- </div></div></div></div> div final-->';
+if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3){
+
 echo $vista;
 echo $vistajefeinmediato;
 echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-container">';
@@ -887,8 +907,11 @@ if($rolcolaborador==1){
 }else{
 }
 echo $competencias2;
+} //cierra vista 1 if
 /* INICIA VISTA 2*/
-$vistarevision .='<div id="vista2" class="w3-light-grey vistas" style="display: none;">
+if($estatusa==4 || $estatusa==5 || $estatusa==6){
+
+$vistarevision .='<div id="vista2" class="w3-light-grey vistas">
     <div class="w3-container">
         <div class="w3-row">
             <div class="w3-col l2">
@@ -1053,7 +1076,7 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
         <div class="w3-col m6 w3-white w3-center">
         <div class="w3-row">
         <div class="w3-col m6 w3-white w3-center">
-            <p class="text-cuestion">Cometarios sobre acciones ya implementadas:</p>';
+            <p class="text-cuestion">Comentarios sobre acciones ya implementadas:</p>';
             if(empty($boos)){
                 $establecimientorevision .='<p><textarea class="w3-input w3-border" maxlength="1000" rows="5" cols="10" type="text" id="rimplementadas'.$cont.'" name="rimplementadas'.$cont.'" '.$requeridcolaborador.'></textarea></p>';
             }else{
@@ -1080,7 +1103,7 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
         $enviorevision .='<p>Colaborador aun no captura sus respuestas</p>';
     }else{
         if(empty($boos)){
-        $enviorevision .='<input type="submit" id="btnUpdate" name="btnUpdate"  value="Enviar">';
+        $enviorevision .='<input type="submit" id="btnUpdate" name="btnUpdate"  value="Guardar">';
         }else{
         $enviorevision .='<br>';
         }
@@ -1098,6 +1121,9 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
     </div>
     </div>
     <div class="espacio"></div>
+    <div class="w3-round-xxlarge w3-col l12 w3-red w3-center">
+                                <h1>Califica las competencias</h1>
+                            </div>
     </div><!-- Finaliza objetivos id-->
 <form id="idcompetencias" method="POST" action="enviocompetencias.php" data-parsley-validate="">
 <div class="w3-container">
@@ -1106,9 +1132,18 @@ echo '</div><div class="espacio"></div><div id="objetivos-jefe" class="w3-contai
                 <p></p>
             </div>
             <div class="w3-col l10">
-                <div class="w3-container">
+                <div class="w3-container" style="border: solid 10px #f44336; background-color: #fff;">
 <?php
 $validacionrf='';
+$compcolaborador="select id as ido, userid as idu, rol as rcolaborador from {objective_establishment} where id=? and courseid=? and idmod=? and idjefedirecto=?";
+$colaborador = $DB->get_records_sql($compcolaborador, array($id, $courseid, $instance, $USER->id));
+$rolcolaborador='';
+foreach($colaborador as $obtencion){
+    $obtencion->ido;
+    $obtencion->idu;
+    $rolcolaborador=$obtencion->rcolaborador;
+
+}
 if($rolcolaborador==1){
 
     $sql='select  obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
@@ -1609,16 +1644,19 @@ if($validacionrf==1){
     
     }
 }else{
-    echo '<center><input type="submit" id="btnCompetencia" name="btnCompetencia"  value="Calificar competencias"></center>';
+    echo '<center><input type="submit" id="btnCompetencia" name="btnCompetencia"  value="Guardar"></center>';
     
 }
 echo '</form>';
 echo'<br>';
 echo '</div></div> <!-- cierra vista -->';
 echo $competencias2;
+}//cierra if vista 2
 /*FIN VISTA 2 */
 /*INICIA VISTA 3*/
-$vistarevisionfinal .='<div id="vista3" class="w3-light-grey vistas" style="display: none;">
+if($estatusa==7 || $estatusa==8 || $estatusa==9){
+
+$vistarevisionfinal .='<div id="vista3" class="w3-light-grey vistas">
                                             <div class="w3-container">
                                                 <div class="w3-row">
                                                     <div class="w3-col l2">
@@ -1676,6 +1714,7 @@ $vistarevisionfinal .='<div id="vista3" class="w3-light-grey vistas" style="disp
                                                 </div>';
 echo $vistarevisionfinal;
 echo '</div><div class="espacio"></div><div id="objetivos-jefe-final" class="w3-container">';
+$objetivosfinal='';
 ?>
 <div class="espacio"></div><div class="w3-container"><div class="w3-row"><div class="w3-col l1"><p></p></div><div class="w3-col l10 w3-center"><div class="w3-container">
 <div class="w3-row">
@@ -1748,7 +1787,7 @@ foreach($resultcontrol as $valuecontrol){
             <p>Auto - Evaluación final</p>
         </div>
         <div class="w3-round-xlarge w3-col l3  w3-pale-red">
-            <p> Evaluación final - jefe inmediato</p>
+            <p> Evaluación final - Jefe inmediato</p>
         </div>
     </div>
     <div class="row">
@@ -1774,7 +1813,7 @@ foreach($resultcontrol as $valuecontrol){
         }
         $establecimientorevisionfinal .='</div>
     <div class="w3-col m3 w3-white w3-center">
-        <p class="text-cuestion">Evaluación final - jefe inmediato</p>';
+        <p class="text-cuestion">Evaluación final - Jefe inmediato</p>';
         if(empty($totaljefe)){
 
             $establecimientorevisionfinal .='<p><input class="w3-input w3-border" type="text" id="valorevaluacionjefe'.$contfinal.'" name="valorevaluacionjefe'.$contfinal.'" data-parsley-type="number" '.$requeridcolaboradorfinal.'></p>';
@@ -1796,7 +1835,7 @@ foreach($resultcontrol as $valuecontrol){
                             }
                             $establecimientorevisionfinal .='</div>
                         <div class="w3-col m6 w3-white w3-center">
-                            <p class="text-cuestion">Mis comentarios, Evaluación Final:</p>';
+                            <p class="text-cuestion">Mis comentarios, Evaluación final:</p>';
                             if(empty($valuecontrol->mycommentsfinal)){
                                 $establecimientorevisionfinal .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="micomentariosef'.$contfinal.'" name="micomentariosef'.$contfinal.'" disabled></textarea></p>';
 
@@ -1809,7 +1848,7 @@ foreach($resultcontrol as $valuecontrol){
         <div class="w3-col m6 w3-white w3-center">
         <div class="w3-row">
         <div class="w3-col m6 w3-white w3-center">
-                    <p class="text-cuestion">Retroalimentación de mi jefe:</p>';
+                    <p class="text-cuestion">Retroalimentación de mi Jefe:</p>';
                     if(empty($valuecontrol->feedbackboos)){
                         $establecimientorevisionfinal .='<p><textarea class="w3-input w3-border" rows="1" cols="10" type="text" id="retroalimentacion'.$contfinal.'" name="retroalimentacion'.$contfinal.'" '.$requeridcolaboradorfinal.'></textarea></p>';
                     }else{
@@ -1833,9 +1872,10 @@ if(empty($comentarioscolaborador)){
     $enviorevisionfinal  .='<p>Colaborador aun no captura sus respuestas de la revision final</p>';
 }else{
     if(empty($totaljefe)){
-    $enviorevisionfinal .='<input type="submit" id="btnUpdatefinal" name="btnUpdatefinal"  value="Enviar">';
+    $enviorevisionfinal .='<input type="submit" id="btnUpdatefinal" name="btnUpdatefinal"  value="Guardar">';
     }else{
     $enviorevisionfinal .='<br>';
+    $objetivosfinal=1;
     }
 }
 
@@ -1852,6 +1892,9 @@ echo $enviorevisionfinal;
 </div>
 </div>
 <div class="espacio"></div>
+<div class="w3-round-xxlarge w3-col l12 w3-red w3-center">
+                                <h1>Califica las competencias finales</h1>
+                            </div>
 </div><!-- Finaliza objetivos id-->'
 <?php
 
@@ -1863,9 +1906,18 @@ echo $enviorevisionfinal;
                 <p></p>
             </div>
             <div class="w3-col l10">
-                <div class="w3-container">
+                <div class="w3-container" style="border: solid 10px #f44336; background-color: #fff;">
     <?php
     $validacionrfinal='';
+    $compcolaborador="select id as ido, userid as idu, rol as rcolaborador from {objective_establishment} where id=? and courseid=? and idmod=? and idjefedirecto=?";
+$colaborador = $DB->get_records_sql($compcolaborador, array($id, $courseid, $instance, $USER->id));
+$rolcolaborador='';
+foreach($colaborador as $obtencion){
+    $obtencion->ido;
+    $obtencion->idu;
+    $rolcolaborador=$obtencion->rcolaborador;
+
+}
     if($rolcolaborador==1){
 
         $sqlfinal='select  obc.id as idcompe, c.id as idcourse , o.name as nestablecimiento, obn.namenivel, obc.orden ,obc.name as nombrecompetencia ,obn.id as categoria
@@ -2824,31 +2876,46 @@ echo $enviorevisionfinal;
     }
     
  
-if($validacionrfinal==1){
+if($validacionrfinal==1 && $objetivosfinal==1){
+
+    echo '<script>function actualiza_contenido() {
+    
+            $("body").animate({ scrollTop: $("body")[0].scrollHeight}, 1000);
+    
+        }
+        
+         </script>';
 
     if($primeravalidacion==8){
-        echo'<center><button type="button" onclick="document.getElementById(\'revisionfinal'.$id.'\').style.display=\'block\'" class="w3-button w3-pale-red">Validar Revision final</button></center>';
+        echo'<center><button type="button" onclick="document.getElementById(\'revisionfinal'.$id.'\').style.display=\'block\'" class="w3-button w3-pale-red">Finalizar Revisión Final</button></center>';
         echo'<div id="revisionfinal'.$id.'" class="w3-modal">
                     <div class="w3-modal-content w3-card-4">
-                    <header class="w3-container w3-pale-red"> 
+                    <header class="w3-container w3-pale-red w3-center"> 
                         <span onclick="document.getElementById(\'revisionfinal'.$id.'\').style.display=\'none\'" 
                         class="w3-button w3-display-topright">&times;</span>
-                        <h2>Validar objetivos</h2>
+                        <h2>Finalizar Revisión Final</h2>
                     </header>
                     <div class="w3-container">
-                        <p><p class="text-center">Esta seguro de Validar Revision final</p></p>
+                        <p><p class="w3-center">¿Estas seguro de Finalizar Revisión Final?</p></p>
                     </div>
-                    <footer class="w3-container w3-pale-red">
+                    <footer class="w3-container w3-pale-red w3-center">
                     <button onclick="document.getElementById(\'revisionfinal'.$id.'\').style.display=\'none\'" type="button" class="w3-button w3-gray">Cancelar</button>
-                    <a href="validar_revision_final.php?id='.$id.'&instance='.$instance.'" type="button" class="w3-button w3-red">Validar</a>
+                    <a href="validar_revision_final.php?id='.$id.'&instance='.$instance.'" type="button" class="w3-button w3-red">Finalizar Revisión Final</a>
                     </footer>
                     </div>';
     
     }else{
     
     }
+}else if($validacionrfinal==1){
+
+    echo '<br>';
+
+
+
 }else{
-    echo '<input type="submit" id="btnCompetenciafinal" name="btnCompetenciafinal"  value="Calificar Compétencias">';
+    
+    echo '<center><input type="submit" id="btnCompetenciafinal" name="btnCompetenciafinal"  value="Guardar"></center>';
 
 }
 echo '</form>';
@@ -2856,6 +2923,7 @@ echo'<br>';
 echo '</div></div> <!-- cierra vista -->';
     
 echo $competencias2;
+}//cierra dif vista 3
 
 
 echo'<style>input.parsley-error,
@@ -2870,6 +2938,8 @@ textarea.parsley-error:focus {
     border-color:#843534;
     box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #ce8483
 }</style>';
+if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3){
+
 ?>
 <script>
 $(document).on('ready', function() {
@@ -3109,7 +3179,14 @@ $(document).on('ready', function() {
         // Nos permite cancelar el envio del formulario
         return false;
     });
+});
+</script>
+<?php
+}else if($estatusa==4 || $estatusa==5 || $estatusa==6){
 
+?>
+<script>
+$(document).on('ready', function() {
     $('#revisionjefe').parsley().on('field:validated', function() {
         var ok = $('.parsley-error').length === 0;
         $('.bs-callout-info').toggleClass('hidden', !ok);
@@ -3158,14 +3235,62 @@ $(document).on('ready', function() {
         // Nos permite cancelar el envio del formulario
         return false;
     });
+    /*captura competencias y recarga*/
+    $("#idcompetencias").bind("submit",function(){
+        // Capturamnos el boton de envío
+        var btnCompetencia = $("#btnCompetencia");
+        $.ajax({
+            type: $(this).attr("method"),
+            url: $(this).attr("action"),
+            data:$(this).serialize(),
+            beforeSend: function(){
+                /*
+                * Esta función se ejecuta durante el envió de la petición al
+                * servidor.
+                * */
+                // btnEnviar.text("Enviando"); Para button 
+                btnCompetencia.val("Enviando"); // Para input de tipo button
+                btnCompetencia.attr("disabled","disabled");
+            },
+            complete:function(data){
+                /*
+                * Se ejecuta al termino de la petición
+                * */
+                btnCompetencia.val("Enviar formulario");
+                btnCompetencia.removeAttr("disabled");
+            },
+            success: function(data){
+                /*
+                * Se ejecuta cuando termina la petición y esta ha sido
+                * correcta
+                * */
+                $("#rev").html(data);
+                location.reload(); 
+            },
+            error: function(data){
+                /*
+                * Se ejecuta si la peticón ha sido erronea
+                * */
+                alert("Problemas al tratar de enviar el formulario");
+            }
+        });
+        // Nos permite cancelar el envio del formulario
+        return false;
+    });
+});
+</script>
+<?php
+}else if($estatusa==7 || $estatusa==8 || $estatusa==9){
+?>
+<script>
+$(document).on('ready', function() {
 
- 
+     
     $('#revisionjefefinal').parsley().on('field:validated', function() {
         var ok = $('.parsley-error').length === 0;
         $('.bs-callout-info').toggleClass('hidden', !ok);
         $('.bs-callout-warning').toggleClass('hidden', ok);
     })
-
 
     $("#revisionjefefinal").bind("submit",function(){
         // Capturamnos el boton de envío
@@ -3196,6 +3321,7 @@ $(document).on('ready', function() {
                 * correcta
                 * */
                 $("#revfinal").html(data);
+                location.reload(); 
             },
             error: function(data){
                 /*
@@ -3207,6 +3333,49 @@ $(document).on('ready', function() {
         // Nos permite cancelar el envio del formulario
         return false;
     });
+    /*captura competencias y recarga*/
+    $("#idcompetenciasfinal").bind("submit",function(){
+        // Capturamnos el boton de envío
+        var btnCompetenciafinal = $("#btnCompetenciafinal");
+        $.ajax({
+            type: $(this).attr("method"),
+            url: $(this).attr("action"),
+            data:$(this).serialize(),
+            beforeSend: function(){
+                /*
+                * Esta función se ejecuta durante el envió de la petición al
+                * servidor.
+                * */
+                // btnEnviar.text("Enviando"); Para button 
+                btnCompetenciafinal.val("Enviando"); // Para input de tipo button
+                btnCompetenciafinal.attr("disabled","disabled");
+            },
+            complete:function(data){
+                /*
+                * Se ejecuta al termino de la petición
+                * */
+                btnCompetenciafinal.val("Enviar formulario");
+                btnCompetenciafinal.removeAttr("disabled");
+            },
+            success: function(data){
+                /*
+                * Se ejecuta cuando termina la petición y esta ha sido
+                * correcta
+                * */
+                $("#rev").html(data);
+                location.reload(true); 
+            },
+            error: function(data){
+                /*
+                * Se ejecuta si la peticón ha sido erronea
+                * */
+                alert("Problemas al tratar de enviar el formulario");
+            }
+        });
+        // Nos permite cancelar el envio del formulario
+        return false;
+    });
+    /*
     function openCity(cityName) {
             var i;
             var x = document.getElementsByClassName("vistas");
@@ -3215,9 +3384,13 @@ $(document).on('ready', function() {
             }
             document.getElementById(cityName).style.display = "block";
         }
+        */
 
 });
 </script>
+<?php
+}
+?>
 </body>
 <?php
 

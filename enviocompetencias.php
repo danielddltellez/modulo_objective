@@ -35,11 +35,11 @@ foreach($_POST as $k=>$v){
 
                 try{
                 $lastinsertid = $DB->insert_record('objective_establishment_competition', $record1);
-                //echo 'REVISION 1 INSERTADO';
+                //echo 'Se capturaron las competencias';
 
                 } catch(\Throwable $e) {
                     // PHP 7 
-                //echo 'ERROR AL INSERTAR REVISION 1';
+                //echo 'Error al capturar las competencias';
                 } 
 
 
@@ -52,7 +52,8 @@ foreach($_POST as $k=>$v){
 
 
 }
-
+echo 'Se capturaron las competencias';
+/*
 $iduser=$USER->id;
 $querycontrol='select idmod from {objective_establishment} where userid=?';
 
@@ -66,5 +67,6 @@ foreach($resultcontrol as $value){
 $my = new moodle_url('/mod/objective/view.php?id='.$idins.'');
 redirect($my);
 exit();
+*/
 
 ?>

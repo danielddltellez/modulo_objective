@@ -140,27 +140,13 @@ if(isset($_GET['sendobj'])){
     }
     try{
         $updateobjetivos = $DB->update_record('objective_establishment', $updateest, $bulk=false);
+        $cadena = "email=$emailjefed&courseid=$idcursonot";
+        $cadena= base64_encode($cadena);
 
         $clienteSOAP = new SoapClient('http://192.168.14.30:8080/svcELearning.svc?wsdl');
            // https://www.portal3i.mx/URL/new_login.php?email=ingdanieltellez2015@gmail.com&courseid=12
-            $mensaje=''.$nombrecom.'  ha finalizado el registrado de sus Objetivos 2020, por favor ingresa a Validar sus Objetivos dando clic aquí~https://www.portal3i.mx/openlms/tripleI.php?email='.$emailjefed.'&courseid='.$idcursonot.'~. La fecha límite para realizar esta acción es '.$fechafinal.'';
+            $mensaje=''.$nombrecom.'  ha finalizado el registrado de sus Objetivos 2020, por favor ingresa a Validar sus Objetivos dando clic aquí ~https://www.portal3i.mx/openlms/tripleI.php?key='.$cadena.'~. La fecha límite para realizar esta acción es '.$fechafinal.'';
 
-            $mensajeemail=''.$nombrecom.'  ha finalizado el registrado de sus Objetivos 2020, por favor ingresa a Validar sus Objetivos dando clic aquí https://www.portal3i.mx/openlms/tripleI.php?email='.$emailjefed.'&courseid='.$idcursonot.'. La fecha límite para realizar esta acción es '.$fechafinal.'';
-                try{
-                $parametros=array(); //parametros de la llamada
-                $parametros['mensaje']=$mensajeemail;
-                $parametros['correo']=$emailjefed;
-                $parametros['aplicacion']='Establecimiento de Objetivos';
-                $parametros['idAplicacion']=(int)9;
-                $parametros['IdAmbiente']=(int)1;
-                $parametros['IdTipoNotificacion']=(int)1;
-                $result = $clienteSOAP->Notificacion($parametros);
-                $statusfinal = $result->envioNotificacionUsuarioResult;
-               
-                } catch(SoapFault $e){
-                var_dump($e);
-                
-                 }
                 try{
                     $parametros1=array(); //parametros de la llamada
                     $parametros1['mensaje']=$mensaje;

@@ -78,6 +78,10 @@ echo '<h1><b>Grupos establecimiento de objetivos</b></h1>';
 $button = new single_button(new moodle_url('/mod/objective/usergroup.php', array('courseid' => $courseid,'instance' => $instance,'idgroup'=>$id)),'Agrega usuario', $buttonadd, 'get');
 $button->class = 'singlebutton addusergroup';
 $button->formid = 'addusergroup';
+$buttonregresar = new single_button(new moodle_url('/mod/objective/viewgroup.php?id=6105', array('id' => $instance)),'Regresar', $buttonadd, 'get');
+$buttonregresar->class = 'singlebutton groupaddnew';
+$buttonregresar->formid = 'newgroup';
+
 echo $OUTPUT->render($button);
 //Muestras informacion de los cursos
 echo '<link rel="stylesheet" href="./css/w3.css">';
@@ -99,6 +103,7 @@ inner join {user_info_field} mf ON mf.id = md.fieldid  where ogu.courseid='".$co
 $viewgroupusers = $DB->get_records_sql($sql, array());  
 
 objective_print_groups_users($viewgroupusers);
+echo $OUTPUT->render($buttonregresar);
 
 echo $OUTPUT->footer();
 

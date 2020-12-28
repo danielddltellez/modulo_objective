@@ -67,21 +67,7 @@ $query = $DB->get_records_sql($sql, array($courseid));
             $mensaje='¡Hola! Te hemos asignado el formato Establecimiento de Objetivos 2020, para iniciar con el registro de tus Objetivos da clic aquí ~https://www.portal3i.mx/openlms/tripleI.php?email='.$val->correo.'&courseid='.$courseid.'~. La fecha límite para realizar esta acción es '.$val->finm.'';
 
             $mensajeemail='¡Hola! Te hemos asignado el formato Establecimiento de Objetivos 2020, para iniciar con el registro de tus Objetivos da clic aquí https://www.portal3i.mx/openlms/tripleI.php?email='.$val->correo.'&courseid='.$courseid.'. La fecha límite para realizar esta acción es '.$val->finm.'';
-                try{
-                $parametros=array(); //parametros de la llamada
-                $parametros['mensaje']=$mensajeemail;
-                $parametros['correo']=$val->correo;
-                $parametros['aplicacion']='Establecimiento de Objetivos';
-                $parametros['idAplicacion']=(int)9;
-                $parametros['IdAmbiente']=(int)1;
-                $parametros['IdTipoNotificacion']=(int)1;
-                $result = $clienteSOAP->Notificacion($parametros);
-                $statusfinal = $result->envioNotificacionUsuarioResult;
-               
-                } catch(SoapFault $e){
-                var_dump($e);
-                
-                 }
+
                 try{
                     $parametros1=array(); //parametros de la llamada
                     $parametros1['mensaje']=$mensaje;

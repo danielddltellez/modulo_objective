@@ -31,28 +31,14 @@ if(!empty($_POST['idformatoeo'])){
         try{
         $lastinsertid1 = $DB->update_record('objective_establishment', $record1, $bulk=false);
         echo 'Se actualizo el estatus del establecimiento';
+        $cadena = "email=$email&courseid=$idcursonot";
+        $cadena= base64_encode($cadena);
             $clienteSOAP = new SoapClient('http://192.168.14.30:8080/svcELearning.svc?wsdl');
             // https://www.portal3i.mx/URL/new_login.php?email=ingdanieltellez2015@gmail.com&courseid=12
            // $mensaje= '¡Hola! Tu Gestor ha Finalizado con la revisión de tus Objetivos 2020,  para ingresa a revisar sus comentario, da clic aquí.~https://www.portal3i.mx/openlms/tripleI.php?email='.$email.'&courseid='.$idcursonot.'~.';
-           $mensaje= '¡Hola! Te hemos asignado el formato Establecimiento de Objetivos 2020 - Revisión Mitad de año (Autoevaluación), para iniciar con el registro de tu Autoevaluación da clic.~https://www.portal3i.mx/openlms/tripleI.php?email='.$email.'&courseid='.$idcursonot.'~.';
+           $mensaje= '¡Hola! Te hemos asignado el formato Establecimiento de Objetivos 2020 - Revisión Mitad de año (Autoevaluación), para iniciar con el registro de tu Autoevaluación da clic.~https://www.portal3i.mx/openlms/tripleI.php?key='.$cadena.'~.';
 
             //$mensajeemail='¡Hola! Tu Gestor ha Finalizado con la revisión de tus Objetivos 2020,  para ingresa a revisar sus comentario, da clic aquí. https://www.portal3i.mx/openlms/tripleI.php?email='.$email.'&courseid='.$idcursonot.'.';
-            $mensajeemail='¡Hola! Te hemos asignado el formato Establecimiento de Objetivos 2020  - Revisión Mitad de año (Autoevaluación), para iniciar con el registro de tu Autoevaluación da clic. https://www.portal3i.mx/openlms/tripleI.php?email='.$email.'&courseid='.$idcursonot.'.';
-            try{
-                $parametros=array(); //parametros de la llamada
-                $parametros['mensaje']=$mensajeemail;
-                $parametros['correo']=$email;
-                $parametros['aplicacion']='Establecimiento de Objetivos';
-                $parametros['idAplicacion']=(int)9;
-                $parametros['IdAmbiente']=(int)1;
-                $parametros['IdTipoNotificacion']=(int)1;
-                $result = $clienteSOAP->Notificacion($parametros);
-                $statusfinal = $result->envioNotificacionUsuarioResult;
-            
-            } catch(SoapFault $e){
-             var_dump($e);
-             
-            }
             try{
                 $parametros1=array(); //parametros de la llamada
                 $parametros1['mensaje']=$mensaje;
