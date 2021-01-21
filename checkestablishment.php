@@ -79,8 +79,8 @@ inner join {objective} o on o.id = oe.idinstance
 inner join {objective_groups_users} ogu on ogu.idusuario = u.id
 inner join {objective_groups} og on og.id = ogu.idgroup
 inner join {objective_groups_rol}  ogr on ogr.id =  oe.rol
-where u.id=?";
-$result = $DB->get_records_sql($query, array($USER->id));
+where u.id=? and o.course=?";
+$result = $DB->get_records_sql($query, array($USER->id, $COURSE->id));
 $idusuario='';
 $nombre='';
 $nombrejefe='';
@@ -148,8 +148,8 @@ if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3){
                             <div class="w3-col l1"><p></p></div>
                                 <div id="jefe-inmediato" class="w3-col l10 w3-pale-red w3-center">
                                     <table class="w3-table-all">';
-$objetivosjefe='select id, userid, targetnumber, objectivecomplete  from {objective_establishment_captured} where userid=?';
-$obtenerobj = $DB->get_records_sql($objetivosjefe, array($USER->id));
+$objetivosjefe='select id, userid, targetnumber, objectivecomplete  from {objective_establishment_captured} where userid=? and courseid=?';
+$obtenerobj = $DB->get_records_sql($objetivosjefe, array($USER->id, $COURSE->id));
 $j=1;
 foreach($obtenerobj as $valueobj){
 $contador = $j++;

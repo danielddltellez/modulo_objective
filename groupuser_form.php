@@ -41,11 +41,11 @@ class newgroupuser_form extends moodleform {
         
 
 
-            if($categoria = 0){
+            if($categoria == 0){
 
                 $validacion="select id from {objective_groups_users} where courseid=? and idgroup=? and rol=? and status=?";
                 $resultado = $DB->get_records_sql($validacion, array($COURSE->id, $idgrupo, 3, 0));
-                if($resultado == NULL){
+                if(empty($resultado)){
                 
                 
                     $options2 = array(
@@ -54,6 +54,16 @@ class newgroupuser_form extends moodleform {
                         
                     );
                     
+                }else{
+
+                    $options2 = array(
+                            
+                        '1' => 'COLABORADOR'
+                    );
+                
+
+
+
                 }
 
     

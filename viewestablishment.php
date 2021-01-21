@@ -95,8 +95,8 @@ $query="select DISTINCT
         INNER JOIN {objective_groups} og ON og.id = ogu.idgroup
         INNER JOIN {objective_groups_rol} ogr ON ogr.id = oe.rol
         WHERE
-            u.id =?";
-$result = $DB->get_records_sql($query, array($USER->id));
+            u.id =? and oe.id=?";
+$result = $DB->get_records_sql($query, array($USER->id, $id));
 $idusuario='';
 $nombre='';
 $nombrejefe='';
@@ -198,8 +198,11 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
 } else if ($rolprincipal=='DIRECTOR'){
 
     echo '<div class="w3-bar w3-black">';
+    if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3){
+
     echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
-    if($estatusa==8 || $estatusa==9 || $estatusa==10){
+    }
+    if($estatusa==7 || $estatusa==8 || $estatusa==9){
     echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista3\')">Revision Final</button>';
     }
     echo '<button class="w3-bar-item w3-button"><a href="'.$CFG->wwwroot.'/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
@@ -435,9 +438,9 @@ foreach($resultcontrol as $valuecontrol){
                                             <label><b>Objetivo Completo</b></label>
                                             <p><textarea class="w3-input w3-border" maxlength="900" rows="4" cols="50" type="text" id="objetivocompleto'.$cont.'" name="objetivocompleto'.$cont.'">'.$valuecontrol->objectivecomplete.'</textarea></p>
                                             <label><b>Fecha inicial</b></label>
-                                            <p><input class="w3-input w3-border" type="date" id="fechainicio'.$cont.'" min="2020-01-01" max="2020-12-31"  name="fechainicio'.$cont.'" value="'.$valuecontrol->fechaini.'"></p>
+                                            <p><input class="w3-input w3-border" type="date" id="fechainicio'.$cont.'" min="2021-01-01" max="2021-12-31"  name="fechainicio'.$cont.'" value="'.$valuecontrol->fechaini.'"></p>
                                             <label><b>Fecha final</b></label>
-                                            <p><input class="w3-input w3-border" type="date" id="fechafinal'.$cont.'" min="2020-01-01" max="2020-12-31"  name="fechafinal'.$cont.'" value="'.$valuecontrol->fechafin.'"></p>
+                                            <p><input class="w3-input w3-border" type="date" id="fechafinal'.$cont.'" min="2021-01-01" max="2021-12-31"  name="fechafinal'.$cont.'" value="'.$valuecontrol->fechafin.'"></p>
                                             <label><b>Valor del objetivo sobre 100</b></label>
                                             <p><input class="w3-input w3-border" type="text" id="valorobjetivo'.$cont.'"  name="valorobjetivo'.$cont.'" data-parsley-type="number" value="'.$valuecontrol->valueobjective.'"></p>
                                             <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
@@ -553,11 +556,11 @@ if($estatusa==0 || $estatusa==1 || $estatusa==2){
                                     <div class="row">
                                         <div class="w3-col m4 w3-white w3-center">
                                             <p class="text-cuestion">Fecha inicial</p>
-                                            <p><input class="w3-input w3-border" type="date" min="2020-01-01" max="2020-12-31" id="fechainicio'.$i.'" name="fechainicio'.$i.'"></p>
+                                            <p><input class="w3-input w3-border" type="date" min="2021-01-01" max="2021-12-31" id="fechainicio'.$i.'" name="fechainicio'.$i.'"></p>
                                         </div>
                                         <div class="w3-col m4 w3-white w3-center">
                                             <p class="text-cuestion">Fecha final</p>
-                                            <p><input class="w3-input w3-border" type="date" min="2020-01-01" max="2020-12-31" id="fechafinal'.$i.'" name="fechafinal'.$i.'"></p>
+                                            <p><input class="w3-input w3-border" type="date" min="2021-01-01" max="2021-12-31" id="fechafinal'.$i.'" name="fechafinal'.$i.'"></p>
                                         </div>
                                         <div class="w3-col m4 w3-white w3-center">
                                             <p class="text-cuestion">Valor del objetivo sobre 100</p>
@@ -733,7 +736,7 @@ if($rolprincipal=='COLABORADOR'){
     inner join {objective_competition} obc on obc.idinstance = o.id
     inner join {objective_nivel} obn on obn.id = obc.idnivel
     where c.id=?
-    and obn.id=3
+    and obn.namenivel like \'%Colaborador%\'
     order by obc.orden asc';
     $resultados = $DB->get_records_sql($sql, array($courseid));
 
@@ -797,7 +800,7 @@ if($rolprincipal=='COLABORADOR'){
     inner join {objective_competition} obc on obc.idinstance = o.id
     inner join {objective_nivel} obn on obn.id = obc.idnivel
     where c.id=?
-    and obn.id=3
+    and obn.namenivel like \'%Colaborador%\'
     order by obc.orden asc';
     $resultados = $DB->get_records_sql($sql, array($courseid));
 
@@ -856,7 +859,7 @@ if($rolprincipal=='COLABORADOR'){
     inner join {objective_competition} obc on obc.idinstance = o.id
     inner join {objective_nivel} obn on obn.id = obc.idnivel
     where c.id=?
-    and obn.id=2
+    and obn.namenivel like \'%Gestor de Personal%\'
     order by obc.orden asc';
     $resultados2 = $DB->get_records_sql($sql2, array($courseid));
     echo $jefetemp;
@@ -918,7 +921,7 @@ if($rolprincipal=='COLABORADOR'){
     inner join {objective_competition} obc on obc.idinstance = o.id
     inner join {objective_nivel} obn on obn.id = obc.idnivel
     where c.id=?
-    and obn.id=3
+    and obn.namenivel like \'%Colaborador%\'
     order by obc.orden asc';
     $resultados = $DB->get_records_sql($sql, array($courseid));
 
@@ -977,7 +980,7 @@ if($rolprincipal=='COLABORADOR'){
     inner join {objective_competition} obc on obc.idinstance = o.id
     inner join {objective_nivel} obn on obn.id = obc.idnivel
     where c.id=?
-    and obn.id=2
+    and obn.namenivel like \'%Gestor de Personal%\'
     order by obc.orden asc';
     $resultados2 = $DB->get_records_sql($sql2, array($courseid));
     echo $jefetemp;
@@ -1034,7 +1037,7 @@ if($rolprincipal=='COLABORADOR'){
     inner join {objective_competition} obc on obc.idinstance = o.id
     inner join {objective_nivel} obn on obn.id = obc.idnivel
     where c.id=?
-    and obn.id=1
+    and obn.namenivel like \'%Directores%\'
     order by obc.orden asc';
     $resultados3 = $DB->get_records_sql($sql3, array($courseid));
     echo $director;
@@ -1336,7 +1339,7 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 /*|| $estatusa==7 || $estatusa==
             inner join {objective_competition} obc on obc.idinstance = o.id
             inner join {objective_nivel} obn on obn.id = obc.idnivel
             where c.id=?
-            and obn.id=3
+            and obn.namenivel like \'%Colaborador%\'
             order by obc.orden asc';
             $resultados = $DB->get_records_sql($sql, array($courseid));
 
@@ -1443,7 +1446,7 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 /*|| $estatusa==7 || $estatusa==
                 inner join {objective_competition} obc on obc.idinstance = o.id
                 inner join {objective_nivel} obn on obn.id = obc.idnivel
                 where c.id=?
-                and obn.id=3
+                and obn.namenivel like \'%Colaborador%\'
                 order by obc.orden asc';
                 $resultados = $DB->get_records_sql($sql, array($courseid));
 
@@ -1545,7 +1548,7 @@ if($estatusa==4 || $estatusa==5 || $estatusa==6 /*|| $estatusa==7 || $estatusa==
                 inner join {objective_competition} obc on obc.idinstance = o.id
                 inner join {objective_nivel} obn on obn.id = obc.idnivel
                 where c.id=?
-                and obn.id=2
+                and obn.namenivel like \'%Gestor de Personal%\'
                 order by obc.orden asc';
                 $resultados2 = $DB->get_records_sql($sql2, array($courseid));
                 echo $jefetemp;
@@ -1909,9 +1912,12 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                     <div  class="w3-col l4">
                         <p>&nbsp;</p>
                     </div>
+
+                    <?php if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){ ?>
                     <div class="w3-col l4" style="position: fixed; bottom: 0; right: -22px; width: 145px;font-size: 19px;top: 10%;">
                         <p>Evaluación final de año: <span class="w3-badge w3-xlarge w3-red w3-padding"><?php echo $valorponderadofinal; ?>%</span></p>
                     </div>
+                    <?php } ?>
                 </div>
                 <div class="w3-row">
                 <div class="w3-col l1">
@@ -1929,7 +1935,7 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                         inner join {objective_competition} obc on obc.idinstance = o.id
                         inner join {objective_nivel} obn on obn.id = obc.idnivel
                         where c.id=?
-                        and obn.id=3
+                        and obn.namenivel like \'%Colaborador%\'
                         order by obc.orden asc';
                         $finalresultados = $DB->get_records_sql($finalsql, array($courseid));
 
@@ -2036,7 +2042,7 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                             inner join {objective_competition} obc on obc.idinstance = o.id
                             inner join {objective_nivel} obn on obn.id = obc.idnivel
                             where c.id=?
-                            and obn.id=3
+                            and obn.namenivel like \'%Colaborador%\'
                             order by obc.orden asc';
                             $finalresultados = $DB->get_records_sql($finalsql, array($courseid));
 
@@ -2138,7 +2144,7 @@ if($estatusa==7 || $estatusa==8 || $estatusa==9){
                             inner join {objective_competition} obc on obc.idinstance = o.id
                             inner join {objective_nivel} obn on obn.id = obc.idnivel
                             where c.id=?
-                            and obn.id=2
+                            and obn.namenivel like \'%Gestor de Personal%\'
                             order by obc.orden asc';
                             $finalresultados2 = $DB->get_records_sql($finalsql2, array($courseid));
                             echo $jefetemp;

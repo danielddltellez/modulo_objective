@@ -51,7 +51,7 @@ class newestablishment_form extends moodleform {
         inner join {objective_groups_users} gu on gu.idusuario = u.id
         inner join {objective_groups} g on g.id = gu.idgroup
         inner join {objective_groups_rol} dr on dr.id=gu.rol
-        where u.id=?
+        where u.id=? and g.courseid=?
         group by u.id";
 
         $query="select distinct u.id as 'iduser',( SELECT gu.idusuario as 'idjefegrupo' from {objective_groups_users} gu where gu.idgroup=og.id and gu.rol in (3,2)) AS 'idjefegrupo'
@@ -73,7 +73,7 @@ class newestablishment_form extends moodleform {
 
         }
 
-        $cats = $DB->get_records_sql($sql, array($USER->id));
+        $cats = $DB->get_records_sql($sql, array($USER->id, $COURSE->id));
         $options=array();
         foreach($cats as $cat){
 

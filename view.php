@@ -106,7 +106,7 @@ END AS estatus
 from {objective_establishment} oe
 inner join {user} u on u.id = oe.userid
 inner join {objective_groups_users} gu on  gu.idusuario = oe.userid and gu.rol = oe.rol
-inner join {objective_groups} og on og.id = gu.idgroup
+inner join {objective_groups} og on og.id = gu.idgroup and og.courseid=oe.courseid
 where oe.courseid=? and oe.idinstance=? and oe.idmod=? and u.id = ?";
 $viewestablishment = $DB->get_records_sql($sql, array($cm->course, $cm->instance, $id, $USER->id));  
 //$viewestablishment = $DB->get_records_sql($sql, array());  
