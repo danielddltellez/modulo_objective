@@ -114,7 +114,7 @@ foreach($validajefe as $vals){
 
                      
 echo '<div class="w3-bar w3-black">';
-if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3){
+if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3 || $estatusa==10){
     echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
     echo '<button class="w3-bar-item w3-button"><a href="'.$CFG->wwwroot.'/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
 
@@ -365,7 +365,7 @@ if(empty($resultcontrol)){
 
                         }
                         $establecimiento .='</div>';
-        if($valuecontrol->formatoestatus==0 || $valuecontrol->formatoestatus==1 || $valuecontrol->formatoestatus==2){
+        if($valuecontrol->formatoestatus==0 || $valuecontrol->formatoestatus==1 || $valuecontrol->formatoestatus==2  || $valuecontrol->formatoestatus==10){
 
                         $establecimiento .='<div class="w3-container">
                        
@@ -374,6 +374,7 @@ if(empty($resultcontrol)){
                         <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
 
                             <form class="w3-container" id="formvalidaobj'.$con.'" method="POST" action="valideobjective.php">
+                            <input type="hidden" id="idobjectivo'.$con.'" name="idobjectivo'.$con.'" value="'.$id.'" '.$requerido.'>
                             <input type="hidden" id="valideuserid'.$con.'" name="valideuserid'.$con.'" value="'.$USER->id.'" '.$requerido.'>
                             <input type="hidden" id="validecourseid'.$con.'" name="validecourseid'.$con.'" value="'.$courseid.'" '.$requerido.'>
                             <input type="hidden" id="valideidobjetivo'.$con.'" name="valideidobjetivo'.$con.'" value="'.$valuecontrol->idobj.'" '.$requerido.'>
@@ -507,7 +508,7 @@ $competencias2 .='</div>
                         </div>
                         </div>
                         </div><!-- </div></div></div></div> div final-->';
-if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3){
+if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3 || $estatusa==10){
 
 echo $vista;
 echo $vistajefeinmediato;
@@ -2938,7 +2939,7 @@ textarea.parsley-error:focus {
     border-color:#843534;
     box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #ce8483
 }</style>';
-if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3){
+if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3 || $estatusa==10){
 
 ?>
 <script>
@@ -3041,6 +3042,7 @@ $(document).on('ready', function() {
         // Nos permite cancelar el envio del formulario
         return false;
     });
+    
 
     $("#validafinalobj").bind("submit",function(){
         // Capturamnos el boton de envío

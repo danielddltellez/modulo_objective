@@ -119,7 +119,7 @@ foreach($result as $value){
 if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
                         
     echo '<div class="w3-bar w3-black">';
-    if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3){
+    if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3  || $estatusa==10){
         echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
         echo '<button class="w3-bar-item w3-button"><a href="'.$CFG->wwwroot.'/mod/objective/view.php?id='.$instance.'">Regresar</a></button>';
     }else if($estatusa==4 || $estatusa==5 || $estatusa==6){
@@ -153,8 +153,8 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
                                 <div class="w3-col l1"><p></p></div>
                                 <div id="jefe-inmediato" class="w3-col l10 w3-pale-red w3-center">
                                     <table class="w3-table-all">';
-    $objetivosjefe='select id, userid, targetnumber, objectivecomplete  from {objective_establishment_captured} where userid=?';
-    $obtenerobj = $DB->get_records_sql($objetivosjefe, array($idjefegrupo));
+    $objetivosjefe='select id, userid, targetnumber, objectivecomplete  from {objective_establishment_captured} where userid=? and courseid=?';
+    $obtenerobj = $DB->get_records_sql($objetivosjefe, array($idjefegrupo, $COURSE->id));
     if(empty($obtenerobj)){
         $vistaobjetivosjefe.='<tr>
         <td></td>
@@ -198,7 +198,7 @@ if($rolprincipal=='COLABORADOR'|| $rolprincipal=='JEFE INMEDIATO'){
 } else if ($rolprincipal=='DIRECTOR'){
 
     echo '<div class="w3-bar w3-black">';
-    if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3){
+    if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3 ){
 
     echo '<button class="w3-bar-item w3-button" onclick="openCity(\'vista1\')">Establecimiento de objetivos</button>';
     }
@@ -598,7 +598,7 @@ if($estatusa==0 || $estatusa==1 || $estatusa==2){
     if($cont < 4){
     $envio .='<div><p>Debes de insertar por lo menos 4 objetivos actualiza el valor de uno de tus objetivos y agrega uno mas </p></div>';
     }else if ($cont >= 4 || $cont <=6 ){
-        if($estatusa==0 || $estatusa==1){
+        if($estatusa==0 || $estatusa==1 || $estatusa==10){
             if($rolprincipal=='COLABORADOR' || $rolprincipal=='JEFE INMEDIATO'){
                 $envio .='<div class="w3-container  w3-center">
                 <button onclick="document.getElementById(\'validaestablecimiento'.$id.'\').style.display=\'block\'" class="w3-button w3-red w3-large">Envía a revisión</button>
@@ -697,7 +697,7 @@ $competencias2 .=' </div>
                         </div>
                     </div>
                 </div></div><!-- </div></div></div> div final-->';
-if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3){
+if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3 || $estatusa==10){
 echo $vista;
 echo $vistajefeinmediato;
 echo '</div><div class="espacio"></div><div class="w3-container">
@@ -2258,7 +2258,7 @@ textarea.parsley-error:focus {
     border-color:#843534;
     box-shadow:inset 0 1px 1px rgba(0,0,0,.075),0 0 6px #ce8483
 }</style>';
-if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3){
+if($estatusa==0 || $estatusa==1 || $estatusa==2 || $estatusa==3 || $estatusa==10){
 
 ?>
 <script>

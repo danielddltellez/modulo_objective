@@ -651,6 +651,7 @@ function objective_print_establishment($viewestablishment, $return = 0){
                 WHEN (oe.status) = 7 THEN 'En Proceso Revisión Final'
                 WHEN (oe.status) = 8 THEN 'Enviado a Aprobación Revisión Final'
                 WHEN (oe.status) = 9 THEN 'Finalizado Revisión Final'
+                WHEN (oe.status) = 10 THEN 'Objetivo Rechazado o Cancelado'
                 ELSE 'SIN VALOR'
                 END AS estatus
                 -- , MAX(og.id) as idgrupo
