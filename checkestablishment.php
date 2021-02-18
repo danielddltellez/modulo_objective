@@ -423,7 +423,7 @@ if(empty($resultcontrol)){
 
     }
     if($totalobjetivos == 100){
-    if($primeravalidacion==0 || $primeravalidacion==1 || $primeravalidacion==2 || $primeravalidacion==3){
+    if($primeravalidacion==0 || $primeravalidacion==1 || $primeravalidacion==2){
 
             $establecimiento .='<button onclick="document.getElementById(\'val'.$idform.'\').style.display=\'block\'" class="w3-button w3-pale-red w3-padding-16">Finalizar Establecimiento</button>';
 
@@ -436,16 +436,17 @@ if(empty($resultcontrol)){
                 <div class="w3-section">
 
 
-                <h3>Valida Establecimiento de Objetivos</h3>
-                <label><b>Selecciona el estatus de el establecimiento de objetivos</b></label>
-                <select class="w3-select" name="estatusobj">
-                <!--<option value="2" >Modificar Establecimiento</option>-->
-                <!--<option value="3" >Finalizado Establecimiento</option>-->
-                <option value="4" selected>En Proceso Revisión Mitad de año</option>
-                </select>
+                <h3>¿Estas seguro que deseas Finalizar la etapa de Establecimiento de Objetivos?</h3>
+                <label><b>Una vez finalizada, los objetivos ya NO podrán ser editados</b></label>
+                <input id="estatusobj" name="estatusobj" type="hidden" value="3">
+                <!--<select class="w3-select" name="estatusobj">
+                <option value="2" >Modificar Establecimiento</option>
+                <option value="3" selected>Finalizado Establecimiento</option>
+                <option value="4">En Proceso Revisión Mitad de año</option>
+                </select>-->
                 <div class="w3-container w3-border-top w3-padding-16 w3-light-grey">
                 <button onclick="document.getElementById(\'val'.$idform.'\').style.display=\'none\'" type="button" class="w3-button w3-gray">Cancelar</button>
-                <input class="w3-button  w3-green  w3-right" id="finalbtnobjetivo" type="submit" value="Guardar">
+                <input class="w3-button  w3-green  w3-right" id="finalbtnobjetivo" type="submit" value="Finalizar">
                 </div>
                 </form>
                 </div>

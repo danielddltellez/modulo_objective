@@ -21,7 +21,8 @@ if(isset($_GET['idgrupouser'])){
 		
     $idgrupouser = $_GET['idgrupouser'];
 
-    
+    $DB->delete_records('objective_groups_users', array('id' => $idgrupouser));
+  /*
    $sql="select a.id, a.idgroup, a.idusuario, a.rol, b.id as idestablecimiento, b.idjefedirecto
    from {objective_groups_users} a
    left join {objective_establishment} b on b.userid=a.idusuario where a.id=?";
@@ -33,7 +34,7 @@ if(isset($_GET['idgrupouser'])){
     $idjefesuperior=$values->idjefedirecto;
     $idestab=$values->idestablecimiento;
    // echo $roluser;
-  
+
    
     if($roluser=2 || $roluser=3){
 
@@ -43,33 +44,16 @@ if(isset($_GET['idgrupouser'])){
         $query="select id as idcolgrupo, idusuario from {objective_groups_users} where idgroup=? and rol=?";
         $resp = $DB->get_records_sql($query, array($idgrupo, 1));
         foreach($resp as $valor){
-
-
             $idusergroup=$valor->idcolgrupo;
             $iduserobj=$valor->idusuario;
-
             $sqlestablecimiento="select id from {objective_establishment} where userid =?";
             $idestablecimiento  = $DB->get_records_sql($sqlestablecimiento, array($iduserobj));
             foreach($idestablecimiento as $resfinal){
                 $idobj=$resfinal->id;
             }
-     
-            
-            /*        
-            echo $idusergroup;
-            echo '<br>';
-            echo $iduserobj;
-            echo '<br>';
-            echo $idjefesuperior;
-            */
-
             $record = new stdClass();
             $record-> id = $idobj;
-            $record-> idjefedirecto = $idjefesuperior;
-
-
-       
-            
+            $record-> idjefedirecto = $idjefesuperior; 
             try{
               $updatejefesuperior = $DB->update_record('objective_establishment', $record, $bulk=false);
 
@@ -107,7 +91,7 @@ if(isset($_GET['idgrupouser'])){
     }
     
 
-   }
+   }*/
 
 
   

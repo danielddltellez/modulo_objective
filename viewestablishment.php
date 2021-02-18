@@ -492,7 +492,7 @@ $establecimiento .='<form id="establecimientoobj" method="POST" action="envio.ph
 $requerido='required=""';
 $requeridotext='data-parsley-trigger="keyup" data-parsley-minlength="20" data-parsley-maxlength="100" data-parsley-minlength-message="Debes de capturar la descripcion de tu objetivo" data-parsley-validation-threshold="10"';
 
-if($estatusa==0 || $estatusa==1 || $estatusa==2){
+if($estatusa==0 || $estatusa==1 || $estatusa==2   || $estatusa==10){
     if($i<=6){
                                         
             $establecimiento .='<div id="establecimientoobjetivos'.$i.'">

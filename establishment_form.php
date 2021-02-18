@@ -54,7 +54,8 @@ class newestablishment_form extends moodleform {
         where u.id=? and g.courseid=?
         group by u.id";
 
-        $query="select distinct u.id as 'iduser',( SELECT gu.idusuario as 'idjefegrupo' from {objective_groups_users} gu where gu.idgroup=og.id and gu.rol in (3,2)) AS 'idjefegrupo'
+        $query="select distinct u.id as 'iduser',(SELECT gu.idusuario  from {objective_groups_users} gu where gu.idgroup=og.id and gu.rol in (3,2)) AS 'idjefegrupo',
+        (SELECT gus.status from {objective_groups_users} gus where gus.idgroup=og.id and gus.rol in (3,2)) AS 'status'
         from {user} u 
         left join {user_info_data} id on id.userid = u.id
         left join {user_info_field} ii on ii.id = id.fieldid 
@@ -63,16 +64,37 @@ class newestablishment_form extends moodleform {
         left join {objective_groups_users} ogu on ogu.idusuario = u.id
         left join {objective_groups} og on og.id = ogu.idgroup
         left join {objective_groups_rol}  ogr on ogr.id =  oe.rol
-        where u.id=? and ogu.rol=1";
+        where u.id=? and ogu.rol=1 and ogu.courseid=?";
 
-        $result = $DB->get_records_sql($query, array($USER->id));
+        $result = $DB->get_records_sql($query, array($USER->id, $COURSE->id));
 
         foreach($result as $value){
-
-        $mform->addElement('hidden','idjefedirecto',$value->idjefegrupo);
+        $idjefeinactivo=$value->idjefegrupo;
+        $estatusjefe=$value->status;
+        if($estatusjefe==1){
+        $querjefedejefe="select distinct u.id as 'iduserjefe',( SELECT gu.idusuario  from {objective_groups_users} gu where gu.idgroup=og.id and gu.rol in (3,2)) AS 'idjefedejefe',
+        (SELECT gus.status  from {objective_groups_users} gus where gus.idgroup=og.id and gus.rol in (3,2)) AS 'statusj'
+        from {user} u 
+        left join {user_info_data} id on id.userid = u.id
+        left join {user_info_field} ii on ii.id = id.fieldid 
+	left join {objective_establishment} oe on oe.userid = u.id
+        left join {objective} o on o.id = oe.idinstance
+        left join {objective_groups_users} ogu on ogu.idusuario = u.id
+        left join {objective_groups} og on og.id = ogu.idgroup
+        left join {objective_groups_rol}  ogr on ogr.id =  oe.rol
+        where u.id=? and ogu.rol=1 and ogu.courseid=?";
+        $resultjefedj = $DB->get_records_sql($querjefedejefe, array($idjefeinactivo, $COURSE->id));
+        foreach($resultjefedj as $valuejefe){
+        $mform->addElement('hidden','idjefedirecto',$valuejefe->idjefedejefe);
 
         }
 
+
+        }else{
+
+        $mform->addElement('hidden','idjefedirecto',$value->idjefegrupo);
+        }
+        }
         $cats = $DB->get_records_sql($sql, array($USER->id, $COURSE->id));
         $options=array();
         foreach($cats as $cat){
